@@ -506,18 +506,7 @@ IDEAS:
       fullJson = await fullJson.json();
       
       let mapJson = fullJson.maps;
-
-      // let mapJson = await fetch(`http://localhost:8080/getValue?path=maps`);
-      // mapJson = await mapJson.json();
-
-      // Fetching the 'Team Data' like color, name, logo, score
-      // let teamJson = await fetch(`http://localhost:8080/getValue?path=teams`);
-      // let teamsData = await teamJson.json();
       let teamsData = fullJson.teams;
-
-      // Fetching the 'General Data' like color, name, logo, score
-      // let inputData = await fetch(`http://localhost:8080/getValue?path=general`);
-      // let inputJson = await inputData.json();
       let inputJson = fullJson.general;
       let themeColors = fullJson.general.color;
       let themeLogos = fullJson.general.file;
@@ -557,7 +546,7 @@ IDEAS:
     const processMapData = async (mapJson) => {
       let theincomplete = 0;
       let totalmap = 0;
-      console.log(mapJson);
+      // console.log(mapJson);
 
       if (mapJson && mapJson.mapData) {
         for (let i = 0; i < mapJson.mapData.length; ++i) {
@@ -571,7 +560,7 @@ IDEAS:
       // console.log(`Processing map ${i + 1}...`);
       
       await updateMapTypeDetails(i, totalmap);
-      console.log(`updating map ${i + 1}...`);
+      // console.log(`updating map ${i + 1}...`);
       updateMapNameDetails(mapData, i);
       const mapwintxt = determineWinner(mapData);
       updateTeamName(i, mapwintxt);
@@ -580,7 +569,7 @@ IDEAS:
 
     const updateMapTypeDetails = async (i, totalmap) => {
       // mapgametype png needs to come from the game ocnfi folder after we move them ...
-      let mapgametypetxt = mapJson.mapData[i].mapType;
+      let mapgametypetxt = mapJson.mapData[i].selectedMode || 'TBA';
       // let mapgametypetxt = await fetch(`../scoreboard/match1/m${i + 1}mapgametype.txt`);
       // mapgametypetxt = await mapgametypetxt.text();
       console.log(mapgametypetxt);
@@ -598,13 +587,16 @@ IDEAS:
     };
 
     const updateMapNameDetails = (mapData, i) => {
-      let maptxt = mapData.selectedMap;
+      let maptxt = mapData?.selectedMap || 'TBA';
+      // console.log(maptxt, i);
       let reptext = maptxt.replace(/\\/gi, "/").replace(/\"/gi, "\\\"").replace(/\n/gi, "").replace(/\r/gi, "") === "" ? "TBA" : maptxt;
       
       // IF map is not determined yet, then user wouldn't select a map which would cause TBA to be triggered to show mapgametype' png
-      let img = `/configs/${fullJson.currentGame}/images/maps/${reptext.replace(/:/g, "-").replace("TBA", `mapModes/${mapData.mapType}`).replace(/ /g, "_")}.png`;
+      // let img = `/configs/${fullJson.currentGame}/images/maps/${reptext.replace(/:/g, "-").replace("TBA", `mapModes/${mapData.mapType}`).replace(/ /g, "_")}.png`;
+      let img = mapData?.mapImage || 'TBA';
 
-      console.log(img);
+      
+      // console.log(img);
       let video = `assets/maps/video/${reptext.replace("\u00fa", "u").replace("\u00f6", "o").replace(":", "").replace("TBA", "blank")}.mp4`;
       
       let node1 = $(`.mapbg${i + 1} img`);
