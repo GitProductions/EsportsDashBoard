@@ -1,5 +1,20 @@
 <head>
+  <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+/>
   <style>
+    :root {
+      /* These values can be 'adjusted/changed inside of OBS custom CSS to force certain things' */
+
+      --useTeamColors: false;
+      /* Not woorking yet.. err.. well not implmenetd in the bracket data yet.. */
+      --winningScore: 10;
+      --useTeamLogos: true;
+      --titleText: "Be Right Back!";
+
+    }
+
     /*
     .skew {
       transform: skewX(-15deg);
@@ -9,6 +24,10 @@
       transform: skewX(15deg);
     }
     */
+
+    /* body {
+      background-color: #646464 !important;
+    } */
 
     .teamlogo1,
     .teamlogo2 {
@@ -196,6 +215,9 @@
       height: 100px;
       min-width: 150px;
       max-width: 150px;
+
+      /* animation: fadeIn; 
+      animation-duration: 1s;  */
     }
 
     .scoreboard .vs span {
@@ -210,7 +232,9 @@
     .team {
       flex: 1 1 0;
       height: 100px;
-      background-color: #000000;
+
+      background-color: #fdfdfd;
+      color: #131131;
 
       display: flex;
       flex-direction: row;
@@ -255,11 +279,40 @@
       bottom: 0.02em;
     }
 
+    @keyframes scoreReveal {
+      0% {
+        transform: scaleX(0) scaleY(0.5);
+        opacity: 0;
+      }
+
+      50% {
+        transform: scaleX(0.5) scaleY(0.8);
+        opacity: 0.5;
+      }
+
+      100% {
+        transform: scaleX(1) scaleY(1);
+        opacity: 1;
+      }
+    }
+
     .scorebox {
       flex: 1 1 0;
       top: 0px;
       height: 100px;
       max-width: 105px;
+      /* animation: scoreReveal 0.3s ease-out; */
+      /* transform-origin: center; */
+    }
+
+    .team.team1 .scorebox {
+      animation: teamslideleft 0.5s;
+      transform-origin: center;
+    }
+
+    .team.team2 .scorebox {
+      animation: teamslideright 0.5s;
+      transform-origin: center;
     }
 
     img {
@@ -393,18 +446,10 @@
 
 
     .title::before {
-      content: var(--title-text, "Be Right Back!");
+      content: var(--titleText);
       font-family: 'Rajdhani';
       text-transform: uppercase;
     }
-
-
-    /* In OBS Browser Source Custom CSS, add: */
-    /* :root {
-      --title-text: "Your Custom Title Here";
-    } */
-
-
   </style>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -470,6 +515,7 @@
         "background-color": colors.colortheme3txt,
         "color": colors.colortheme1txt,
       });
+      // $('.vs').addClass('animate__animated animate__bounce ');
 
       $('.scorebox').css("background-color", colors.colortheme4txt);
       $('.info').css("color", colors.colortheme6txt);
@@ -491,6 +537,7 @@
             </span>
         </div>
         
+        
         <div>
           <span class="twitter">Broadcast<b>Dot
             <span class="gg">
@@ -505,6 +552,8 @@
       // console.log(`General Message: ${JSON.stringify(generalMessage)}`);
       $('.info').html(generalMessage.value.replace(/\n|\r/g, ""));
     }
+
+
     function displayMatchData(matches, themeColors) {
       console.log(`Matches: ${JSON.stringify(matches)}`);
 
@@ -531,21 +580,27 @@
           $(`${matchSelector} .teamscore1`).text(team1.score ?? 0);
           $(`${matchSelector} .teamscore2`).text(team2.score ?? 0);
 
-          // Display team logos, hide if the logo is missing
-          if (logo1) {
-            $(`${matchSelector} .teamlogo1`).attr("src", logo1).css("display", "block").on('error', function () {
-              $(this).css("display", "none");
-            });
-          } else {
-            $(`${matchSelector} .teamlogo1`).css("display", "none");
-          }
 
-          if (logo2) {
-            $(`${matchSelector} .teamlogo2`).attr("src", logo2).css("display", "block").on('error', function () {
-              $(this).css("display", "none");
-            });
-          } else {
-            $(`${matchSelector} .teamlogo2`).css("display", "none");
+          let useTeamLogos = getComputedStyle(document.documentElement)
+            .getPropertyValue('--useTeamLogos').trim() === 'true';
+
+          if (useTeamLogos) {
+            // Display team logos, hide if the logo is missing // we could just have a default logo instead??
+            if (logo1) {
+              $(`${matchSelector} .teamlogo1`).attr("src", logo1).css("display", "block").on('error', function () {
+                $(this).css("display", "none");
+              });
+            } else {
+              $(`${matchSelector} .teamlogo1`).css("display", "none");
+            }
+
+            if (logo2) {
+              $(`${matchSelector} .teamlogo2`).attr("src", logo2).css("display", "block").on('error', function () {
+                $(this).css("display", "none");
+              });
+            } else {
+              $(`${matchSelector} .teamlogo2`).css("display", "none");
+            }
           }
 
           // Show or hide scorebox based on whether scores are available
@@ -553,7 +608,24 @@
           $(`${matchSelector} .scorebox`).css("display", hasScores ? "block" : "none");
 
           // Highlight the winning team based on scores
-          let check = 10;
+          // let check = 10;
+          // Get winning score from CSS variable, fallback to 10 if not set
+          const check = parseInt(getComputedStyle(document.documentElement)
+            .getPropertyValue('--winningScore')) || 10;
+
+          // let useTeamColors = false;  // not being utilized yet.. but its here for when it is...
+          let useTeamColors = getComputedStyle(document.documentElement)
+            .getPropertyValue('--useTeamColors').trim() === 'true';
+
+          let teamColor1 = themeColors.BGG_C3.value;
+          let teamColor2 = themeColors.BGG_C3.value;
+          if (useTeamColors) {
+            teamColor1 = team1.teamColor || themeColors.BGG_C3.value;
+            teamColor2 = team2.teamColor || themeColors.BGG_C3.value;
+          }
+
+          $(`.team1`).css("border-color", teamColor1);
+          $(`.team2`).css("border-color", teamColor2);
 
           if (team1.score >= check && team1.score > team2.score) {
             styleWinningTeam(matchSelector, "team1", themeColors);
@@ -581,28 +653,29 @@
       });
     }
 
+
+
     // Main function to orchestrate data fetching, processing, and displaying
     async function updatePageContent() {
       try {
         // Fetch full data and theme colors
         const fullDataJson = await fetchJson(`http://localhost:8080/getfullJson`);
-        const themeColors = await fetchJson(`http://localhost:8080/getValue?path=general.color`);
+        const fullDataGeneral = fullDataJson.general;
+        const themeColors = fullDataGeneral.color;
         let bracketData = await fetchJson(`http://localhost:8080/api/get-bracket`);
+
+        let tagline = fullDataGeneral.text.BGG_TAGLINE.value;
 
         // Apply theme, social media, and general message
         applyThemeColors(themeColors);
         displaySocialMedia();
-        displayGeneralMessage(fullDataJson.general.text.Message);
-        console.log("applied theme colors, social media, and general message");
+        displayGeneralMessage(fullDataGeneral.text.Message);
 
         // Process and display matches, using Object.values to get an array of match objects
-        console.log(`bracket daa before: ${JSON.stringify(bracketData)}`);
         const matches = await Promise.all(
           Object.keys(bracketData).map(async (key) => {
             const match = bracketData[key];
-            // console.log(`Match: ${JSON.stringify(match)}  bracketData[${key}]: ${JSON.stringify(bracketData[key])}`);
 
-            // console.log(`the key is: ${key}`);
             const logo1 = ''; // Placeholder for logo1
             const logo2 = ''; // Placeholder for logo2
             return { ...match, logo1, logo2, reference: key };
@@ -612,10 +685,22 @@
 
         displayMatchData(matches, themeColors);
 
+
+
+        async function setTagline() {
+          try {
+            document.querySelector(".tertiary").textContent = tagline;
+          } catch (error) {
+            console.error('Failed to fetch or set tagline:', error);
+          }
+        }
+        setTagline();
+
       } catch (error) {
         console.error("Error updating page content:", error);
       }
     }
+    
 
     setInterval(updatePageContent, 3000);
     // Initial load
@@ -641,13 +726,13 @@
           <img class="teamlogo teamlogo1 askew"></img>
           <span class="teamname teamname1">Team 1</span>
           <div class="scorebox">
-            <span class="teamscore teamscore1">1</span>
+            <span class="teamscore teamscore1">0</span>
           </div>
         </div>
         <div class="vs"><span>VS</span></div>
         <div class="team team2">
           <div class="scorebox">
-            <span class="teamscore teamscore2">1</span>
+            <span class="teamscore teamscore2">0</span>
           </div>
           <span class="teamname teamname2">Team 2</span>
           <img class="teamlogo teamlogo2 askew"></img>
@@ -662,13 +747,13 @@
           <img class="teamlogo teamlogo1 askew"></img>
           <span class="teamname teamname1">Team 1</span>
           <div class="scorebox">
-            <span class="teamscore teamscore1">1</span>
+            <span class="teamscore teamscore1">0</span>
           </div>
         </div>
         <div class="vs"><span>VS</span></div>
         <div class="team team2">
           <div class="scorebox">
-            <span class="teamscore teamscore2">1</span>
+            <span class="teamscore teamscore2">0</span>
           </div>
           <span class="teamname teamname2">Team 2</span>
           <img class="teamlogo teamlogo2 askew"></img>
@@ -683,13 +768,13 @@
           <img class="teamlogo teamlogo1 askew"></img>
           <span class="teamname teamname1">Team 1</span>
           <div class="scorebox">
-            <span class="teamscore teamscore1">1</span>
+            <span class="teamscore teamscore1">0</span>
           </div>
         </div>
         <div class="vs"><span>VS</span></div>
         <div class="team team2">
           <div class="scorebox">
-            <span class="teamscore teamscore2">1</span>
+            <span class="teamscore teamscore2">0</span>
           </div>
           <span class="teamname teamname2">Team 2</span>
           <img class="teamlogo teamlogo2 askew"></img>
@@ -704,13 +789,13 @@
           <img class="teamlogo teamlogo1 askew"></img>
           <span class="teamname teamname1">Team 1</span>
           <div class="scorebox">
-            <span class="teamscore teamscore1">1</span>
+            <span class="teamscore teamscore1">0</span>
           </div>
         </div>
         <div class="vs"><span>VS</span></div>
         <div class="team team2">
           <div class="scorebox">
-            <span class="teamscore teamscore2">1</span>
+            <span class="teamscore teamscore2">0</span>
           </div>
           <span class="teamname teamname2">Team 2</span>
           <img class="teamlogo teamlogo2 askew"></img>
@@ -728,13 +813,13 @@
           <img class="teamlogo teamlogo1 askew"></img>
           <span class="teamname teamname1">Team 1</span>
           <div class="scorebox">
-            <span class="teamscore teamscore1">1</span>
+            <span class="teamscore teamscore1">0</span>
           </div>
         </div>
         <div class="vs"><span>VS</span></div>
         <div class="team team2">
           <div class="scorebox">
-            <span class="teamscore teamscore2">1</span>
+            <span class="teamscore teamscore2">0</span>
           </div>
           <span class="teamname teamname2">Team 2</span>
           <img class="teamlogo teamlogo2 askew"></img>
@@ -749,13 +834,13 @@
           <img class="teamlogo teamlogo1 askew"></img>
           <span class="teamname teamname1">Team 1</span>
           <div class="scorebox">
-            <span class="teamscore teamscore1">1</span>
+            <span class="teamscore teamscore1">0</span>
           </div>
         </div>
         <div class="vs"><span>VS</span></div>
         <div class="team team2">
           <div class="scorebox">
-            <span class="teamscore teamscore2">1</span>
+            <span class="teamscore teamscore2">0</span>
           </div>
           <span class="teamname teamname2">Team 2</span>
           <img class="teamlogo teamlogo2 askew"></img>
@@ -770,13 +855,13 @@
           <img class="teamlogo teamlogo1 askew"></img>
           <span class="teamname teamname1">Team 1</span>
           <div class="scorebox">
-            <span class="teamscore teamscore1">1</span>
+            <span class="teamscore teamscore1">0</span>
           </div>
         </div>
         <div class="vs"><span>VS</span></div>
         <div class="team team2">
           <div class="scorebox">
-            <span class="teamscore teamscore2">1</span>
+            <span class="teamscore teamscore2">0</span>
           </div>
           <span class="teamname teamname2">Team 2</span>
           <img class="teamlogo teamlogo2 askew"></img>
@@ -791,13 +876,13 @@
           <img class="teamlogo teamlogo1 askew"></img>
           <span class="teamname teamname1">Team 1</span>
           <div class="scorebox">
-            <span class="teamscore teamscore1">1</span>
+            <span class="teamscore teamscore1">0</span>
           </div>
         </div>
         <div class="vs"><span>VS</span></div>
         <div class="team team2">
           <div class="scorebox">
-            <span class="teamscore teamscore2">1</span>
+            <span class="teamscore teamscore2">0</span>
           </div>
           <span class="teamname teamname2">Team 2</span>
           <img class="teamlogo teamlogo2 askew"></img>
