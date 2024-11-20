@@ -1,8 +1,18 @@
-<!--  we can now use args in the url to trigger team logo for the transition
-so http://localhost:8080/transition.html for normal
-http://localhost:8080/transition.html?team=team1 for team1
-http://localhost:8080/transition.html?team=team2 for team2  
--- we also now fetch the 'branding logo' from the server as well as the theme colors
+
+<!-- 
+OPTIONS:
+Using URL Parameters
+
+You can use URL parameters to customize the transition.
+ For example, you can use the following URL to display the transition for team 1:
+http://localhost:8080/transition.html?team=team1
+
+You can use the following URL to display the transition for team 2:
+http://localhost:8080/transition.html?team=team2
+
+If you don't use any URL parameters, the transition will display the branding logo and theme colors.
+
+
 -->
 
 <head>
@@ -98,11 +108,6 @@ http://localhost:8080/transition.html?team=team2 for team2
 
       let colorthemesting = themeColors.BGG_C1.value; // by default its white
       let colorthemealt = themeColors.BGG_C3.value; // by default its the 'navy blue'
-      // why colortheme 7 and 8 when other ones used 1-4 ???
-      // let colorthemesting = await fetch('../scoreboard/general/colortheme7.txt');
-      // colorthemesting = await colorthemesting.text();
-      // let colorthemealt = await fetch('../scoreboard/general/colortheme8.txt');
-      // colorthemealt = await colorthemealt.text();
 
       // Set theme colors
       $('div.stingerlogo').css("background-color", colorthemesting);

@@ -408,6 +408,8 @@ Get Color Data from API for theme colors?
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script>
+    // let loopInterval = 3000;
+
     async function interval() {
 
       // Fetching the 'Team Data' like color, name, logo, score
@@ -466,7 +468,7 @@ Get Color Data from API for theme colors?
 
                     let stafftwitter = stafftxt.match(new RegExp(/ @\w*/));
 
-                    console.log("stafftwitter value: " + stafftwitter + ".");
+                    // console.log("stafftwitter value: " + stafftwitter + ".");
 
                     if (stafftwitter != null) {
                         stafftwitter = stafftwitter.toString();
@@ -528,7 +530,7 @@ Get Color Data from API for theme colors?
 
 
         // Display or hide the scorebox based on the scores
-        if (team[0].score == 0 && team[1].score == 0) {
+        if (team[0]?.score == 0 && team[1]?.score == 0) {
           $('.scorebox').css("display", "none");
         } else {
           $('.scorebox').css("display", "block");
@@ -542,10 +544,12 @@ Get Color Data from API for theme colors?
         try {
           // Set the background images dynamically
           if (themeLogos.BGG_L1 && themeLogos.BGG_L1.value) {
-            document.querySelector(".tournament.image1").style.backgroundImage = `url(/${themeLogos.BGG_L1.value})`;
+            // document.querySelector(".tournament.image1").style.backgroundImage = `url(/${themeLogos.BGG_L1.value})`;
+            document.querySelector(".tournament.image1").style.backgroundImage = `url("${themeLogos.BGG_L1.value}")`;
+            
           }
           if (themeLogos.BGG_L2 && themeLogos.BGG_L2.value) {
-            document.querySelector(".channel.image2").style.backgroundImage = `url(/${themeLogos.BGG_L2.value})`;
+            document.querySelector(".channel.image2").style.backgroundImage = `url("${themeLogos.BGG_L2.value}")`;
           }
         } catch (error) {
           console.error('Failed to fetch or set background images:', error);
@@ -557,7 +561,6 @@ Get Color Data from API for theme colors?
       async function setTagline() {
         try {
             document.querySelector(".tertiary").textContent = tagline;
-            console.log("Tagline: " + tagline);
         } catch (error) {
             console.error('Failed to fetch or set tagline:', error);
         }
@@ -565,12 +568,16 @@ Get Color Data from API for theme colors?
 
     // Call the function to set the tagline
     setTagline();
-
+    console.log("Refreshing...")
     }
+
+    const urlParams = new URLSearchParams(window.location.search);
+    loopInterval = urlParams.get('interval') || 3000;
+    console.log("Page Loaded, Interval has been set to " + loopInterval + "ms");
 
     $(() => {
       interval();
-      setInterval(interval, 3000);
+      setInterval(interval, loopInterval);
     });
   </script>
 

@@ -1,16 +1,14 @@
 <!DOCTYPE html>
 
-
 <!-- 
 
-TO DO:
-we need to make a position in the map selection for map mode
-- need to make sure all maps are being fetched from the proper game config folder
--- currently they are not at all.. this way it works for MANY games
+OPTIONS:
+Use URL Parameters
 
-IDEAS:
-...
-
+so <the-url>?loopInterval=5000 would set the refresh to 5s seconds
+<the-url>?useTeamColors=1 would use team colors
+loopInterval: Set this to override the 'refresh' time
+useTeamColors: Use this if wanting to use team colors on the outer border of map select box
 
 -->
 
@@ -43,17 +41,23 @@ IDEAS:
 
     @keyframes wrapperanimate {
       0% {
-        transform: translate(50%, 50%) /* skewX(-15deg) */;
+        transform: translate(50%, 50%)
+          /* skewX(-15deg) */
+        ;
         clip-path: polygon(0% 0, 0 0%, 0% 152px, 0% 152px);
       }
 
       50% {
-        transform: translate(0%, 50%) /* skewX(-15deg) */;
+        transform: translate(0%, 50%)
+          /* skewX(-15deg) */
+        ;
         clip-path: polygon(0% 0, 100% 0%, 100% 152px, 0% 152px);
       }
 
       100% {
-        transform: translateY(0%, 0%) /* skewX(-15deg) */;
+        transform: translateY(0%, 0%)
+          /* skewX(-15deg) */
+        ;
         clip-path: polygon(0% 0, 100% 0%, 100% 100%, 0% 100%);
       }
     }
@@ -448,7 +452,9 @@ IDEAS:
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script>
-    
+      const urlParams = new URLSearchParams(window.location.search);
+      const team = urlParams.get('team');
+      const loopInterval = urlParams.get('loopInterval') || 3000;
 
 
     /* jshint esversion: 8 */
@@ -495,8 +501,9 @@ IDEAS:
     }
 
     async function interval() {
+      let useTeamColors = 0;
 
-      
+
       //Set to 1 for video functions, 0 to disable
       let enablevideo = 0;
       let blankimage = "iVBORw0KGgoAAAANSUhEUgAAAHAAAABkCAYAAABep7TGAAAABGdBTUEAALGPC/xhBQAAAEJJREFUeF7twQENAAAAwqD3T+1mDiAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAuBqvZAABFEy6BwAAAABJRU5ErkJggg=="
@@ -504,7 +511,7 @@ IDEAS:
 
       let fullJson = await fetch(`http://localhost:8080/getFullJson`);
       fullJson = await fullJson.json();
-      
+
       let mapJson = fullJson.maps;
       let teamsData = fullJson.teams;
       let inputJson = fullJson.general;
@@ -517,17 +524,23 @@ IDEAS:
       let t2colortxt = teamsData.team2.teamColor
       let tagline = fullJson.general.text.BGG_TAGLINE.value;
 
-      
+
       let colortheme1txt = themeColors.BGG_C1.value
       let colortheme2txt = themeColors.BGG_C2.value;
       let colortheme3txt = themeColors.BGG_C3.value;
       let colortheme4txt = themeColors.BGG_C4.value
 
-      //Set the global team colors
-      $('div').css("border-left-color", (t1colortxt));
+      if (useTeamColors) {
+        //Set the global team colors
+        $('div').css("border-left-color", (t1colortxt));
+        $('div').css("border-right-color", (t2colortxt));
+      } else {
+        $('div').css("border-left-color", (colortheme3txt));
+        $('div').css("border-right-color", (colortheme3txt));
+      }
+
       t1colorspan = lightOrDark(t1colortxt);
       t1colorshade = lightOrDark(t1colorspan);
-      $('div').css("border-right-color", (t2colortxt));
       t2colorspan = lightOrDark(t2colortxt);
       t2colorshade = lightOrDark(t2colorspan);
 
@@ -543,195 +556,196 @@ IDEAS:
       $('span.tertiary').css("color", (colortheme2txt));
       $('span.tertiary').css("border-color", (colortheme3txt));
 
-    const processMapData = async (mapJson) => {
-      let theincomplete = 0;
-      let totalmap = 0;
-      // console.log(mapJson);
+      const processMapData = async (mapJson) => {
+        let theincomplete = 0;
+        let totalmap = 0;
+        // console.log(mapJson);
 
-      if (mapJson && mapJson.mapData) {
-        for (let i = 0; i < mapJson.mapData.length; ++i) {
-          await processMap(mapJson, i, theincomplete, totalmap);
+        if (mapJson && mapJson.mapData) {
+          for (let i = 0; i < mapJson.mapData.length; ++i) {
+            await processMap(mapJson, i, theincomplete, totalmap);
+          }
         }
-      }
-    };
+      };
 
-    const processMap = async (mapJson, i, theincomplete, totalmap) => {
-      const mapData = mapJson.mapData[i];
-      // console.log(`Processing map ${i + 1}...`);
-      
-      await updateMapTypeDetails(i, totalmap);
-      // console.log(`updating map ${i + 1}...`);
-      updateMapNameDetails(mapData, i);
-      const mapwintxt = determineWinner(mapData);
-      updateTeamName(i, mapwintxt);
-      await updateMapDisplay(i, mapData, mapwintxt, theincomplete);
-    };
+      const processMap = async (mapJson, i, theincomplete, totalmap) => {
+        const mapData = mapJson.mapData[i];
+        // console.log(`Processing map ${i + 1}...`);
 
-    const updateMapTypeDetails = async (i, totalmap) => {
-      // mapgametype png needs to come from the game ocnfi folder after we move them ...
-      let mapgametypetxt = mapJson.mapData[i].selectedMode || 'TBA';
-      // let mapgametypetxt = await fetch(`../scoreboard/match1/m${i + 1}mapgametype.txt`);
-      // mapgametypetxt = await mapgametypetxt.text();
-      console.log(mapgametypetxt);
-      let check = mapgametypetxt.replace(/\n|\r/gi, "");
-      let node4 = $(`.mapinfo${i + 1} .maptype`);
-      let node5 = $(`.mapwrap${i + 1}, .mapinfo${i + 1}`);
-      
-      if (check !== "") {
-        node5.css("display", "block");
-        totalmap++;
-      } else {
-        node5.css("display", "none");
-      }
-      node4.text(mapgametypetxt);
-    };
+        await updateMapTypeDetails(i, totalmap);
+        // console.log(`updating map ${i + 1}...`);
+        updateMapNameDetails(mapData, i);
+        const mapwintxt = determineWinner(mapData);
+        updateTeamName(i, mapwintxt);
+        await updateMapDisplay(i, mapData, mapwintxt, theincomplete);
+      };
 
-    const updateMapNameDetails = (mapData, i) => {
-      let maptxt = mapData?.selectedMap || 'TBA';
-      // console.log(maptxt, i);
-      let reptext = maptxt.replace(/\\/gi, "/").replace(/\"/gi, "\\\"").replace(/\n/gi, "").replace(/\r/gi, "") === "" ? "TBA" : maptxt;
-      
-      // IF map is not determined yet, then user wouldn't select a map which would cause TBA to be triggered to show mapgametype' png
-      // let img = `/configs/${fullJson.currentGame}/images/maps/${reptext.replace(/:/g, "-").replace("TBA", `mapModes/${mapData.mapType}`).replace(/ /g, "_")}.png`;
-      let img = mapData?.mapImage || 'TBA';
+      const updateMapTypeDetails = async (i, totalmap) => {
+        let mapgametypetxt = mapJson.mapData[i].selectedMode || 'TBA';
 
-      
-      // console.log(img);
-      let video = `assets/maps/video/${reptext.replace("\u00fa", "u").replace("\u00f6", "o").replace(":", "").replace("TBA", "blank")}.mp4`;
-      
-      let node1 = $(`.mapbg${i + 1} img`);
-      let node2 = $(`.mapinfo${i + 1} .mapname`);
-      
-      if (node1.attr("src") !== img) {
-        node1.attr("src", img);
-        node2.text(reptext);
-      }
-    };
+        let check = mapgametypetxt.replace(/\n|\r/gi, "");
+        let node4 = $(`.mapinfo${i + 1} .maptype`);
+        let node5 = $(`.mapwrap${i + 1}, .mapinfo${i + 1}`);
 
-    const determineWinner = (mapData) => {
-      if (mapData.completed) {
-        if (mapData.team1Score > mapData.team2Score) return t1nametxt;
-        if (mapData.team1Score < mapData.team2Score) return t2nametxt;
-        return "DRAW";
-      }
-      return "";
-    };
+        if (check !== "") {
+          node5.css("display", "block");
+          totalmap++;
+        } else {
+          node5.css("display", "none");
+        }
+        node4.text(mapgametypetxt);
+      };
 
-    const updateTeamName = (i, mapwintxt) => {
-      let regex = "\\b(gaming|team|e-?sports|house|academy|uni(versity)?|state|tech|and|the|of|eu)\\b";
-      let teamformatted = `<div><b>${mapwintxt.replace(new RegExp(regex, "gi"), "</b>$1<b>").replace(/&/gi, "</b>&<b>")}</b></div>`;
-      $(`.mapbg${i + 1} .mapscore .teamname`).html(teamformatted);
-    };
+      const updateMapNameDetails = (mapData, i) => {
+        let maptxt = mapData?.selectedMap || 'TBA';
+        // console.log(maptxt, i);
+        let reptext = maptxt.replace(/\\/gi, "/").replace(/\"/gi, "\\\"").replace(/\n/gi, "").replace(/\r/gi, "") === "" ? "TBA" : maptxt;
 
-    const updateMapDisplay = async (i, mapData, mapwintxt, theincomplete) => {
-      const mapBg = $(`.mapbg${i + 1}`);
-      const mapScore = mapBg.find('.mapscore');
-      const mt1scoretxt = String(mapData.team1Score);
-      const mt2scoretxt = String(mapData.team2Score);
+        // IF map is not determined yet, then user wouldn't select a map which would cause TBA to be triggered to show mapgametype' png
+        // let img = `/configs/${fullJson.currentGame}/images/maps/${reptext.replace(/:/g, "-").replace("TBA", `mapModes/${mapData.mapType}`).replace(/ /g, "_")}.png`;
+        let img = mapData?.mapImage || 'TBA';
 
-      if (mapwintxt !== "") {
-        await updateCompletedMap(i, mapBg, mapScore, mapwintxt, mt1scoretxt, mt2scoretxt);
-      } else if (theincomplete > 0) {
-        updateIncompleteMap(i, mapBg, mapScore);
-      } else {
-        updateFirstIncompleteMap(i, mapBg, mapScore, mt1scoretxt, mt2scoretxt);
-      }
-    };
 
-    const updateCompletedMap = async (i, mapBg, mapScore, mapwintxt, mt1scoretxt, mt2scoretxt) => {
-      mapBg.find('img').css({"filter": "greyscale(100%)", "opacity": "0.5", "mix-blend-mode": "Luminosity"});
-      
-      let data = await fetch(`../scoreboard/match1/m${i + 1}mapwin.png`);
-      data = await data.arrayBuffer();
-      let str = String.fromCharCode.apply(null, new Uint8Array(data));
-      document.querySelector(`.mapbg${i + 1} .mapscore .logo`).style.backgroundImage = `url(data:image/jpeg;base64,${btoa(str)})`;
+        // console.log(img);
+        let video = `assets/maps/video/${reptext.replace("\u00fa", "u").replace("\u00f6", "o").replace(":", "").replace("TBA", "blank")}.mp4`;
 
-      if (mapwintxt === t1nametxt) {
-        updateWinnerDisplay(mapBg, mapScore, t1colortxt, t1colorspan, t1colorshade, mt1scoretxt, mt2scoretxt, teamsData.team1.teamLogoUrl);
-      } else if (mapwintxt === t2nametxt) {
-        updateWinnerDisplay(mapBg, mapScore, t2colortxt, t2colorspan, t2colorshade, mt2scoretxt, mt1scoretxt, teamsData.team2.teamLogoUrl);
-      } else {
-        updateDrawDisplay(mapBg, mapScore, mt1scoretxt, mt2scoretxt);
-      }
-    };
+        let node1 = $(`.mapbg${i + 1} img`);
+        let node2 = $(`.mapinfo${i + 1} .mapname`);
 
-    const updateWinnerDisplay = (mapBg, mapScore, color, colorspan, colorshade, winnerScore, loserScore, logoUrl) => {
-      mapBg.css("background-color", color);
-      mapScore.find('.score').html(`<b>${winnerScore}</b>-${loserScore}`);
-      mapScore.find('span').css({"color": colorspan, "text-shadow": `0px 0px 10px ${colorshade}`});
-      mapScore.find('.logo').css("background-image", `url(${logoUrl})`);
-    };
+        if (node1.attr("src") !== img) {
+          node1.attr("src", img);
+          node2.text(reptext);
+        }
+      };
 
-    const updateDrawDisplay = (mapBg, mapScore, mt1scoretxt, mt2scoretxt) => {
-      mapBg.css("background-color", colortheme1txt);
-      mapScore.find('.score').html(`${mt1scoretxt}-${mt2scoretxt}`);
-      mapScore.find('span').css({"color": "white", "text-shadow": "0px 0px 10px black"});
-    };
+      const determineWinner = (mapData) => {
+        if (mapData.completed) {
+          if (mapData.team1Score > mapData.team2Score) return t1nametxt;
+          if (mapData.team1Score < mapData.team2Score) return t2nametxt;
+          return "DRAW";
+        }
+        return "";
+      };
 
-    const updateIncompleteMap = (i, mapBg, mapScore) => {
-      mapBg.find('img').css({"filter": "greyscale(0%)", "opacity": "0.33", "mix-blend-mode": "normal"});
-      mapBg.css("background-color", colortheme1txt);
-      mapScore.find('.score').html("");
-      mapScore.find('span').css({"color": "white", "text-shadow": "0px 0px 10px black"});
-      document.querySelector(`.mapbg${i + 1} .mapscore .logo`).style.backgroundImage = "url(data:image/jpeg;base64,)";
-    };
+      const updateTeamName = (i, mapwintxt) => {
+        let regex = "\\b(gaming|team|e-?sports|house|academy|uni(versity)?|state|tech|and|the|of|eu)\\b";
+        let teamformatted = `<div><b>${mapwintxt.replace(new RegExp(regex, "gi"), "</b>$1<b>").replace(/&/gi, "</b>&<b>")}</b></div>`;
+        $(`.mapbg${i + 1} .mapscore .teamname`).html(teamformatted);
+      };
 
-    const updateFirstIncompleteMap = (i, mapBg, mapScore, mt1scoretxt, mt2scoretxt) => {
-      mapBg.find('img').css({"filter": "greyscale(0%)", "opacity": "1", "mix-blend-mode": "normal"});
-      mapBg.css("background-color", colortheme1txt);
-      mapScore.find('span').css({"color": "white", "text-shadow": "0px 0px 10px black"});
-      
-      if (mt1scoretxt === "0" && mt2scoretxt === "0") {
-        mapScore.find('.score').html("");
-      } else {
+      const updateMapDisplay = async (i, mapData, mapwintxt, theincomplete) => {
+        const mapBg = $(`.mapbg${i + 1}`);
+        const mapScore = mapBg.find('.mapscore');
+        const mt1scoretxt = String(mapData.team1Score);
+        const mt2scoretxt = String(mapData.team2Score);
+
+        if (mapwintxt !== "") {
+          await updateCompletedMap(i, mapBg, mapScore, mapwintxt, mt1scoretxt, mt2scoretxt);
+        } else if (theincomplete > 0) {
+          updateIncompleteMap(i, mapBg, mapScore);
+        } else {
+          updateFirstIncompleteMap(i, mapBg, mapScore, mt1scoretxt, mt2scoretxt);
+        }
+      };
+
+      const updateCompletedMap = async (i, mapBg, mapScore, mapwintxt, mt1scoretxt, mt2scoretxt) => {
+        mapBg.find('img').css({ "filter": "greyscale(100%)", "opacity": "0.5", "mix-blend-mode": "Luminosity" });
+
+        // let data = await fetch(`../scoreboard/match1/m${i + 1}mapwin.png`);
+        // data = await data.arrayBuffer();
+        // let str = String.fromCharCode.apply(null, new Uint8Array(data));
+        // document.querySelector(`.mapbg${i + 1} .mapscore .logo`).style.backgroundImage = `url(data:image/jpeg;base64,${btoa(str)})`;
+        // document.querySelector(`.mapbg${i + 1} .mapscore .logo`).style.backgroundImage =  `url("${themeLogos.BGG_L2.value}")`;
+        // document.querySelector(`.mapbg${i + 1} .mapscore .logo`).style.backgroundImage =  `url("https://www.pstcc.edu/media/pstccedu/site-assets/images/PSCC-LOGO-FC-WEB.png")`;
+
+        if (mapwintxt === t1nametxt) {
+          updateWinnerDisplay(mapBg, mapScore, t1colortxt, t1colorspan, t1colorshade, mt1scoretxt, mt2scoretxt, teamsData.team1.teamLogoUrl);
+        } else if (mapwintxt === t2nametxt) {
+          updateWinnerDisplay(mapBg, mapScore, t2colortxt, t2colorspan, t2colorshade, mt2scoretxt, mt1scoretxt, teamsData.team2.teamLogoUrl);
+        } else {
+          updateDrawDisplay(mapBg, mapScore, mt1scoretxt, mt2scoretxt);
+        }
+      };
+
+      const updateWinnerDisplay = (mapBg, mapScore, color, colorspan, colorshade, winnerScore, loserScore, logoUrl) => {
+        mapBg.css("background-color", color);
+        mapScore.find('.score').html(`<b>${winnerScore}</b>-${loserScore}`);
+        mapScore.find('span').css({ "color": colorspan, "text-shadow": `0px 0px 10px ${colorshade}` });
+        mapScore.find('.logo').css("background-image", `url("${logoUrl}")`);
+      };
+
+      const updateDrawDisplay = (mapBg, mapScore, mt1scoretxt, mt2scoretxt) => {
+        mapBg.css("background-color", colortheme1txt);
         mapScore.find('.score').html(`${mt1scoretxt}-${mt2scoretxt}`);
-      }
-      
-      document.querySelector(`.mapbg${i + 1} .mapscore .logo`).style.backgroundImage = "url(data:image/jpeg;base64,)";
-    };
+        mapScore.find('span').css({ "color": "white", "text-shadow": "0px 0px 10px black" });
+      };
 
+      const updateIncompleteMap = (i, mapBg, mapScore) => {
+        mapBg.find('img').css({ "filter": "greyscale(0%)", "opacity": "0.33", "mix-blend-mode": "normal" });
+        mapBg.css("background-color", colortheme1txt);
+        mapScore.find('.score').html("");
+        mapScore.find('span').css({ "color": "white", "text-shadow": "0px 0px 10px black" });
+        document.querySelector(`.mapbg${i + 1} .mapscore .logo`).style.backgroundImage = "url(data:image/jpeg;base64,)";
+      };
 
-    processMapData(mapJson);
+      const updateFirstIncompleteMap = (i, mapBg, mapScore, mt1scoretxt, mt2scoretxt) => {
+        mapBg.find('img').css({ "filter": "greyscale(0%)", "opacity": "1", "mix-blend-mode": "normal" });
+        mapBg.css("background-color", colortheme1txt);
+        mapScore.find('span').css({ "color": "white", "text-shadow": "0px 0px 10px black" });
 
-      
-    async function setDynamicBackgroundImages() {
-      try {
-        // Set the background images dynamically
-        if (themeLogos.BGG_L1 && themeLogos.BGG_L1.value) {
-          document.querySelector(".tournament.image1").style.backgroundImage = `url(/${themeLogos.BGG_L1.value})`;
+        if (mt1scoretxt === "0" && mt2scoretxt === "0") {
+          mapScore.find('.score').html("");
+        } else {
+          mapScore.find('.score').html(`${mt1scoretxt}-${mt2scoretxt}`);
         }
-        if (themeLogos.BGG_L2 && themeLogos.BGG_L2.value) {
-          document.querySelector(".channel.image2").style.backgroundImage = `url(/${themeLogos.BGG_L2.value})`;
-        }
-      } catch (error) {
-        console.error('Failed to fetch or set background images:', error);
-      }
-    }
-    setDynamicBackgroundImages();
+
+        document.querySelector(`.mapbg${i + 1} .mapscore .logo`).style.backgroundImage = "url(data:image/jpeg;base64,)";
+      };
 
 
-    async function setTagline() {
+      processMapData(mapJson);
+
+
+      async function setDynamicBackgroundImages() {
         try {
-            document.querySelector(".tertiary").textContent = tagline;
-            console.log("Tagline: " + tagline);
+          // Set the background images dynamically
+          if (themeLogos.BGG_L1 && themeLogos.BGG_L1.value) {
+            document.querySelector(".tournament.image1").style.backgroundImage = `url("${themeLogos.BGG_L1.value}")`;
+          }
+          if (themeLogos.BGG_L2 && themeLogos.BGG_L2.value) {
+            document.querySelector(".channel.image2").style.backgroundImage = `url("${themeLogos.BGG_L2.value}")`;
+          }
         } catch (error) {
-            console.error('Failed to fetch or set tagline:', error);
+          console.error('Failed to fetch or set background images:', error);
         }
-    }
+      }
+      setDynamicBackgroundImages();
 
-    setTagline();
 
-    
+      async function setTagline() {
+        try {
+          document.querySelector(".tertiary").textContent = tagline;
+        } catch (error) {
+          console.error('Failed to fetch or set tagline:', error);
+        }
+      }
+
+      setTagline();
+
+
 
       //$('.scoreboard span').text("First to " + (Math.floor(totalmap / 2) + 1));
       $('.scoreboard span').text("Map Set");
       //End the entire function
+
+      console.log("Refreshing...")
     }
 
+    console.log("Page Loaded, Interval has been set to " + loopInterval + "ms");
     //Set the refresh rate in milliseconds
     $(() => {
       interval();
-      setInterval(interval, 3000);
+      setInterval(interval, loopInterval);
     });
   </script>
 
