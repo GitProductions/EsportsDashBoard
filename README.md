@@ -1,6 +1,6 @@
 # EsportsDashBoard
 
-Please visit our website @ https://gitproductions.github.io/EsportsDash-Webite/ for more information
+Please visit our website @ https://esportsdash.com for more information
 
 ![image](https://github.com/user-attachments/assets/37ab52fa-30df-44b6-b57e-abd5480d13f1)
 
