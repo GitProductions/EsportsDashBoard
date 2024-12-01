@@ -482,56 +482,7 @@
 
       updateTeamDetails(0, teamsData.team1);
       updateTeamDetails(1, teamsData.team2); 
-      //get team data
-      // class team {}
-      // for (let t = 0; t < 2; ++t) {
-      //   let teamcls = new team()
-      //   teamcls.name = await fetch('../scoreboard/match1/t' + (t + 1) + 'name.txt');
-      //   teamcls.name = await teamcls.name.text();
-      //   teamcls.color = await fetch('../scoreboard/match1/t' + (t + 1) + 'color.txt');
-      //   teamcls.color = await teamcls.color.text();
-      //   teamcls.score = await fetch('../scoreboard/match1/t' + (t + 1) + 'score.txt');
-      //   teamcls.score = await teamcls.score.text();
-      //   let data = await fetch("../scoreboard/match1/t" + (t + 1) + "logo.png");
-      //   data = await data.arrayBuffer();
-      //   //console.log(data);
-      //   let bytes = new Uint8Array(data);
-      //   let str = "";
-      //   for (let b of bytes) {
-      //     str += String.fromCharCode(b);
-      //   }
-      //   teamcls.logo = btoa(str);
-      //   team[t] = teamcls;
-      //   //console.log(str);
-      //   //console.log(btoa(str));
-      //   //if (btoa(str) != "iVBORw0KGgoAAAANSUhEUgAAAHAAAABkCAYAAABep7TGAAAABGdBTUEAALGPC/xhBQAAAEJJREFUeF7twQENAAAAwqD3T+1mDiAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAuBqvZAABFEy6BwAAAABJRU5ErkJggg==") {
-
-      //   $(".teamlogo" + (t + 1)).attr("src", "data:image/jpeg;base64," + team[t].logo);
-      //   $('.team' + (t + 1)).css("border-color", team[t].color);
-
-      //   let regex = "";
-      //   [
-      //     "gaming", "team", "e-?sports", "house", "academy", "uni(versity)?", "state", "tech", "and", "the", "of", "eu",
-      //   ].forEach((value) => {
-      //     regex += "|(" + value + ")";
-      //   });
-      //   regex = "\\b(" + regex.substring(1) + ")\\b";
-
-      //   let teamformatted = "<b>" + team[t].name.replace(
-      //       new RegExp(regex, "gi"), "</b>$1<b>")
-      //     .replace(/&/gi, "</b>&<b>") + "</b>";
-      //   $('.teamname' + (t + 1)).html(teamformatted);
-      //   $('.teamscore' + (t + 1)).text(team[t].score);
-      // }
-
-      // if (team[0].score == 0 && team[1].score == 0) {
-      //   $('.scorebox').css("display", "none");
-      // } else {
-      //   $('.scorebox').css("display", "block");
-      // }
-
-
-
+    
       async function setDynamicBackgroundImages() {
         try {
           // Set the background images dynamically

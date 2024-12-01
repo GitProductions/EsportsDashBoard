@@ -387,10 +387,28 @@
       font-size: 1.8em;
       border-style: solid;
       font-weight: bold;
-      text-align: center font-family: 'Rajdhani';
+      text-align: center;
+      font-family: 'Rajdhani';
+      text-transform: uppercase;
       padding: 3px 15px 2px 15px;
       border-width: 0px 6px 0px 6px;
-      background-color: black;
+      background-color: rgb(255, 255, 255);
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.98);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2em;
+      z-index: 1000;
+      display: none;
     }
   </style>
 
@@ -399,15 +417,40 @@
     async function interval() {
       //Set to 1 for video functions, 0 to disable
       let blankimage = "iVBORw0KGgoAAAANSUhEUgAAAHAAAABkCAYAAABep7TGAAAABGdBTUEAALGPC/xhBQAAAEJJREFUeF7twQENAAAAwqD3T+1mDiAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAuBqvZAABFEy6BwAAAABJRU5ErkJggg=="
+
+      async function fetchData() {
+        let fullDataJson;
+        try {
+          fullDataJson = await fetch(`http://localhost:8080/getfullJson`);
+          if (!fullDataJson.ok) {
+            throw new Error('Network response was not ok');
+          }
+          fullDataJson = await fullDataJson.json();
+        } catch (error) {
+          document.querySelector('.overlay').style.display = 'flex';
+          console.error('Error fetching data:', error);
+          return;
+        }
+        return fullDataJson;
+      }
+
+      let fullDataJson = await fetchData();
+      let teamsData = fullDataJson.teams;
+      let inputJson = fullDataJson.general;
+      
+      let themeColors = inputJson.color;
+      let themeLogos = inputJson.file;
+      let caster1 = inputJson.text.Caster1.value;
+      let caster2 = inputJson.text.Caster2.value;
+      let host = inputJson.text.Host.value;
+
+      let tagline = inputJson.text.BGG_TAGLINE.value;
+
       //Get constant theme data
-      let colortheme1txt = await fetch('../scoreboard/general/colortheme1.txt');
-      colortheme1txt = await colortheme1txt.text();
-      let colortheme2txt = await fetch('../scoreboard/general/colortheme2.txt');
-      colortheme2txt = await colortheme2txt.text();
-      let colortheme3txt = await fetch('../scoreboard/general/colortheme3.txt');
-      colortheme3txt = await colortheme3txt.text();
-      let colortheme4txt = await fetch('../scoreboard/general/colortheme4.txt');
-      colortheme4txt = await colortheme4txt.text();
+      let colortheme1txt = themeColors.BGG_C1.value
+      let colortheme2txt = themeColors.BGG_C2.value;
+      let colortheme3txt = themeColors.BGG_C3.value;
+      let colortheme4txt = themeColors.BGG_C4.value
 
       $('body').css("border-color", (colortheme3txt));
       $('.camerabox').css("border-color", (colortheme3txt));
@@ -418,119 +461,129 @@
       $('.vs').css("background-color", colortheme3txt);
       $('.vs').css("color", colortheme1txt);
       $('.scorebox').css("background-color", colortheme4txt);
-
-      $('span.tertiary').css("background-color", (colortheme1txt));
-      $('span.tertiary').css("color", (colortheme2txt));
-      $('span.tertiary').css("border-color", (colortheme3txt));
       //$('.camerahole').css("background-color", (colortheme3txt));
 
-      //set the staff in the scene
-      var staff = [
-        "caster1", "caster2", //Casters
-        "host", //Host
-        //"analyst1", "analyst2" //Analysts
-      ];
+      async function updateStaffDetails(staffId, casterName, animationDelay) {
+        try {
+          let stafftxt = casterName;
 
-      //get staff name details
-      for (let i = 0; i < staff.length; ++i) {
-        let stafftxt = await fetch('../scoreboard/general/' + staff[i] + '.txt');
-        stafftxt = await stafftxt.text();
+          $('.curtain' + staffId).css("animation-delay", animationDelay + "s");
+          $('.' + staffId).css("animation-delay", (animationDelay - 0.15) + "s");
 
-        $('.curtain' + staff[i]).css("animation-delay", (1.15 + (i * 0.1)) + "s");
-        $('.' + staff[i]).css("animation-delay", (1.00 + (i * 0.1)) + "s");
-
-        if (stafftxt.replace(/\n|\r/gi, "") == "") {
-          $('.' + staff[i] + ' .staffname').html("");
-          $('.' + staff[i] + ' .twitter').html("");
-        } else {
-          let staffname = stafftxt.replace(new RegExp(/ @\w*/), "");
-
-          let stafftwitter = stafftxt.match(new RegExp(/ @\w*/))
-          console.log("stafftwitter value: " + stafftwitter + ".")
-          if (stafftwitter != null) {
-            stafftwitter = stafftwitter.toString()
-            stafftwitter = stafftwitter.replace(/ @/, "")
-
-            $('.' + staff[i] + ' .twitter').html("&nbsp;" + stafftwitter);
-            $('.' + staff[i] + ' .twitter').css("display", "block");
-            $('.' + staff[i] + ' .staffname').html(staffname + "&nbsp;");
+          if (stafftxt.replace(/\n|\r/gi, "") == "") {
+            $('.' + staffId + ' .staffname').html("");
+            $('.' + staffId + ' .twitter').html("");
           } else {
-            $('.' + staff[i] + ' .twitter').css("display", "none");
-            $('.' + staff[i] + ' .staffname').html(staffname);
+            let staffname = stafftxt.replace(new RegExp(/ @\w*/), "");
+
+            let stafftwitter = stafftxt.match(new RegExp(/ @\w*/));
+
+            // console.log("stafftwitter value: " + stafftwitter + ".");
+
+            if (stafftwitter != null) {
+              stafftwitter = stafftwitter.toString();
+              stafftwitter = stafftwitter.replace(/ @/, "");
+
+              $('.' + staffId + ' .twitter').html("&nbsp;" + stafftwitter);
+              $('.' + staffId + ' .twitter').css("display", "block");
+              $('.' + staffId + ' .staffname').html(staffname + "&nbsp;");
+            } else {
+              $('.' + staffId + ' .twitter').css("display", "none");
+              $('.' + staffId + ' .staffname').html(staffname);
+            }
           }
+        } catch (error) {
+          console.error('Error fetching ' + staffId + ' details:', error);
         }
       }
+      updateStaffDetails('caster1', caster1, 1.15);
+      updateStaffDetails('caster2', caster2, 1.25);
+      updateStaffDetails('host', host, 1.25);
 
-      //get team data
-      class team {}
-      for (let t = 0; t < 2; ++t) {
-        let teamcls = new team()
-        teamcls.name = await fetch('../scoreboard/match1/t' + (t + 1) + 'name.txt');
-        teamcls.name = await teamcls.name.text();
-        teamcls.color = await fetch('../scoreboard/match1/t' + (t + 1) + 'color.txt');
-        teamcls.color = await teamcls.color.text();
-        teamcls.score = await fetch('../scoreboard/match1/t' + (t + 1) + 'score.txt');
-        teamcls.score = await teamcls.score.text();
-        let data = await fetch("../scoreboard/match1/t" + (t + 1) + "logo.png");
-        data = await data.arrayBuffer();
-        //console.log(data);
-        let bytes = new Uint8Array(data);
-        let str = "";
-        for (let b of bytes) {
-          str += String.fromCharCode(b);
-        }
-        teamcls.logo = btoa(str);
-        team[t] = teamcls;
-        //console.log(str);
-        //console.log(btoa(str));
-        //if (btoa(str) != "iVBORw0KGgoAAAANSUhEUgAAAHAAAABkCAYAAABep7TGAAAABGdBTUEAALGPC/xhBQAAAEJJREFUeF7twQENAAAAwqD3T+1mDiAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAuBqvZAABFEy6BwAAAABJRU5ErkJggg==") {
-        if (team[t].logo != "iVBORw0KGgoAAAANSUhEUgAAAHAAAABkCAYAAABep7TGAAAABGdBTUEAALGPC/xhBQAAAEJJREFUeF7twQENAAAAwqD3T+1mDiAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAuBqvZAABFEy6BwAAAABJRU5ErkJggg==") {
-          $('.teamlogo' + (t + 1)).css("display", "inherit");
+
+      class team { }
+      async function updateTeamDetails(teamIndex, teamData) {
+        let teamcls = new team();
+        teamcls.name = teamData.teamName;
+        teamcls.color = teamData.teamColor;
+        teamcls.score = teamData.teamScore;
+
+        // server sends us a local url like `/uploads/teamLogos/TheTeamLogo.png` for example and we just use that
+        teamcls.logo = teamData.teamLogoUrl;
+        team[teamIndex] = teamcls;
+
+        if (team[teamIndex].logo != "iVBORw0KGgoAAAANSUhEUgAAAHAAAABkCAYAAABep7TGAAAABGdBTUEAALGPC/xhBQAAAEJJREFUeF7twQENAAAAwqD3T+1mDiAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAuBqvZAABFEy6BwAAAABJRU5ErkJggg==") {
+          $('.teamlogo' + (teamIndex + 1)).css("display", "inherit");
         } else {
-          $('.teamlogo' + (t + 1)).css("display", "none");
+          $('.teamlogo' + (teamIndex + 1)).css("display", "none");
         }
 
-        $(".teamlogo" + (t + 1)).attr("src", "data:image/jpeg;base64," + team[t].logo);
-        $('.team' + (t + 1)).css("border-color", team[t].color);
+        $(".teamlogo" + (teamIndex + 1)).attr("src", team[teamIndex].logo);
+        $('.team' + (teamIndex + 1)).css("border-color", team[teamIndex].color);
 
+
+        // List of words to Un-bold.. 
         let regex = "";
         [
           "gaming", "team", "e-?sports", "house", "academy", "uni(versity)?", "state", "tech", "and", "the", "of", "eu",
         ].forEach((value) => {
           regex += "|(" + value + ")";
         });
+
         regex = "\\b(" + regex.substring(1) + ")\\b";
 
-        let teamformatted = "<b>" + team[t].name.replace(
-            new RegExp(regex, "gi"), "</b>$1<b>")
+        let teamformatted = "<b>" + team[teamIndex].name.replace(
+          new RegExp(regex, "gi"), "</b>$1<b>")
           .replace(/&/gi, "</b>&<b>") + "</b>";
-        $('.teamname' + (t + 1)).html(teamformatted);
-        $('.teamscore' + (t + 1)).text(team[t].score);
-      }
+        $('.teamname' + (teamIndex + 1)).html(teamformatted);
+        $('.teamscore' + (teamIndex + 1)).text(team[teamIndex].score);
 
-      if (team[0].score == 0 && team[1].score == 0) {
-        $('.scorebox').css("display", "none");
-      } else {
-        $('.scorebox').css("display", "block");
-      }
 
-      for (let g = 0; g < 2; ++g) {
-        let data = await fetch("../scoreboard/general/image" + ((g * 14) + 1) + ".png");
-        data = await data.arrayBuffer();
-        //console.log(data);
-        let bytes = new Uint8Array(data);
-        let str = "";
-        for (let b of bytes) {
-          str += String.fromCharCode(b);
+        // Display or hide the scorebox based on the scores
+        if (team[0]?.score == 0 && team[1]?.score == 0) {
+          $('.scorebox').css("display", "none");
+        } else {
+          $('.scorebox').css("display", "block");
         }
-        document.querySelector(".image" + (g + 1)).style.backgroundImage = "url(data:image/jpeg;base64," + btoa(str) + ")";
       }
+      updateTeamDetails(0, teamsData.team1);
+      updateTeamDetails(1, teamsData.team2);
+
+
+
+      async function setDynamicBackgroundImages() {
+        try {
+          // Set the background images dynamically
+          if (themeLogos.BGG_L1 && themeLogos.BGG_L1.value) {
+            // document.querySelector(".tournament.image1").style.backgroundImage = `url(/${themeLogos.BGG_L1.value})`;
+            document.querySelector(".tournament.image1").style.backgroundImage = `url("${themeLogos.BGG_L1.value}")`;
+
+          }
+          if (themeLogos.BGG_L2 && themeLogos.BGG_L2.value) {
+            document.querySelector(".channel.image2").style.backgroundImage = `url("${themeLogos.BGG_L2.value}")`;
+          }
+        } catch (error) {
+          console.error('Failed to fetch or set background images:', error);
+        }
+      }
+      setDynamicBackgroundImages();
+
+
+
+      async function setTagline() {
+        try {
+          document.querySelector(".tertiary").textContent = tagline;
+        } catch (error) {
+          console.error('Failed to fetch or set tagline:', error);
+        }
+      }
+      setTagline();
 
     }
 
     $(() => {
       interval();
-      setInterval(interval, 1000);
+      setInterval(interval, 3000);
     });
   </script>
 
@@ -603,8 +656,11 @@
     <div class="tournament image1"></div>
     <div class="tagline">
       <div>
-        <span class="tertiary">Powered by Broadcast.gg</span></div>
+        <span class="tertiary">Powered by Broadcast.gg</span>
+      </div>
     </div>
     <div class="channel image2"></div>
   </div>
+
+  <div class="overlay">❗Error: Unable to fetch data from the server.</div>
 </body>
