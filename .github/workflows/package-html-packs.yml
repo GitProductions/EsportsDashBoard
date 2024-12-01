@@ -1,0 +1,39 @@
+name: Package HTML Packs
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Zip HTML Packs
+      run: |
+        mkdir -p zips
+        for dir in $(ls -d "HTML Packs"/*/); do
+          dir_name=$(basename "$dir")
+          zip -r "zips/$dir_name.zip" "$dir"
+        done
+
+    - name: Create GitHub Releases
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        for zip in zips/*.zip; do
+          zip_name=$(basename "$zip" .zip)
+          gh release create "$zip_name" "$zip" --title "$zip_name" --notes "Release for $zip_name"
+        done
