@@ -24,9 +24,16 @@ jobs:
         run: |
           git lfs install
 
+
+      - name: Verify Git LFS Setup
+        run: |
+            git lfs version
+            git lfs env
+
       - name: List Git LFS Files
         run: git lfs ls-files
 
+        
       # Step 3: Pull LFS files
       - name: Pull LFS files
         run: |
