@@ -1,0 +1,28 @@
+name: Release Artifacts
+
+on:
+  push:
+    paths:
+      - 'secondary_repo_artifacts/**' 
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.DASHBOARD_PUBLISH_TOKEN }}
+
+      # Step 2: Create a release in the secondary repo
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: secondary_repo_artifacts/*
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
