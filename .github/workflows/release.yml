@@ -24,6 +24,10 @@ jobs:
         run: |
           git lfs install
 
+      - name: Authenticate Git for LFS
+        run: |
+            git config --global credential.helper store
+            echo "https://${{ secrets.ESPORTSDASH_PUBLISH }}@github.com" > ~/.git-credentials
 
       - name: Verify Git LFS Setup
         run: |
@@ -33,7 +37,7 @@ jobs:
       - name: List Git LFS Files
         run: git lfs ls-files
 
-        
+
       # Step 3: Pull LFS files
       - name: Pull LFS files
         run: |
