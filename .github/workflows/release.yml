@@ -26,7 +26,12 @@ jobs:
           echo "Extracted version: $version"
           echo "VERSION=$version" >> $GITHUB_OUTPUT
 
-      # Step 3: Create a release in the secondary repo
+      # Step 3: Verify the .exe file size before upload
+      - name: Verify .exe file size
+        run: |
+          ls -lh secondary_repo_artifacts/*.exe
+
+      # Step 4: Create a release in the secondary repo
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:
