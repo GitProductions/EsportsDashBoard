@@ -18,7 +18,19 @@ jobs:
         with:
           fetch-depth: 0  # Fetch full history to ensure tag creation works
 
-      # Step 2: Read version from latest.yml
+      # Step 2: Install Git LFS
+      - name: Install Git LFS
+        run: |
+          sudo apt-get update
+          sudo apt-get install git-lfs
+          git lfs install
+
+      # Step 3: Pull LFS files
+      - name: Pull LFS files
+        run: |
+          git lfs pull
+
+      # Step 4: Read version from latest.yml
       - name: Read version from latest.yml
         id: get_version
         run: |
@@ -26,12 +38,12 @@ jobs:
           echo "Extracted version: $version"
           echo "VERSION=$version" >> $GITHUB_OUTPUT
 
-      # Step 3: Verify the .exe file size before upload
+      # Step 5: Verify the .exe file size before upload
       - name: Verify .exe file size
         run: |
           ls -lh secondary_repo_artifacts/esportsdashboard-0.1.4-beta-setup.exe
 
-      # Step 4: Create a release in the secondary repo
+      # Step 6: Create a release in the secondary repo
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:
