@@ -28,20 +28,17 @@ jobs:
         run: |
             git config --global credential.helper store
             echo "https://${{ secrets.ESPORTSDASH_PUBLISH }}@github.com" > ~/.git-credentials
-
-      - name: Verify Git LFS Setup
+      
+      - name: Force Git LFS Fetch and Checkout
         run: |
-            git lfs version
-            git lfs env
-
-      - name: List Git LFS Files
-        run: git lfs ls-files
-
-
-      # Step 3: Pull LFS files
-      - name: Pull LFS files
+            git lfs fetch --all
+            git lfs checkout
+      
+      - name: Verify LFS Files
         run: |
-          git lfs pull
+            ls -lh secondary_repo_artifacts
+            cat secondary_repo_artifacts/esportsdashboard-0.1.4-beta-setup.exe | head -n 10
+    
 
       # Step 4: Read version from latest.yml
       - name: Read version from latest.yml
