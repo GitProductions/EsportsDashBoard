@@ -48,8 +48,8 @@ jobs:
         with:
           tag_name: v${{ steps.get_version.outputs.VERSION }}  
           name: Release ${{ steps.get_version.outputs.VERSION }}
-          files: secondary_repo_artifacts/esportsdashboard-0.1.4-beta-setup.exe
+          files: secondary_repo_artifacts/*
           draft: false
-          prerelease: false
+          prerelease: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
