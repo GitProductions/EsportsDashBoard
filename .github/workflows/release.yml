@@ -3,35 +3,28 @@ name: Release Artifacts
 on:
     push:
         branches:
-          - '*'  
+            - '*'  # Trigger on any push to any branch
 
 jobs:
   release:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write  # Explicitly grant write permissions for releases
 
     steps:
-      # Step 1: Checkout the repository
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Fetch full history to ensure tag creation works
+          token: ${{ secrets.GITHUB_TOKEN }}
 
-      # Step 2: Read version from latest.yml
       - name: Read version from latest.yml
         id: get_version
         run: |
           version=$(grep 'version:' secondary_repo_artifacts/latest.yml | cut -d ':' -f2 | tr -d ' ')
-          echo "Extracted version: $version"
           echo "VERSION=$version" >> $GITHUB_OUTPUT
 
-      # Step 3: Create a release in the secondary repo
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: v${{ steps.get_version.outputs.VERSION }}  
-          name: Release ${{ steps.get_version.outputs.VERSION }}
+          tag_name: ${{ steps.get_version.outputs.VERSION }}
           files: secondary_repo_artifacts/*
           draft: false
           prerelease: false
