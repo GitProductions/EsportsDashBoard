@@ -29,7 +29,7 @@ jobs:
       # Step 3: Verify the .exe file size before upload
       - name: Verify .exe file size
         run: |
-          ls -lh secondary_repo_artifacts/*.exe
+          ls -lh secondary_repo_artifacts/esportsdashboard-0.1.4-beta-setup.exe
 
       # Step 4: Create a release in the secondary repo
       - name: Create GitHub Release
@@ -37,7 +37,7 @@ jobs:
         with:
           tag_name: v${{ steps.get_version.outputs.VERSION }}  
           name: Release ${{ steps.get_version.outputs.VERSION }}
-          files: secondary_repo_artifacts/*
+          files: secondary_repo_artifacts/esportsdashboard-0.1.4-beta-setup.exe
           draft: false
           prerelease: false
         env:
