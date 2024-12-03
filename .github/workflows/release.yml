@@ -12,17 +12,16 @@ jobs:
       contents: write  # Explicitly grant write permissions for releases
 
     steps:
-      # Step 1: Checkout the repository
+      # Step 1: Checkout the repository with Git LFS
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
+          lfs: true  # Enable Git LFS
           fetch-depth: 0  # Fetch full history to ensure tag creation works
 
       # Step 2: Install Git LFS
       - name: Install Git LFS
         run: |
-          sudo apt-get update
-          sudo apt-get install git-lfs
           git lfs install
 
       # Step 3: Pull LFS files
