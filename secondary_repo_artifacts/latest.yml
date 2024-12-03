@@ -1,0 +1,8 @@
+version: 0.1.4-beta
+files:
+  - url: esportsdashboard-0.1.4-beta-setup.exe
+    sha512: lNXSGEnwloCKejaS+C2DDhqbgTyQl1fvoFvTUq7kY9VFq3ptqf8XtFEIL9ef0BdUod5PFkgKE8a1PuSPdYQBZQ==
+    size: 104399069
+path: esportsdashboard-0.1.4-beta-setup.exe
+sha512: lNXSGEnwloCKejaS+C2DDhqbgTyQl1fvoFvTUq7kY9VFq3ptqf8XtFEIL9ef0BdUod5PFkgKE8a1PuSPdYQBZQ==
+releaseDate: '2024-12-03T06:08:08.861Z'
