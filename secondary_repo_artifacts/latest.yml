@@ -1,8 +1,3 @@
-version: 0.0.1-TEST
-files:
-  - url: esportsdashboard-0.1.4-beta-setup.exe
-    sha512: +Ur1XBEW13FeiiWJfa2XCJuZoQFfFlT6vSRXCodLyujI2e04mjdIteh0CvZH9iVF/DqkLfj83M6hkTZ5hURdjA==
-    size: 105542360
-path: esportsdashboard-0.1.4-beta-setup.exe
-sha512: +Ur1XBEW13FeiiWJfa2XCJuZoQFfFlT6vSRXCodLyujI2e04mjdIteh0CvZH9iVF/DqkLfj83M6hkTZ5hURdjA==
-releaseDate: '2024-12-03T03:20:37.364Z'
+version https://git-lfs.github.com/spec/v1
+oid sha256:9a5333b791be358c9717ec20846d86f7bda4330250f5a4aba897f8962ee3fc11
+size 376
