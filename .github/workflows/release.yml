@@ -2,27 +2,41 @@ name: Release Artifacts
 
 on:
   push:
-    paths:
-      - 'secondary_repo_artifacts/**' 
-
+    branches:
+        - '*'  
 jobs:
   release:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout the repository
+      # Step 1: Checkout the repository (secondary repository)
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          ref: main  # Checkout the latest commit from main branch
 
-      # Step 2: Create a release in the secondary repo
+      # Step 2: Extract version from the file name
+      - name: Extract version from .exe filename
+        id: extract_version
+        run: |
+          # Find the .exe file in the artifacts folder
+          EXE_FILE=$(ls secondary_repo_artifacts/*.exe)
+          
+          # Extract version part from the filename (e.g., esportsdashboard-0.1.4-beta-setup.exe => 0.1.4-beta)
+          VERSION=$(basename "$EXE_FILE" .exe | sed 's/.*-\(.*\)-setup/\1/')
+          
+          # Export the version to be used in the following steps
+          echo "Version is $VERSION"
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+
+      # Step 3: Create a new GitHub release with the extracted version
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:
-          files: secondary_repo_artifacts/*
+          files: secondary_repo_artifacts/*.exe  # The .exe files you want to release
           draft: false
           prerelease: false
+          tag_name: ${{ env.VERSION }}  # Use the extracted version for the release tag
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
