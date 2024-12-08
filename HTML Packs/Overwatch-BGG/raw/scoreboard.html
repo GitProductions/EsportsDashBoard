@@ -13,6 +13,7 @@
 
 <head>
   <style>
+    
     div.left {
       background-color:
         /* #27AAE1 */
@@ -217,30 +218,28 @@ OTHER BRANDED COLORS
 
     div.center {
       width: 100%;
-      height: 46px;
+      height: auto;
       border: 0px solid black;
       vertical-align: middle;
-      /* background-color: #0000007F; */
       text-shadow: 0px 0px 7px #000000;
-      /* background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), rgba(127, 127, 127, 0), rgba(0, 0, 0, 0.3)); */
       position: fixed;
       left: 0px;
-      top: 13px;
+      top: 23px;
       display: flex;
-      /* YEAH THIS IS HUGE */
       flex-direction: row;
       align-items: center;
-      /* YEAH THIS IS HUGE */
       justify-content: center;
       padding-top: 6px;
-      /* YEAH THIS IS HUGE */
+    }
+
+    .center .teamname {
+      display: block;
+      text-align: center;
+      line-height: 1.5;
     }
 
     span {
       margin: 0;
-      /*
-      position: absolute;
-      */
       top: 50%;
       font-family: 'Rajdhani';
       font-variant-ligatures: none;
@@ -319,6 +318,8 @@ OTHER BRANDED COLORS
 
       /* transform: translate(-200px, -50%); */
     }
+
+
 
     div.right span.teamsr {
       position: relative;
@@ -424,21 +425,7 @@ OTHER BRANDED COLORS
       /* clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 12.86px 100%); */
     }
 
-    div.footer {
-      position: fixed;
-      left: 0px;
-      bottom: 0px;
-      width: 1900px;
-      clip-path: polygon(0% 0, 100% 0%, 100% 100%, 0% 100%);
-      display: flex;
-      /* YEAH THIS IS HUGE */
-      flex-direction: row;
-      align-items: center;
-      /* YEAH THIS IS HUGE */
-      justify-content: center;
-      /* YEAH THIS IS HUGE */
-      padding: 10px;
-    }
+
 
     div.tournament {
       flex: 1 1 100%;
@@ -485,26 +472,15 @@ OTHER BRANDED COLORS
       let fullJson = await fetch(`http://localhost:8080/getFullJson`);
       fullJson = await fullJson.json();
 
-
-
-      // let inputData = await fetch(`http://localhost:8080/getValue?path=general`);
       let inputJson = fullJson.general;
-      // let inputJson = await inputData.json();
       let themeColors = inputJson.color;
       let themeLogos = inputJson.file;
-
-      // let teamJson = await fetch(`http://localhost:8080/getValue?path=teams`);
-      // let teamsData = await teamJson.json();
       let teamsData = fullJson.teams;
-
-
-      //Get constant theme data
-
       let colortheme1txt = themeColors.BGG_C1.value
       let colortheme2txt = themeColors.BGG_C2.value;
       let colortheme3txt = themeColors.BGG_C3.value;
 
-      //Set theme colors
+      // Set theme colors
       // $('span.replaytext').css("border-color", (colortheme3txt));
       $('div.side span, div.center span').css("color", (colortheme2txt));
       $('div.side span').css("background-color", (colortheme2txt));
@@ -523,25 +499,24 @@ OTHER BRANDED COLORS
       $('span.tertiary').css("border-color", (colortheme3txt));
 
 
-
-      // $('.mapbg' + (i + 1) + ' .mapscore span').css("text-shadow", "0px 0px 10px " + (t2colorshade));
-
       // FLAGS - perhaps set via dashboard later??
       // Set to 0 for Mutual Info, 1 for "Map # of #". 2 for Mutual info - Map #
       let mapcounter = 1;
       let teamcolor = 1; // Set to 0 for default blue/red team colors, 1 to import from scoreboard
 
-      // Determine the Match Format, Best of 5, First to 3 etc - formerley utility9.txt
-      let allmaps = fullJson.matchFormat + fullJson.maps.mapData.length;
+      // Determine the Match Format, Best of 5, First to 3 etc - formerly utility9.txt
+      let completeMatchFormat = fullJson.matchFormat + fullJson.maps.mapData.length;
+
+      // console.log(`all maps: ${allmaps}`);
       let gametype = null;
-      if (allmaps.match(/bo/gi) != null || allmaps.match(/best of/gi) != null) {
+      if (completeMatchFormat.match(/bo/gi) != null || completeMatchFormat.match(/best of/gi) != null) {
         gametype = "bo";
-        allmaps = allmaps.replace(/\n/gi, "").replace(/\r/gi, "").replace(/bo/gi, "").replace(/best of/gi, "");
-        allmaps = parseInt(allmaps, 10);
-      } else if (allmaps.match(/ft/gi) != null || allmaps.match(/first to/gi) != null) {
+        completeMatchFormat = completeMatchFormat.replace(/\n/gi, "").replace(/\r/gi, "").replace(/bo/gi, "").replace(/best of/gi, "");
+        completeMatchFormat = parseInt(completeMatchFormat, 10);
+      } else if (completeMatchFormat.match(/ft/gi) != null || completeMatchFormat.match(/first to/gi) != null) {
         gametype = "ft";
-        allmaps = allmaps.replace(/\n/gi, "").replace(/\r/gi, "").replace(/ft/gi, "").replace(/first to/gi, "");
-        allmaps = parseInt(allmaps, 10);
+        completeMatchFormat = completeMatchFormat.replace(/\n/gi, "").replace(/\r/gi, "").replace(/ft/gi, "").replace(/first to/gi, "");
+        completeMatchFormat = parseInt(completeMatchFormat, 10);
       }
 
       // CENTER TEXT
@@ -570,34 +545,31 @@ OTHER BRANDED COLORS
 
       // Get map count
       if (mapcounter >= 1) {
-        let totalmap = 0;
+        let totalmap = fullJson.maps.mapData.length;
         let completedmap = 0;
         for (let m = 0; m < fullJson.maps.mapData.length; ++m) {
           let mapData = fullJson.maps.mapData[m];
           let winner = determineWinner(mapData);
-          let mapgametypetxt = mapData.mapType;
 
           if (winner !== "") {
             completedmap += 1;
-          }
-          if (mapgametypetxt && mapgametypetxt.trim() !== "") {
-            totalmap += 1;
           }
         }
 
         const isTiebreaker = (team1Wins === team2Wins) && (completedmap === totalmap - 1);
 
+
         if (mapcounter == 1) {
           if (completedmap >= totalmap) {
-            $('.center .teamname').html("<b>Final</b> Score");
+            $('.center .teamname').html(`<b>Final</b> Score <br/> ${team1Wins} - ${team2Wins}`);
           } else {
             if (isTiebreaker) {
               $('.center .teamname').html("<b>Tiebreaker </b>Map");
             } else {
               if (gametype == "bo") {
-                $('.center .teamname').html("Map <b>" + (completedmap + 1) + "</b> of <b>" + (allmaps) + "</b>");
+                $('.center .teamname').html("Map <b>" + (completedmap + 1) + "</b> of <b>" + (completeMatchFormat) + "</b>");
               } else if (gametype == "ft") {
-                $('.center .teamname').html("Map <b>" + (completedmap + 1) + "</b> - First to <b>" + (allmaps) + "</b>");
+                $('.center .teamname').html("Map <b>" + (completedmap + 1) + "</b> - First to <b>" + (completeMatchFormat) + "</b>");
               } else {
                 $('.center .teamname').html("Map <b>" + (completedmap + 1) + "</b>");
               }
@@ -615,7 +587,7 @@ OTHER BRANDED COLORS
               if (isTiebreaker) {
                 $('.center .teamname').html("<b>Tiebreaker </b>Map");
               } else {
-                $('.center .teamname').html("Map <b>" + (completedmap + 1) + "</b> of <b>" + (allmaps) + "</b>");
+                $('.center .teamname').html("Map <b>" + (completedmap + 1) + "</b> of <b>" + (completeMatchFormat) + "</b>");
               }
             }
           } else {
@@ -626,8 +598,9 @@ OTHER BRANDED COLORS
             }
           }
         }
-        console.log(`all maps: ${allmaps}, completed maps: ${completedmap}`);
+        console.log(`all maps: ${completeMatchFormat}, completed maps: ${completedmap}`);
       }
+
 
       // Function to update team logo
       async function updateTeamLogo(teamIndex) {
@@ -831,14 +804,6 @@ OTHER BRANDED COLORS
 
   </div>
 
-  <div class="footer">
-    <div class="tournament image1"></div>
-    <!--<div class="tagline">
-      <div>
-        <span class="tertiary">Powered by Broadcast.gg</span></div>
-    </div>--->
-    <div class="channel image2"></div>
-  </div>
 
 </body>
 
