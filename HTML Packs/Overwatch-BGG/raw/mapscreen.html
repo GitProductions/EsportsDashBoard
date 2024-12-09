@@ -604,7 +604,14 @@ useTeamColors: Use this if wanting to use team colors on the outer border of map
 
         // IF map is not determined yet, then user wouldn't select a map which would cause TBA to be triggered to show mapgametype' png
         // let img = `/configs/${fullJson.currentGame}/images/maps/${reptext.replace(/:/g, "-").replace("TBA", `mapModes/${mapData.mapType}`).replace(/ /g, "_")}.png`;
-        let img = mapData?.mapImage || 'TBA';
+        // let img = mapData?.mapImage || 'http://localhost:8080/files/gameConfigs/Overwatch/images/maps/TBA.png';
+
+        console.log('Maps image:', mapData);
+
+        let modeImage = mapData?.modeImage
+        console.log('Mode Image:', modeImage);
+
+        let img = mapData?.mapImage || mapData?.modeImage || `http://localhost:8080/files/gameConfigs/${fullJson.currentGame}/images/maps/TBA.png`;
 
 
         // console.log(img);
