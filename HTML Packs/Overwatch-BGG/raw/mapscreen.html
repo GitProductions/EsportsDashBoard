@@ -11,11 +11,19 @@ loopInterval: Set this to override the 'refresh' time
 useTeamColors: Use this if wanting to use team colors on the outer border of map select box
 - Example: <the-url>?useTeamColors=1 would use team colors
 
+BlurWinner: Set this to blur out the map image
+GrayWinner: Set this to grayscale the map image
+
 -->
 
 
 <head>
   <style>
+    :root {
+      --winnerBlur: 0px;
+      --winnerGray: 0%;
+    }
+
     @font-face {
       font-family: 'Rajdhani';
       src: url("fonts/Rajdhani/Rajdhani-Bold.ttf") format('TrueType');
@@ -449,13 +457,30 @@ useTeamColors: Use this if wanting to use team colors on the outer border of map
       border-width: 0px 6px 0px 6px;
       background-color: black;
     }
+
+    /* Add this new class for blurred maps */
+    .mapbg.winner img {
+        filter: blur(var(--winnerBlur)) grayscale(var(--winnerGray));
+    }
   </style>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script>
-      const urlParams = new URLSearchParams(window.location.search);
-      const team = urlParams.get('team');
-      const loopInterval = urlParams.get('loopInterval') || 3000;
+    const urlParams = new URLSearchParams(window.location.search);
+    // const team = urlParams.get('team');
+
+    const loopInterval = urlParams.get('loopInterval') || 3000;
+    const BlurWinner = urlParams.get('blurwinner');
+    const GrayWinner = urlParams.get('graywinner');
+
+    if (BlurWinner) {
+      document.documentElement.style.setProperty('--winnerBlur', BlurWinner);
+    }
+
+    if (GrayWinner) {
+      document.documentElement.style.setProperty('--winnerGray', GrayWinner);
+    }
+    
 
 
     /* jshint esversion: 8 */
@@ -500,6 +525,7 @@ useTeamColors: Use this if wanting to use team colors on the outer border of map
         return '#ffffff';
       }
     }
+
 
     async function interval() {
       let useTeamColors = 0;
@@ -558,6 +584,7 @@ useTeamColors: Use this if wanting to use team colors on the outer border of map
       $('span.tertiary').css("border-color", (colortheme3txt));
 
       const processMapData = async (mapJson) => {
+
         let theincomplete = 0;
         let totalmap = 0;
         // console.log(mapJson);
@@ -582,8 +609,16 @@ useTeamColors: Use this if wanting to use team colors on the outer border of map
       };
 
       const updateMapTypeDetails = async (i, totalmap) => {
-        let mapgametypetxt = mapJson.mapData[i].selectedMode || 'TBA';
+        // Get total maps from fullJson
+        const maxMaps = fullJson.maps.totalMaps;
 
+        // If current map index is beyond total maps limit, hide it
+        if (i > maxMaps) {
+          $(`.mapwrap${i }, .mapinfo${i }`).css("display", "none");
+          return;
+        }
+
+        let mapgametypetxt = mapJson.mapData[i].selectedMode || 'TBA';
         let check = mapgametypetxt.replace(/\n|\r/gi, "");
         let node4 = $(`.mapinfo${i + 1} .maptype`);
         let node5 = $(`.mapwrap${i + 1}, .mapinfo${i + 1}`);
@@ -606,15 +641,10 @@ useTeamColors: Use this if wanting to use team colors on the outer border of map
         // let img = `/configs/${fullJson.currentGame}/images/maps/${reptext.replace(/:/g, "-").replace("TBA", `mapModes/${mapData.mapType}`).replace(/ /g, "_")}.png`;
         // let img = mapData?.mapImage || 'http://localhost:8080/files/gameConfigs/Overwatch/images/maps/TBA.png';
 
-        console.log('Maps image:', mapData);
 
         let modeImage = mapData?.modeImage
-        console.log('Mode Image:', modeImage);
-
         let img = mapData?.mapImage || mapData?.modeImage || `http://localhost:8080/files/gameConfigs/${fullJson.currentGame}/images/maps/TBA.png`;
 
-
-        // console.log(img);
         let video = `assets/maps/video/${reptext.replace("\u00fa", "u").replace("\u00f6", "o").replace(":", "").replace("TBA", "blank")}.mp4`;
 
         let node1 = $(`.mapbg${i + 1} img`);
@@ -657,14 +687,8 @@ useTeamColors: Use this if wanting to use team colors on the outer border of map
       };
 
       const updateCompletedMap = async (i, mapBg, mapScore, mapwintxt, mt1scoretxt, mt2scoretxt) => {
-        mapBg.find('img').css({ "filter": "greyscale(100%)", "opacity": "0.5", "mix-blend-mode": "Luminosity" });
-
-        // let data = await fetch(`../scoreboard/match1/m${i + 1}mapwin.png`);
-        // data = await data.arrayBuffer();
-        // let str = String.fromCharCode.apply(null, new Uint8Array(data));
-        // document.querySelector(`.mapbg${i + 1} .mapscore .logo`).style.backgroundImage = `url(data:image/jpeg;base64,${btoa(str)})`;
-        // document.querySelector(`.mapbg${i + 1} .mapscore .logo`).style.backgroundImage =  `url("${themeLogos.BGG_L2.value}")`;
-        // document.querySelector(`.mapbg${i + 1} .mapscore .logo`).style.backgroundImage =  `url("https://www.pstcc.edu/media/pstccedu/site-assets/images/PSCC-LOGO-FC-WEB.png")`;
+        // Add 'winner' class instead of directly setting styles
+        mapBg.addClass('winner');
 
         if (mapwintxt === t1nametxt) {
           updateWinnerDisplay(mapBg, mapScore, t1colortxt, t1colorspan, t1colorshade, mt1scoretxt, mt2scoretxt, teamsData.team1.teamLogoUrl);
@@ -742,14 +766,19 @@ useTeamColors: Use this if wanting to use team colors on the outer border of map
 
 
 
-      //$('.scoreboard span').text("First to " + (Math.floor(totalmap / 2) + 1));
+      // $('.scoreboard span').text("First to " + (Math.floor(totalMaps / 2) + 1));
       $('.scoreboard span').text("Map Set");
       //End the entire function
 
       console.log("Refreshing...")
     }
 
+
+
     console.log("Page Loaded, Interval has been set to " + loopInterval + "ms");
+
+
+
     //Set the refresh rate in milliseconds
     $(() => {
       interval();
