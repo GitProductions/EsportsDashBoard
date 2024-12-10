@@ -12,7 +12,10 @@ useTeamColors: Use this if wanting to use team colors on the outer border of map
 - Example: <the-url>?useTeamColors=1 would use team colors
 
 BlurWinner: Set this to blur out the map image
+- Example: <the-url>?BlurWinner=5 would blur the map image by 5px
+
 GrayWinner: Set this to grayscale the map image
+- Example: <the-url>?GrayWinner=50 would grayscale the map image by 50%
 
 -->
 
@@ -472,13 +475,16 @@ GrayWinner: Set this to grayscale the map image
     const loopInterval = urlParams.get('loopInterval') || 3000;
     const BlurWinner = urlParams.get('blurwinner');
     const GrayWinner = urlParams.get('graywinner');
+    const useTeamColors = urlParams.get('useTeamColors');
+
+    
 
     if (BlurWinner) {
-      document.documentElement.style.setProperty('--winnerBlur', BlurWinner);
+      document.documentElement.style.setProperty('--winnerBlur', BlurWinner+'px');
     }
 
     if (GrayWinner) {
-      document.documentElement.style.setProperty('--winnerGray', GrayWinner);
+      document.documentElement.style.setProperty('--winnerGray', GrayWinner+'%');
     }
     
 
@@ -658,6 +664,7 @@ GrayWinner: Set this to grayscale the map image
 
       const determineWinner = (mapData) => {
         if (mapData.completed) {
+          console.log("Map is completed..", mapData.selectedMap)
           if (mapData.team1Score > mapData.team2Score) return t1nametxt;
           if (mapData.team1Score < mapData.team2Score) return t2nametxt;
           return "DRAW";
@@ -731,7 +738,7 @@ GrayWinner: Set this to grayscale the map image
           mapScore.find('.score').html(`${mt1scoretxt}-${mt2scoretxt}`);
         }
 
-        document.querySelector(`.mapbg${i + 1} .mapscore .logo`).style.backgroundImage = "url(data:image/jpeg;base64,)";
+        // document.querySelector(`.mapbg${i + 1} .mapscore .logo`).style.backgroundImage = "url(data:image/jpeg;base64,)";
       };
 
 
