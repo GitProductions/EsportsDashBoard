@@ -22,7 +22,7 @@ jobs:
       # Find, zip, and rename folders
       - name: Zip and place .bgg files in proper folders
         run: |
-          for folder in "Game Configs_TEST/Assets"/*; do
+          for folder in "Game Configs/Assets"/*; do
             if [ -d "$folder" ]; then
               folder_name=$(basename "$folder")
               zip -r "Game Configs_TEST/${folder_name}/${folder_name}.zip" "$folder"
