@@ -1,7 +1,7 @@
 <config>
   <game>Valorant</game>
-  <version>1.0</version>
-  <author>Gitago</author>
+  <version>1.2</version>
+  <author>EsportsDash</author>
 
   <maps>
     <map name="Bind" file="Bind" />

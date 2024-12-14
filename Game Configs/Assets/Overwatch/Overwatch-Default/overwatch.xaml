@@ -29,8 +29,8 @@ Example:
 
 <config>
   <game> Overwatch </game>
-  <version> 1.1 </version>
-  <author> Gitago </author>
+  <version> 1.2 </version>
+  <author> EsportsDash </author>
 
   <maps>
     <map name="Antartic Peninsula" file="Antartic_Peninsula" />
