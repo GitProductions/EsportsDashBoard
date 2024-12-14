@@ -1,0 +1,61 @@
+<config>
+  <game>Valorant</game>
+  <version>1.0</version>
+  <author>Gitago</author>
+
+  <maps>
+    <map name="Bind" file="Bind" />
+    <map name="Breeze" file="Breeze" />
+    <map name="Fracture" file="Fracture" />
+    <map name="Haven" file="Haven" />
+    <map name="Pearl" file="Pearl" />
+    <map name="Split" file="Split" />
+    <map name="Sunset" file="Sunset" />
+    <map name="Icebox" file="Icebox" />
+    <map name="Ascent" file="Ascent" />
+  </maps>
+
+  <modes>
+    <mode name="Standard" file="valorant" />
+    <mode name="Spike Rush" file="valorant2" />
+  </modes>
+
+  <roles>
+    <role name="Sentinel" file="Sentinel" />
+    <role name="Initiator" file="Initiator" />
+    <role name="Duelist" file="Duelist" />
+    <role name="Controller" file="Controller" />
+  </roles>
+
+  <heroes>
+    <Duelist>
+      <hero name="Neon" file="Neon" />
+      <hero name="Raze" file="Raze" />
+      <hero name="Jett" file="Jett" />
+      <hero name="Phoenix" file="Phoenix" />
+      <hero name="Reyna" file="Reyna" />
+      <hero name="Yoru" file="Yoru" />
+    </Duelist>
+    <Initiator>
+      <hero name="Skye" file="Skye" />
+      <hero name="Breach" file="Breach" />
+      <hero name="Sova" file="Sova" />
+      <hero name="Fade" file="Fade" />
+      <hero name="Kayo" file="Kayo" />
+    </Initiator>
+    <Controller>
+      <hero name="Astra" file="Astra" />
+      <hero name="Brimstone" file="Brimstone" />
+      <hero name="Omen" file="Omen" />
+      <hero name="Viper" file="Viper" />
+      <hero name="Harbor" file="Harbor" />
+      <hero name="Clove" file="Clove" />
+    </Controller>
+    <Sentinel>
+      <hero name="KillJoy" file="KillJoy" />
+      <hero name="Sage" file="Sage" />
+      <hero name="Sypher" file="Sypher" />
+      <hero name="Chamber" file="Chamber" />
+    </Sentinel>
+  </heroes>
+</config>
