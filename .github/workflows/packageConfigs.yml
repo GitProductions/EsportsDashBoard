@@ -36,4 +36,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: bgg-files
-          path: zipped/*.bgg
+          path: secondary_repo_artifacts/*.bgg
