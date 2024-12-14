@@ -1,0 +1,39 @@
+name: Zip and Rename Folders
+
+on:
+  push:
+    branches:
+      - main 
+  workflow_dispatch:
+
+jobs:
+  zip_and_rename:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Ensure required tools are installed
+      - name: Install zip utility
+        run: sudo apt-get install -y zip
+
+      # Find, zip, and rename folders
+      - name: Zip and rename folders
+        run: |
+          mkdir -p zipped # Create directory for zipped files
+          for folder in "Game Configs/Assets"/*; do
+            if [ -d "$folder" ]; then
+              folder_name=$(basename "$folder")
+              zip -r "zipped/${folder_name}.zip" "$folder"
+              mv "zipped/${folder_name}.zip" "zipped/${folder_name}.bgg"
+            fi
+          done
+
+      # Upload the `.bgg` files as artifacts
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: bgg-files
+          path: zipped/*.bgg
