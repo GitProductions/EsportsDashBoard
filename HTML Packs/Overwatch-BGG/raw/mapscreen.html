@@ -649,7 +649,7 @@ GrayWinner: Set this to grayscale the map image
 
 
         let modeImage = mapData?.modeImage
-        let img = mapData?.mapImage || mapData?.modeImage || `http://localhost:8080/files/gameConfigs/${fullJson.currentGame}/images/maps/TBA.png`;
+        let img = mapData?.mapImage || mapData?.modeImage;
 
         let video = `assets/maps/video/${reptext.replace("\u00fa", "u").replace("\u00f6", "o").replace(":", "").replace("TBA", "blank")}.mp4`;
 
@@ -664,7 +664,6 @@ GrayWinner: Set this to grayscale the map image
 
       const determineWinner = (mapData) => {
         if (mapData.completed) {
-          console.log("Map is completed..", mapData.selectedMap)
           if (mapData.team1Score > mapData.team2Score) return t1nametxt;
           if (mapData.team1Score < mapData.team2Score) return t2nametxt;
           return "DRAW";

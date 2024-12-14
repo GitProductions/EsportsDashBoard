@@ -33,7 +33,7 @@
       src: url("fonts/Rajdhani/Rajdhani-Regular.ttf") format('TrueType');
       font-weight: normal;
     }
- 
+
     @-webkit-keyframes leftmove {
 
       0% {
@@ -172,11 +172,25 @@
     }
 
     /* Updated hero positions for grid layout */
-    .hero1 { animation-delay: 1.0s; }
-    .hero2 { animation-delay: 1.2s; }
-    .hero3 { animation-delay: 1.4s; }
-    .hero4 { animation-delay: 1.6s; }
-    .hero5 { animation-delay: 1.8s; }
+    .hero1 {
+      animation-delay: 1.0s;
+    }
+
+    .hero2 {
+      animation-delay: 1.2s;
+    }
+
+    .hero3 {
+      animation-delay: 1.4s;
+    }
+
+    .hero4 {
+      animation-delay: 1.6s;
+    }
+
+    .hero5 {
+      animation-delay: 1.8s;
+    }
 
 
     div.hero1,
@@ -267,6 +281,7 @@
       -webkit-mask-position: center;
       -webkit-mask-size: 60%;
       -webkit-mask-repeat: no-repeat;
+
     }
 
     div.rolecolor {
@@ -349,11 +364,8 @@
     div.bottom div.player div.playertype {
       width: 80px;
       height: 80px;
-      /* background-position: center;
-    background-size: 60%;
-    background-repeat: no-repeat; */
       transform: translate(359px, -103px);
-      /* -webkit-filter: drop-shadow(0 0 3px black); */
+
       animation: roleslide 0.5s;
       animation-fill-mode: backwards;
       animation-delay: 2.5s;
@@ -371,7 +383,7 @@
 
     div.hero {
       clip-path: polygon(0% 0, 100% 0%, 100% 100%, 0% 100%);
-        /* border-style: solid;
+      /* border-style: solid;
       border-width: 0px 0px 0px 7px;
       border-color: #333333 #333333 #333333 #8cba11; */
     }
@@ -383,11 +395,25 @@
       clip-path: polygon(0% 0, 100% 0%, 100% 100%, 0% 100%);
     }
 
-    div.hero1 { transform: translate(239px, 87px) }
-    div.hero2 { transform: translate(743px, 87px) }
-    div.hero3 { transform: translate(1247px, 87px) }
-    div.hero4 { transform: translate(491px, 498px) }
-    div.hero5 { transform: translate(995px, 498px) }
+    div.hero1 {
+      transform: translate(239px, 87px)
+    }
+
+    div.hero2 {
+      transform: translate(743px, 87px)
+    }
+
+    div.hero3 {
+      transform: translate(1247px, 87px)
+    }
+
+    div.hero4 {
+      transform: translate(491px, 498px)
+    }
+
+    div.hero5 {
+      transform: translate(995px, 498px)
+    }
   </style>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script>
@@ -483,17 +509,28 @@
           let t1p1roletxt = teamData.players[i].role;
           let t1p1roleImage = playerImages.roleImage;
 
-          t1p1roleImage = (t1p1roleImage).replace(/\\/gi, "/").replace(/\"/gi, "\\\"").replace(/\n/gi, "").replace(/\r/gi, "")
+          if (t1p1roleImage) {
+            t1p1roleImage = t1p1roleImage.replace(/\\/gi, "/")
+              .replace(/\"/gi, "\\\"")
+              .replace(/\n/gi, "")
+              .replace(/\r/gi, "");
 
-          // Set style attribute directly instead of using css()
-          $("#teamplayer" + (i + 1) + "role div.rolecolor").attr("style",
-            `
+            // Set style attribute directly instead of using css()
+            $("#teamplayer" + (i + 1) + "role div.rolecolor").attr("style",
+              `
               background-image: url('${t1p1roleImage}');
               background-size: 50px 50px;
               background-repeat: no-repeat;
               background-position: center;
-            `
-          );
+            `);
+          } else {
+            // lets hide role for this player if its not available
+            let node = $("#teamplayer" + (i + 1) + "role");
+            node.css("display", "none");
+            console.error("t1p1roleImage is not defined or is null");
+            t1p1roleImage = "";
+          }
+
 
           let node2 = $("#teamplayer" + (i + 1) + "name");
           node2.text(t1p1roletxt);
