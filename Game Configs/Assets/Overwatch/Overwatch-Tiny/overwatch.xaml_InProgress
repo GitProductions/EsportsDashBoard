@@ -1,0 +1,143 @@
+<!-- Overwatch Configuration File
+This file contains configuration data for Overwatch maps, roles, and heroes.
+Follow the instructions below to fill out each section.
+
+Sections:
+- maps: A list of available maps in the game.
+- roles: A list of available roles in the game.
+- heroes: A dictionary of heroes categorized by their primary role(s).
+
+Hero Configuration:
+Each hero entry should include:
+- name: The name of the hero.
+- file: The file-safe name of the hero (no special characters).
+- recommended_roles: A list of roles the hero is recommended for. Use '*' to indicate all roles.
+
+Example:
+<heroes>
+  <Tank>
+    <hero name="D.Va" file="DVa" recommended_ />
+  </Tank>
+  <DPS>
+    <hero name="Ashe" file="Ashe" recommended_ />
+  </DPS>
+  <Support>
+    <hero name="Ana" file="Ana" recommended_ />
+  </Support>
+</heroes>
+-->
+
+<config>
+  <game>Overwatch</game>
+  <version>1.0-tiny </version>
+  <author>EsportsDash</author>
+  <coverPhoto>overwatch.png</coverPhoto>
+
+  <maps>
+    <map name="Antartic Peninsula" file="Antartic_Peninsula" ext='jpg' />
+    <map name="Blizzard World" file="Blizzard_World" ext='jpg' />
+    <map name="Busan" file="Busan" ext='jpg' />
+    <map name="Circuit Royale" file="Circuit_Royale" ext='jpg' />
+    <map name="Colosseo" file="Colosseo" ext='jpg' />
+    <map name="Dorado" file="Dorado" ext='jpg' />
+    <map name="Eichenwalde" file="Eichenwalde" ext='jpg' />
+    <map name="Esperança" file="Esperança" ext='jpg' />
+    <map name="Hanamura" file="Hanamura" ext='jpg' />
+    <map name="Hanaoka" file="Hanaoka" ext='jpg' />
+    <map name="Havana" file="Havana" ext='jpg' />
+    <map name="Hollywood" file="Hollywood" ext='jpg' />
+    <map name="Horizon Lunar Colony" file="Horizon_Lunar_Colony" ext='jpg' />
+    <map name="Ilios" file="Ilios" ext='jpg' />
+    <map name="Junkertown" file="Junkertown" ext='jpg' />
+    <map name="King's Row" file="King's_Row" ext='jpg' />
+    <map name="Lijiang Tower" file="Lijiang_Tower" ext='jpg' />
+    <map name="Midtown" file="Midtown" ext='jpg' />
+    <map name="Nepal" file="Nepal" ext='jpg' />
+    <map name="New Junk City" file="New_Junk_City" ext='jpg' />
+    <map name="Numbani" file="Numbani" ext='jpg' />
+    <map name="Oasis" file="Oasis" ext='jpg' />
+    <map name="Paraíso" file="Paraíso" ext='jpg' />
+    <map name="Paris" file="Paris" ext='jpg' />
+    <map name="Rialto" file="Rialto" ext='jpg' />
+    <map name="Route 66" file="Route_66" ext='jpg' />
+    <map name="Runasapi" file="Runasapi" ext='jpg' />
+    <map name="Samoa" file="Samoa" ext='jpg' />
+    <map name="Shambali" file="Shambali" ext='jpg' />
+    <map name="Suravasa" file="Suravasa" ext='jpg' />
+    <map name="Temple of Anubis" file="Temple_of_Anubis" ext='jpg' />
+    <map name="Throne of Anubis" file="Throne_of_Anubis" ext='jpg' />
+    <map name="Toronto" file="Toronto" ext='jpg' />
+    <map name="Volskaya Industries" file="Volskaya_Industries" ext='jpg' />
+    <map name="Watchpoint Gibraltar" file="Watchpoint-_Gibraltar" ext='jpg' />
+  </maps>
+
+  <modes>
+    <mode name="Assault" file="Assault" />
+    <mode name="Control" file="Control" />
+    <mode name="Escort" file="Escort" />
+    <mode name="Hybrid" file="Hybrid" />
+    <mode name="Clash" file="Clash" />
+    <mode name="CTF" file="CTF" />
+    <mode name="Elimination" file="Elimination" />
+    <mode name="TDM" file="TDM" />
+    <mode name="Deathmatch" file="Deathmatch" />
+    <mode name="Flashpoint" file="Flashpoint" />
+    <mode name="Push" file="Push" />
+    <mode name="Capture" file="Capture" />
+  </modes>
+
+  <roles>
+    <role name="Tank" file="Tank"/>
+    <role name="DPS" file="DPS"/>
+    <role name="Support" file="Support"/>
+    <role name="Flex" file="Flex"/>
+  </roles>
+
+  <heroes>
+    <Tank>
+      <hero name="D.Va" file="D.Va"  />
+      <hero name="Orisa" file="Orisa"  />
+      <hero name="Reinhardt" file="Reinhardt"  />
+      <hero name="Roadhog" file="Roadhog"  />
+      <hero name="Sigma" file="Sigma"  />
+      <hero name="Winston" file="Winston"  />
+      <hero name="Wrecking Ball" file="Wrecking_Ball"  />
+      <hero name="Zarya" file="Zarya"  />
+      <hero name="Mauga" file="Mauga"  />
+    </Tank>
+
+    <DPS>
+      <hero name="Venture" file="Venture"  />
+      <hero name="Ashe" file="Ashe"  />
+      <hero name="Bastion" file="Bastion"  />
+      <hero name="Doomfist" file="Doomfist"  />
+      <hero name="Echo" file="Echo"  />
+      <hero name="Genji" file="Genji"  />
+      <hero name="Hanzo" file="Hanzo"  />
+      <hero name="Junkrat" file="Junkrat"  />
+      <hero name="Cassidy" file="Cassidy"  />
+      <hero name="Mei" file="Mei"  />
+      <hero name="Pharah" file="Pharah"  />
+      <hero name="Reaper" file="Reaper"  />
+      <hero name="Soldier: 76" file="Soldier-_76"  />
+      <hero name="Sombra" file="Sombra"  />
+      <hero name="Symmetra" file="Symmetra"  />
+      <hero name="Torbjörn" file="Torbjörn"  />
+      <hero name="Tracer" file="Tracer"  />
+      <hero name="Widowmaker" file="Widowmaker"  />
+    </DPS>
+
+    <Support>
+      <hero name="Juno" file="Juno"  />
+      <hero name="Illari" file="Illari"  />
+      <hero name="Ana" file="Ana"  />
+      <hero name="Baptiste" file="Baptiste"  />
+      <hero name="Brigitte" file="Brigitte"  />
+      <hero name="Lúcio" file="Lucio"  />
+      <hero name="Mercy" file="Mercy"  />
+      <hero name="Moira" file="Moira"  />
+      <hero name="Zenyatta" file="Zenyatta"  />
+    </Support>
+    
+  </heroes>
+</config>
