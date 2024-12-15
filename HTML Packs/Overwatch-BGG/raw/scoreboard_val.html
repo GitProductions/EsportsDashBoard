@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Valorant Scoreboard - EsportsDash.com</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Russo+One&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Orbitron&display=swap" />
+
+    <style>
+        :root {
+            --baseTop: 74px;
+            --baseHeight: 20px;
+        }
+
+        .scoreboard {
+            display: flex;
+            flex-direction: column;
+            scale: 1.15;
+        }
+
+        .team-logo img {
+            width: 40px;
+            height: 40px;
+            margin: 0 0px;
+            background-color: rgba(247, 247, 247, 0.219);
+        }
+
+        body {
+            background-image: url("valorantSample2.png");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            height: 100vh;
+        }
+
+
+
+        .best-of {
+            position: absolute;
+            top: var(--baseTop);
+            left: 50%;
+            transform: translateX(-50%);
+
+            color: white;
+            background-color: black;
+            width: 160px;
+            height: var(--baseHeight);
+
+            clip-path: polygon(20% 0, 80% 0, 100% 100%, 0 100%);
+
+        }
+
+        .best-of-text {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            width: 100%;
+            font-size: 10px;
+            text-transform: uppercase;
+
+            font-family: 'Russo One', sans-serif;
+        }
+
+        .scoreBox {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            position: absolute;
+            top: calc(var(--baseTop) + 19px);
+            left: 50%;
+            transform: translateX(-50%);
+
+            gap: 10px;
+            width: 125px;
+            height: calc(var(--baseHeight) + 3px);
+            /* background-color: rgb(253, 253, 253); */
+            background:linear-gradient(to bottom, #dbdbdb, #ffffff);
+            color: rgb(3, 3, 3);
+
+            border-bottom: #0ac6ff 2px solid;
+            box-sizing: border-box;
+            font-family: 'Russo One', sans-serif;
+            font-size: 13px;
+            
+        }
+
+        .score-divider {
+            padding: 10px
+        }
+
+        .teams {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+
+            position: absolute;
+            top: calc(var(--baseTop) + 10px);
+            left: 50%;
+            transform: translateX(-50%);
+            gap: 65px;
+            
+        }
+
+        .team {
+            display: flex;
+            align-items: center;
+            height: calc(var(--baseHeight) + 13px);
+
+            width: 170px;
+
+            background-color: #302f2f;
+            color: white;
+
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 500;
+            /* force capitalize */
+            text-transform: uppercase;
+            /* border: 1px solid black; */
+            /* box-sizing: border-box; */
+
+            /* add some shadow inside */
+            box-shadow: inset 0 0 10px 0 rgba(0, 0, 0, 0.5);
+
+        }
+
+        .team.team1 {
+            justify-content: end;
+            clip-path: polygon(0% 0, 80% 0, 100% 100%, 0 100%);
+            background: linear-gradient(to left, #646464, #000000);
+        }
+
+
+        .team.team2 {
+            direction: rtl;
+            justify-content: end;
+            clip-path: polygon(20% 0, 100% 0, 100% 100%, 0 100%);
+            background: linear-gradient(to right, #646464, #000000);
+
+        }
+
+
+
+
+        .team .team-name {
+            display: flex;
+            width: 100%;
+            margin: 5px;
+
+            overflow: hidden;
+            white-space: nowrap;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="scoreboard">
+        <div class="best-of">
+            <div class="best-of-text">BEST OF 3</div>
+        </div>
+
+        <div class="scoreBox">
+            <div class="team1Score">0</div>
+            <div class="score-divider">-</div>
+            <div class="team2Score">0</div>
+        </div>
+
+
+        <div class="teams">
+
+            <div class="team team1">
+                <div class="team-logo">
+                    <img src="./assets/valorant/EMSLEY LANE.png" alt="team1">
+                </div>
+                <div class="team-name">Team 1</div>
+            </div>
+
+            <div class="team team2">
+                <div class="team-logo">
+                    <img src="./assets/valorant/NORTHSIDE.png" alt="team1" width="30px" height="30px">
+                </div>
+                <div class="team-name">Team 2</div>
+            </div>
+
+        </div>
+
+
+    </div>
+    <script>
+        function adjustFontSize() {
+            const teamNames = document.querySelectorAll('.team-name');
+            teamNames.forEach(teamName => {
+                let fontSize = 10; // Starting font size in pixels
+                teamName.style.fontSize = fontSize + 'px';
+                while (teamName.scrollWidth > teamName.clientWidth && fontSize > 10) {
+                    fontSize--;
+                    teamName.style.fontSize = fontSize + 'px';
+                }
+            });
+        }
+
+        window.addEventListener('load', adjustFontSize);
+        window.addEventListener('resize', adjustFontSize);
+
+
+
+        async function fetchScores() {
+            let fullJson = await fetch(`http://localhost:8080/getFullJson`);
+            fullJson = await fullJson.json();
+
+            const team1Score = document.querySelector('.team1Score');
+            const team2Score = document.querySelector('.team2Score');
+            team1Score.textContent = fullJson.teams.team1.teamScore;
+            team2Score.textContent = fullJson.teams.team2.teamScore;
+
+            const team1Logo = document.querySelector('.team1 .team-logo img');
+            const team2Logo = document.querySelector('.team2 .team-logo img');
+            team1Logo.src = `${fullJson.teams.team1.teamLogoUrl}`;
+            team2Logo.src = `${fullJson.teams.team2.teamLogoUrl}`;
+
+            const team1name = document.querySelector('.team1 .team-name');
+            const team2name = document.querySelector('.team2 .team-name');
+            team1name.textContent = fullJson.teams.team1.teamName;
+            team2name.textContent = fullJson.teams.team2.teamName;
+
+            const bestOfText = document.querySelector('.best-of-text');
+            if (fullJson.matchFormat === 'BO') {
+                bestOfText.textContent = `Best of ${fullJson.maps.totalMaps}`;
+            } else {
+                bestOfText.textContent = `First To ${fullJson.maps.totalMaps}`;
+            }
+
+        }
+
+        function startInterval() {
+            fetchScores(); 
+            setInterval(fetchScores, 3000);
+        }
+
+        window.addEventListener('load', startInterval);
+
+    </script>
+</body>
+
+</html>
