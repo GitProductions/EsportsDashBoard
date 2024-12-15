@@ -28,10 +28,10 @@ Example:
 -->
 
 <config>
-  <game> Overwatch </game>
-  <version> 1.2 </version>
-  <author> EsportsDash </author>
-  <coverPhoto> overwatch.png </coverPhoto>
+  <game>Overwatch</game>
+  <version>1.0-tiny </version>
+  <author>EsportsDash</author>
+  <coverPhoto>overwatch.png</coverPhoto>
 
   <maps>
     <map name="Antartic Peninsula" file="Antartic_Peninsula" />
