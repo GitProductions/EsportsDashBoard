@@ -201,7 +201,7 @@
       width: 453px;
       height: 254px;
       left: 0px;
-      top: 100px;
+      top: 120px;
       vertical-align: middle;
       background-position: center;
       background-size: contain;
@@ -281,7 +281,6 @@
       -webkit-mask-position: center;
       -webkit-mask-size: 60%;
       -webkit-mask-repeat: no-repeat;
-
     }
 
     div.rolecolor {
@@ -364,8 +363,11 @@
     div.bottom div.player div.playertype {
       width: 80px;
       height: 80px;
+      /* background-position: center;
+    background-size: 60%;
+    background-repeat: no-repeat; */
       transform: translate(359px, -103px);
-
+      /* -webkit-filter: drop-shadow(0 0 3px black); */
       animation: roleslide 0.5s;
       animation-fill-mode: backwards;
       animation-delay: 2.5s;
@@ -373,12 +375,15 @@
       border-style: solid;
       border-width: 0px 0px 0px 7px;
       border-color: #333333 #333333 #333333 #8cba11;
+      top:20px
     }
 
     div.heroes {
       /* transform: skewX(-15deg); */
       position: relative;
+      /* top:80px; */
       left: -9px;
+      /* animation: fadein 1s; */
     }
 
     div.hero {
@@ -530,7 +535,6 @@
             console.error("t1p1roleImage is not defined or is null");
             t1p1roleImage = "";
           }
-
 
           let node2 = $("#teamplayer" + (i + 1) + "name");
           node2.text(t1p1roletxt);
