@@ -91,10 +91,6 @@
             width: 80px;
         }
 
-
-
-
-
         #exportProgress {
             position: fixed;
             bottom: 20px;
@@ -336,42 +332,11 @@
 
             // Create a canvas to draw the animation
             const canvas = document.createElement('canvas');
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+            canvas.width = window.innerWidth * 2; // Increase resolution
+            canvas.height = window.innerHeight * 2; // Increase resolution
             const ctx = canvas.getContext('2d');
-
-            // Prepare MediaRecorder
-            const stream = canvas.captureStream(30); // 30 FPS
-            const recorder = new MediaRecorder(stream, { mimeType: 'video/webm' });
-            const chunks = [];
-
-            // Handle recorded data
-            recorder.ondataavailable = (event) => {
-                if (event.data.size > 0) {
-                    chunks.push(event.data);
-                }
-            };
-
-            // Handle recording stop
-            recorder.onstop = () => {
-                // Create and download the video
-                const blob = new Blob(chunks, { type: 'video/webm' });
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.style.display = 'none';
-                a.href = url;
-                a.download = 'stinger_animation.webm';
-                document.body.appendChild(a);
-                a.click();
-                
-                // Clean up
-                window.URL.revokeObjectURL(url);
-                exportButton.disabled = false;
-                exportProgress.style.display = 'none';
-            };
-
-            // Start recording
-            recorder.start();
+            ctx.scale(2, 2); // Scale context to match increased resolution
+            ctx.imageSmoothingEnabled = true; // Enable image smoothing
 
             // Function to draw shapes
             function drawFrame() {
@@ -381,7 +346,7 @@
                 // Get all current shapes
                 const shapes = document.querySelectorAll('.shape');
                 
-                shapes.forEach((shape, index) => {
+                shapes.forEach((shape) => {
                     // Get shape properties
                     const computedStyle = window.getComputedStyle(shape);
                     const backgroundColor = computedStyle.backgroundColor;
@@ -397,7 +362,8 @@
                     
                     // Basic translation based on animation progress
                     const translateX = shape.getBoundingClientRect().left;
-                    ctx.translate(translateX, canvas.height / 2);
+                    const translateY = shape.getBoundingClientRect().top;
+                    ctx.translate(translateX, translateY);
 
                     // Draw chevron shape
                     ctx.beginPath();
@@ -416,26 +382,40 @@
                 });
             }
 
-            // Record for 5 seconds
-            const recordingDuration = 5000; // 5 seconds
-            const frameInterval = 1000 / 30; // 30 FPS
-            let elapsedTime = 0;
-
-            function captureFrames() {
-                if (elapsedTime < recordingDuration) {
-                    drawFrame();
-                    elapsedTime += frameInterval;
-                    setTimeout(captureFrames, frameInterval);
-                } else {
-                    recorder.stop();
-                }
+            function startRecording() {
+                const chunks = []; // here we will store our recorded media chunks (Blobs)
+                const stream = canvas.captureStream(); // grab our canvas MediaStream
+                const rec = new MediaRecorder(stream); // init the recorder
+                // every time the recorder has new data, we will store it in our array
+                rec.ondataavailable = e => chunks.push(e.data);
+                // only when the recorder stops, we construct a complete Blob from all the chunks
+                rec.onstop = e => exportVid(new Blob(chunks, {type: 'video/webm'}));
+                
+                rec.start();
+                setTimeout(()=>rec.stop(), 5000); // stop recording in 5s
             }
 
-            // Start capturing frames
-            captureFrames();
+            function exportVid(blob) {
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.style.display = 'none';
+                a.href = url;
+                a.download = 'stinger_animation.webm';
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+                exportButton.disabled = false;
+                exportProgress.style.display = 'none';
+            }
+
+            function anim() {
+                drawFrame();
+                requestAnimationFrame(anim);
+            }
+
+            anim();
+            startRecording();
         }
-
-
 
         document.getElementById('shapeCount').addEventListener('input', updateShapes);
 
