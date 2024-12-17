@@ -96,7 +96,7 @@
             bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(0,0,0,0.7);
+            background: rgba(0, 0, 0, 0.7);
             color: white;
             padding: 10px;
             border-radius: 5px;
@@ -226,31 +226,31 @@
             // Add event listeners after creating elements
             for (let i = 0; i < shapeCount; i++) {
                 document.getElementById(`shapeType${i}`).addEventListener('change', updateShapeStyles);
-                document.getElementById(`speed${i}`).addEventListener('input', function() {
+                document.getElementById(`speed${i}`).addEventListener('input', function () {
                     document.getElementById(`speedInput${i}`).value = this.value;
                     updateShapeStyles();
                 });
-                document.getElementById(`speedInput${i}`).addEventListener('input', function() {
+                document.getElementById(`speedInput${i}`).addEventListener('input', function () {
                     document.getElementById(`speed${i}`).value = this.value;
                     updateShapeStyles();
                 });
 
-                document.getElementById(`delay${i}`).addEventListener('input', function() {
+                document.getElementById(`delay${i}`).addEventListener('input', function () {
                     document.getElementById(`delayInput${i}`).value = this.value;
                     updateShapeStyles();
                 });
-                document.getElementById(`delayInput${i}`).addEventListener('input', function() {
+                document.getElementById(`delayInput${i}`).addEventListener('input', function () {
                     document.getElementById(`delay${i}`).value = this.value;
                     updateShapeStyles();
                 });
 
                 document.getElementById(`color${i}`).addEventListener('input', updateShapeStyles);
 
-                document.getElementById(`opacity${i}`).addEventListener('input', function() {
+                document.getElementById(`opacity${i}`).addEventListener('input', function () {
                     document.getElementById(`opacityInput${i}`).value = this.value;
                     updateShapeStyles();
                 });
-                document.getElementById(`opacityInput${i}`).addEventListener('input', function() {
+                document.getElementById(`opacityInput${i}`).addEventListener('input', function () {
                     document.getElementById(`opacity${i}`).value = this.value;
                     updateShapeStyles();
                 });
@@ -258,18 +258,18 @@
                 document.getElementById(`size${i}`).addEventListener('input', updateShapeStyles);
                 document.getElementById(`image${i}`).addEventListener('change', updateShapeStyles);
 
-                document.getElementById(`imageScale${i}`).addEventListener('input', function() {
+                document.getElementById(`imageScale${i}`).addEventListener('input', function () {
                     document.getElementById(`imageScaleInput${i}`).value = this.value;
                     updateShapeStyles();
                 });
-                document.getElementById(`imageScaleInput${i}`).addEventListener('input', function() {
+                document.getElementById(`imageScaleInput${i}`).addEventListener('input', function () {
                     document.getElementById(`imageScale${i}`).value = this.value;
                     updateShapeStyles();
                 });
 
                 document.getElementById(`imageRepeat${i}`).addEventListener('change', updateShapeStyles);
                 document.getElementById(`shadow${i}`).addEventListener('change', updateShapeStyles);
-                document.getElementById(`gradient${i}`).addEventListener('change', function() {
+                document.getElementById(`gradient${i}`).addEventListener('change', function () {
                     document.getElementById(`gradientColors${i}`).style.display = this.checked ? 'block' : 'none';
                     updateShapeStyles();
                 });
@@ -345,21 +345,21 @@
 
                 // Get all current shapes
                 const shapes = document.querySelectorAll('.shape');
-                
+
                 shapes.forEach((shape) => {
                     // Get shape properties
                     const computedStyle = window.getComputedStyle(shape);
                     const backgroundColor = computedStyle.backgroundColor;
                     const opacity = computedStyle.opacity;
                     const transform = computedStyle.transform;
-                    
+
                     // Set drawing context
                     ctx.globalAlpha = parseFloat(opacity);
                     ctx.fillStyle = backgroundColor;
 
                     // Apply transformation (if any)
                     ctx.save();
-                    
+
                     // Basic translation based on animation progress
                     const translateX = shape.getBoundingClientRect().left;
                     const translateY = shape.getBoundingClientRect().top;
@@ -383,17 +383,44 @@
             }
 
             function startRecording() {
-                const chunks = []; // here we will store our recorded media chunks (Blobs)
-                const stream = canvas.captureStream(); // grab our canvas MediaStream
-                const rec = new MediaRecorder(stream); // init the recorder
-                // every time the recorder has new data, we will store it in our array
-                rec.ondataavailable = e => chunks.push(e.data);
-                // only when the recorder stops, we construct a complete Blob from all the chunks
-                rec.onstop = e => exportVid(new Blob(chunks, {type: 'video/webm'}));
-                
-                rec.start();
-                setTimeout(()=>rec.stop(), 5000); // stop recording in 5s
-            }
+    recordedChunks = [];
+    
+    // Try a higher framerate and more aggressive settings
+    const stream = canvas.captureStream(60); // 60 FPS
+    
+    mediaRecorder = new MediaRecorder(stream, {
+        mimeType: 'video/webm;codecs=vp9', 
+        videoBitsPerSecond: 5000000 // Increased to 5 Mbps
+    });
+
+    mediaRecorder.ondataavailable = (event) => {
+        if (event.data.size > 0) {
+            recordedChunks.push(event.data);
+        }
+    };
+
+    mediaRecorder.onstop = () => {
+        const blob = new Blob(recordedChunks, { type: 'video/webm' });
+        exportVid(blob);
+    };
+
+    mediaRecorder.start(10); // Capture more frequently
+
+    // Alternative recording duration method
+    const recordingDuration = 3000; // 3 seconds
+    const startTime = performance.now();
+
+    function checkRecordingTime() {
+        if (performance.now() - startTime >= recordingDuration) {
+            mediaRecorder.stop();
+            stream.getTracks().forEach(track => track.stop());
+        } else {
+            requestAnimationFrame(checkRecordingTime);
+        }
+    }
+
+    checkRecordingTime();
+}
 
             function exportVid(blob) {
                 const url = URL.createObjectURL(blob);
@@ -419,7 +446,7 @@
 
         document.getElementById('shapeCount').addEventListener('input', updateShapes);
 
-        document.getElementById('toggleAnimation').addEventListener('click', function() {
+        document.getElementById('toggleAnimation').addEventListener('click', function () {
             animationRunning = !animationRunning;
             this.textContent = animationRunning ? 'Stop Animation' : 'Start Animation';
             updateShapeStyles();
