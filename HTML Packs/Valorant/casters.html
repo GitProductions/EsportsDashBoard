@@ -5,22 +5,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Casters</title>
-
-    <!-- importing bebae neus -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap">
     <style>
         :root {
-            --cameraWidth: 500px;
-            --cameraHeight: 450px;
-            --cameraGap: 50px;
+            --casterCount: 2;
 
-            /* --cameraSkew: 0; */
+            --cameraPosition: 14%;
+            --cameraWidth: 600px;
+            --cameraHeight: 450px;
+            --cameraScale: 1;
+            --cameraGap: 60px;
+
+            --gradient1: #b1b1b1;
+            --gradient2: #353535;
 
             --skewedLG: skew(-15deg);
             --unskewedLG: skew(15deg);
 
             --skewedSM: skew(-8deg);
             --unskewedSM: skew(8deg);
+
+            --seriesScorePosition: 75%;
+            --seriesScoreSize: 1.3;
         }
 
         body {
@@ -39,12 +45,20 @@
             display: flex;
             justify-content: center;
             position: absolute;
-            top: 10%;
+            top: var(--cameraPosition);
             left: 50%;
-            transform: translateX(-50%);
-            /* width: 80%; */
+            transform: translateX(-50%) scale(var(--cameraScale));
             gap: var(--cameraGap);
+
+            /* clip-path: polygon(0 0, 100% 0, 96% 18%, 100% 100%, 0 100%, 4% 5%); */
+
+
+
         }
+
+        
+        
+
 
         .caster {
             display: flex;
@@ -64,36 +78,24 @@
             left: -4px;
             width: calc(100% + 8px);
             height: calc(100% + 8px);
-            /* background: linear-gradient(90deg, #b1b1b1, #353535); */
             z-index: -2;
-            /* Ensure the gradient is behind the content and the box-shadow */
-            pointer-events: none;
         }
 
-        .caster.caster1::before{
-            background: linear-gradient(90deg, #b1b1b1, #353535);
-        }
 
-        .caster.caster2::before{
-            background: linear-gradient(90deg, #353535, #b1b1b1);
-        }
 
-        .caster::after {
+        /* .caster::after {
             content: "";
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            /* background-color: #1f1f1f; */
 
-            opacity: 0.5;
             z-index: -1;
-            /* Ensure the gradient is behind the content */
-        }
+        } */
 
         .caster_info {
-            height: 35px;
+            height: 30px;
             display: flex;
             flex-direction: row;
             align-items: center;
@@ -103,26 +105,9 @@
             /* transform: var(--unskewedSM); */
         }
 
-        .caster_name {
-            font-size: 1.1em;
-            font-weight: bold;
-            text-shadow: 2px 2px 2px #000;
-        }
-
         .casters_social {
             font-size: 0.8em;
             font-style: italic;
-        }
-
-        .caster_info {
-            height: 35px;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: space-between;
-            padding: 10px;
-
-            /* transform: skew(15deg); */
         }
 
         .caster_name {
@@ -131,6 +116,8 @@
             font-family: 'Bebas Neue';
             letter-spacing: 1px;
             padding: 5px 0 0 10px;
+            /* font-weight: bold; */
+            text-shadow: 2px 2px 2px #000;
             /* padding: top 5px; */
         }
 
@@ -175,9 +162,10 @@
 
             justify-content: center;
             position: absolute;
-            top: 75%;
+            /* top: 75%; */
+            top: var(--seriesScorePosition);
             left: 50%;
-            transform: translateX(-50%) skew(-15deg);
+            transform: translateX(-50%) skew(-15deg) scale(var(--seriesScoreSize));
             /* width: 80%; */
             /* Adjust as needed */
         }
@@ -188,7 +176,9 @@
             justify-content: center;
             align-items: center;
             box-shadow: 0 0 0 2px #ffffff;
-            padding: 20px;
+            /* padding: 10px; */
+            height: 70px;
+            /* width:50px; */
             background-color: #1f1f1f;
         }
 
@@ -201,8 +191,29 @@
         }
 
         .score-box .team2 .team-name-box {
-            margin-left: auto
+            margin-left: auto;
+            padding-right: 25px;
+
         }
+
+        .score-box .team1 .team-name-box {
+            padding-left: 25px;
+        }
+
+
+        .team-name {
+            font-family: 'Bebas Neue';
+            letter-spacing: 1.5px;
+            font-size: 2.5em;
+            color: #ffffff;
+            text-shadow: 2px 2px 2px #5e5e5e;
+            transform: skew(15deg);
+            text-transform: uppercase;
+
+            /* this is a hack to make sure its proper aligned verticaly withinthe box.... :| fix it later maybe when it matters */
+            padding-top: 5px;
+        }
+
 
         .team-score-box {
             position: absolute;
@@ -211,19 +222,6 @@
             align-items: center;
             width: 100px;
             height: 100px;
-        }
-
-        .team-name {
-            font-family: 'Bebas Neue';
-            letter-spacing: 2px;
-            font-size: 1.8em;
-            /* font-weight: bold; */
-            color: #ffffff;
-            text-shadow: 2px 2px 2px #5e5e5e;
-            transform: skew(15deg);
-            text-transform: uppercase;
-            padding:0;
-            margin:0;
         }
 
         .score-box .team1 .team-score-box,
@@ -239,7 +237,7 @@
         }
 
         .score-box .team2 .team-score-box {
-            left: -110px;
+            left: -105px;
         }
 
         .score-box .team-score {
@@ -304,28 +302,8 @@
 
 <body>
     <div class="container">
-        <div class="caster-container">
-            <div class="caster caster1">
-                <div class="camera_container">
-                    <img src="https://static.wikia.nocookie.net/valorant/images/4/4b/VALORANT_Casters_2021.png/revision/latest/scale-to-width-down/340?cb=20210425194707"
-                        class="caster_image_mask" alt="Caster 1">
-                </div>
-                <div class="caster_info">
-                    <div class="caster_name">CASTER 1</div>
-                    <div class="casters_social">@Caster2Twitter</div>
-                </div>
-            </div>
-
-            <div class="caster caster2">
-                <div class="camera_container">
-                    <img src="https://static.wikia.nocookie.net/valorant/images/4/4b/VALORANT_Casters_2021.png/revision/latest/scale-to-width-down/340?cb=20210425194707"
-                        class="caster_image_mask" alt="Caster 2">
-                </div>
-                <div class="caster_info">
-                    <div class="caster_name">CASTER 2</div>
-                    <div class="casters_social">@Caster2Twitter</div>
-                </div>
-            </div>
+        <div class="caster-container" id="caster-container">
+            <!-- Casters will be dynamically inserted here -->
         </div>
 
 
@@ -373,6 +351,73 @@
 
 
         </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const casterContainer = document.getElementById('caster-container');
+                const casterCount = getComputedStyle(document.documentElement).getPropertyValue('--casterCount').trim();
+                const casterTemplate = (index) => `
+                <div class="caster caster${index}">
+                    <div class="camera_container">
+                        <img src="https://static.wikia.nocookie.net/valorant/images/4/4b/VALORANT_Casters_2021.png/revision/latest/scale-to-width-down/340?cb=20210425194707"
+                            class="caster_image_mask" alt="Caster ${index}">
+                    </div>
+                    <div class="caster_info">
+                        <div class="caster_name">CASTER ${index}</div>
+                        <div class="casters_social">@Caster${index}Twitter</div>
+                    </div>
+                </div>`;
+                for (let i = 1; i <= casterCount; i++) {
+                    casterContainer.insertAdjacentHTML('beforeend', casterTemplate(i));
+                }
+            });
+
+            document.addEventListener('DOMContentLoaded', function () {
+                const root = document.documentElement;
+                const casterCount = parseInt(getComputedStyle(root).getPropertyValue('--casterCount').trim());
+                const casters = document.querySelectorAll('.caster');
+                const gradient1 = getComputedStyle(root).getPropertyValue('--gradient1').trim();
+                const gradient2 = getComputedStyle(root).getPropertyValue('--gradient2').trim();
+                
+                casters.forEach((caster, index) => {
+                    const nthChild = index + 1;
+                    const beforeElement = document.createElement('style');
+                    beforeElement.type = 'text/css';
+
+
+                    if (casterCount === 1) {
+                        beforeElement.innerHTML = `.caster:nth-child(${nthChild})::before { background: linear-gradient(90deg, ${gradient1}, ${gradient2}); }`;
+                    } else if (casterCount === 2) {
+                        if (nthChild % 2 === 0) {
+                            beforeElement.innerHTML = `.caster:nth-child(${nthChild})::before { background: linear-gradient(90deg, ${gradient2}, ${gradient1}); }`;
+                        } else {
+                            beforeElement.innerHTML = `.caster:nth-child(${nthChild})::before { background: linear-gradient(90deg, ${gradient1}, ${gradient2}); }`;
+                        }
+                    } else if (casterCount === 3) {
+                        if (nthChild === 2) {
+                            beforeElement.innerHTML = `.caster:nth-child(${nthChild})::before { background: ${gradient2}; }`;
+                        } else {
+                            beforeElement.innerHTML = `.caster:nth-child(${nthChild})::before { background: linear-gradient(90deg, ${gradient1}, ${gradient2}); }`;
+                        }
+                    } else if (casterCount === 4) {
+                        if (nthChild === 2 || nthChild === 3) {
+                            beforeElement.innerHTML = `.caster:nth-child(${nthChild})::before { background: ${gradient2}; }`;
+                        } else if (nthChild === 4) {
+                            beforeElement.innerHTML = `.caster:nth-child(${nthChild})::before { background: linear-gradient(90deg, ${gradient2}, ${gradient1}); }`;
+                        } else {
+                            beforeElement.innerHTML = `.caster:nth-child(${nthChild})::before { background: linear-gradient(90deg, ${gradient1}, ${gradient2}); }`;
+                        }
+
+                        // lets adjust cameraGap css..
+                        root.style.setProperty('--cameraGap', '25px');
+
+                        // camera width slightly smaller
+                        root.style.setProperty('--cameraWidth', '500px');
+                    }
+
+                    document.head.appendChild(beforeElement);
+                });
+            });
+        </script>
 </body>
 
 </html>
