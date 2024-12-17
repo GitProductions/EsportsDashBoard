@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Stinger Animation</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --chevron-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+        }
+
+        .stinger {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .shape {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            box-shadow: var(--chevron-shadow);
+        }
+
+        .chevron {
+            clip-path: polygon(75% 0%, 100% 50%, 75% 100%, 0% 100%, 25% 50%, 0% 0%);
+        }
+
+        .right-point {
+            clip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%);
+        }
+
+        .parallelogram {
+            clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);
+        }
+
+        @keyframes move {
+            0% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        .settings {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+            border-radius: 5px;
+            z-index: 10;
+            max-height: 90%;
+            overflow-y: auto;
+        }
+
+        .settings label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .settings input {
+            margin-bottom: 10px;
+            width: 100%;
+        }
+
+        .chevron-settings {
+            margin-bottom: 20px;
+        }
+
+        .slider-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .slider-container input[type="number"] {
+            margin-left: 10px;
+            width: 80px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="settings">
+        <label for="chevronCount">Number of Chevrons:</label>
+        <input type="number" id="chevronCount" value="2" min="1">
+
+        <div id="chevronSettingsContainer" class="accordion"></div>
+
+        <button id="toggleAnimation" class="btn btn-primary mt-3">Stop Animation</button>
+        <button id="exportAnimation" class="btn btn-secondary mt-3">Export Animation</button>
+    </div>
+
+    <div class="stinger" id="stinger"></div>
+
+    <script>
+        let animationRunning = true;
+
+        function createChevronSettings(index) {
+            const container = document.createElement('div');
+            container.classList.add('chevron-settings');
+            container.innerHTML = `
+                <div class="card">
+                    <div class="card-header" id="heading${index}">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse${index}" aria-expanded="true" aria-controls="collapse${index}">
+                                Chevron ${index + 1}
+                            </button>
+                        </h2>
+                    </div>
+                    <div id="collapse${index}" class="collapse" aria-labelledby="heading${index}" data-parent="#chevronSettingsContainer">
+                        <div class="card-body">
+                            <label for="shape${index}">Shape:</label>
+                            <select id="shape${index}" class="form-control">
+                                <option value="chevron">Chevron</option>
+                                <option value="right-point">Right Point</option>
+                                <option value="parallelogram">Parallelogram</option>
+                            </select>
+
+                            <label for="speed${index}">Animation Speed (seconds):</label>
+                            <div class="slider-container">
+                                <input type="range" id="speed${index}" value="2" step="0.1" min="0.1" max="10">
+                                <input type="number" id="speedInput${index}" value="2" step="0.1" min="0.1" max="10" class="form-control">
+                            </div>
+
+                            <label for="delay${index}">Animation Delay (seconds):</label>
+                            <div class="slider-container">
+                                <input type="range" id="delay${index}" value="${index * 0.5}" step="0.1" min="0" max="10">
+                                <input type="number" id="delayInput${index}" value="${index * 0.5}" step="0.1" min="0" max="10" class="form-control">
+                            </div>
+
+                            <label for="color${index}">Chevron Color:</label>
+                            <input type="color" id="color${index}" value="#ff0000">
+
+                            <label for="opacity${index}">Opacity:</label>
+                            <div class="slider-container">
+                                <input type="range" id="opacity${index}" value="80" step="1" min="0" max="100">
+                                <input type="number" id="opacityInput${index}" value="80" step="1" min="0" max="100" class="form-control">
+                            </div>
+
+                            <label for="size${index}">Chevron Size (% of screen):</label>
+                            <input type="number" id="size${index}" value="100" min="10" max="100" class="form-control">
+
+                            <label for="image${index}">Chevron Image (optional):</label>
+                            <input type="file" id="image${index}" accept="image/*">
+
+                            <label for="imageScale${index}">Image Scale (%):</label>
+                            <div class="slider-container">
+                                <input type="range" id="imageScale${index}" value="100" min="10" max="200">
+                                <input type="number" id="imageScaleInput${index}" value="100" min="10" max="200" class="form-control">
+                            </div>
+
+                            <label for="imageRepeat${index}">Image Repeat:</label>
+                            <select id="imageRepeat${index}" class="form-control">
+                                <option value="cover">Cover</option>
+                                <option value="repeat">Repeat</option>
+                                <option value="stretch">Stretch</option>
+                            </select>
+
+                            <label for="shadow${index}">Shadow:</label>
+                            <input type="checkbox" id="shadow${index}" checked>
+
+                            <label for="gradient${index}">Gradient:</label>
+                            <input type="checkbox" id="gradient${index}">
+                            <div id="gradientColors${index}" style="display: none;">
+                                <label for="gradientStart${index}">Gradient Start Color:</label>
+                                <input type="color" id="gradientStart${index}" value="#ff0000">
+                                <label for="gradientEnd${index}">Gradient End Color:</label>
+                                <input type="color" id="gradientEnd${index}" value="#0000ff">
+                            </div>
+
+                            <label for="outline${index}">Outline:</label>
+                            <input type="checkbox" id="outline${index}">
+                        </div>
+                    </div>
+                </div>
+            `;
+            return container;
+        }
+
+        function updateChevrons() {
+            const stinger = document.getElementById('stinger');
+            stinger.innerHTML = ''; // Clear existing chevrons
+
+            const chevronCount = parseInt(document.getElementById('chevronCount').value);
+            const chevronSettingsContainer = document.getElementById('chevronSettingsContainer');
+            chevronSettingsContainer.innerHTML = ''; // Clear existing settings
+
+            for (let i = 0; i < chevronCount; i++) {
+                const chevronSettings = createChevronSettings(i);
+                chevronSettingsContainer.appendChild(chevronSettings);
+
+                const chevron = document.createElement('div');
+                chevron.classList.add('shape', 'chevron');
+                stinger.appendChild(chevron);
+            }
+
+            // Add event listeners after creating elements
+            for (let i = 0; i < chevronCount; i++) {
+                document.getElementById(`shape${i}`).addEventListener('change', updateChevronStyles);
+                document.getElementById(`speed${i}`).addEventListener('input', function() {
+                    document.getElementById(`speedInput${i}`).value = this.value;
+                    updateChevronStyles();
+                });
+                document.getElementById(`speedInput${i}`).addEventListener('input', function() {
+                    document.getElementById(`speed${i}`).value = this.value;
+                    updateChevronStyles();
+                });
+
+                document.getElementById(`delay${i}`).addEventListener('input', function() {
+                    document.getElementById(`delayInput${i}`).value = this.value;
+                    updateChevronStyles();
+                });
+                document.getElementById(`delayInput${i}`).addEventListener('input', function() {
+                    document.getElementById(`delay${i}`).value = this.value;
+                    updateChevronStyles();
+                });
+
+                document.getElementById(`color${i}`).addEventListener('input', updateChevronStyles);
+
+                document.getElementById(`opacity${i}`).addEventListener('input', function() {
+                    document.getElementById(`opacityInput${i}`).value = this.value;
+                    updateChevronStyles();
+                });
+                document.getElementById(`opacityInput${i}`).addEventListener('input', function() {
+                    document.getElementById(`opacity${i}`).value = this.value;
+                    updateChevronStyles();
+                });
+
+                document.getElementById(`size${i}`).addEventListener('input', updateChevronStyles);
+                document.getElementById(`image${i}`).addEventListener('change', updateChevronStyles);
+
+                document.getElementById(`imageScale${i}`).addEventListener('input', function() {
+                    document.getElementById(`imageScaleInput${i}`).value = this.value;
+                    updateChevronStyles();
+                });
+                document.getElementById(`imageScaleInput${i}`).addEventListener('input', function() {
+                    document.getElementById(`imageScale${i}`).value = this.value;
+                    updateChevronStyles();
+                });
+
+                document.getElementById(`imageRepeat${i}`).addEventListener('change', updateChevronStyles);
+                document.getElementById(`shadow${i}`).addEventListener('change', updateChevronStyles);
+                document.getElementById(`gradient${i}`).addEventListener('change', function() {
+                    document.getElementById(`gradientColors${i}`).style.display = this.checked ? 'block' : 'none';
+                    updateChevronStyles();
+                });
+                document.getElementById(`gradientStart${i}`).addEventListener('input', updateChevronStyles);
+                document.getElementById(`gradientEnd${i}`).addEventListener('input', updateChevronStyles);
+                document.getElementById(`outline${i}`).addEventListener('change', updateChevronStyles);
+            }
+
+            updateChevronStyles();
+        }
+
+        function updateChevronStyles() {
+            const chevronCount = parseInt(document.getElementById('chevronCount').value);
+
+            for (let i = 0; i < chevronCount; i++) {
+                const shape = document.getElementById(`shape${i}`).value;
+                const speed = document.getElementById(`speed${i}`).value + 's';
+                const delay = document.getElementById(`delay${i}`).value + 's';
+                const color = document.getElementById(`color${i}`).value;
+                const opacity = document.getElementById(`opacity${i}`).value / 100;
+                const size = document.getElementById(`size${i}`).value;
+                const imageInput = document.getElementById(`image${i}`);
+                const imageScale = document.getElementById(`imageScale${i}`).value + '%';
+                const imageRepeat = document.getElementById(`imageRepeat${i}`).value;
+                const shadow = document.getElementById(`shadow${i}`).checked ? 'var(--chevron-shadow)' : 'none';
+                const gradient = document.getElementById(`gradient${i}`).checked ? `linear-gradient(to right, ${document.getElementById(`gradientStart${i}`).value}, ${document.getElementById(`gradientEnd${i}`).value})` : 'none';
+                const outline = document.getElementById(`outline${i}`).checked ? '2px solid black' : 'none';
+                const image = imageInput.files.length > 0 ? URL.createObjectURL(imageInput.files[0]) : null;
+
+                const chevron = document.querySelectorAll('.shape')[i];
+                chevron.className = `shape ${shape}`;
+                chevron.style.backgroundColor = color;
+                chevron.style.opacity = opacity;
+                chevron.style.animation = animationRunning ? `move ${speed} linear ${delay} infinite` : 'none';
+                chevron.style.width = `${size}%`;
+                chevron.style.height = `${size}%`;
+                chevron.style.boxShadow = shadow;
+                chevron.style.border = outline;
+                chevron.style.backgroundImage = gradient;
+
+                if (image) {
+                    chevron.style.backgroundImage = `${gradient}, url(${image})`;
+                    chevron.style.backgroundSize = imageRepeat === 'stretch' ? '100% 100%' : imageScale;
+                    chevron.style.backgroundRepeat = imageRepeat === 'repeat' ? 'repeat' : 'no-repeat';
+                    chevron.style.backgroundPosition = 'center';
+                } else {
+                    chevron.style.backgroundImage = gradient;
+                }
+            }
+        }
+
+        function exportAnimation() {
+            const stinger = document.getElementById('stinger');
+            const stream = stinger.captureStream(30); // 30 FPS
+            const recorder = new MediaRecorder(stream, { mimeType: 'video/webm; codecs=vp9' });
+            const chunks = [];
+
+            recorder.ondataavailable = function(event) {
+                if (event.data.size > 0) {
+                    chunks.push(event.data);
+                }
+            };
+
+            recorder.onstop = function() {
+                const blob = new Blob(chunks, { type: 'video/webm' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.style.display = 'none';
+                a.href = url;
+                a.download = 'animation.webm';
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+            };
+
+            recorder.start();
+            setTimeout(() => recorder.stop(), 5000); // Record for 5 seconds
+        }
+
+        document.getElementById('chevronCount').addEventListener('input', updateChevrons);
+
+        document.getElementById('toggleAnimation').addEventListener('click', function() {
+            animationRunning = !animationRunning;
+            this.textContent = animationRunning ? 'Stop Animation' : 'Start Animation';
+            updateChevronStyles();
+        });
+
+        document.getElementById('exportAnimation').addEventListener('click', exportAnimation);
+
+        // Initial setup
+        updateChevrons();
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
