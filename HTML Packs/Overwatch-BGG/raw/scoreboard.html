@@ -505,7 +505,10 @@ OTHER BRANDED COLORS
       let teamcolor = 1; // Set to 0 for default blue/red team colors, 1 to import from scoreboard
 
       // Determine the Match Format, Best of 5, First to 3 etc - formerly utility9.txt
-      let completeMatchFormat = fullJson.matchFormat + fullJson.maps.mapData.length;
+      // let completeMatchFormat = fullJson.matchFormat + fullJson.maps.mapData.length;
+      let completeMatchFormat = fullJson.matchFormat + fullJson.maps.totalMaps;
+
+      console.log(`match format: ${completeMatchFormat}`);
 
       // console.log(`all maps: ${allmaps}`);
       let gametype = null;
@@ -751,22 +754,22 @@ OTHER BRANDED COLORS
       }
       updateTeams();  // Call the main function to update all teams
 
-      async function setDynamicBackgroundImages() {
-        try {
-          // turns off the left logo because it had no animations by default so likely not intended
+      // async function setDynamicBackgroundImages() {
+      //   try {
+      //     // turns off the left logo because it had no animations by default so likely not intended
 
-          // if (themeLogos.BGG_L1 && themeLogos.BGG_L1.value) {
-          //   document.querySelector(".tournament.image1").style.backgroundImage = `url(/${themeLogos.BGG_L1.value})`;
-          // }
+      //     // if (themeLogos.BGG_L1 && themeLogos.BGG_L1.value) {
+      //     //   document.querySelector(".tournament.image1").style.backgroundImage = `url(/${themeLogos.BGG_L1.value})`;
+      //     // }
 
-          if (themeLogos.BGG_L2 && themeLogos.BGG_L2.value) {
-            document.querySelector(".channel.image2").style.backgroundImage = `url(/${themeLogos.BGG_L2.value})`;
-          }
-        } catch (error) {
-          console.error('Failed to fetch or set background images:', error);
-        }
-      }
-      setDynamicBackgroundImages();
+      //     if (themeLogos.BGG_L2 && themeLogos.BGG_L2.value) {
+      //       document.querySelector(".channel.image2").style.backgroundImage = `url(/${themeLogos.BGG_L2.value})`;
+      //     }
+      //   } catch (error) {
+      //     console.error('Failed to fetch or set background images:', error);
+      //   }
+      // }
+      // setDynamicBackgroundImages();
 
     }
 
