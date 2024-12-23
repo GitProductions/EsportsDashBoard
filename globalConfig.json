@@ -1,0 +1,32 @@
+{
+  "Starter Packs": [
+    {
+      "version": "1.0",
+      "image": "Game Configs/Overwatch/Overwatch.png",
+      "description": "Description of starter pack 1",
+      "fileKey": "BGG_EsportsDash_Starter_v1.bggstarter"
+    },
+    {
+      "version": "1.1",
+      "image": "image2.png",
+      "description": "Description of starter pack 2",
+      "fileKey": "BGG_EsportsDash_Starter_v1.1.bggstarter"
+    }
+  ],
+  "HTML Packs": [
+    {
+      "version": "1.0",
+      "image": "htmlImage1.png",
+      "description": "Description of HTML pack 1",
+      "fileKey": "HTML_Pack_v1.html"
+    }
+  ],
+  "Game Configs": [
+    {
+      "version": "1.0",
+      "image": "gameConfigImage1.png",
+      "description": "Description of game config 1",
+      "fileKey": "Game_Config_v1.json"
+    }
+  ]
+}
