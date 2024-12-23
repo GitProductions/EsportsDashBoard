@@ -11,22 +11,22 @@
   ],
   "HTML Packs": [
     {
-      "name": "Starter Pack 1",
-      "author": "Author 1",
+      "name": "Broadcast GG Overwatch HTML Pack",
+      "author": "Broadcast GG",
       "version": "1.0",
       "image": "htmlImage1.png",
       "description": "Description of HTML pack 1",
-      "fileKey": "HTML_Pack_v1.html"
+      "fileKey": "HTML Packs/HTML_Pack_v1.html"
     }
   ],
   "Game Configs": [
     {
       "name": "Starter Pack 1",
-      "author": "Author 1",
+      "author": "Esports Dash",
       "version": "1.0",
       "image": "gameConfigImage1.png",
       "description": "Description of game config 1",
-      "fileKey": "Game_Config_v1.json"
+      "fileKey": "Game Configs/Game_Config_v1.json"
     }
   ]
 }
