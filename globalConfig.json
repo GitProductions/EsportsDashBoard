@@ -21,12 +21,52 @@
   ],
   "Game Configs": [
     {
-      "name": "Starter Pack 1",
-      "author": "Esports Dash",
-      "version": "1.0",
-      "image": "gameConfigImage1.png",
-      "description": "Description of game config 1",
-      "fileKey": "Game Configs/Game_Config_v1.json"
+      "Overwatch": [
+        {
+          "name": "Overwatch Game Config",
+          "author": "Esports Dash",
+          "version": "1.0",
+          "image": "gameConfigImage1.png",
+          "description": "Description of game config 1",
+          "fileKey": "Game Configs/Overwatch/Overwatch-Game-Config.json"
+        }
+      ]
+    },
+    {
+      "Valorant": [
+        {
+          "name": "Valorant Game Config",
+          "author": "Esports Dash",
+          "version": "1.0",
+          "image": "gameConfigImage2.png",
+          "description": "Description of game config 2",
+          "fileKey": "Game Configs/Valorant/Valorant-Game-Config.json"
+        }
+      ]
+    },
+    {
+      "Deadlock": [
+        {
+          "name": "Deadlock Game Config",
+          "author": "Esports Dash",
+          "version": "1.0",
+          "image": "gameConfigImage3.png",
+          "description": "Description of game config 3",
+          "fileKey": "Game Configs/Deadlock/Deadlock-Game-Config.json"
+        }
+      ]
+    },
+    {
+      "Splatoon": [
+        {
+          "name": "Splatoon Game Config",
+          "author": "Esports Dash",
+          "version": "1.0",
+          "image": "gameConfigImage3.png",
+          "description": "Description of game config 3",
+          "fileKey": "Game Configs/Splatoon/Splatoon-Game-Config.json"
+        }
+      ]
     }
   ]
 }
