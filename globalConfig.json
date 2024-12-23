@@ -3,22 +3,26 @@
     {
       "name": "BGG Overwatch Starter Pack",
       "author": "Esports Dash",
-      "version": "1.1",
+      "version": "1.0",
       "image": "Game Configs/Overwatch/Overwatch.png",
       "description": "Starter Pack includes Game Config, HTML Files & OBS Scene Collection",
       "fileKey": "Starter Packs/BGG_EsportsDash_Starter.bggstarter"
     }
   ],
+
+
   "HTML Packs": [
     {
       "name": "Broadcast GG Overwatch HTML Pack",
       "author": "Broadcast GG",
       "version": "1.0",
-      "image": "htmlImage1.png",
+      "image": "Game Configs/Overwatch/Overwatch.png",
       "description": "Description of HTML pack 1",
       "fileKey": "HTML Packs/Overwatch-BGG/Overwatch-BGG-HTML-PACK.zip"
     }
   ],
+
+
   "Game Configs": [
     {
       "Overwatch": [
@@ -27,11 +31,12 @@
           "author": "Esports Dash",
           "version": "1.0",
           "image": "gameConfigImage1.png",
-          "description": "Description of game config 1",
+          "description": "NOT USING GAME CONFIG SECTION HERE YET....",
           "fileKey": "Game Configs/Overwatch/Overwatch-Game-Config.json"
         }
       ]
     },
+
     {
       "Valorant": [
         {
@@ -44,6 +49,7 @@
         }
       ]
     },
+
     {
       "Deadlock": [
         {
@@ -56,6 +62,7 @@
         }
       ]
     },
+
     {
       "Splatoon": [
         {
@@ -68,5 +75,6 @@
         }
       ]
     }
+
   ]
 }
