@@ -6,7 +6,7 @@
       "version": "1.0",
       "image": "Game Configs/Overwatch/Overwatch.png",
       "description": "Starter Pack includes Game Config, HTML Files & OBS Scene Collection",
-      "fileKey": "BGG_EsportsDash_Starter_v1.bggstarter"
+      "fileKey": "Starter Packs/BGG_EsportsDash_Starter_v1.bggstarter"
     },
     {
       "name": "Starter Pack Test",
@@ -14,7 +14,7 @@
       "version": "1.1",
       "image": "image2.png",
       "description": "Starter Pack includes Game Config, HTML Files & OBS Scene Collection",
-      "fileKey": "BGG_EsportsDash_Starter_v1.1.bggstarter"
+      "fileKey": "Starter Packs/BGG_EsportsDash_Starter_v1.1.bggstarter"
     }
   ],
   "HTML Packs": [
