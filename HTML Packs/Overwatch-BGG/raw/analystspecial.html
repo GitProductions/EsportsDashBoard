@@ -537,7 +537,7 @@
 
 
         // Display or hide the scorebox based on the scores
-        if (team[0].score == 0 && team[1].score == 0) {
+        if (team[0].score == 0 || 0  && team[1].score == 0 || 0) {
           $('.scorebox').css("display", "none");
         } else {
           $('.scorebox').css("display", "block");
@@ -551,11 +551,12 @@
       async function setDynamicBackgroundImages() {
         try {
           // Set the background images dynamically
-          if (themeLogos.BGG_L1 && themeLogos.BGG_L1.value) {
-            document.querySelector(".tournament.image1").style.backgroundImage = `url(/${themeLogos.BGG_L1.value})`;
-          }
+          // if (themeLogos.BGG_L1 && themeLogos.BGG_L1.value) {
+            // document.querySelector(".tournament.image1").style.backgroundImage = `url(/${themeLogos.BGG_L1.value})`;
+          // }
           if (themeLogos.BGG_L2 && themeLogos.BGG_L2.value) {
-            document.querySelector(".channel.image2").style.backgroundImage = `url(/${themeLogos.BGG_L2.value})`;
+            console.log("Setting background image 2: " + themeLogos.BGG_L2.value);
+            document.querySelector(".channel.image2").style.backgroundImage = `url("${themeLogos.BGG_L2.value}")`;
           }
         } catch (error) {
           console.error('Failed to fetch or set background images:', error);
