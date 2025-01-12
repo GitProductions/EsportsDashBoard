@@ -502,10 +502,11 @@ Get Color Data from API for theme colors?
         teamcls.logo = teamData.teamLogoUrl;
         team[teamIndex] = teamcls;
 
-        if (team[teamIndex].logo != "iVBORw0KGgoAAAANSUhEUgAAAHAAAABkCAYAAABep7TGAAAABGdBTUEAALGPC/xhBQAAAEJJREFUeF7twQENAAAAwqD3T+1mDiAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAuBqvZAABFEy6BwAAAABJRU5ErkJggg==") {
-          $('.teamlogo' + (teamIndex + 1)).css("display", "inherit");
-        } else {
+        if (team[teamIndex].logo === blankimage || team[teamIndex].logo === "") {
           $('.teamlogo' + (teamIndex + 1)).css("display", "none");
+        } else {
+          $('.teamlogo' + (teamIndex + 1)).css("display", "inherit");
+
         }
 
         $(".teamlogo" + (teamIndex + 1)).attr("src", team[teamIndex].logo);
