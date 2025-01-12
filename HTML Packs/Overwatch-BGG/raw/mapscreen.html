@@ -334,7 +334,7 @@ GrayWinner: Set this to grayscale the map image
       object-fit: cover;
       border: 0px;
       overflow: visible;
-      opacity: 0.5;
+      /* opacity: 0.5; */
     }
 
     img {
@@ -590,40 +590,30 @@ GrayWinner: Set this to grayscale the map image
       $('span.tertiary').css("border-color", (colortheme3txt));
 
       const processMapData = async (mapJson) => {
+        const maxMaps = fullJson.maps.totalMaps;
 
-        let theincomplete = 0;
-        let totalmap = 0;
-        // console.log(mapJson);
-
-        if (mapJson && mapJson.mapData) {
-          for (let i = 0; i < mapJson.mapData.length; ++i) {
-            await processMap(mapJson, i, theincomplete, totalmap);
+        for (let i = 0; i < 7; ++i) {
+          if (i >= maxMaps) {
+            $(`.mapwrap${i + 1}, .mapinfo${i + 1}`).css("display", "none");
+          } else {
+            await processMap(mapJson, i);
           }
         }
       };
 
-      const processMap = async (mapJson, i, theincomplete, totalmap) => {
+      const processMap = async (mapJson, i) => {
         const mapData = mapJson.mapData[i];
         // console.log(`Processing map ${i + 1}...`);
 
-        await updateMapTypeDetails(i, totalmap);
+        await updateMapTypeDetails(i);
         // console.log(`updating map ${i + 1}...`);
         updateMapNameDetails(mapData, i);
         const mapwintxt = determineWinner(mapData);
         updateTeamName(i, mapwintxt);
-        await updateMapDisplay(i, mapData, mapwintxt, theincomplete);
+        await updateMapDisplay(i, mapData, mapwintxt);
       };
 
-      const updateMapTypeDetails = async (i, totalmap) => {
-        // Get total maps from fullJson
-        const maxMaps = fullJson.maps.totalMaps;
-
-        // If current map index is beyond total maps limit, hide it
-        if (i > maxMaps) {
-          $(`.mapwrap${i }, .mapinfo${i }`).css("display", "none");
-          return;
-        }
-
+      const updateMapTypeDetails = async (i) => {
         let mapgametypetxt = mapJson.mapData[i].selectedMode || 'TBA';
         let check = mapgametypetxt.replace(/\n|\r/gi, "");
         let node4 = $(`.mapinfo${i + 1} .maptype`);
@@ -631,7 +621,6 @@ GrayWinner: Set this to grayscale the map image
 
         if (check !== "") {
           node5.css("display", "block");
-          totalmap++;
         } else {
           node5.css("display", "none");
         }
@@ -677,7 +666,7 @@ GrayWinner: Set this to grayscale the map image
         $(`.mapbg${i + 1} .mapscore .teamname`).html(teamformatted);
       };
 
-      const updateMapDisplay = async (i, mapData, mapwintxt, theincomplete) => {
+      const updateMapDisplay = async (i, mapData, mapwintxt) => {
         const mapBg = $(`.mapbg${i + 1}`);
         const mapScore = mapBg.find('.mapscore');
         const mt1scoretxt = String(mapData.team1Score);
@@ -685,10 +674,8 @@ GrayWinner: Set this to grayscale the map image
 
         if (mapwintxt !== "") {
           await updateCompletedMap(i, mapBg, mapScore, mapwintxt, mt1scoretxt, mt2scoretxt);
-        } else if (theincomplete > 0) {
-          updateIncompleteMap(i, mapBg, mapScore);
         } else {
-          updateFirstIncompleteMap(i, mapBg, mapScore, mt1scoretxt, mt2scoretxt);
+          updateIncompleteMap(i, mapBg, mapScore);
         }
       };
 
@@ -707,6 +694,7 @@ GrayWinner: Set this to grayscale the map image
 
       const updateWinnerDisplay = (mapBg, mapScore, color, colorspan, colorshade, winnerScore, loserScore, logoUrl) => {
         mapBg.css("background-color", color);
+        // mapBg.css("filter", "blur(2px)",)
         mapScore.find('.score').html(`<b>${winnerScore}</b>-${loserScore}`);
         mapScore.find('span').css({ "color": colorspan, "text-shadow": `0px 0px 10px ${colorshade}` });
         mapScore.find('.logo').css("background-image", `url("${logoUrl}")`);
@@ -719,27 +707,12 @@ GrayWinner: Set this to grayscale the map image
       };
 
       const updateIncompleteMap = (i, mapBg, mapScore) => {
-        mapBg.find('img').css({ "filter": "greyscale(0%)", "opacity": "0.33", "mix-blend-mode": "normal" });
+        mapBg.find('img').css({ "filter": "greyscale(0%)",  "mix-blend-mode": "normal" });
         mapBg.css("background-color", colortheme1txt);
         mapScore.find('.score').html("");
         mapScore.find('span').css({ "color": "white", "text-shadow": "0px 0px 10px black" });
         document.querySelector(`.mapbg${i + 1} .mapscore .logo`).style.backgroundImage = "url(data:image/jpeg;base64,)";
       };
-
-      const updateFirstIncompleteMap = (i, mapBg, mapScore, mt1scoretxt, mt2scoretxt) => {
-        mapBg.find('img').css({ "filter": "greyscale(0%)", "opacity": "1", "mix-blend-mode": "normal" });
-        mapBg.css("background-color", colortheme1txt);
-        mapScore.find('span').css({ "color": "white", "text-shadow": "0px 0px 10px black" });
-
-        if (mt1scoretxt === "0" && mt2scoretxt === "0") {
-          mapScore.find('.score').html("");
-        } else {
-          mapScore.find('.score').html(`${mt1scoretxt}-${mt2scoretxt}`);
-        }
-
-        // document.querySelector(`.mapbg${i + 1} .mapscore .logo`).style.backgroundImage = "url(data:image/jpeg;base64,)";
-      };
-
 
       processMapData(mapJson);
 
