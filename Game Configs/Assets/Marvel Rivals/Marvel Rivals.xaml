@@ -1,0 +1,73 @@
+<config>
+  <game>Marvel Rivals</game>
+  <version>1.0</version>
+  <author>EsportsDash</author>
+  <gamelogo>Official_Logo_29</gamelogo>
+
+  <maps>
+    <map name="Spider Islands" file="Spider-Islands" />
+    <map name="Yggdrasill Path" file="Yggdrasill_Path" />
+    <map name="Birnin t challa" file="Birnin-t-challa" />
+    <map name="Royal Palace" file="Royal_Palace" />
+    <map name="Hells Heaven" file="Hells_Heaven" />
+    <map name="Shin Shibuya" file="Shin-Shibuya" />
+    <map name="Symbiotic Surface" file="Symbiotic_Surface" />
+    <map name="Djalia Hall" file="Djalia_Hall" />
+  </maps>
+
+  <modes>
+    <mode name="Domination" file="Official_Logo_29" />
+    <mode name="Convoy" file="Official_Logo_29" />
+    <mode name="Convergence" file="Official_Logo_29" />
+  </modes>
+
+  <roles>
+    <role name="Strategist" file="Strategist_Icon" />
+    <role name="Duelist" file="Duelist_Icon" />
+    <role name="Vanguard" file="Vanguard_Icon" />
+  </roles>
+
+  <heroes>
+    <Vanguard>
+      <hero name="Venom" file="Venom_Hero_Portrait" />
+      <hero name="Thor Hero" file="Thor_Hero_Portrait" />
+      <hero name="Peni Parker" file="Peni_Parker_Hero_Portrait" />
+      <hero name="Magneto" file="Magneto_Hero_Portrait" />
+      <hero name="Hulk" file="Hulk_Hero_Portrait" />
+      <hero name="Groot" file="Groot_Hero_Portrait" />
+      <hero name="Doctor Strange" file="Doctor_Strange_Hero_Portrait" />
+      <hero name="Captain America" file="Captain_America_Hero_Portrait" />
+    </Vanguard>
+    <Duelist>
+      <hero name="Mr.Fantastic" file="Mr.Fantastic_Hero_Portrait" />
+      <hero name="Wolverine" file="Wolverine_hero_portrait" />
+      <hero name="Winter Soldier" file="Winter_Soldier_Hero_Portrait" />
+      <hero name="The Punisher" file="The_Punisher_Hero_Portrait" />
+      <hero name="Storm" file="Storm_Hero_Portrait" />
+      <hero name="Star Lord" file="Star-Lord_Hero_Portrait" />
+      <hero name="Squirrel Girl" file="Squirrel_Girl_Hero_Portrait" />
+      <hero name="Spider Man" file="Spider-Man_Hero_Portrait" />
+      <hero name="Scarlet Witch" file="Scarlet_Witch_Hero_Portrait" />
+      <hero name="Psylocke" file="Psylocke_Hero_Portrait" />
+      <hero name="Namor" file="Namor_Hero_Portrait" />
+      <hero name="Moon Knight" file="Moon_Knight_Hero_Portrait" />
+      <hero name="Magik" file="Magik_Hero_Portrait" />
+      <hero name="Iron Man" file="Iron_Man_Hero_Portrait" />
+      <hero name="Iron Fist" file="Iron_Fist_Hero_Portrait" />
+      <hero name="Hela" file="Hela_Hero_Portrait" />
+      <hero name="Hawkeye" file="Hawkeye_Hero_Portrait" />
+      <hero name="Black Widow" file="Black_Widow_Hero_Portrait" />
+      <hero name="Black Panther" file="Black_Panther_Hero_Portrait" />
+    </Duelist>
+    <Strategist>
+      <hero name="InvisibleWoman" file="InvisibleWoman_Hero_Portrait" />
+      <hero name="Rocket Raccoon" file="Rocket_Raccoon_Hero_Portrait" />
+      <hero name="Mantis" file="Mantis_Hero_Portrait" />
+      <hero name="Luna Snow" file="Luna_Snow_Hero_Portrait" />
+      <hero name="Loki" file="Loki_Hero_Portrait" />
+      <hero name="Jeff the Land Shark" file="Jeff_the_Land_Shark_Hero_Portrait" />
+      <hero name="Cloak & Dagger" file="Cloak_%26_Dagger_Hero_Portrait" />
+      <hero name="Adam Warlock" file="Adam_Warlock_Hero_Portrait" />
+    </Strategist>
+  </heroes>
+</config>
