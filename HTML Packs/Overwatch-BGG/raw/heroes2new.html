@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+<!-- This is the new heroes1 and heroes2.html 
+ as it is slimmer and allows for any amount of players -->
 
 <head>
   <style>
@@ -267,7 +269,7 @@
       let previousTeamData = null;
 
       async function updateDisplay() {
-        let team = 1;
+        let team = 2;
         let teamJson = await fetch(`http://localhost:8080/getValue?path=teams.team${team}`);
         let teamData = await teamJson.json();
 
