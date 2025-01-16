@@ -13,7 +13,6 @@
 
 <head>
   <style>
-    
     div.left {
       background-color:
         /* #27AAE1 */
@@ -608,10 +607,9 @@ OTHER BRANDED COLORS
       // Function to update team logo
       async function updateTeamLogo(teamIndex) {
         try {
-          // let teamLogoURL = fullJson.teams[`team${teamIndex + 1}`].teamLogoURL;
           let teamLogoURL = teamsData[`team${teamIndex + 1}`].teamLogoUrl;
-          console.log(teamsData[`team${teamIndex + 1}`]);
           if (teamLogoURL) {
+            teamLogoURL = encodeURIComponent(teamLogoURL).replace(/%2F/g, '/').replace(/%3A/g, ':');
             document.querySelector(`.team${teamIndex + 1} .logo`).style.backgroundImage = `url(${teamLogoURL})`;
             if (teamIndex == 0) {
               $('div.left span.teamname').css("right", "200px");
@@ -628,7 +626,9 @@ OTHER BRANDED COLORS
             $(`.team${teamIndex + 1} .logoshade`).css("display", "none");
 
           } else {
-            document.querySelector(`.team${teamIndex + 1} .logo`).style.backgroundImage = `url(data:image/jpeg;base64,)`;
+            console.error(`Logo element for team${teamIndex + 1} not found`);
+
+            // document.querySelector(`.team${teamIndex + 1} .logo`).style.backgroundImage = `url(data:image/jpeg;base64,)`;
             if (teamIndex == 0) {
               $('div.left span.teamname').css("right", "80px");
               $('div.left span.teamsr').css("right", "90px");
@@ -791,6 +791,8 @@ OTHER BRANDED COLORS
   <div class="left team1" id="team1color">
     <span class="logoshade" id="team1logoshade"></span>
     <span class="logo" id="team1logo"></span>
+    <img class="logo" id="team1logo"></img>
+
     <span class="teamsr" id="team1sr"></span>
     <span class="teamname" id="team1name"></span>
     <span class="score" id="team1score"></span>
