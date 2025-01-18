@@ -72,61 +72,31 @@ OTHER BRANDED COLORS
       -webkit-animation-timing-function: ease-out;
     }
 
-    div.left {
-      animation: leftmove 0.75s;
-      animation-fill-mode: backwards;
-      animation-delay: 1s;
-      text-align: right;
-    }
 
-    #team1side span {
-      animation: leftmove 1.5s;
-      animation-fill-mode: backwards;
-      animation-delay: 1s;
-    }
-
-    div.right {
-      animation: rightmove 0.75s;
-      animation-fill-mode: backwards;
-      animation-delay: 1s;
-    }
-
-    #team2side span {
-      animation: rightmove 1.5s;
-      animation-fill-mode: backwards;
-      animation-delay: 1s;
-    }
-
-    div.center {
-      animation: topmove 1s;
-      animation-fill-mode: backwards;
-      animation-delay: 1s;
-    }
-
-    span.score {
-      animation: fadein 2s;
-      animation-fill-mode: backwards;
-      animation-delay: 1s;
-    }
-
+    #team1side span,
+    #team2side span,
+    div.right,
+    div.left,
+    div.center,
+    span.score,
     span.logo,
-    span.logoshade {
-      animation: fadein 3s;
-      animation-fill-mode: backwards;
-      animation-delay: 1s;
-    }
-
-    span.teamname {
-      animation: fadein 4s;
-      animation-fill-mode: backwards;
-      animation-delay: 1s;
-    }
-
+    span.logoshade,
+    span.teamname,
     span.teamsr {
-      animation: fadein 5s;
-      animation-fill-mode: backwards;
-      animation-delay: 1s;
+        animation-fill-mode: backwards;
+        animation-delay: 1s;
     }
+
+    div.left { animation: leftmove 0.75s}
+    #team1side span { animation: leftmove 1.5s; }
+    div.right { animation: rightmove 0.75s; }
+    #team2side span { animation: rightmove 1.5s; }
+    div.center { animation: topmove 1s; }
+    span.score { animation: fadein 2s; }
+    span.logo { animation: fadein 3s; }
+    span.logoshade { animation: fadein 3s; }
+    span.teamname { animation: fadein 4s; }
+    span.teamsr { animation: fadein 5s; }
 
     @-webkit-keyframes leftmove {
       from {
@@ -186,29 +156,12 @@ OTHER BRANDED COLORS
       }
     }
 
-    @keyframes tagline {
-      0% {
-        clip-path: polygon(0% -100%, 0 -100%, 0% 200%, 0% 200%);
-        transform: translateX(50%)
-          /* skewX(-15deg) */
-        ;
-      }
-
-      100% {
-        clip-path: polygon(0% -100%, 100% -100%, 100% 200%, 0% 200%);
-        transform: translateX(0%)
-          /* skewX(-15deg) */
-        ;
-      }
-    }
 
 
 
     div.left,
     div.right {
-      width: 685px
-        /*694px*/
-      ;
+      width: 685px;
       height: 46px;
       border: 0px solid black;
       vertical-align: middle;
@@ -217,18 +170,12 @@ OTHER BRANDED COLORS
 
     div.center {
       width: 100%;
-      height: auto;
-      border: 0px solid black;
-      vertical-align: middle;
       text-shadow: 0px 0px 7px #000000;
       position: fixed;
       left: 0px;
-      top: 23px;
-      display: flex;
-      flex-direction: row;
+      top: 29px;
       align-items: center;
       justify-content: center;
-      padding-top: 6px;
     }
 
     .center .teamname {
@@ -244,53 +191,12 @@ OTHER BRANDED COLORS
       font-variant-ligatures: none;
       text-transform: uppercase;
       color: white;
-      /* text-shadow: 0px 0px 7px #000000; */
     }
 
     span.logo,
-    span.logoshade {
-      /* -webkit-filter: drop-shadow(0 0 5px white); */
-      position: absolute;
-    }
-
-    div.side {
-      /* -webkit-filter: drop-shadow(0 0 2px black); */
-    }
-
+    span.logoshade,
     div.side span {
       position: absolute;
-
-    }
-
-    span.teamname {
-      font-size: 2em;
-    }
-
-    span.teamsr {
-      font-size: 1.5em;
-      font-family: 'Rajdhani';
-    }
-
-    span.score {
-      font-size: 3em;
-      position: absolute;
-      font-weight: bold;
-      top: 23px;
-    }
-
-    div.left span.teamname {
-      position: relative;
-      right: 200px;
-      top: 3px;
-
-      /* transform: translate(-200px, -50%); */
-    }
-
-    div.left span.teamsr {
-      position: relative;
-      right: 210px;
-      top: 3px;
-      /* transform: translate(-200px, -50%); */
     }
 
     div.center span.teamname {
@@ -302,50 +208,60 @@ OTHER BRANDED COLORS
       font-family: 'Rajdhani';
     }
 
+
+    span.teamname {
+      font-size: 2em;
+    }
+
+    span.teamsr {
+      font-size: 1.5em;
+      font-family: 'Rajdhani';
+    }
+
+    span.score {
+      position: absolute;
+      font-size: 3em;
+      font-weight: bold;
+      top: 23px;
+    }
+
+    div.left span.teamname {
+      position: relative;
+      right: 200px;
+      top: 3px;
+    }
+
+    div.left span.teamsr {
+      position: relative;
+      right: 210px;
+      top: 3px;
+    }
+
+
     div.left span.score {
       width: 65px;
-      text-align: center;
       right: 0px;
       top: 25px;
+      text-align: center;
       transform: translate(-7px, -50%);
     }
 
-    div.right span.teamname {
-      position: relative;
-      left: 200px;
-      top: 3px;
-
-      /* transform: translate(-200px, -50%); */
-    }
-
-
-
-    div.right span.teamsr {
-      position: relative;
-      left: 210px;
-      top: 3px;
-      /* transform: translate(-200px, -50%); */
-    }
 
     div.left {
-      /* background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), rgba(127, 127, 127, 0), rgba(0, 0, 0, 0.3)); */
       position: fixed;
       top: 13px;
       left: -7px;
       border-style: solid;
       border-width: 0px 7px 0px 0px;
       border-color: #27AAE1;
-      /* transform: skewX(-15deg); */
-      /* clip-path: polygon(0% 0%, 100% 0%, 691.14px 100%, 0 100%); */
+      text-align: right;
     }
 
     div.left span.logo {
       width: 80px;
       height: 62px;
       right: 0px;
-      transform: translate(-90px, -50%)
-        /*skewX(15deg)*/
-      ;
+      transform: translate(-90px, -50%);
       background-position: center;
       background-size: contain;
       background-repeat: no-repeat;
@@ -368,22 +284,11 @@ OTHER BRANDED COLORS
       height: 46px;
       right: 0px;
       transform: translate(-80px, -50%)
-        /* background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), rgba(127, 127, 127, 0), rgba(0, 0, 0, 0.3)); */
     }
 
-    div.right span.logo {
-      width: 80px;
-      height: 62px;
-      left: 0px;
-      transform: translate(90px, -50%)
-        /*skewX(-15deg)*/
-      ;
-      background-position: center;
-      background-size: contain;
-      background-repeat: no-repeat;
 
-    }
 
+    /* TEAM 2 */
     #team2side span {
       position: fixed;
       width: 818px;
@@ -396,12 +301,35 @@ OTHER BRANDED COLORS
       -webkit-mask-repeat: no-repeat;
     }
 
+    
+    div.right span.teamname {
+      position: relative;
+      left: 200px;
+      top: 3px;
+    }
+
+    div.right span.teamsr {
+      position: relative;
+      left: 210px;
+      top: 3px;
+    }
+
+    div.right span.logo {
+      width: 80px;
+      height: 62px;
+      left: 0px;
+      transform: translate(90px, -50%);
+      background-position: center;
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+
+
     div.right span.logoshade {
       width: 100px;
       height: 46px;
       left: 0px;
       transform: translate(80px, -50%)
-        /* background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), rgba(127, 127, 127, 0), rgba(0, 0, 0, 0.3)); */
     }
 
     div.right span.score {
@@ -413,57 +341,16 @@ OTHER BRANDED COLORS
     }
 
     div.right {
-      /* background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), rgba(127, 127, 127, 0), rgba(0, 0, 0, 0.3)); */
       position: fixed;
       right: -7px;
       top: 13px;
       border-style: solid;
       border-width: 0px 0px 0px 7px;
       border-color: #C80013;
-      /* transform: skewX(15deg); */
-      /* clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 12.86px 100%); */
     }
 
+    /* END TEAM 2 */
 
-
-    div.tournament {
-      flex: 1 1 100%;
-      height: 80px;
-      background-position: left;
-      background-size: contain;
-      background-repeat: no-repeat;
-    }
-
-    div.tagline {
-      min-width: 375px;
-      animation: tagline .5s;
-      animation-fill-mode: backwards;
-      animation-delay: 2s;
-      /* transform: skewX(-15deg); */
-    }
-
-    span.tertiary {
-      font-size: 1.8em;
-      border-style: solid;
-      font-weight: bold;
-      text-align: center;
-      font-family: 'Rajdhani';
-      padding: 3px 15px 2px 15px;
-      border-width: 0px 6px 0px 6px;
-      background-color: black;
-    }
-
-
-    div.channel {
-      flex: 1 1 100%;
-      height: 80px;
-      background-position: right;
-      background-size: contain;
-      background-repeat: no-repeat;
-      animation: slideleft 1s;
-      animation-fill-mode: backwards;
-      animation-delay: 1s;
-    }
   </style>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script>
@@ -480,7 +367,6 @@ OTHER BRANDED COLORS
       let colortheme3txt = themeColors.BGG_C3.value;
 
       // Set theme colors
-      // $('span.replaytext').css("border-color", (colortheme3txt));
       $('div.side span, div.center span').css("color", (colortheme2txt));
       $('div.side span').css("background-color", (colortheme2txt));
       $('div.center').css("text-shadow", "0px 0px 7px " + (colortheme1txt));
@@ -489,13 +375,8 @@ OTHER BRANDED COLORS
       $('div.left, div.right').css("background-color", (colortheme1txt));
       $('.teamname, .score').css("color", (colortheme2txt));
 
-      //$('div.center').css("background-color", (colortheme1txt).replace(/\n/gi, "").replace(/\r/gi, "") + "7f");
 
       $('div.center span').css("background-color", (colortheme1txt).replace(/\n/gi, "").replace(/\r/gi, ""));
-
-      $('span.tertiary').css("background-color", (colortheme1txt));
-      $('span.tertiary').css("color", (colortheme2txt));
-      $('span.tertiary').css("border-color", (colortheme3txt));
 
 
       // FLAGS - perhaps set via dashboard later??
@@ -504,7 +385,6 @@ OTHER BRANDED COLORS
       let teamcolor = 1; // Set to 0 for default blue/red team colors, 1 to import from scoreboard
 
       // Determine the Match Format, Best of 5, First to 3 etc - formerly utility9.txt
-      // let completeMatchFormat = fullJson.matchFormat + fullJson.maps.mapData.length;
       let completeMatchFormat = fullJson.matchFormat + fullJson.maps.totalMaps;
 
       console.log(`match format: ${completeMatchFormat}`);
@@ -620,7 +500,6 @@ OTHER BRANDED COLORS
               $('div.right span.teamsr').css("left", "210px");
             }
             $(`.team${teamIndex + 1} .logo`).css("display", "inherit");
-            // $(`.team${teamIndex + 1} .logoshade`).css("display", "inherit");
 
             // stopping the awkward background color appearing behind logos
             $(`.team${teamIndex + 1} .logoshade`).css("display", "none");
@@ -628,7 +507,6 @@ OTHER BRANDED COLORS
           } else {
             console.error(`Logo element for team${teamIndex + 1} not found`);
 
-            // document.querySelector(`.team${teamIndex + 1} .logo`).style.backgroundImage = `url(data:image/jpeg;base64,)`;
             if (teamIndex == 0) {
               $('div.left span.teamname').css("right", "80px");
               $('div.left span.teamsr').css("right", "90px");
@@ -753,23 +631,6 @@ OTHER BRANDED COLORS
         }
       }
       updateTeams();  // Call the main function to update all teams
-
-      // async function setDynamicBackgroundImages() {
-      //   try {
-      //     // turns off the left logo because it had no animations by default so likely not intended
-
-      //     // if (themeLogos.BGG_L1 && themeLogos.BGG_L1.value) {
-      //     //   document.querySelector(".tournament.image1").style.backgroundImage = `url(/${themeLogos.BGG_L1.value})`;
-      //     // }
-
-      //     if (themeLogos.BGG_L2 && themeLogos.BGG_L2.value) {
-      //       document.querySelector(".channel.image2").style.backgroundImage = `url(/${themeLogos.BGG_L2.value})`;
-      //     }
-      //   } catch (error) {
-      //     console.error('Failed to fetch or set background images:', error);
-      //   }
-      // }
-      // setDynamicBackgroundImages();
 
     }
 
