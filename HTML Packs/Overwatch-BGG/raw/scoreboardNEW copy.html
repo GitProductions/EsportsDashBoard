@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <style>
+
+    :root {
+      /* set both to 0 deg to unskew things for default overlay or skew to 15 neg/pos for games like marvel */
+      --teamBoxWidth: 685px;
+      --teamBoxHeight: 50px;
+
+      --teamTopPosition: 4px;
+      --leftTeamPosition: -135px;
+      --rightTeamPosition: -135px;
+
+      --middleTopPosition: 17px;
+      --skew-angle-positive: 15deg;
+      --skew-angle-negative: -15deg;
+    }
+
+
+
+    .marvelPositions {
+      --teamBoxWidth: 685px;
+      --teamBoxHeight: 50px;
+
+      /* changes for domination maps  */
+      /* --teamTopPosition: 4px;
+      --leftTeamPosition: -135px;
+      --rightTeamPosition: -135px; */
+
+      --teamTopPosition: 31px;
+      --leftTeamPosition: -202px;
+      --rightTeamPosition: -202px;
+
+      --middleTopPosition: 17px;
+      --skew-angle-positive: 15deg;
+      --skew-angle-negative: -15deg;
+    }
+
+    .overWatchPositions {
+      --teamBoxWidth: 685px;
+      --teamBoxHeight: 46px;
+
+      --teamTopPosition: 13px;
+      --leftTeamPosition: -7px;
+      --rightTeamPosition: -7px;
+      --middleTopPosition: 29px;
+      --skew-angle-positive: 0deg;
+      --skew-angle-negative: 0deg;
+    }
+
+
+    /* havent set up for valorant yet.. */
+    .valorantPositions{
+      --teamBoxWidth: 685px;
+      --teamBoxHeight: 46px;
+
+      --teamTopPosition: 13px;
+      --leftTeamPosition: -7px;
+      --rightTeamPosition: -7px;
+      --middleTopPosition: 29px;
+      --skew-angle-positive: 0deg;
+      --skew-angle-negative: 0deg;
+    }
+    
+
+
+
+    @font-face {
+      font-family: 'Rajdhani';
+      src: url("fonts/Rajdhani/Rajdhani-Bold.ttf") format('TrueType');
+      font-weight: bold;
+    }
+
+    @font-face {
+      font-family: 'Rajdhani';
+      src: url("fonts/Rajdhani/Rajdhani-Regular.ttf") format('TrueType');
+      font-weight: normal;
+    }
+
+
+    div.left { background-color:#000000; }
+
+    div.right { background-color:#000000; }
+
+
+    div {
+      -webkit-animation-timing-function: ease-out;
+    }
+
+    span {
+      -webkit-animation-timing-function: ease-out;
+    }
+
+
+    body {
+      /* dom*/
+      background-image: url('https://file.notion.so/f/f/f39534f6-450f-4a1b-8ac7-5fa9e666a203/8fc5de4e-92e0-4433-9c38-d81adb9e223e/image.png?table=block&id=17dae1e1-9f3e-8058-9fdf-d67d36149338&spaceId=f39534f6-450f-4a1b-8ac7-5fa9e666a203&expirationTimestamp=1737266400000&signature=JFu7gXL-kM6fgCh7aC-ifwYPV2Q4lAZnoyUrUXjFiz8&downloadName=image.png');
+
+      /* non dom */
+      /* background-image: url('https://file.notion.so/f/f/f39534f6-450f-4a1b-8ac7-5fa9e666a203/c1af7a82-681d-41d3-9a76-cbb022843a69/image.png?table=block&id=17bae1e1-9f3e-80c8-af9e-f256de03a699&spaceId=f39534f6-450f-4a1b-8ac7-5fa9e666a203&expirationTimestamp=1737266400000&signature=t3IpjPTFA5-C1eezcQds309QhtfYzV3_ZVG7ZPWZcqg&downloadName=image.png'); */
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+
+
+    #team1side span,
+    #team2side span,
+    div.right,
+    div.left,
+    div.center,
+    span.score,
+    span.logo,
+    span.logoshade,
+    span.teamname,
+    span.teamsr {
+        animation-fill-mode: backwards;
+        animation-delay: 1s;
+    }
+
+    div.left { animation: leftmove 0.75s}
+    #team1side span { animation: leftmove 1.5s; }
+    div.right { animation: rightmove 0.75s; }
+    #team2side span { animation: rightmove 1.5s; }
+    div.center { animation: topmove 1s; }
+    span.score { animation: fadein 2s; }
+    span.logo { animation: fadein 3s; }
+    span.logoshade { animation: fadein 3s; }
+    span.teamname { animation: fadein 4s; }
+    span.teamsr { animation: fadein 5s; }
+
+    @-webkit-keyframes leftmove {
+      from {
+        left: -850px;
+      }
+
+      to {
+        left: var(--leftTeamPosition);
+      }
+    }
+
+    @-webkit-keyframes rightmove {
+      from {
+        right: -850px;
+      }
+
+      to {
+        right: var(--rightTeamPosition);
+      }
+    }
+
+    @keyframes topmove {
+      0% {
+        top: -46px;
+      }
+
+      50% {
+        top: -46px;
+      }
+
+      100% {
+        top: var(--middleTopPosition);
+      }
+    }
+
+    @keyframes fadein {
+      0% {
+        opacity: 0;
+      }
+
+      15% {
+        opacity: 0;
+      }
+
+      100% {
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideleft {
+      0% {
+        transform: translateX(100%);
+      }
+
+      100% {
+        transform: translateX(0px);
+      }
+    }
+
+
+
+
+    div.left,
+    div.right {
+      width: var(--teamBoxWidth);
+      height: var(--teamBoxHeight);
+      /* border: 0px solid black; */
+      vertical-align: middle;
+    }
+
+  body {
+    display: flex;
+    justify-content: center;
+  }
+
+  div.center {
+    position: fixed; 
+    left: 50%;
+    top: var(--middleTopPosition);
+    transform: translateX(-50%);
+    width: 300px;
+    text-shadow: 0px 0px 7px #000000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+    .center .matchtext {
+      display: block;
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    span {
+      margin: 0;
+      top: 50%;
+      font-family: 'Rajdhani';
+      font-variant-ligatures: none;
+      text-transform: uppercase;
+      color: white;
+    }
+
+    span.logo,
+    span.logoshade,
+    div.side span {
+      position: absolute;
+    }
+
+
+    div.center span.matchtext {
+      text-align: center;
+      transform: translate(0%, -50%);
+      font-size: 1.5em;
+      padding-left: 60px;
+      padding-right: 60px;
+      font-family: 'Rajdhani';
+    }
+
+
+    span.teamname {
+      font-size: 2em;
+    }
+
+    span.teamsr {
+      font-size: 1.5em;
+      font-family: 'Rajdhani';
+    }
+
+    span.score {
+      position: absolute;
+      font-size: 3em;
+      font-weight: bold;
+      top: 23px;
+    }
+
+    div.left.team1 span.teamname {
+      position: relative;
+      right: 200px;
+      top: 3px;
+      transform: skew(var(--skew-angle-negative));
+      display: inline-block; 
+    }
+
+    div.left span.teamsr {
+      position: relative;
+      right: 210px;
+      top: 3px;
+    }
+
+
+    div.left span.score {
+      width: 65px;
+      right: 0px;
+      top: 25px;
+      text-align: center;
+      transform: translate(-7px, -50%) skew(var(--skew-angle-negative));
+    }
+
+
+
+    div.left {
+      position: fixed;
+      top: var(--teamTopPosition);
+      left: var(--leftTeamPosition);
+      text-align: right;
+
+      
+      border-style: solid;
+      border-width: 0px 7px 0px 0px;
+      border-color: #27AAE1;
+      transform: skew(var(--skew-angle-positive));
+    }
+
+
+    div.left span.logo {
+      width: 80px;
+      height: 62px;
+      right: 0px;
+      transform: translate(-90px, -50%) skew(var(--skew-angle-negative));
+      background-position: center;
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+
+    #team1side span {
+      position: fixed;
+      width: 818px;
+      height: 36px;
+      top: 30px;
+      left: -7px;
+      transform: translate(-70px, -50%);
+      -webkit-mask-position: right;
+      -webkit-mask-size: contain;
+      -webkit-mask-repeat: no-repeat;
+    }
+
+    div.left span.logoshade {
+      width: 100px;
+      height: 46px;
+      right: 0px;
+      transform: translate(-80px, -50%) skew(var(--skew-angle-negative))
+    }
+
+
+
+    /* TEAM 2 */
+    #team2side span {
+      position: fixed;
+      width: 818px;
+      height: 36px;
+      right: -7px;
+      top: 30px;
+      transform: translate(70px, -50%);
+      -webkit-mask-position: left;
+      -webkit-mask-size: contain;
+      -webkit-mask-repeat: no-repeat;
+    }
+
+    
+    div.right span.teamname {
+      position: relative;
+      left: 200px;
+      top: 3px;
+    }
+
+    div.right span.teamsr {
+      position: relative;
+      left: 210px;
+      top: 3px;
+    }
+
+    div.right span.logo {
+      width: 80px;
+      height: 62px;
+      left: 0px;
+      transform: translate(90px, -50%) skew(var(--skew-angle-positive));
+      background-position: center;
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+
+
+    div.right span.logoshade {
+      width: 100px;
+      height: 46px;
+      left: 0px;
+      transform: translate(80px, -50%) skew(var(--skew-angle-positive))
+    }
+
+    div.right span.score {
+      width: 65px;
+      text-align: center;
+      left: 0px;
+      top: 25px;
+      transform: translate(7px, -50%) skew(var(--skew-angle-positive));
+      ;
+    }
+
+    div.right {
+      position: fixed;
+      /* right: -140px; */
+      right: var(--rightTeamPosition);
+      top:var(--teamTopPosition);
+      /* top: 30px; */
+      border-style: solid;
+      border-width: 0px 0px 0px 7px;
+      border-color: #C80013;
+
+      transform: skew(var(--skew-angle-negative));
+
+    }
+
+
+
+
+    /* END TEAM 2 */
+
+  </style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script>
+    async function interval() {
+      let fullJson = await fetch(`http://localhost:8080/getFullJson`);
+      fullJson = await fullJson.json();
+
+      let inputJson = fullJson.general;
+      let themeColors = inputJson.color;
+      let themeLogos = inputJson.file;
+      let teamsData = fullJson.teams;
+      let colortheme1txt = themeColors.BGG_C1.value
+      let colortheme2txt = themeColors.BGG_C2.value;
+      let colortheme3txt = themeColors.BGG_C3.value;
+
+      // Set theme colors
+      $('div.side span, div.center span').css("color", (colortheme2txt));
+      $('div.side span').css("background-color", (colortheme2txt));
+      $('div.center').css("text-shadow", "0px 0px 7px " + (colortheme1txt));
+      $('div.side').css("-webkit-filter", "drop-shadow(0px 0px 2px " + (colortheme1txt) + ")");
+      // -webkit-filter: drop-shadow(0 0 2px black)
+      $('div.left, div.right').css("background-color", (colortheme1txt));
+      $('.teamname, .score').css("color", (colortheme2txt));
+
+
+      $('div.center span').css("background-color", (colortheme1txt).replace(/\n/gi, "").replace(/\r/gi, ""));
+
+
+      // FLAGS - perhaps set via dashboard later??
+      // Set to 0 for Mutual Info, 1 for "Map # of #". 2 for Mutual info - Map #
+      let mapcounter = 1;
+      let teamcolor = 1; // Set to 0 for default blue/red team colors, 1 to import from scoreboard
+
+      // Determine the Match Format, Best of 5, First to 3 etc - formerly utility9.txt
+      let completeMatchFormat = fullJson.matchFormat + fullJson.maps.totalMaps;
+
+      // console.log(`match format: ${completeMatchFormat}`);
+
+      // console.log(`all maps: ${allmaps}`);
+      let gametype = null;
+      if (completeMatchFormat.match(/bo/gi) != null || completeMatchFormat.match(/best of/gi) != null) {
+        gametype = "bo";
+        completeMatchFormat = completeMatchFormat.replace(/\n/gi, "").replace(/\r/gi, "").replace(/bo/gi, "").replace(/best of/gi, "");
+        completeMatchFormat = parseInt(completeMatchFormat, 10);
+      } else if (completeMatchFormat.match(/ft/gi) != null || completeMatchFormat.match(/first to/gi) != null) {
+        gametype = "ft";
+        completeMatchFormat = completeMatchFormat.replace(/\n/gi, "").replace(/\r/gi, "").replace(/ft/gi, "").replace(/first to/gi, "");
+        completeMatchFormat = parseInt(completeMatchFormat, 10);
+      }
+
+      // CENTER TEXT
+      // Get mutual info text
+      if (mapcounter == 0) {
+        let divisionnumbertxt = fullJson.matchDivision;
+        $('.center .matchtext').text(divisionnumbertxt);
+      }
+      let team1Wins = 0;
+      let team2Wins = 0;
+
+      const determineWinner = (mapData) => {
+        if (mapData.completed) {
+          if (mapData.team1Score > mapData.team2Score) {
+            team1Wins += 1;
+            return fullJson.teams.team1.teamName;
+          }
+          if (mapData.team1Score < mapData.team2Score) {
+            team2Wins += 1;
+            return fullJson.teams.team2.teamName;
+          }
+          return "DRAW";
+        }
+        return "";
+      };
+
+      // Get map count
+      if (mapcounter >= 1) {
+        let totalmap = fullJson.maps.mapData.length;
+        let completedmap = 0;
+        for (let m = 0; m < fullJson.maps.mapData.length; ++m) {
+          let mapData = fullJson.maps.mapData[m];
+          let winner = determineWinner(mapData);
+
+          if (winner !== "") {
+            completedmap += 1;
+          }
+        }
+
+        const isTiebreaker = (team1Wins === team2Wins) && (completedmap === totalmap - 1);
+
+
+        if (mapcounter == 1) {
+          if (completedmap >= totalmap) {
+            $('.center .matchtext').html(`<b>Final</b> Score <br/> ${team1Wins} - ${team2Wins}`);
+          } else {
+            if (isTiebreaker) {
+              $('.center .matchtext').html("<b>Tiebreaker </b>Map");
+            } else {
+              if (gametype == "bo") {
+                $('.center .matchtext').html("Map <b>" + (completedmap + 1) + "</b> of <b>" + (completeMatchFormat) + "</b>");
+              } else if (gametype == "ft") {
+                $('.center .matchtext').html("Map <b>" + (completedmap + 1) + "</b> - First to <b>" + (completeMatchFormat) + "</b>");
+              } else {
+                $('.center .matchtext').html("Map <b>" + (completedmap + 1) + "</b>");
+              }
+            }
+          }
+        }
+
+        if (mapcounter == 2) {
+          let divisionnumbertxt = fullJson.matchDivision;
+          divisionnumbertxt = divisionnumbertxt.replace(/\n/gi, "").replace(/\r/gi, "");
+          if (divisionnumbertxt == "") {
+            if (completedmap >= totalmap) {
+              $('.center .matchtext').html("<b>Final</b> Score");
+            } else {
+              if (isTiebreaker) {
+                $('.center .matchtext').html("<b>Tiebreaker </b>Map");
+              } else {
+                $('.center .matchtext').html("Map <b>" + (completedmap + 1) + "</b> of <b>" + (completeMatchFormat) + "</b>");
+              }
+            }
+          } else {
+            if (isTiebreaker) {
+              $('.center .matchtext').html(`${divisionnumbertxt} - <b>Tiebreaker </b>Map`);
+            } else {
+              $('.center .matchtext').html(`${divisionnumbertxt} - Map <b>${completedmap + 1}</b> of <b>${totalmap}</b>`);
+            }
+          }
+        }
+        console.log(`all maps: ${completeMatchFormat}, completed maps: ${completedmap}`);
+      }
+
+
+      // Function to update team logo
+      async function updateTeamLogo(teamIndex) {
+        try {
+          let teamLogoURL = teamsData[`team${teamIndex + 1}`].teamLogoUrl;
+          if (teamLogoURL) {
+            teamLogoURL = encodeURIComponent(teamLogoURL).replace(/%2F/g, '/').replace(/%3A/g, ':');
+            document.querySelector(`.team${teamIndex + 1} .logo`).style.backgroundImage = `url(${teamLogoURL})`;
+            if (teamIndex == 0) {
+              $('div.left span.teamname').css("right", "200px");
+              $('div.left span.teamsr').css("right", "210px");
+            }
+            if (teamIndex == 1) {
+              $('div.right span.teamname').css("left", "200px");
+              $('div.right span.teamsr').css("left", "210px");
+            }
+            $(`.team${teamIndex + 1} .logo`).css("display", "inherit");
+
+            // stopping the awkward background color appearing behind logos
+            $(`.team${teamIndex + 1} .logoshade`).css("display", "none");
+
+          } else {
+            console.error(`Logo element for team${teamIndex + 1} not found`);
+
+            if (teamIndex == 0) {
+              $('div.left span.teamname').css("right", "80px");
+              $('div.left span.teamsr').css("right", "90px");
+            }
+            if (teamIndex == 1) {
+              $('div.right span.teamname').css("left", "80px");
+              $('div.right span.teamsr').css("left", "90px");
+            }
+            $(`.team${teamIndex + 1} .logo`).css("display", "none");
+            $(`.team${teamIndex + 1} .logoshade`).css("display", "none");
+          }
+        } catch (error) {
+          console.error('Error setting team logo:', error);
+        }
+      }
+
+      // Function to update team name
+      function updateTeamName(teamIndex) {
+        let tnametxt = teamsData[`team${teamIndex + 1}`].teamName;
+        let regex = "";
+        [
+          "gaming", "team", "e-?sports", "house", "academy", "uni(versity)?", "state", "tech", "and", "the", "of", "eu",
+        ].forEach((value) => {
+          regex += "|(" + value + ")";
+        });
+        regex = "\\b(" + regex.substring(1) + ")\\b";
+
+        let teamformatted = "<b>" + tnametxt.replace(
+          new RegExp(regex, "gi"), "</b>$1<b>")
+          .replace(/&/gi, "</b>&<b>") + "</b>";
+        $(`.team${teamIndex + 1} .teamname`).html(teamformatted);
+      }
+
+      // Function to update team color
+      function updateTeamColor(teamIndex) {
+        if (teamcolor == 1) {
+          let tcolortxt = teamsData[`team${teamIndex + 1}`].teamColor;
+          $(`.team${teamIndex + 1}`).css("border-color", tcolortxt);
+          $(`.team${teamIndex + 1} .logoshade`).css("background-color", tcolortxt);
+        }
+      }
+
+      // Function to update team score
+      function updateTeamScore(teamIndex) {
+        let tscoretxt = teamsData[`team${teamIndex + 1}`].teamScore;
+        $(`.team${teamIndex + 1} .score`).text(tscoretxt);
+      }
+
+      async function updateTeamSide(teamIndex) {
+        try {
+          let teamSide;
+
+          // Determine the team side based on teamGroup
+          if (teamIndex === 0) {
+            // Check the teamGroup of Team 1
+            const teamGroup = teamsData[`team${teamIndex + 1}`].teamGroup;
+            if (teamGroup === 'A') {
+              teamSide = 'A';
+            } else if (teamGroup === 'D') {
+              teamSide = 'D';
+            } else {
+              // Neutral or invalid group, no icon to show
+              document.querySelector(`#team${teamIndex + 1}side span`).style.webkitMaskImage = `url(data:image/png;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==)`;
+              document.querySelector(`#team${teamIndex + 2}side span`).style.webkitMaskImage = `url(data:image/png;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==)`;
+              return;
+            }
+          } else if (teamIndex === 1) {
+            // Team 2 is always the opposite of Team 1
+            // So lets compare against Team1's info
+            const team1Group = teamsData['team1'].teamGroup;
+            if (team1Group === 'A') {
+              teamSide = 'D';
+            } else if (team1Group === 'D') {
+              teamSide = 'A';
+            } else {
+              // Neutral or invalid group, no icon to show
+              document.querySelector(`#team${teamIndex + 1}side span`).style.webkitMaskImage = `url(data:image/png;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==)`;
+              return;
+            }
+          } else {
+            // Invalid team index
+            console.error('Invalid team index:', teamIndex);
+            return;
+          }
+
+          let iconPath;
+          if (teamSide === 'A') {
+            iconPath = 'html/assets/icon-offense.png';
+          } else if (teamSide === 'D') {
+            iconPath = 'html/assets/icon-defense.png';
+          } else {
+            // Neutral side, no icon to show
+            document.querySelector(`#team${teamIndex + 1}side span`).style.webkitMaskImage = `url(data:image/png;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==)`;
+            return;
+          }
+
+          // Fetch the icon based on the team side
+          let response = await fetch(iconPath);
+          let data = await response.arrayBuffer();
+          let bytes = new Uint8Array(data);
+          let str = "";
+          for (let b of bytes) {
+            str += String.fromCharCode(b);
+          }
+
+          // Update the mask image with the fetched icon
+          document.querySelector(`#team${teamIndex + 1}side span`).style.webkitMaskImage = `url(data:image/png;base64,${btoa(str)})`;
+        } catch (error) {
+          console.error('Error fetching team side icon:', error);
+        }
+      }
+
+
+      // Main function to update all team data
+      function updateTeams() {
+        for (let i = 0; i < 2; ++i) {
+          updateTeamLogo(i);
+          updateTeamName(i);
+          updateTeamColor(i);
+          updateTeamScore(i);
+          updateTeamSide(i);
+        }
+      }
+      updateTeams();  // Call the main function to update all teams
+
+    }
+
+    $(() => {
+      interval();
+      setInterval(interval, 3000);
+    });
+  </script>
+</head>
+
+<body>
+  <div class="center">
+    <span class="matchtext" id="matchtext"></span>
+  </div>
+
+  <!-- what is team1side and team2side for?? ... spent 20 minutes trying to change bg colors and realized it did nothing -->
+  <div class="side" id="team1side"><span></span></div>
+  <div class="side" id="team2side"><span></span></div>
+
+  <div class="left team1" id="team1color">
+    <span class="teamslash" id="team1slash"></span>
+    <span class="logoshade" id="team1logoshade"></span>
+    <span class="logo" id="team1logo"></span>
+    <img class="logo" id="team1logo"></img>
+
+    <span class="teamsr" id="team1sr"></span>
+    <span class="teamname" id="team1name"></span>
+    <span class="score" id="team1score"></span>
+  </div>
+
+  <div class="right team2" id="team2color">
+    <span class="logoshade" id="team2logoshade"></span>
+    <span class="logo" id="team2logo"></span>
+    <span class="teamname" id="team2name"></span>
+    <span class="teamsr" id="team2sr"></span>
+    <span class="score" id="team2score"></span>
+
+  </div>
+
+
+</body>
+
+</html>
