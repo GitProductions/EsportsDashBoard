@@ -4,6 +4,7 @@
       "name": "BGG Overwatch Starter Pack",
       "author": "Esports Dash",
       "version": "1.1",
+      "game": "Overwatch",
       "image": "Game Configs/Overwatch/Overwatch_StarterPack.webp",
       "description": "Starter Pack includes Game Config, HTML Files & OBS Scene Collection",
       "fileKey": "Starter Packs/BGG_Overwatch_EsportsDash_Starter_v1.1.bggstarter"
@@ -12,6 +13,7 @@
       "name": "BGG Marvel Rivals Starter Pack",
       "author": "Esports Dash",
       "version": "1.0",
+      "game": "Marvel Rivals",
       "image": "Game Configs/Marvel Rivals/Marvel Rivals.webp",
       "description": "Starter Pack includes Game Config, HTML Files & OBS Scene Collection",
       "fileKey": "Starter Packs/MarvelRivals_Starter_v1.0.bggstarter"
