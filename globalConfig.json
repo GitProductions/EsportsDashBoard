@@ -28,7 +28,8 @@
       "name": "Broadcast GG Overwatch HTML Pack",
       "author": "Broadcast GG",
       "version": "1.0",
-      "image": "Game Configs/Overwatch/Overwatch.png",
+      "game": "Overwatch",
+      "image": "Game Configs/Overwatch/Overwatch.webp",
       "description": "Description of HTML pack 1",
       "fileKey": "HTML Packs/Overwatch-BGG/Overwatch-BGG-HTML-PACK.zip"
     }
