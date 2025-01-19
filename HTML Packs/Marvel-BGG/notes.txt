@@ -1,0 +1,2 @@
+these html files are identical to the overwatch ones.. as they are dynamic for the ones that would matter.. 
+later we will 'rebrand' these htmls to just be BGG overlay files which will be flexible with game configs??

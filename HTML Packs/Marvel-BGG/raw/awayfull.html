@@ -1,0 +1,907 @@
+<head>
+  <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+/>
+  <style>
+    :root {
+      /* These values can be 'adjusted/changed inside of OBS custom CSS to force certain things' */
+
+      --useTeamColors: false;
+      /* Not woorking yet.. err.. well not implmenetd in the bracket data yet.. */
+      --winningScore: 10;
+      --useTeamLogos: true;
+      --titleText: "Be Right Back!";
+
+    }
+
+    /*
+    .skew {
+      transform: skewX(-15deg);
+    }
+
+    .askew {
+      transform: skewX(15deg);
+    }
+    */
+
+    /* body {
+      background-color: #646464 !important;
+    } */
+
+    .teamlogo1,
+    .teamlogo2 {
+      display: none
+    }
+
+    @font-face {
+      font-family: 'Rajdhani';
+      src: url("fonts/Rajdhani/Rajdhani-Bold.ttf") format('TrueType');
+      font-weight: bold;
+    }
+
+    @font-face {
+      font-family: 'Rajdhani';
+      src: url("fonts/Rajdhani/Rajdhani-Regular.ttf") format('TrueType');
+      font-weight: normal;
+    }
+
+
+    @font-face {
+      font-family: 'FontAwesome';
+      src: url("fonts/Font Awesome/Font Awesome 5 Brands-Regular-400.otf") format('OpenType');
+    }
+
+    @keyframes headeranimate {
+      0% {
+        transform: translateX(1920px);
+      }
+
+      100% {
+        transform: translateX(0%);
+      }
+    }
+
+    @keyframes headeranimate2 {
+      0% {
+        transform: translateX(-1920px);
+      }
+
+      100% {
+        transform: translateX(0%);
+      }
+    }
+
+    @keyframes teamslideright {
+      0% {
+        clip-path: polygon(100% 0%, 100% 0%, 100% 100%, 100% 100%);
+        transform: translateX(-100%);
+      }
+
+      100% {
+        clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+        transform: translateX(0px);
+      }
+    }
+
+    @keyframes teamslideleft {
+      0% {
+        clip-path: polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%);
+        transform: translateX(100%);
+      }
+
+      100% {
+        clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+        transform: translateX(0px);
+      }
+    }
+
+    @keyframes slideright {
+      0% {
+        transform: translateX(-100%);
+      }
+
+      100% {
+        transform: translateX(0px);
+      }
+    }
+
+    @keyframes slideleft {
+      0% {
+        transform: translateX(100%);
+      }
+
+      100% {
+        transform: translateX(0px);
+      }
+    }
+
+    body {
+      width: 1920px;
+      height: 1080px;
+      margin: 0px auto;
+      overflow: hidden;
+      background-color: rgba(0, 0, 0, 255);
+      font-family: 'Rajdhani';
+    }
+
+    .header {
+      font-family: 'Rajdhani';
+      text-transform: uppercase;
+      position: absolute;
+      right: 0px;
+      top: 0px;
+      padding: 50px;
+      width: 1820px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: right;
+      font-size: 3em;
+    }
+
+    .info {
+      flex: 1 1 100%;
+      animation: headeranimate2 1s;
+      animation-fill-mode: backwards;
+      animation-delay: .5s;
+    }
+
+    .title {
+      flex: 1 1 100%;
+      font-size: 2.5em;
+      font-weight: bold;
+      position: relative;
+      top: -37px;
+      animation: headeranimate 1s;
+      animation-fill-mode: backwards;
+      animation-delay: .7s;
+    }
+
+    .wrapper {
+      position: absolute;
+      left: 0px;
+      top: 200px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      width: 1620px;
+      height: 700px;
+      padding: 0px 150px 0px 150px;
+    }
+
+    .nextwrapper {
+      display: none;
+    }
+
+    .scoreboardwrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+      /* flex: 1 1 100%; */
+      padding: 20px 0px 20px 0px;
+      width: 100%;
+    }
+
+    .matchinfo {
+      font-family: 'Rajdhani';
+      font-weight: bold;
+      text-transform: uppercase;
+      font-size: 2em;
+      padding: 0px 0px 20px 0px;
+      position: relative;
+      top: -10px;
+      /* line-height: ; */
+    }
+
+    .scoreboard {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      width: 100%;
+    }
+
+    .scoreboard .vs {
+      flex: 0 0 0;
+      background-color: #131131;
+      height: 100px;
+      min-width: 150px;
+      max-width: 150px;
+
+      /* animation: fadeIn; 
+      animation-duration: 1s;  */
+    }
+
+    .scoreboard .vs span {
+      font-family: 'Rajdhani';
+      font-weight: bold;
+      text-transform: uppercase;
+      font-size: 5em;
+      position: relative;
+      bottom: 0.02em;
+    }
+
+    .team {
+      flex: 1 1 0;
+      height: 100px;
+
+      background-color: #fdfdfd;
+      color: #131131;
+
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+
+      border-style: solid;
+      border-color: #131131;
+    }
+
+    .team1 {
+      border-width: 0px 0px 0px 6px;
+      animation: teamslideleft 0.5s;
+      animation-delay: 1s;
+      animation-fill-mode: backwards;
+    }
+
+    .team2 {
+      border-width: 0px 6px 0px 0px;
+      animation: teamslideright 0.5s;
+      animation-delay: 1s;
+      animation-fill-mode: backwards;
+    }
+
+    .teamname {
+      flex: 5 1 0;
+      font-family: 'Rajdhani';
+      font-weight: normal;
+      text-transform: uppercase;
+      font-size: 3em;
+      position: relative;
+      bottom: 0.02em;
+    }
+
+    .teamscore {
+      font-family: 'Rajdhani';
+      font-weight: bold;
+      text-transform: uppercase;
+      font-size: 5em;
+      position: relative;
+      bottom: 0.02em;
+    }
+
+    @keyframes scoreReveal {
+      0% {
+        transform: scaleX(0) scaleY(0.5);
+        opacity: 0;
+      }
+
+      50% {
+        transform: scaleX(0.5) scaleY(0.8);
+        opacity: 0.5;
+      }
+
+      100% {
+        transform: scaleX(1) scaleY(1);
+        opacity: 1;
+      }
+    }
+
+    .scorebox {
+      flex: 1 1 0;
+      top: 0px;
+      height: 100px;
+      max-width: 105px;
+      /* animation: scoreReveal 0.3s ease-out; */
+      /* transform-origin: center; */
+    }
+
+    .team.team1 .scorebox {
+      animation: teamslideleft 0.5s;
+      transform-origin: center;
+    }
+
+    .team.team2 .scorebox {
+      animation: teamslideright 0.5s;
+      transform-origin: center;
+    }
+
+    img {
+      height: 80px;
+      width: 80px;
+      max-height: 80px;
+      max-width: 80px;
+      margin: 10px;
+      object-fit: contain;
+      overflow: hidden;
+    }
+
+    .socials {
+      font-family: 'Rajdhani';
+      text-transform: uppercase;
+      position: absolute;
+      left: 0px;
+      top: 920px;
+      width: 1520px;
+      padding: 0px 200px 0px 200px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 3em;
+    }
+
+    .socials div {
+      flex: 1 1 0;
+    }
+
+    .socials span:before {
+      padding-right: 10px;
+    }
+
+    .twitter:before {
+      font-family: 'FontAwesome';
+      content: "\f099"
+        /* twitter logo */
+        /* content:"\f1e8" twitch logo*/
+    }
+
+    .twitch:before {
+      font-family: 'FontAwesome';
+      content: "\f1e8"
+        /* twitter logo */
+        /* content:"\f1e8" twitch logo*/
+    }
+
+    .youtube:before {
+      font-family: 'FontAwesome';
+      content: "\f167"
+        /* twitter logo */
+        /* content:"\f1e8" twitch logo*/
+    }
+
+    .footer {
+      position: fixed;
+      left: 0px;
+      top: 950px;
+      width: 1870px;
+      clip-path: polygon(0% 0, 100% 0%, 100% 100%, 0% 100%);
+      display: flex;
+      /* YEAH THIS IS HUGE */
+      flex-direction: row;
+      align-items: center;
+      /* YEAH THIS IS HUGE */
+      justify-content: center;
+      /* YEAH THIS IS HUGE */
+      padding: 25px;
+    }
+
+    .tournament {
+      flex: 1 1 0;
+      height: 80px;
+      background-position: left;
+      background-size: contain;
+      background-repeat: no-repeat;
+      animation: slideright 1s;
+      animation-fill-mode: backwards;
+      animation-delay: 1s;
+    }
+
+    .channel {
+      flex: 1 1 0;
+      height: 80px;
+      background-position: right;
+      background-size: contain;
+      background-repeat: no-repeat;
+      animation: slideleft 1s;
+      animation-fill-mode: backwards;
+      animation-delay: 1s;
+    }
+
+    @keyframes tagline {
+      0% {
+        clip-path: polygon(0% -100%, 0 -100%, 0% 200%, 0% 200%);
+        transform: translateX(50%)
+          /* skewX(-15deg) */
+        ;
+      }
+
+      100% {
+        clip-path: polygon(0% -100%, 100% -100%, 100% 200%, 0% 200%);
+        transform: translateX(0%)
+          /* skewX(-15deg) */
+        ;
+      }
+    }
+
+    div.tagline {
+      min-width: 375px;
+      animation: tagline .5s;
+      animation-fill-mode: backwards;
+      animation-delay: 2s;
+      /* transform: skewX(-15deg); */
+    }
+
+    span.tertiary {
+      font-size: 1.8em;
+      border-style: solid;
+      font-weight: bold;
+      text-align: center;
+      font-family: 'Rajdhani';
+      text-transform: uppercase;
+      padding: 3px 15px 2px 15px;
+      border-width: 0px 6px 0px 6px;
+      background-color: black;
+    }
+
+
+    .title::before {
+      content: var(--titleText);
+      font-family: 'Rajdhani';
+      text-transform: uppercase;
+    }
+  </style>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+  <script>
+
+
+
+    // if (active == 0) {
+    //         $('.title').text("Starting Soon");
+    //         $('.todaywrapper').css("display", "flex");
+    //         $('.nextwrapper').css("display", "none");
+    //       } else if (complete < totalmatch) {
+    //         $('.title').text("Be Right Back");
+    //         $('.todaywrapper').css("display", "flex");
+    //         $('.nextwrapper').css("display", "none");
+    //       } else if (complete >= totalmatch) {
+    //         $('.title').text("Thanks for Watching");
+    //         if (complete == allmatch) {
+    //           $('.todaywrapper').css("display", "flex");
+    //           $('.nextwrapper').css("display", "none");
+    //         } else {
+    //           $('.todaywrapper').css("display", "none");
+    //           $('.nextwrapper').css("display", "flex");
+    //         }
+    //       }
+
+
+    let blankimage = "iVBORw0KGgoAAAANSUhEUgAAAHAAAABkCAYAAABep7TGAAAABGdBTUEAALGPC/xhBQAAAEJJREFUeF7twQENAAAAwqD3T+1mDiAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAuBqvZAABFEy6BwAAAABJRU5ErkJggg=="
+
+    // Fetches JSON data from a given URL
+    async function fetchJson(url) {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`Failed to fetch data: ${response.statusText}`);
+      }
+      return await response.json();
+    }
+
+
+    // Fetches base64 data from an image URL for team logos
+    async function fetchImageBase64(url) {
+      const response = await fetch(url);
+      const buffer = await response.arrayBuffer();
+      return btoa(String.fromCharCode(...new Uint8Array(buffer)));
+    }
+
+    // Sets theme colors on page elements based on the JSON data
+    function applyThemeColors(themeColors) {
+      const colors = {
+        colortheme1txt: themeColors.BGG_C1.value,
+        colortheme2txt: themeColors.BGG_C2.value,
+        colortheme3txt: themeColors.BGG_C3.value,
+        colortheme4txt: themeColors.BGG_C4.value,
+        colortheme5txt: themeColors.BGG_C5.value,
+        colortheme6txt: themeColors.BGG_C6.value,
+      };
+
+      $('body').css("border-color", colors.colortheme3txt);
+      $('.matchinfo, .socials, .title').css("color", colors.colortheme5txt);
+      $('.teamscore, .gg').css("color", colors.colortheme3txt);
+      $('.vs').css({
+        "background-color": colors.colortheme3txt,
+        "color": colors.colortheme1txt,
+      });
+      // $('.vs').addClass('animate__animated animate__bounce ');
+
+      $('.scorebox').css("background-color", colors.colortheme4txt);
+      $('.info').css("color", colors.colortheme6txt);
+      $('span.tertiary').css({
+        "background-color": colors.colortheme1txt,
+        "color": colors.colortheme2txt,
+        "border-color": colors.colortheme3txt,
+      });
+    }
+
+    // Loads and applies the social media HTML
+    function displaySocialMedia() {
+      const socials = `
+        <div>
+            <span class="twitch">Broadcast
+              <span class="gg">
+                <b>GG</b>
+              </span>
+            </span>
+        </div>
+        
+        
+        <div>
+          <span class="twitter">Broadcast<b>Dot
+            <span class="gg">
+              GG</span></b>
+            </span>
+          </div>`;
+      $('.socials').html(socials);
+    }
+
+    // Displays the general message from JSON data
+    function displayGeneralMessage(generalMessage) {
+      // console.log(`General Message: ${JSON.stringify(generalMessage)}`);
+      $('.info').html(generalMessage.value.replace(/\n|\r/g, ""));
+    }
+
+
+    function displayMatchData(matches, themeColors) {
+      console.log(`Matches: ${JSON.stringify(matches)}`);
+
+      matches.forEach((match, index) => {
+        if (match && match.reference) {
+          let { reference, details, team1, team2 } = match;
+
+          let logo1 = team1.logo || ''; // Use empty string if logo1 is missing
+          let logo2 = team2.logo || ''; // Use empty string if logo2 is missing
+
+          let matchSelector = `.match${index + 1}`;
+
+          // Display the match block
+          $(matchSelector).css("display", "block");
+
+          // Set match info and details
+          $(`${matchSelector} .matchinfo`).text(details);
+
+          // Update team names
+          $(`${matchSelector} .teamname1`).text(team1.name || "TBA");
+          $(`${matchSelector} .teamname2`).text(team2.name || "TBA");
+
+          // Update team scores, displaying "0" if the score is missing
+          $(`${matchSelector} .teamscore1`).text(team1.score ?? 0);
+          $(`${matchSelector} .teamscore2`).text(team2.score ?? 0);
+
+
+          let useTeamLogos = getComputedStyle(document.documentElement)
+            .getPropertyValue('--useTeamLogos').trim() === 'true';
+
+          if (useTeamLogos) {
+            // Display team logos, hide if the logo is missing // we could just have a default logo instead??
+            if (logo1) {
+              $(`${matchSelector} .teamlogo1`).attr("src", logo1).css("display", "block").on('error', function () {
+                $(this).css("display", "none");
+              });
+            } else {
+              $(`${matchSelector} .teamlogo1`).css("display", "none");
+            }
+
+            if (logo2) {
+              $(`${matchSelector} .teamlogo2`).attr("src", logo2).css("display", "block").on('error', function () {
+                $(this).css("display", "none");
+              });
+            } else {
+              $(`${matchSelector} .teamlogo2`).css("display", "none");
+            }
+          }
+
+          // Show or hide scorebox based on whether scores are available
+          const hasScores = team1.score > 0 || team2.score > 0;
+          $(`${matchSelector} .scorebox`).css("display", hasScores ? "block" : "none");
+
+          // Highlight the winning team based on scores
+          // let check = 10;
+          // Get winning score from CSS variable, fallback to 10 if not set
+          const check = parseInt(getComputedStyle(document.documentElement)
+            .getPropertyValue('--winningScore')) || 10;
+
+          // let useTeamColors = false;  // not being utilized yet.. but its here for when it is...
+          let useTeamColors = getComputedStyle(document.documentElement)
+            .getPropertyValue('--useTeamColors').trim() === 'true';
+
+          let teamColor1 = themeColors.BGG_C3.value;
+          let teamColor2 = themeColors.BGG_C3.value;
+          if (useTeamColors) {
+            teamColor1 = team1.teamColor || themeColors.BGG_C3.value;
+            teamColor2 = team2.teamColor || themeColors.BGG_C3.value;
+          }
+
+          $(`.team1`).css("border-color", teamColor1);
+          $(`.team2`).css("border-color", teamColor2);
+
+          if (team1.score >= check && team1.score > team2.score) {
+            styleWinningTeam(matchSelector, "team1", themeColors);
+          } else if (team2.score >= check && team2.score > team1.score) {
+            styleWinningTeam(matchSelector, "team2", themeColors);
+          }
+        }
+      });
+    }
+
+    // Styles the winning team section in a match
+    function styleWinningTeam(matchSelector, teamClass, themeColors) {
+      const oppositeTeam = teamClass === "team1" ? "team2" : "team1";
+
+      $(`${matchSelector} .${teamClass}`).css({
+        "background-color": themeColors.BGG_C3.value,
+        "border-color": themeColors.BGG_C2.value,
+        "color": themeColors.BGG_C1.value
+      });
+
+      $(`${matchSelector} .${oppositeTeam}`).css({
+        "background-color": themeColors.BGG_C1.value,
+        "border-color": themeColors.BGG_C3.value,
+        "color": themeColors.BGG_C3.value
+      });
+    }
+
+
+
+    // Main function to orchestrate data fetching, processing, and displaying
+    async function updatePageContent() {
+      try {
+        // Fetch full data and theme colors
+        const fullDataJson = await fetchJson(`http://localhost:8080/getfullJson`);
+        const fullDataGeneral = fullDataJson.general;
+        const themeColors = fullDataGeneral.color;
+        let bracketData = await fetchJson(`http://localhost:8080/api/get-bracket`);
+
+        let tagline = fullDataGeneral.text.BGG_TAGLINE.value;
+
+        // Apply theme, social media, and general message
+        applyThemeColors(themeColors);
+        displaySocialMedia();
+        displayGeneralMessage(fullDataGeneral.text.Message);
+
+        // Process and display matches, using Object.values to get an array of match objects
+        const matches = await Promise.all(
+          Object.keys(bracketData).map(async (key) => {
+            const match = bracketData[key];
+
+            const logo1 = ''; // Placeholder for logo1
+            const logo2 = ''; // Placeholder for logo2
+            return { ...match, logo1, logo2, reference: key };
+          })
+        );
+
+
+        displayMatchData(matches, themeColors);
+
+
+
+        async function setTagline() {
+          try {
+            document.querySelector(".tertiary").textContent = tagline;
+          } catch (error) {
+            console.error('Failed to fetch or set tagline:', error);
+          }
+        }
+        setTagline();
+
+      } catch (error) {
+        console.error("Error updating page content:", error);
+      }
+    }
+    
+
+    setInterval(updatePageContent, 3000);
+    // Initial load
+    updatePageContent();
+
+  </script>
+
+
+</head>
+
+<body>
+
+  <div class="header">
+    <span class="info"></span>
+    <span class="title"></span>
+  </div>
+
+  <div class="wrapper todaywrapper">
+    <div class="scoreboardwrapper skew match1">
+      <span class="matchinfo"></span>
+      <div class="scoreboard">
+        <div class="team team1">
+          <img class="teamlogo teamlogo1 askew"></img>
+          <span class="teamname teamname1">Team 1</span>
+          <div class="scorebox">
+            <span class="teamscore teamscore1">0</span>
+          </div>
+        </div>
+        <div class="vs"><span>VS</span></div>
+        <div class="team team2">
+          <div class="scorebox">
+            <span class="teamscore teamscore2">0</span>
+          </div>
+          <span class="teamname teamname2">Team 2</span>
+          <img class="teamlogo teamlogo2 askew"></img>
+        </div>
+      </div>
+    </div>
+
+    <div class="scoreboardwrapper skew match2">
+      <span class="matchinfo"></span>
+      <div class="scoreboard">
+        <div class="team team1">
+          <img class="teamlogo teamlogo1 askew"></img>
+          <span class="teamname teamname1">Team 1</span>
+          <div class="scorebox">
+            <span class="teamscore teamscore1">0</span>
+          </div>
+        </div>
+        <div class="vs"><span>VS</span></div>
+        <div class="team team2">
+          <div class="scorebox">
+            <span class="teamscore teamscore2">0</span>
+          </div>
+          <span class="teamname teamname2">Team 2</span>
+          <img class="teamlogo teamlogo2 askew"></img>
+        </div>
+      </div>
+    </div>
+
+    <div class="scoreboardwrapper skew match3">
+      <span class="matchinfo"></span>
+      <div class="scoreboard">
+        <div class="team team1">
+          <img class="teamlogo teamlogo1 askew"></img>
+          <span class="teamname teamname1">Team 1</span>
+          <div class="scorebox">
+            <span class="teamscore teamscore1">0</span>
+          </div>
+        </div>
+        <div class="vs"><span>VS</span></div>
+        <div class="team team2">
+          <div class="scorebox">
+            <span class="teamscore teamscore2">0</span>
+          </div>
+          <span class="teamname teamname2">Team 2</span>
+          <img class="teamlogo teamlogo2 askew"></img>
+        </div>
+      </div>
+    </div>
+
+    <div class="scoreboardwrapper skew match4">
+      <span class="matchinfo"></span>
+      <div class="scoreboard">
+        <div class="team team1">
+          <img class="teamlogo teamlogo1 askew"></img>
+          <span class="teamname teamname1">Team 1</span>
+          <div class="scorebox">
+            <span class="teamscore teamscore1">0</span>
+          </div>
+        </div>
+        <div class="vs"><span>VS</span></div>
+        <div class="team team2">
+          <div class="scorebox">
+            <span class="teamscore teamscore2">0</span>
+          </div>
+          <span class="teamname teamname2">Team 2</span>
+          <img class="teamlogo teamlogo2 askew"></img>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="wrapper nextwrapper">
+    <div class="scoreboardwrapper skew match5">
+      <span class="matchinfo"></span>
+      <div class="scoreboard">
+        <div class="team team1">
+          <img class="teamlogo teamlogo1 askew"></img>
+          <span class="teamname teamname1">Team 1</span>
+          <div class="scorebox">
+            <span class="teamscore teamscore1">0</span>
+          </div>
+        </div>
+        <div class="vs"><span>VS</span></div>
+        <div class="team team2">
+          <div class="scorebox">
+            <span class="teamscore teamscore2">0</span>
+          </div>
+          <span class="teamname teamname2">Team 2</span>
+          <img class="teamlogo teamlogo2 askew"></img>
+        </div>
+      </div>
+    </div>
+
+    <div class="scoreboardwrapper skew match6">
+      <span class="matchinfo"></span>
+      <div class="scoreboard">
+        <div class="team team1">
+          <img class="teamlogo teamlogo1 askew"></img>
+          <span class="teamname teamname1">Team 1</span>
+          <div class="scorebox">
+            <span class="teamscore teamscore1">0</span>
+          </div>
+        </div>
+        <div class="vs"><span>VS</span></div>
+        <div class="team team2">
+          <div class="scorebox">
+            <span class="teamscore teamscore2">0</span>
+          </div>
+          <span class="teamname teamname2">Team 2</span>
+          <img class="teamlogo teamlogo2 askew"></img>
+        </div>
+      </div>
+    </div>
+
+    <div class="scoreboardwrapper skew match7">
+      <span class="matchinfo"></span>
+      <div class="scoreboard">
+        <div class="team team1">
+          <img class="teamlogo teamlogo1 askew"></img>
+          <span class="teamname teamname1">Team 1</span>
+          <div class="scorebox">
+            <span class="teamscore teamscore1">0</span>
+          </div>
+        </div>
+        <div class="vs"><span>VS</span></div>
+        <div class="team team2">
+          <div class="scorebox">
+            <span class="teamscore teamscore2">0</span>
+          </div>
+          <span class="teamname teamname2">Team 2</span>
+          <img class="teamlogo teamlogo2 askew"></img>
+        </div>
+      </div>
+    </div>
+
+    <div class="scoreboardwrapper skew match8">
+      <span class="matchinfo"></span>
+      <div class="scoreboard">
+        <div class="team team1">
+          <img class="teamlogo teamlogo1 askew"></img>
+          <span class="teamname teamname1">Team 1</span>
+          <div class="scorebox">
+            <span class="teamscore teamscore1">0</span>
+          </div>
+        </div>
+        <div class="vs"><span>VS</span></div>
+        <div class="team team2">
+          <div class="scorebox">
+            <span class="teamscore teamscore2">0</span>
+          </div>
+          <span class="teamname teamname2">Team 2</span>
+          <img class="teamlogo teamlogo2 askew"></img>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="socials">
+  </div>
+
+  <div class="footer">
+    <div class="tournament image1"></div>
+    <div class="tagline">
+      <div>
+        <span class="tertiary">Powered by Broadcast.gg</span>
+      </div>
+    </div>
+    <div class="channel image2"></div>
+  </div>
+
+</body>
