@@ -1,11 +1,18 @@
 <!DOCTYPE html>
 <html>
 
+<!-- to enable proper alignment of elements add to the body class.
+so 
+document.queryselector('body').classList.add('marvelPositions', 'marvelDomination') 
+or 
+document.queryselector('body').classList.add('overWatchPositions')
+
+-->
+
 <head>
   <style>
 
-    :root {
-      /* set both to 0 deg to unskew things for default overlay or skew to 15 neg/pos for games like marvel */
+    /* :root {
       --teamBoxWidth: 685px;
       --teamBoxHeight: 50px;
 
@@ -16,7 +23,7 @@
       --middleTopPosition: 17px;
       --skew-angle-positive: 15deg;
       --skew-angle-negative: -15deg;
-    }
+    } */
 
 
 
@@ -29,14 +36,28 @@
       --leftTeamPosition: -135px;
       --rightTeamPosition: -135px; */
 
-      --teamTopPosition: 31px;
+      /* for domination */
+      /* --teamTopPosition: 31px;
       --leftTeamPosition: -202px;
-      --rightTeamPosition: -202px;
+      --rightTeamPosition: -202px; */
 
       --middleTopPosition: 17px;
       --skew-angle-positive: 15deg;
       --skew-angle-negative: -15deg;
     }
+
+    .marvelDomination{
+      --teamTopPosition: 4px;
+      --leftTeamPosition: -135px;
+      --rightTeamPosition: -135px;
+    }
+
+    .marvelNonDomination {
+      --teamTopPosition: 31px;
+      --leftTeamPosition: -202px;
+      --rightTeamPosition: -202px;
+    }
+
 
     .overWatchPositions {
       --teamBoxWidth: 685px;
@@ -96,10 +117,10 @@
 
     body {
       /* dom*/
-      background-image: url('https://file.notion.so/f/f/f39534f6-450f-4a1b-8ac7-5fa9e666a203/8fc5de4e-92e0-4433-9c38-d81adb9e223e/image.png?table=block&id=17dae1e1-9f3e-8058-9fdf-d67d36149338&spaceId=f39534f6-450f-4a1b-8ac7-5fa9e666a203&expirationTimestamp=1737266400000&signature=JFu7gXL-kM6fgCh7aC-ifwYPV2Q4lAZnoyUrUXjFiz8&downloadName=image.png');
+      /* background-image: url('https://file.notion.so/f/f/f39534f6-450f-4a1b-8ac7-5fa9e666a203/8fc5de4e-92e0-4433-9c38-d81adb9e223e/image.png?table=block&id=17dae1e1-9f3e-8058-9fdf-d67d36149338&spaceId=f39534f6-450f-4a1b-8ac7-5fa9e666a203&expirationTimestamp=1737266400000&signature=JFu7gXL-kM6fgCh7aC-ifwYPV2Q4lAZnoyUrUXjFiz8&downloadName=image.png'); */
 
       /* non dom */
-      /* background-image: url('https://file.notion.so/f/f/f39534f6-450f-4a1b-8ac7-5fa9e666a203/c1af7a82-681d-41d3-9a76-cbb022843a69/image.png?table=block&id=17bae1e1-9f3e-80c8-af9e-f256de03a699&spaceId=f39534f6-450f-4a1b-8ac7-5fa9e666a203&expirationTimestamp=1737266400000&signature=t3IpjPTFA5-C1eezcQds309QhtfYzV3_ZVG7ZPWZcqg&downloadName=image.png'); */
+      background-image: url('https://file.notion.so/f/f/f39534f6-450f-4a1b-8ac7-5fa9e666a203/c1af7a82-681d-41d3-9a76-cbb022843a69/image.png?table=block&id=17bae1e1-9f3e-80c8-af9e-f256de03a699&spaceId=f39534f6-450f-4a1b-8ac7-5fa9e666a203&expirationTimestamp=1737266400000&signature=t3IpjPTFA5-C1eezcQds309QhtfYzV3_ZVG7ZPWZcqg&downloadName=image.png');
       background-size: cover;
       background-repeat: no-repeat;
     }
@@ -264,9 +285,22 @@
       top: 23px;
     }
 
+
+    /* Team 1 */
+    div.left {
+      position: fixed;
+      top: var(--teamTopPosition);
+      left: var(--leftTeamPosition);
+      text-align: right;
+      border-style: solid;
+      border-width: 0px 7px 0px 0px;
+      border-color: #27AAE1;
+      transform: skew(var(--skew-angle-positive));
+    }
+
+
     div.left.team1 span.teamname {
       position: relative;
-      right: 200px;
       top: 3px;
       transform: skew(var(--skew-angle-negative));
       display: inline-block; 
@@ -288,32 +322,7 @@
     }
 
 
-
-    div.left {
-      position: fixed;
-      top: var(--teamTopPosition);
-      left: var(--leftTeamPosition);
-      text-align: right;
-
-      
-      border-style: solid;
-      border-width: 0px 7px 0px 0px;
-      border-color: #27AAE1;
-      transform: skew(var(--skew-angle-positive));
-    }
-
-
-    div.left span.logo {
-      width: 80px;
-      height: 62px;
-      right: 0px;
-      transform: translate(-90px, -50%) skew(var(--skew-angle-negative));
-      background-position: center;
-      background-size: contain;
-      background-repeat: no-repeat;
-    }
-
-    #team1side span {
+    /* #team1side span {
       position: fixed;
       width: 818px;
       height: 36px;
@@ -323,6 +332,19 @@
       -webkit-mask-position: right;
       -webkit-mask-size: contain;
       -webkit-mask-repeat: no-repeat;
+    } */
+
+    div.left span.logo {
+      width: calc( var(--teamBoxHeight) * 1.6);
+      height: var(--teamBoxHeight);
+      right: 70px;
+      top: 0px;
+
+      transform: skew(var(--skew-angle-negative));
+
+      background-position: right;
+      background-size: contain;
+      background-repeat: no-repeat;
     }
 
     div.left span.logoshade {
@@ -332,10 +354,13 @@
       transform: translate(-80px, -50%) skew(var(--skew-angle-negative))
     }
 
+    /* END TEAM1 */
+
 
 
     /* TEAM 2 */
-    #team2side span {
+    /* needs readdded much later. lol */
+    /* #team2side span {
       position: fixed;
       width: 818px;
       height: 36px;
@@ -345,12 +370,22 @@
       -webkit-mask-position: left;
       -webkit-mask-size: contain;
       -webkit-mask-repeat: no-repeat;
+    } */
+
+
+    div.right {
+      position: fixed;
+      right: var(--rightTeamPosition);
+      top:var(--teamTopPosition);
+      border-style: solid;
+      border-width: 0px 0px 0px 7px;
+      border-color: #C80013;
+      transform: skew(var(--skew-angle-negative));
     }
 
     
     div.right span.teamname {
       position: relative;
-      left: 200px;
       top: 3px;
     }
 
@@ -361,11 +396,13 @@
     }
 
     div.right span.logo {
-      width: 80px;
-      height: 62px;
-      left: 0px;
-      transform: translate(90px, -50%) skew(var(--skew-angle-positive));
-      background-position: center;
+      width: calc( var(--teamBoxHeight) * 1.6);
+      height: var(--teamBoxHeight);
+      left: 70px;
+      top: 0px;
+
+      transform: skew(var(--skew-angle-positive));
+      background-position:left;
       background-size: contain;
       background-repeat: no-repeat;
     }
@@ -386,24 +423,6 @@
       transform: translate(7px, -50%) skew(var(--skew-angle-positive));
       ;
     }
-
-    div.right {
-      position: fixed;
-      /* right: -140px; */
-      right: var(--rightTeamPosition);
-      top:var(--teamTopPosition);
-      /* top: 30px; */
-      border-style: solid;
-      border-width: 0px 0px 0px 7px;
-      border-color: #C80013;
-
-      transform: skew(var(--skew-angle-negative));
-
-    }
-
-
-
-
     /* END TEAM 2 */
 
   </style>
@@ -420,6 +439,48 @@
       let colortheme1txt = themeColors.BGG_C1.value
       let colortheme2txt = themeColors.BGG_C2.value;
       let colortheme3txt = themeColors.BGG_C3.value;
+
+      let currentMap = null // used temporarily to fetch the current map to find the mode.. declare elsewhere later
+      let currentGame = fullJson.currentGame
+      let currentGameMode = null
+
+
+      
+
+
+      const setOverlayPosition = (mapData) => {
+        for (let i = 0; i < fullJson.maps.mapData.length; i++) {
+          if (!fullJson.maps.mapData[i].completed) {
+            currentMap = fullJson.maps.mapData[i];
+            break;
+          }
+        }
+
+        let currentMode = currentMap.selectedMode;
+        let body = document.querySelector('body');
+
+        // Remove all game-specific classes
+        body.classList.remove('marvelPositions', 'marvelDomination', 'marvelNonDomination', 'overWatchPositions', 'valorantPositions');
+
+        if (currentGame === 'Marvel Rivals') {
+          body.classList.add('marvelPositions');
+          if (currentMode === 'Domination') {
+            body.classList.add('marvelDomination');
+          } else {
+            body.classList.add('marvelNonDomination');
+          }
+        }
+
+        if (currentGame === 'Overwatch') {
+          body.classList.add('overWatchPositions');
+        }
+
+        if (currentGame === 'Valorant') {
+          body.classList.add('valorantPositions');
+        }
+      };
+
+      setOverlayPosition(fullJson.maps.mapData);
 
       // Set theme colors
       $('div.side span, div.center span').css("color", (colortheme2txt));
@@ -696,12 +757,11 @@
   </script>
 </head>
 
-<body>
+<body class="">
   <div class="center">
     <span class="matchtext" id="matchtext"></span>
   </div>
 
-  <!-- what is team1side and team2side for?? ... spent 20 minutes trying to change bg colors and realized it did nothing -->
   <div class="side" id="team1side"><span></span></div>
   <div class="side" id="team2side"><span></span></div>
 
