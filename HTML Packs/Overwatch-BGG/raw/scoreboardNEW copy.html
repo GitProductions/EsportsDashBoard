@@ -6,7 +6,8 @@
 The main issue right now is team name is set to 2rem by default which results ina clean sizing for typical sized names. 
 this size also causes the text to center vertically as we need.. 
 
-if a long team name exists it overflows to the left and doesnt ift...
+if a long team name exists it overflows to the left and doesnt fit..
+basically this whole thing needs reworked over to make sure its even more dynamic on spacing/sizing as far as respecitng other elements
 -->
 
 <head>
@@ -16,7 +17,8 @@ if a long team name exists it overflows to the left and doesnt ift...
       --teamLogoPosition: 75px;
 
       /* 450 to be on left side when in marvel */
-      --teamNamePosition: -150px;
+      --teamNamePositionX: -150px;
+      --teamNamePositionY: 3px;
     }
 
 
@@ -118,8 +120,9 @@ if a long team name exists it overflows to the left and doesnt ift...
     span.score,
     span.logo,
     span.logoshade,
-    span.teamname,
-    span.teamsr {
+    span.teamname
+    /* span.teamsr  */
+    {
         animation-fill-mode: backwards;
         animation-delay: 1s;
     }
@@ -133,7 +136,7 @@ if a long team name exists it overflows to the left and doesnt ift...
     span.logo { animation: fadein 3s; }
     span.logoshade { animation: fadein 3s; }
     span.teamname { animation: fadein 4s; }
-    span.teamsr { animation: fadein 5s; }
+    /* span.teamsr { animation: fadein 5s; } */
 
     @-webkit-keyframes leftmove {
       from {
@@ -258,10 +261,10 @@ if a long team name exists it overflows to the left and doesnt ift...
       font-size: 2em;
     }
 
-    span.teamsr {
+    /* span.teamsr {
       font-size: 1.5em;
       font-family: 'Rajdhani';
-    }
+    } */
 
     span.score {
       position: absolute;
@@ -287,18 +290,18 @@ if a long team name exists it overflows to the left and doesnt ift...
     div.left.team1 span.teamname {
       display: inline-block; 
       position: relative;
-      top: 3px;
       transform: skew(var(--skew-angle-negative));
 
-      left: var(--teamNamePosition);
+      top: var(--teamNamePositionY);
+      left: var(--teamNamePositionX);
 
     }
 
-    div.left span.teamsr {
+    /* div.left span.teamsr {
       position: relative;
       right: 210px;
-      top: 3px;
-    }
+      top: var(--teamNamePositionY);
+    } */
 
 
     div.left span.score {
@@ -376,16 +379,17 @@ if a long team name exists it overflows to the left and doesnt ift...
     div.right.team2 span.teamname {
       display: inline-block; 
       position: relative;
-      top: 3px;
+   
       transform: skew(var(--skew-angle-positive));
-      right: var(--teamNamePosition);
+      top: var(--teamNamePositionY);
+      right: var(--teamNamePositionX);
     }
 
-    div.right span.teamsr {
+    /* div.right span.teamsr {
       position: relative;
       left: 210px;
-      top: 3px;
-    }
+      top: var(--teamNamePositionY);
+    } */
 
     div.right span.logo {
       /* width: calc( var(--teamBoxHeight) * 1.6); */
@@ -603,11 +607,11 @@ if a long team name exists it overflows to the left and doesnt ift...
             document.querySelector(`.team${teamIndex + 1} .logo`).style.backgroundImage = `url(${teamLogoURL})`;
             if (teamIndex == 0) {
               // $('div.left span.teamname').css("right", "200px");
-              $('div.left span.teamsr').css("right", "210px");
+              // $('div.left span.teamsr').css("right", "210px");
             }
             if (teamIndex == 1) {
               // $('div.right span.teamname').css("left", "200px");
-              $('div.right span.teamsr').css("left", "210px");
+              // $('div.right span.teamsr').css("left", "210px");
             }
             $(`.team${teamIndex + 1} .logo`).css("display", "inherit");
 
@@ -619,11 +623,11 @@ if a long team name exists it overflows to the left and doesnt ift...
 
             if (teamIndex == 0) {
               // $('div.left span.teamname').css("right", "80px");
-              $('div.left span.teamsr').css("right", "90px");
+              // $('div.left span.teamsr').css("right", "90px");
             }
             if (teamIndex == 1) {
               // $('div.right span.teamname').css("left", "80px");
-              $('div.right span.teamsr').css("left", "90px");
+              // $('div.right span.teamsr').css("left", "90px");
             }
             $(`.team${teamIndex + 1} .logo`).css("display", "none");
             $(`.team${teamIndex + 1} .logoshade`).css("display", "none");
