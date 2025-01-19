@@ -14,24 +14,15 @@ if a long team name exists it overflows to the left and doesnt ift...
 
     :root {
       --teamLogoPosition: 75px;
-      /* --teamLogoPosition: 427px; */
+
+      /* 450 to be on left side when in marvel */
+      --teamNamePosition: -150px;
     }
 
 
 
     .marvelPositions {
       --teamBoxHeight: 50px;
-
-      /* changes for domination maps  */
-      /* --teamTopPosition: 4px;
-      --leftTeamPosition: -135px;
-      --rightTeamPosition: -135px; */
-
-      /* for domination */
-      /* --teamTopPosition: 31px;
-      --leftTeamPosition: -202px;
-      --rightTeamPosition: -202px; */
-
       --middleTopPosition: 17px;
       --skew-angle-positive: 15deg;
       --skew-angle-negative: -15deg;
@@ -39,7 +30,6 @@ if a long team name exists it overflows to the left and doesnt ift...
 
     .marvelDomination{
       --teamBoxWidth: 700px;
-
       --teamTopPosition: 4px;
       --leftTeamPosition: -145px;
       --rightTeamPosition: -145px;
@@ -47,7 +37,6 @@ if a long team name exists it overflows to the left and doesnt ift...
 
     .marvelNonDomination {
       --teamBoxWidth: 492px;
-
       --teamTopPosition: 31px;
       --leftTeamPosition: -10px;
       --rightTeamPosition: -10px;
@@ -296,10 +285,13 @@ if a long team name exists it overflows to the left and doesnt ift...
 
 
     div.left.team1 span.teamname {
+      display: inline-block; 
       position: relative;
       top: 3px;
       transform: skew(var(--skew-angle-negative));
-      display: inline-block; 
+
+      left: var(--teamNamePosition);
+
     }
 
     div.left span.teamsr {
@@ -381,9 +373,12 @@ if a long team name exists it overflows to the left and doesnt ift...
     }
 
     
-    div.right span.teamname {
+    div.right.team2 span.teamname {
+      display: inline-block; 
       position: relative;
       top: 3px;
+      transform: skew(var(--skew-angle-positive));
+      right: var(--teamNamePosition);
     }
 
     div.right span.teamsr {
@@ -607,11 +602,11 @@ if a long team name exists it overflows to the left and doesnt ift...
             teamLogoURL = encodeURIComponent(teamLogoURL).replace(/%2F/g, '/').replace(/%3A/g, ':');
             document.querySelector(`.team${teamIndex + 1} .logo`).style.backgroundImage = `url(${teamLogoURL})`;
             if (teamIndex == 0) {
-              $('div.left span.teamname').css("right", "200px");
+              // $('div.left span.teamname').css("right", "200px");
               $('div.left span.teamsr').css("right", "210px");
             }
             if (teamIndex == 1) {
-              $('div.right span.teamname').css("left", "200px");
+              // $('div.right span.teamname').css("left", "200px");
               $('div.right span.teamsr').css("left", "210px");
             }
             $(`.team${teamIndex + 1} .logo`).css("display", "inherit");
@@ -623,11 +618,11 @@ if a long team name exists it overflows to the left and doesnt ift...
             console.error(`Logo element for team${teamIndex + 1} not found`);
 
             if (teamIndex == 0) {
-              $('div.left span.teamname').css("right", "80px");
+              // $('div.left span.teamname').css("right", "80px");
               $('div.left span.teamsr').css("right", "90px");
             }
             if (teamIndex == 1) {
-              $('div.right span.teamname').css("left", "80px");
+              // $('div.right span.teamname').css("left", "80px");
               $('div.right span.teamsr').css("left", "90px");
             }
             $(`.team${teamIndex + 1} .logo`).css("display", "none");
