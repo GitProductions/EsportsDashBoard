@@ -28,7 +28,7 @@ document.queryselector('body').classList.add('overWatchPositions')
 
 
     .marvelPositions {
-      --teamBoxWidth: 685px;
+      --teamBoxWidth: 700px;
       --teamBoxHeight: 50px;
 
       /* changes for domination maps  */
@@ -48,14 +48,14 @@ document.queryselector('body').classList.add('overWatchPositions')
 
     .marvelDomination{
       --teamTopPosition: 4px;
-      --leftTeamPosition: -135px;
-      --rightTeamPosition: -135px;
+      --leftTeamPosition: -150px;
+      --rightTeamPosition: -150px;
     }
 
     .marvelNonDomination {
       --teamTopPosition: 31px;
-      --leftTeamPosition: -202px;
-      --rightTeamPosition: -202px;
+      --leftTeamPosition: -223px;
+      --rightTeamPosition: -223px;
     }
 
 
@@ -335,15 +335,16 @@ document.queryselector('body').classList.add('overWatchPositions')
     } */
 
     div.left span.logo {
-      width: calc( var(--teamBoxHeight) * 1.6);
+      /* width: calc( var(--teamBoxHeight) * 1.6); */
+      width: calc( var(--teamBoxHeight));
       height: var(--teamBoxHeight);
       right: 70px;
       top: 0px;
 
       transform: skew(var(--skew-angle-negative));
 
-      background-position: right;
-      background-size: contain;
+      background-position: center;
+      background-size: cover; /* previously contain until it looked visibly different due to logos sizes not being consistent.. */
       background-repeat: no-repeat;
     }
 
@@ -396,13 +397,15 @@ document.queryselector('body').classList.add('overWatchPositions')
     }
 
     div.right span.logo {
-      width: calc( var(--teamBoxHeight) * 1.6);
+      /* width: calc( var(--teamBoxHeight) * 1.6); */
+      width: calc( var(--teamBoxHeight));
+
       height: var(--teamBoxHeight);
       left: 70px;
       top: 0px;
 
       transform: skew(var(--skew-angle-positive));
-      background-position:left;
+      background-position:center;
       background-size: contain;
       background-repeat: no-repeat;
     }
