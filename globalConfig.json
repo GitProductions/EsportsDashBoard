@@ -41,7 +41,9 @@
       "game": "Overwatch",
       "image": "Game Configs/Overwatch/Overwatch.webp",
       "description": "Description of HTML pack 1",
-      "fileKey": "HTML Packs/Overwatch-BGG"
+      "fileKey": "HTML Packs/Overwatch-BGG",
+      "filePath": "shold we do filePath and fileName? - ... hmm.. as the starterpacbuilder needs filekey solely, where as website needs the filename also to pull the entire .zip file...",
+      "zipFile": "Overwatch-BGG-HTML-PACK.zip"
     },
     {
       "name": "Broadcast GG Valorant HTML Pack",
@@ -50,7 +52,8 @@
       "game": "Valorant",
       "image": "Game Configs/Valorant/Valorant.png",
       "description": "Description of HTML pack 2",
-      "fileKey": "HTML Packs/Valorant/Valorant-BGG-HTML-PACK.zip"
+      "fileKey": "HTML Packs/Valorant",
+      "zipFile": "Valorant-BGG-HTML-PACK.zip"
     },
     {
       "name": "Broadcast GG Marvel Rivals HTML Pack",
@@ -59,7 +62,8 @@
       "game": "Marvel Rivals",
       "image": "Game Configs/Marvel Rivals/Marvel Rivals.webp",
       "description": "Description of HTML pack 3",
-      "fileKey": "HTML Packs/Marvel-BGG/MarvelRivals-BGG-HTML-PACK.zip"
+      "fileKey": "HTML Packs/Marvel-BGG",
+      "zipFile": "MarvelRivals-BGG-HTML-PACK.zip"
     }
   ],
 
