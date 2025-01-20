@@ -17,15 +17,6 @@
       "image": "Game Configs/Marvel Rivals/Marvel Rivals.webp",
       "description": "Starter Pack includes Game Config, HTML Files & OBS Scene Collection",
       "fileKey": "Starter Packs/MarvelRivals_Starter_v1.0.bggstarter"
-    },
-    {
-      "name": "BGG Valorant Starter Pack",
-      "author": "Esports Dash",
-      "version": "1.0",
-      "game": "Valorant",
-      "image": "Game Configs/Valorant/Valorant.png",
-      "description": "Starter Pack includes Game Config, HTML Files & OBS Scene Collection",
-      "fileKey": "Starter Packs/Valorant_Starter_v1.0.bggstarter"
     }
     
 
