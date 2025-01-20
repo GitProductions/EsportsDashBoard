@@ -1,3 +1,4 @@
+
 {
   "Starter Packs": [
     {
@@ -40,7 +41,25 @@
       "game": "Overwatch",
       "image": "Game Configs/Overwatch/Overwatch.webp",
       "description": "Description of HTML pack 1",
-      "fileKey": "HTML Packs/Overwatch-BGG/Overwatch-BGG-HTML-PACK.zip"
+      "fileKey": "HTML Packs/Overwatch-BGG"
+    },
+    {
+      "name": "Broadcast GG Valorant HTML Pack",
+      "author": "Broadcast GG",
+      "version": "1.0",
+      "game": "Valorant",
+      "image": "Game Configs/Valorant/Valorant.png",
+      "description": "Description of HTML pack 2",
+      "fileKey": "HTML Packs/Valorant/Valorant-BGG-HTML-PACK.zip"
+    },
+    {
+      "name": "Broadcast GG Marvel Rivals HTML Pack",
+      "author": "Broadcast GG",
+      "version": "1.0",
+      "game": "Marvel Rivals",
+      "image": "Game Configs/Marvel Rivals/Marvel Rivals.webp",
+      "description": "Description of HTML pack 3",
+      "fileKey": "HTML Packs/Marvel-BGG/MarvelRivals-BGG-HTML-PACK.zip"
     }
   ],
 
@@ -52,9 +71,9 @@
           "name": "Overwatch Game Config",
           "author": "Esports Dash",
           "version": "1.0",
-          "image": "gameConfigImage1.png",
-          "description": "NOT USING GAME CONFIG SECTION HERE YET....",
-          "fileKey": "Game Configs/Overwatch/Overwatch-Game-Config.json"
+          "image": "Game Configs/Overwatch/Overwatch.webp",
+          "description": "NOT USING GAME CONFIG SECTION HERE YET.... on website. anyhow..",
+          "fileKey": "Game Configs/Overwatch/Overwatch-EsportsDash-1.2.bgg"
         }
       ]
     },
@@ -65,35 +84,21 @@
           "name": "Valorant Game Config",
           "author": "Esports Dash",
           "version": "1.0",
-          "image": "gameConfigImage2.png",
+          "image": "Game Configs/Valorant/valorant.png",
           "description": "Description of game config 2",
-          "fileKey": "Game Configs/Valorant/Valorant-Game-Config.json"
+          "fileKey": "Game Configs/Valorant/Valorant-EsportsDash-1.2.bgg"
         }
       ]
     },
-
     {
-      "Deadlock": [
+      "Marvel Rivals": [
         {
-          "name": "Deadlock Game Config",
+          "name": "Marvel Rivals Game Config",
           "author": "Esports Dash",
           "version": "1.0",
-          "image": "gameConfigImage3.png",
+          "image": "Game Configs/Marvel Rivals/Marvel Rivals.webp",
           "description": "Description of game config 3",
-          "fileKey": "Game Configs/Deadlock/Deadlock-Game-Config.json"
-        }
-      ]
-    },
-
-    {
-      "Splatoon": [
-        {
-          "name": "Splatoon Game Config",
-          "author": "Esports Dash",
-          "version": "1.0",
-          "image": "gameConfigImage3.png",
-          "description": "Description of game config 3",
-          "fileKey": "Game Configs/Splatoon/Splatoon-Game-Config.json"
+          "fileKey": "Game Configs/Marvel Rivals/Marvel Rivals-config.bgg"
         }
       ]
     }
