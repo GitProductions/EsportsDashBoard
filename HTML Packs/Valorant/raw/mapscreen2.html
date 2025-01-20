@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Map Screen</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        header {
+            font-size: 2em;
+            margin: 20px 0;
+        }
+        .wrapper {
+            width: 100%;
+        }
+        .scoreboard {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .mapgroup {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+        .mapwrap {
+            flex: 0 0 auto;
+            width: 18%;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            text-align: center;
+            margin: 10px;
+            position: relative;
+        }
+        .mapbg {
+            position: relative;
+        }
+        .mapbg img, .mapbg video {
+            width: 100%;
+            height: auto;
+        }
+        .mapscore {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            color: white;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 5px;
+            border-radius: 5px;
+        }
+        .mapscore .teamname, .mapscore .logo, .mapscore .score {
+            display: block;
+        }
+        .textgroup {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            margin-top: 20px;
+        }
+        .mapnames, .maptypes {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+        }
+        .mapinfo {
+            flex: 1;
+            text-align: center;
+        }
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-top: 20px;
+        }
+        .footer .tournament, .footer .channel {
+            flex: 1;
+        }
+        .footer .tagline {
+            flex: 2;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>MAPS</header>
+    <div class="wrapper">
+        <div class="scoreboard">
+            <span>First to 3</span>
+        </div>
+        <div class="mapgroup" id="map-container">
+            <!-- Map elements will be generated here -->
+        </div>
+        <div class="textgroup">
+            <div class="mapnames">
+                <!-- Map names will be generated here -->
+            </div>
+            <div class="maptypes">
+                <!-- Map types will be generated here -->
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="tournament image1"></div>
+        <div class="tagline">
+            <div>
+                <span class="tertiary">Powered by Broadcast.gg</span>
+            </div>
+        </div>
+        <div class="channel image2"></div>
+    </div>
+    <script>
+        const enablevideo = 0;
+        const blankimage = "iVBORw0KGgoAAAANSUhEUgAAAHAAAABkCAYAAABep7TGAAAABGdBTUEAALGPC/xhBQAAAEJJREFUeF7twQENAAAAwqD3T+1mDiAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAuBqvZAABFEy6BwAAAABJRU5ErkJggg==";
+        const useTeamColors = 1;
+
+        async function fetchData() {
+            let fullJson = await fetch(`http://localhost:8080/getFullJson`);
+            fullJson = await fullJson.json();
+
+            let mapJson = fullJson.maps;
+            let teamsData = fullJson.teams;
+            let inputJson = fullJson.general;
+            let themeColors = fullJson.general.color;
+            let themeLogos = fullJson.general.file;
+
+            let t1nametxt = teamsData.team1.teamName;
+            let t2nametxt = teamsData.team2.teamName;
+            let t1colortxt = teamsData.team1.teamColor;
+            let t2colortxt = teamsData.team2.teamColor;
+            let tagline = fullJson.general.text.BGG_TAGLINE.value;
+
+            let colortheme1txt = themeColors.BGG_C1.value;
+            let colortheme2txt = themeColors.BGG_C2.value;
+            let colortheme3txt = themeColors.BGG_C3.value;
+            let colortheme4txt = themeColors.BGG_C4.value;
+
+            if (useTeamColors) {
+                document.querySelectorAll('div').forEach(div => {
+                    div.style.borderLeftColor = t1colortxt;
+                    div.style.borderRightColor = t2colortxt;
+                });
+            } else {
+                document.querySelectorAll('div').forEach(div => {
+                    div.style.borderLeftColor = colortheme3txt;
+                    div.style.borderRightColor = colortheme3txt;
+                });
+            }
+            console.log("Fetching data", mapJson, teamsData, inputJson, themeColors, themeLogos);
+            generateMaps(mapJson.totalMaps, mapJson, t1nametxt, t2nametxt);
+        }
+
+        function generateMaps(count, mapJson, t1nametxt, t2nametxt) {
+            console.log("Generating maps", count, mapJson, t1nametxt, t2nametxt);
+            const container = document.getElementById('map-container');
+            for (let i = 0; i < count; i++) {
+                const mapWrapDiv = document.createElement('div');
+                mapWrapDiv.className = `mapwrap mapwrap${i + 1}`;
+                mapWrapDiv.innerHTML = `
+                    <div class="mapbg mapbg${i + 1}">
+                        <img src="${mapJson.mapData[i].mapImage || blankimage}" alt="Map ${i + 1}">
+                        ${enablevideo ? '<video autoplay muted loop></video>' : ''}
+                        <div class="mapscore">
+                            <span class="teamname">${t1nametxt} vs ${t2nametxt}</span>
+                            <span class="logo">Logo ${i + 1}</span>
+                            <span class="score">Score ${i + 1}</span>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(mapWrapDiv);
+            }
+        }
+
+        fetchData();
+    </script>
+</body>
+</html>

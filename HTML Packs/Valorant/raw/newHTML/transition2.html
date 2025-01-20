@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Transition System</title>
+    <!-- <script src="TransitionManager.js"></script> -->
+</head>
+
+<body>
+    <script>
+
+        class TransitionManager {
+            constructor(options = {}) {
+                this.defaultOptions = {
+                    duration: '1s',
+                    delay: '0s',
+                    animationIn: 'stinger',
+                    backgroundColor: '#202224',
+                    altColor: 'white',
+                    logoUrl: '',
+                };
+
+                this.options = { ...this.defaultOptions, ...options };
+
+                // Define available animations
+                this.availableAnimations = [
+                    'bounceIn', 'bounceInDown', 'bounceInLeft', 'bounceInRight', 'bounceInUp',
+                    'fadeIn', 'fadeInDown', 'fadeInLeft', 'fadeInRight', 'fadeInUp',
+                    'slideInDown', 'slideInLeft', 'slideInRight', 'slideInUp',
+                    'zoomIn', 'zoomInDown', 'zoomInLeft', 'zoomInRight', 'zoomInUp',
+                    "flipInX", "flipInY", "flip", "lightSpeedInRight", "rotateIn", "rotateInDownLeft", "rotateInDownRight", "rotateInUpLeft", "rotateInUpRight",
+                    'stinger'
+                ];
+            }
+
+            async init() {
+                // Add initial styles
+                this.addBaseStyles();
+
+                // Load animate.css
+                await this.loadAnimateCss();
+
+                // Parse URL parameters and load data
+                await this.parseUrlParams();
+
+                // Create and show the transition
+                this.createTransitionElements();
+
+                // Start the update interval
+                //   this.startUpdateInterval();
+            }
+
+            addBaseStyles() {
+                const style = document.createElement('style');
+                style.textContent = `
+        body {
+          margin: 0px auto;
+          overflow: hidden;
+        }
+  
+        .transition-container {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100vw;
+          height: 100vh;
+          overflow: hidden;
+        }
+  
+        @keyframes stingerwipe {
+          0% {
+            clip-path: polygon(0 0, 100% 0%, 100% 100%, 0% 100%);
+            transform: translateX(0) skewX(-15deg);
+          }
+          100% {
+            clip-path: polygon(0% 0, 50% 0, 50% 100%, 0% 100%);
+            transform: translateX(-50%) skewX(-15deg);
+          }
+        }
+  
+        @keyframes slideease {
+          0% {
+            transform: translateX(1000px) skewX(15deg);
+          }
+          50% {
+            transform: translateX(20px) skewX(15deg);
+          }
+          100% {
+            transform: translateX(0px) skewX(15deg);
+          }
+        }
+  
+        .stingerlogo {
+          position: absolute;
+          top: 0px;
+          left: -150px;
+          width: 2220px;
+          height: 1080px;
+          vertical-align: middle;
+          transform: skewX(-15deg);
+        }
+  
+        .stingerlogo.animate-stinger {
+          animation: stingerwipe 0.3s;
+          animation-fill-mode: forwards;
+          animation-delay: 1s;
+        }
+  
+        .stingerlogo .logo {
+          width: 1120px;
+          height: 680px;
+          position: absolute;
+          top: 200px;
+          left: 550px;
+          background-position: center;
+          background-size: contain;
+          background-repeat: no-repeat;
+          transform: skewX(15deg);
+          animation: slideease 1s;
+          animation-fill-mode: forwards;
+          animation-timing-function: cubic-bezier(0, 0, 0, 1);
+        }
+  
+        .altcolor {
+          position: absolute;
+          top: 0px;
+          left: -150px;
+          width: 2220px;
+          height: 1080px;
+          vertical-align: middle;
+          transform: skewX(-15deg);
+        }
+  
+        .altcolor.animate-stinger {
+          animation: stingerwipe 0.35s;
+          animation-fill-mode: forwards;
+          animation-delay: 1.05s;
+        }
+  
+        .animate__animated {
+          animation-duration: 1s;
+        }
+      `;
+
+                document.head.appendChild(style);
+            }
+
+            loadAnimateCss() {
+                return new Promise((resolve, reject) => {
+                    const link = document.createElement('link');
+                    link.rel = 'stylesheet';
+                    link.href = 'https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css';
+                    link.onload = resolve;
+                    link.onerror = reject;
+                    document.head.appendChild(link);
+                });
+            }
+
+            async parseUrlParams() {
+                const urlParams = new URLSearchParams(window.location.search);
+
+                // Animation type
+                if (urlParams.has('animation')) {
+                    const requestedAnimation = urlParams.get('animation');
+                    if (this.availableAnimations.includes(requestedAnimation)) {
+                        this.options.animationIn = requestedAnimation;
+                    }
+                }
+
+                // Team data
+                if (urlParams.has('team')) {
+                    await this.loadTeamData(urlParams.get('team'));
+                } else {
+                    await this.loadTeamData(null);
+                }
+
+                // Duration
+                if (urlParams.has('duration')) {
+                    this.options.duration = urlParams.get('duration');
+                }
+
+
+            }
+
+
+
+
+            async loadTeamData(team) {
+                try {
+                    const response = await fetch('http://localhost:8080/getFullJson');
+                    const data = await response.json();
+
+                    if (team === 'team1') {
+                        this.options.logoUrl = data.teams.team1.teamLogoUrl;
+                        this.options.backgroundColor = data.teams.team1.color || this.options.backgroundColor;
+                    } else if (team === 'team2') {
+                        this.options.logoUrl = data.teams.team2.teamLogoUrl;
+                        this.options.backgroundColor = data.teams.team2.color || this.options.backgroundColor;
+                    } else {
+                        this.options.logoUrl = data.general.file.BGG_L1.value;
+                        this.options.backgroundColor = data.general.color.BGG_C1.value;
+                        this.options.altColor = data.general.color.BGG_C3.value;
+                    }
+                } catch (error) {
+                    console.error('Error loading team data:', error);
+                }
+            }
+
+            createTransitionElements() {
+                const container = document.createElement('div');
+                container.className = 'transition-container';
+
+                // Create alt color element
+                const altColor = document.createElement('div');
+                altColor.className = 'altcolor';
+                altColor.style.backgroundColor = this.options.altColor;
+
+
+
+                // Create main stinger element
+                const stingerLogo = document.createElement('div');
+                stingerLogo.className = 'stingerlogo';
+                stingerLogo.style.backgroundColor = this.options.backgroundColor;
+
+                // Create logo element
+                const logo = document.createElement('div');
+                logo.className = 'logo';
+                logo.id = 'team1logobig';  // Match original ID
+                logo.style.backgroundImage = `url('${this.options.logoUrl}')`;
+
+                // Assemble the elements
+                stingerLogo.appendChild(logo);
+                container.appendChild(altColor);
+                container.appendChild(stingerLogo);
+                document.body.appendChild(container);
+
+                // Force a reflow
+                void container.offsetWidth;
+
+                // Apply animations based on type
+                if (this.options.animationIn === 'stinger') {
+                    stingerLogo.classList.add('animate-stinger');
+                    altColor.classList.add('animate-stinger');
+                } else {
+                    stingerLogo.classList.add('animate__animated', `animate__${this.options.animationIn}`);
+                    altColor.classList.add('animate__animated', `animate__${this.options.animationIn}`);
+
+                    // Setting the GLOBAL animation time...
+                    // set animate-duration to the duration
+
+                    console.log("The duration should be: " + this.options.duration);
+                    document.documentElement.style.setProperty('--animate-duration', this.options.duration);
+
+                    // Add fadeout after animation completes
+                    setTimeout(() => {
+                        stingerLogo.classList.remove(`animate__${this.options.animationIn}`);
+                        altColor.classList.remove(`animate__${this.options.animationIn}`);
+                        stingerLogo.classList.add('animate__fadeOut');
+                        altColor.classList.add('animate__fadeOut');
+                    }, 1000);
+                }
+            }
+
+        }
+        document.addEventListener('DOMContentLoaded', async () => {
+            const transition = new TransitionManager();
+            await transition.init();
+        });
+    </script>
+</body>
+
+</html>

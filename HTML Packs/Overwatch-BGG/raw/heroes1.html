@@ -4,8 +4,6 @@
 
 <head>
   <style>
-
-
     @keyframes herowipe {
       0% {
         clip-path: polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%);
@@ -122,7 +120,7 @@
       display: flex;
       flex-direction: column;
       animation: herowipe 1.5s backwards;
-      animation-delay: 1.0s; 
+      animation-delay: 1.0s;
       /* 1.0 - 2.0 - incrment delay .2 every player */
     }
 
@@ -132,7 +130,7 @@
       animation-delay: 1.1s; 
     } */
 
-    
+
 
     .hero-image {
       width: 453px;
@@ -227,11 +225,11 @@
     function createPlayerElement(playerData, index, totalPlayers) {
       const container = document.createElement('div');
       container.className = 'player-container';
-      
+
       // Base delays for different elements
       const baseDelay = 1.0;
       const stepDelay = 0.2;
-      
+
       // Calculate delays for this player's components
       const heroDelay = baseDelay + (index * stepDelay);
       const infoDelay = heroDelay + 0.5;
@@ -239,16 +237,20 @@
 
       container.innerHTML = `
         <div class="hero-image animate-hero" style="animation-delay: ${heroDelay}s">
-          <img src="${playerData.images.heroImage || 'placeholder.jpg'}" alt="Hero">
+          <img src="${playerData.images.heroImage || 'https://upload.wikimedia.org/wikipedia/en/d/d2/Blank.png'}" alt="HERO">
         </div>
         <div class="player-info animate-info" style="animation-delay: ${infoDelay}s">
           <div class="player-role animate-role" style="animation-delay: ${roleDelay}s">
             <div class="role-icon" style="background-image: url('${playerData.images.roleImage}')"></div>
           </div>
           <span class="battletag">${playerData.playerName || 'Player ' + (index + 1)}</span>
-          <span class="fullname">${playerData.role || 'Role'}</span>
+          <span class="fullname">${playerData.role || ''}</span>
         </div>
       `;
+
+      if (!playerData.images.roleImage) {
+        container.querySelector('.player-role').style.display = 'none';
+      }
 
       // Make container visible after all animations
       container.style.animationDelay = `${heroDelay}s`;
