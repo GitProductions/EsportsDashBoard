@@ -8,7 +8,8 @@
       "game": "Overwatch",
       "image": "Game Configs/Overwatch/Overwatch.webp",
       "description": "Starter Pack includes Game Config, HTML Files & OBS Scene Collection",
-      "fileKey": "Starter Packs/BGG_Overwatch_EsportsDash_Starter_v1.3.bggstarter"
+      "fileKey": "Starter Packs/BGG_Overwatch_EsportsDash_Starter_v1.3.bggstarter",
+      "zipFile": ""
     },
     {
       "name": "BGG Marvel Rivals Starter Pack",
@@ -17,7 +18,8 @@
       "game": "Marvel Rivals",
       "image": "Game Configs/Marvel Rivals/Marvel Rivals.webp",
       "description": "Starter Pack includes Game Config, HTML Files & OBS Scene Collection",
-      "fileKey": "Starter Packs/MarvelRivals_Starter_v1.1.bggstarter"
+      "fileKey": "Starter Packs/MarvelRivals_Starter_v1.1.bggstarter",
+      "zipFile": ""
     },
     {
       "name": "Valorant Starter Pack",
@@ -26,7 +28,8 @@
       "game": "Valorant",
       "image": "Game Configs/Valorant/Valorant.png",
       "description": "Starter Pack includes Game Config, HTML Files & OBS Scene Collection",
-      "fileKey": "Starter Packs/Valorant_Starter_v1.1.bggstarter"
+      "fileKey": "Starter Packs/Valorant_Starter_v1.1.bggstarter",
+      "zipFile": ""
     }
     
 
