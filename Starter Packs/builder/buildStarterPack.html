@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Starter Pack Builder</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+        }
+        select, input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group:last-child {
+            margin-bottom: 0;
+        }
+    </style>
+        <script src="https://cdn.jsdelivr.net/npm/jszip@3.9.1/dist/jszip.min.js"></script>
+</head>
+<body>
+
+    <h1>Starter Pack Builder</h1>
+
+    <form id="starterPackForm">
+        <div class="form-group">
+            <label for="htmlPack">Select HTML Pack:</label>
+            <select id="htmlPack" required></select>
+        </div>
+
+        <div class="form-group">
+            <label for="gameConfig">Select Game Config Pack:</label>
+            <select id="gameConfig" required></select>
+        </div>
+
+        <div class="form-group">
+            <label for="baseURL">Base URL:</label>
+            <input type="url" id="baseURL" value="https://api.github.com/repos/GitProductions/EsportsDashBoard/contents" required>
+        </div>
+
+        <h3>Config.ini Settings</h3>
+
+        <div class="form-group">
+            <label for="configName">Config.ini Name:</label>
+            <input type="text" id="configName" required>
+        </div>
+
+        <div class="form-group">
+            <label for="configAuthor">Config.ini Author:</label>
+            <input type="text" id="configAuthor" required>
+        </div>
+
+        <div class="form-group">
+            <label for="configVersion">Config.ini Version:</label>
+            <input type="text" id="configVersion" required>
+        </div>
+
+        <div class="form-group">
+            <label for="pathToReplace">Config.ini Path to Replace:</label>
+            <input type="text" id="pathToReplace" value='C:/Users/GitPC/Documents/GitHub/EsportsDashBoard/HTML Packs/Overwatch-BGG/raw/' required>
+        </div>
+
+        <button type="button" id="generateZip">Generate Starter Pack</button>
+    </form>
+
+    <div id="status"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
