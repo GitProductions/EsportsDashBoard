@@ -8,8 +8,8 @@
       "game": "Overwatch",
       "image": "Game Configs/Overwatch/Overwatch.webp",
       "description": "Starter Pack includes Game Config, HTML Files & OBS Scene Collection",
-      "fileKey": "Starter Packs/BGG_Overwatch_EsportsDash_Starter_v1.3.bggstarter",
-      "zipFile": ""
+      "fileKey": "Starter Packs",
+      "zipFile": "BGG_Overwatch_EsportsDash_Starter_v1.3.bggstarter"
     },
     {
       "name": "BGG Marvel Rivals Starter Pack",
