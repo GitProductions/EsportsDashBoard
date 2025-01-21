@@ -26,13 +26,11 @@
       "author": "Esports Dash",
       "version": "1.1",
       "game": "Valorant",
-      "image": "Game Configs/Valorant/Valorant.png",
+      "image": "Game Configs/Valorant/Valorant.webp",
       "description": "Starter Pack includes Game Config, HTML Files & OBS Scene Collection",
       "fileKey": "Starter Packs",
       "zipFile": "Valorant_Starter_v1.1.bggstarter"
     }
-    
-
   ],
 
 
@@ -53,7 +51,7 @@
       "author": "Broadcast GG",
       "version": "1.0",
       "game": "Valorant",
-      "image": "Game Configs/Valorant/Valorant.png",
+      "image": "Game Configs/Valorant/Valorant.webp",
       "description": "Description of HTML pack 2",
       "fileKey": "HTML Packs/Valorant",
       "zipFile": "Valorant-BGG-HTML-PACK.zip"
