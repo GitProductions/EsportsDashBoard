@@ -18,8 +18,8 @@
       "game": "Marvel Rivals",
       "image": "Game Configs/Marvel Rivals/Marvel Rivals.webp",
       "description": "Starter Pack includes Game Config, HTML Files & OBS Scene Collection",
-      "fileKey": "Starter Packs/MarvelRivals_Starter_v1.1.bggstarter",
-      "zipFile": ""
+      "fileKey": "Starter Packs",
+      "zipFile": "MarvelRivals_Starter_v1.1.bggstarter"
     },
     {
       "name": "Valorant Starter Pack",
@@ -28,8 +28,8 @@
       "game": "Valorant",
       "image": "Game Configs/Valorant/Valorant.png",
       "description": "Starter Pack includes Game Config, HTML Files & OBS Scene Collection",
-      "fileKey": "Starter Packs/Valorant_Starter_v1.1.bggstarter",
-      "zipFile": ""
+      "fileKey": "Starter Packs",
+      "zipFile": "Valorant_Starter_v1.1.bggstarter"
     }
     
 
