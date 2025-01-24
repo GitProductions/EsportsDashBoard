@@ -3,7 +3,7 @@
   "Starter Packs": [
     {
       "name": "BGG Overwatch Starter Pack",
-      "author": "Esports Dash",
+      "author": "EsportsDash",
       "version": "1.3",
       "game": "Overwatch",
       "image": "Game Configs/Overwatch/Overwatch.webp",
@@ -13,7 +13,7 @@
     },
     {
       "name": "BGG Marvel Rivals Starter Pack",
-      "author": "Esports Dash",
+      "author": "EsportsDash",
       "version": "1.1",
       "game": "Marvel Rivals",
       "image": "Game Configs/Marvel Rivals/Marvel Rivals.webp",
@@ -23,7 +23,7 @@
     },
     {
       "name": "Valorant Starter Pack",
-      "author": "Esports Dash",
+      "author": "EsportsDash",
       "version": "1.1",
       "game": "Valorant",
       "image": "Game Configs/Valorant/Valorant.webp",
@@ -74,7 +74,7 @@
       "Overwatch": [
         {
           "name": "Overwatch Game Config",
-          "author": "Esports Dash",
+          "author": "EsportsDash",
           "version": "1.2",
           "image": "Game Configs/Overwatch/Overwatch.webp",
           "description": "NOT USING GAME CONFIG SECTION HERE YET.... on website. anyhow..",
@@ -87,7 +87,7 @@
       "Valorant": [
         {
           "name": "Valorant Game Config",
-          "author": "Esports Dash",
+          "author": "EsportsDash",
           "version": "1.2",
           "image": "Game Configs/Valorant/valorant.png",
           "description": "Description of game config 2",
@@ -100,7 +100,7 @@
       "Marvel Rivals": [
         {
           "name": "Marvel Rivals Game Config",
-          "author": "Esports Dash",
+          "author": "EsportsDash",
           "version": "1.0",
           "image": "Game Configs/Marvel Rivals/Marvel Rivals.webp",
           "description": "Description of game config 3",
