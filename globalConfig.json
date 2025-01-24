@@ -76,10 +76,19 @@
           "id": "esportsdash.overwatch",
           "name": "Overwatch Game Config",
           "author": "EsportsDash",
-          "version": "1.3",
+          "version": "1.2",
           "image": "Game Configs/Overwatch/Overwatch.webp",
           "description": "NOT USING GAME CONFIG SECTION HERE YET.... on website. anyhow..",
           "fileKey": "Game Configs/Overwatch/Overwatch-EsportsDash-1.2.bgg"
+        },
+        {
+          "id": "esportsdash.overwatch",
+          "name": "Overwatch Game Config",
+          "author": "EsportsDash",
+          "version": "1.3",
+          "image": "Game Configs/Overwatch/Overwatch.webp",
+          "description": "NOT USING GAME CONFIG SECTION HERE YET.... on website. anyhow..",
+          "fileKey": "Game Configs/Overwatch/esportsdash.overwatch_v1.3"
         }
       ]
     },
@@ -90,10 +99,19 @@
           "id": "esportsdash.valorant",
           "name": "Valorant Game Config",
           "author": "EsportsDash",
-          "version": "1.3",
+          "version": "1.2",
           "image": "Game Configs/Valorant/valorant.png",
           "description": "Description of game config 2",
           "fileKey": "Game Configs/Valorant/Valorant-EsportsDash-1.2.bgg"
+        },
+        {
+          "id": "esportsdash.valorant",
+          "name": "Valorant Game Config",
+          "author": "EsportsDash",
+          "version": "1.3",
+          "image": "Game Configs/Valorant/valorant.png",
+          "description": "Description of game config 2",
+          "fileKey": "Game Configs/Valorant/esportsdash.valorant_v1.3.bgg"
         }
       ]
     },
@@ -104,10 +122,19 @@
           "id": "esportsdash.marvelrivals",
           "name": "Marvel Rivals Game Config",
           "author": "EsportsDash",
-          "version": "1.1",
+          "version": "1.0",
           "image": "Game Configs/Marvel Rivals/Marvel Rivals.webp",
           "description": "Description of game config 3",
           "fileKey": "Game Configs/Marvel Rivals/Marvel Rivals-config.bgg"
+        },
+        {
+          "id": "esportsdash.marvelrivals",
+          "name": "Marvel Rivals Game Config",
+          "author": "EsportsDash",
+          "version": "1.1",
+          "image": "Game Configs/Marvel Rivals/Marvel Rivals.webp",
+          "description": "Description of game config 3",
+          "fileKey": "Game Configs/Marvel Rivals/esportsdash.marvelrivals_v1.1.bgg"
         }
       ]
     }
