@@ -96,6 +96,7 @@ Example:
   <heroes>
     <Tank>
       <hero name="D.Va" file="D.Va"  />
+	  <hero name="Hazard" file="Hazard"  />
       <hero name="Orisa" file="Orisa"  />
       <hero name="Reinhardt" file="Reinhardt"  />
       <hero name="Roadhog" file="Roadhog"  />
