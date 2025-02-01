@@ -167,7 +167,7 @@ const configurations = {
         name: "Valorant Game Config",
         author: "EsportsDash",
         version: "1.2",
-        image: "Game Configs/Valorant/valorant.png",
+        image: "Game Configs/Valorant/Valorant.png",
         description: "Game configuration file.",
         folderPath: "Game Configs/Valorant",
         fileName: "Valorant-EsportsDash-1.2.bgg"
@@ -177,7 +177,7 @@ const configurations = {
         name: "Valorant Game Config",
         author: "EsportsDash",
         version: "1.3",
-        image: "Game Configs/Valorant/valorant.png",
+        image: "Game Configs/Valorant/Valorant.png",
         description: "Game configuration file.",
         folderPath: "Game Configs/Valorant",
         fileName: "esportsdash.valorant_v1.3.bgg"
@@ -210,7 +210,7 @@ const configurations = {
       fileName: "MarvelRivals-BGG-HTML-PACK.zip"
     },
 
-    
+
     gameConfigs: [
       {
         id: "esportsdash.marvelrivals",
