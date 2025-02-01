@@ -89,6 +89,7 @@ const configurations = {
 
 
   "Overwatch": {
+    
     starterPack: {
       name: "BGG Overwatch Starter Pack",
       author: "EsportsDash",
