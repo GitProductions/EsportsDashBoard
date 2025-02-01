@@ -1,3 +1,8 @@
+// need to modified this so starter pack and html packs both are an array like gameConfigs is
+// follow the same method shown at bottom of file when using 'addGameConfig' method
+
+
+
 const fs = require('fs');
 const path = require('path');
 
@@ -89,7 +94,7 @@ const configurations = {
 
 
   "Overwatch": {
-    
+
     starterPack: {
       name: "BGG Overwatch Starter Pack",
       author: "EsportsDash",
@@ -231,6 +236,8 @@ const configurations = {
 Object.entries(configurations).forEach(([game, config]) => {
   configGenerator.addStarterPack(game, new StarterPack(config.starterPack));
   configGenerator.addHtmlPack(game, new HtmlPack(config.htmlPack));
+
+
   config.gameConfigs.forEach(gameConfig => {
     configGenerator.addGameConfig(game, new GameConfig(gameConfig));
   });
