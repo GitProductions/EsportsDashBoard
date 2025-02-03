@@ -567,14 +567,20 @@
           let matchSelector = `.match${index + 1}`;
 
           // Display the match block
-          $(matchSelector).css("display", "block");
+
+          if (team1.name !=='' && team2.name !=='') {
+            $(matchSelector).css("display", "block");
+          } else {
+            $(matchSelector).css("display", "none");
+          }
+          // $(matchSelector).css("display", "block");
 
           // Set match info and details
           $(`${matchSelector} .matchinfo`).text(details);
 
           // Update team names
-          $(`${matchSelector} .teamname1`).text(team1.name || "TBA");
-          $(`${matchSelector} .teamname2`).text(team2.name || "TBA");
+          $(`${matchSelector} .teamname1`).text(team1.name || "");
+          $(`${matchSelector} .teamname2`).text(team2.name || "");
 
           // Update team scores, displaying "0" if the score is missing
           $(`${matchSelector} .teamscore1`).text(team1.score ?? 0);
