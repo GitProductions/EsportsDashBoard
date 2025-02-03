@@ -3,48 +3,52 @@ const GITHUB_RAW_URL = "https://raw.githubusercontent.com/GitProductions/Esports
 
 const globalConfigURL = `${githubRepoPath}/globalConfig.json`;
 
-
 // On page load, fetch globalConfig and populate the select elements
 window.onload = async function() {
     try {
         const globalConfigResponse = await fetch(globalConfigURL);
         const globalConfigData = await globalConfigResponse.json();
-        globalConfig = decodeBase64(globalConfigData.content); // Decode base64-encoded content
-        populateSelect('htmlPack', globalConfig["HTML Packs"]);
-        populateSelect('gameConfig', globalConfig["Game Configs"]);
+        let globalConfig = decodeBase64(globalConfigData.content); // Decode base64-encoded content
+
+        console.log(globalConfig['HTML Packs']);
+
+        populateGameSelect(globalConfig);
     } catch (error) {
         alert("Failed to load global config: " + error);
     }
 };
 
+// Populate game dropdown with options
+function populateGameSelect(globalConfig) {
+    const gameSelect = document.getElementById('gameSelect');
+    const games = Object.keys(globalConfig["HTML Packs"]);
+
+    games.forEach(game => {
+        const opt = document.createElement('option');
+        opt.value = game;
+        opt.text = game;
+        gameSelect.add(opt);
+    });
+
+    // Add event listener to populate HTML packs and game configs based on selected game
+    gameSelect.addEventListener('change', function() {
+        const selectedGame = gameSelect.value;
+        populateSelect('htmlPack', globalConfig["HTML Packs"][selectedGame]);
+        populateSelect('gameConfig', globalConfig["Game Configs"][selectedGame]);
+    });
+}
+
 // Populate dropdown with options
 function populateSelect(id, options) {
     const select = document.getElementById(id);
+    select.innerHTML = ''; // Clear existing options
 
-    if (id === 'gameConfig') {
-        options.forEach(gameCategory => {
-            for (const [categoryName, gameConfigs] of Object.entries(gameCategory)) {
-                const optGroup = document.createElement('optgroup');
-                optGroup.label = categoryName;
-                
-                gameConfigs.forEach(gameConfig => {
-                    const opt = document.createElement('option');
-                    opt.value = gameConfig.fileKey;
-                    opt.text = gameConfig.name;
-                    optGroup.appendChild(opt);
-                });
-
-                select.add(optGroup);
-            }
-        });
-    } else {
-        options.forEach(option => {
-            const opt = document.createElement('option');
-            opt.value = option.fileKey;
-            opt.text = option.name;
-            select.add(opt);
-        });
-    }
+    options.forEach(option => {
+        const opt = document.createElement('option');
+        opt.value = option.fileName; // Use fileName as the value
+        opt.text = `${option.name} v${option.version} by ${option.author}`;
+        select.add(opt);
+    });
 }
 
 function decodeBase64(base64) {
@@ -62,6 +66,7 @@ async function fetchFolderContents(folderKey) {
     }
     return response.json(); 
 }
+
 document.getElementById('generateZip').addEventListener('click', async () => {
     const htmlPackKey = document.getElementById('htmlPack').value;
     const gameConfigKey = document.getElementById('gameConfig').value;
