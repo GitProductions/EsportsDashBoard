@@ -1,14 +1,34 @@
 const githubRepoPath = "https://api.github.com/repos/GitProductions/EsportsDashBoard/contents";
 const GITHUB_RAW_URL = "https://raw.githubusercontent.com/GitProductions/EsportsDashBoard/main";
 
-const globalConfigURL = `${githubRepoPath}/globalConfig.json`;
+// const globalConfigURL = `${githubRepoPath}/globalConfig.json`;
+
+// // On page load, fetch globalConfig and populate the select elements
+// window.onload = async function() {
+//     try {
+//         const globalConfigResponse = await fetch(globalConfigURL);
+//         const globalConfigData = await globalConfigResponse.json();
+//         let globalConfig = decodeBase64(globalConfigData.content); // Decode base64-encoded content
+
+//         console.log(globalConfig['HTML Packs']);
+
+//         populateGameSelect(globalConfig);
+//     } catch (error) {
+//         alert("Failed to load global config: " + error);
+//     }
+// };
+
+
+const globalConfigURL = '../../globalConfig.json';
 
 // On page load, fetch globalConfig and populate the select elements
 window.onload = async function() {
     try {
         const globalConfigResponse = await fetch(globalConfigURL);
-        const globalConfigData = await globalConfigResponse.json();
-        let globalConfig = decodeBase64(globalConfigData.content); // Decode base64-encoded content
+        if (!globalConfigResponse.ok) {
+            throw new Error(`Failed to fetch global config: ${globalConfigResponse.statusText}`);
+        }
+        const globalConfig = await globalConfigResponse.json();
 
         console.log(globalConfig['HTML Packs']);
 
