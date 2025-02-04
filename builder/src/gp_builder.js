@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 // ----------------------------------------
 // This script is used to pack game configs into a .bgg file.
 // Automatically packs all game configs or allows the user to select a specific game.
@@ -15,10 +17,11 @@ import inquirer from 'inquirer';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+const __root = path.join(__dirname, '..', '..')
 
 class GameConfigPacker {
     constructor() {
-        this.baseFolder = path.join(__dirname, '..', 'Game Configs');
+        this.baseFolder = path.join(__root, 'Game Configs');
         this.assetsFolder = path.join(this.baseFolder, 'assets');
         this.requiredXamlKeys = ['id', 'game', 'version', 'author'];
     }
@@ -114,7 +117,7 @@ class GameConfigPacker {
 
         const zipContent = await zip.generateAsync({ type: 'nodebuffer' });
         const fileName = `${xamlInfo.id}_v${xamlInfo.version}.bgg`;
-        const outputPath = path.join(__dirname, fileName);
+        const outputPath = path.join(__dirname, '..', 'output', fileName);
         
         await fs.writeFile(outputPath, zipContent);
         console.log(`Created: ${fileName}`);

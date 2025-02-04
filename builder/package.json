@@ -3,6 +3,11 @@
   "version": "1.0.0",
   "main": "gp_builder.js",
   "type": "module",
+  "bin": {
+    "gpbuilder": "./src/gp_builder.js",
+    "spbuilder": "./src/sp_builder.js",
+    "builder": "./builder.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

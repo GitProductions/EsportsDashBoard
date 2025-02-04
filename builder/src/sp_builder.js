@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 //  ----------------------------------------
 //  Purpose: This script is used to generate a starter pack for the EsportsDashBoard application.
 //  Usage: Run the script and follow the prompts to select a game, HTML pack, and game config.
@@ -13,6 +15,8 @@ import { dirname } from 'path';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+const __root = path.join(__dirname, '..', '..')
+
 
 class StarterPackBuilder {
     constructor() {
@@ -21,7 +25,7 @@ class StarterPackBuilder {
 
     async loadGlobalConfig() {
         try {
-            const config = await fs.readFile(path.join(__dirname, '..', 'globalConfig.json'), 'utf8');
+            const config = await fs.readFile(path.join(__root, 'globalConfig.json'), 'utf8');
             this.globalConfig = JSON.parse(config);
         } catch (error) {
             throw new Error(`Failed to load global config: ${error.message}`);
@@ -117,14 +121,14 @@ class StarterPackBuilder {
         const htmlFolder = mainFolder.folder('html');
 
         try {
-            const obsConfigPath = path.join(__dirname, '..', choices.htmlPack.folderPath, 'obsConfig.json');
+            const obsConfigPath = path.join(__root, choices.htmlPack.folderPath, 'obsConfig.json');
             const obsConfig = await fs.readFile(obsConfigPath);
             mainFolder.file('obsConfig.json', obsConfig);
 
-            const htmlPath = path.join(__dirname, '..', choices.htmlPack.folderPath, 'html');
+            const htmlPath = path.join(__root, choices.htmlPack.folderPath, 'html');
             await this.addDirectoryToZip(htmlPath, htmlFolder);
 
-            const gameConfigPath = path.join(__dirname, '..', choices.gameConfig.folderPath, choices.gameConfig.fileName);
+            const gameConfigPath = path.join(__root, choices.gameConfig.folderPath, choices.gameConfig.fileName);
             const gameConfig = await fs.readFile(gameConfigPath);
             mainFolder.file(choices.gameConfig.fileName, gameConfig);
 
