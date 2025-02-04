@@ -1,7 +1,7 @@
 {
   "name": "builder",
   "version": "1.0.0",
-  "main": "builder2.js",
+  "main": "gp_builder.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
