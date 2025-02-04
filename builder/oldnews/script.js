@@ -1,3 +1,9 @@
+// THIS NEEDS AN ENTIRE RE-WORK FROM THE GROUND UP.. STEP BY STEP and SEPERATE the logic 
+// Must validate all aspects and assure proper formatting and error handling
+
+
+
+
 const globalConfigURL = '../../globalConfig.json';
 
 // On page load, fetch globalConfig and populate the select elements
@@ -50,7 +56,11 @@ function populateSelect(id, options) {
     });
 }
 
-const JSZip = window.JSZip; 
+
+
+
+
+const JSZip = window.JSZip;
 
 async function fetchLocalFile(filePath) {
     const response = await fetch(filePath);
@@ -60,10 +70,65 @@ async function fetchLocalFile(filePath) {
     return response.blob();
 }
 
-document.getElementById('generateZip').addEventListener('click', async () => {
+async function fetchDirectoryContents(path, parentFolder, statusElement) {
+
+    console.log(`fetching directory contents: ${path}, parentFolder: ${parentFolder}, statusElement: ${statusElement}`);
+    try {
+        const response = await fetch(path);
+        if (!response.ok) {
+            throw new Error(`Failed to fetch directory contents: ${path}`);
+        }
+        const contents = await response.json();
+        
+        for (const item of contents) {
+            const fullPath = `${path}/${item.name}`;
+            
+            if (item.type === 'file') {
+                const blob = await fetchLocalFile(fullPath);
+
+                // Get the file path relative to the directory
+                const relativePath = fullPath.replace(/^.*[\\\/]/, '');
+
+                // Add file to the html folder maintaining subfolder structure
+                parentFolder.file(relativePath, blob);
+                statusElement.innerText = `Added ${relativePath} to html folder`;
+            } else if (item.type === 'dir') {
+                // Recursively process subdirectories
+                const subFolder = parentFolder.folder(item.name);
+                await fetchDirectoryContents(fullPath, subFolder, statusElement);
+            }
+        }
+    } catch (error) {
+        console.error(`Error fetching directory contents: ${error}`);
+    }
+}
+
+async function addObsConfig(mainFolder, htmlPack, statusElement) {
+    const obsConfigURL = `../../${htmlPack.folderPath}/obsConfig.json`;
+    try {
+        const obsConfigBlob = await fetchLocalFile(obsConfigURL);
+        mainFolder.file('obsConfig.json', obsConfigBlob);
+        statusElement.innerText = 'Added obsConfig.json';
+    } catch (error) {
+        alert("Warning: Could not fetch obsConfig.json: " + error);
+        statusElement.innerText = "Warning: Missing obsConfig.json";
+    }
+}
+
+async function addGameConfig(mainFolder, gameConfig) {
+    const gameConfigURL = `../../${gameConfig.folderPath}/${gameConfig.fileName}`;
+    const gameConfigBlob = await fetchLocalFile(gameConfigURL);
+    mainFolder.file(gameConfig.fileName, gameConfigBlob);
+}
+
+function addConfigIni(mainFolder, configName, configAuthor, configVersion, pathToReplace) {
+    const configIni = `name=${configName}\nauthor=${configAuthor}\nversion=${configVersion}\npathToReplace=${pathToReplace}`;
+    mainFolder.file('config.ini', configIni);
+}
+
+async function generateZip() {
     const htmlPack = JSON.parse(document.getElementById('htmlPack').value);
     const gameConfig = JSON.parse(document.getElementById('gameConfig').value);
-    const baseURL = document.getElementById('baseURL').value;
     const configName = document.getElementById('configName').value;
     const configAuthor = document.getElementById('configAuthor').value;
     const configVersion = document.getElementById('configVersion').value;
@@ -72,66 +137,24 @@ document.getElementById('generateZip').addEventListener('click', async () => {
     const zip = new JSZip();
     const statusElement = document.getElementById('status');
 
-    // Helper function to recursively fetch files from a directory
-    async function fetchDirectoryContents(path, parentFolder) {
-        try {
-            const response = await fetch(path);
-            if (!response.ok) {
-                throw new Error(`Failed to fetch directory contents: ${path}`);
-            }
-            const contents = await response.json();
-            
-            for (const item of contents) {
-                const fullPath = `${path}/${item.name}`;
-                
-                if (item.type === 'file') {
-                    const blob = await fetchLocalFile(fullPath);
-
-                    // Get the file path relative to the directory
-                    const relativePath = fullPath.replace(/^.*[\\\/]/, '');
-
-                    // Add file to the html folder maintaining subfolder structure
-                    parentFolder.file(relativePath, blob);
-                    statusElement.innerText = `Added ${relativePath} to html folder`;
-                } else if (item.type === 'dir') {
-                    // Recursively process subdirectories
-                    const subFolder = parentFolder.folder(item.name);
-                    await fetchDirectoryContents(fullPath, subFolder);
-                }
-            }
-        } catch (error) {
-            console.error(`Error fetching directory contents: ${error}`);
-        }
-    }
-
     try {
-        const mainFolder = zip.folder(`${configName}_v${configVersion}`);
+        const mainFolder = zip.folder(`${gameConfig.fileName.replace('.bgg','')}`);
         const htmlFolder = mainFolder.folder('html');
 
-        // First fetch the obsconfig.json from the HTML pack directory
-        const obsConfigURL = `../../${htmlPack.folderPath}/obsConfig.json`;
-        try {
-            const obsConfigBlob = await fetchLocalFile(obsConfigURL);
-            mainFolder.file('obsConfig.json', obsConfigBlob);
-            statusElement.innerText = 'Added obsConfig.json';
-        } catch (error) {
-            alert("Warning: Could not fetch obsConfig.json: " + error);
-            statusElement.innerText = "Warning: Missing obsConfig.json";
-        }
+        // Add obsconfig.json
+        await addObsConfig(mainFolder, htmlPack, statusElement);
 
         // Fetch all HTML files recursively from the local directory
         statusElement.innerText = `Fetching contents of ../../${htmlPack.folderPath}/html/...`;
-        await fetchDirectoryContents(`../../${htmlPack.folderPath}/html`, htmlFolder);
+        await fetchDirectoryContents(`../../${htmlPack.folderPath}/html`, htmlFolder, statusElement);
 
-        // Handle game config file - place in root folder
-        const gameConfigURL = `../../${gameConfig.folderPath}/${gameConfig.fileName}`;
-        const gameConfigBlob = await fetchLocalFile(gameConfigURL);
-        mainFolder.file(gameConfig.fileName, gameConfigBlob);
+        // Add game config file
+        await addGameConfig(mainFolder, gameConfig);
 
         // Add config.ini to root folder
-        const configIni = `name=${configName}\nauthor=${configAuthor}\nversion=${configVersion}\npathToReplace=${pathToReplace}`;
-        mainFolder.file('config.ini', configIni);
+        addConfigIni(mainFolder, configName, configAuthor, configVersion, pathToReplace);
 
+        // Generate zip file
         statusElement.innerText = "Generating zip file...";
         const content = await zip.generateAsync({ type: "blob" });
 
@@ -148,4 +171,6 @@ document.getElementById('generateZip').addEventListener('click', async () => {
         alert("Error generating starter pack: " + error);
         statusElement.innerText = "Error occurred!";
     }
-});
+}
+
+document.getElementById('generateZip').addEventListener('click', generateZip);
