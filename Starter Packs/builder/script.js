@@ -1,24 +1,6 @@
 const githubRepoPath = "https://api.github.com/repos/GitProductions/EsportsDashBoard/contents";
 const GITHUB_RAW_URL = "https://raw.githubusercontent.com/GitProductions/EsportsDashBoard/main";
 
-// const globalConfigURL = `${githubRepoPath}/globalConfig.json`;
-
-// // On page load, fetch globalConfig and populate the select elements
-// window.onload = async function() {
-//     try {
-//         const globalConfigResponse = await fetch(globalConfigURL);
-//         const globalConfigData = await globalConfigResponse.json();
-//         let globalConfig = decodeBase64(globalConfigData.content); // Decode base64-encoded content
-
-//         console.log(globalConfig['HTML Packs']);
-
-//         populateGameSelect(globalConfig);
-//     } catch (error) {
-//         alert("Failed to load global config: " + error);
-//     }
-// };
-
-
 const globalConfigURL = '../../globalConfig.json';
 
 // On page load, fetch globalConfig and populate the select elements
@@ -65,15 +47,10 @@ function populateSelect(id, options) {
 
     options.forEach(option => {
         const opt = document.createElement('option');
-        opt.value = option.fileName; // Use fileName as the value
-        opt.text = `${option.name} v${option.version} by ${option.author}`;
+        opt.value = JSON.stringify(option); // Use the entire option object as the value
+        opt.text = `${option.name} (Author: ${option.author}, Version: ${option.version})`; // Include author and version in the text
         select.add(opt);
     });
-}
-
-function decodeBase64(base64) {
-    const decodedStr = atob(base64);
-    return JSON.parse(decodedStr); 
 }
 
 const JSZip = window.JSZip; 
@@ -88,8 +65,8 @@ async function fetchFolderContents(folderKey) {
 }
 
 document.getElementById('generateZip').addEventListener('click', async () => {
-    const htmlPackKey = document.getElementById('htmlPack').value;
-    const gameConfigKey = document.getElementById('gameConfig').value;
+    const htmlPack = JSON.parse(document.getElementById('htmlPack').value);
+    const gameConfig = JSON.parse(document.getElementById('gameConfig').value);
     const baseURL = document.getElementById('baseURL').value;
     const configName = document.getElementById('configName').value;
     const configAuthor = document.getElementById('configAuthor').value;
@@ -133,7 +110,7 @@ document.getElementById('generateZip').addEventListener('click', async () => {
         const htmlFolder = mainFolder.folder('html');
 
         // First fetch the obsconfig.json from the HTML pack directory
-        const obsConfigURL = `${GITHUB_RAW_URL}/${htmlPackKey}/obsConfig.json`;
+        const obsConfigURL = `${GITHUB_RAW_URL}/${htmlPack.folderPath}/obsConfig.json`;
         try {
             const obsConfigResponse = await fetch(obsConfigURL);
             if (obsConfigResponse.ok) {
@@ -149,17 +126,17 @@ document.getElementById('generateZip').addEventListener('click', async () => {
         }
 
         // Fetch all HTML files recursively from raw directory
-        statusElement.innerText = `Fetching contents of ${htmlPackKey}/html/...`;
-        await fetchDirectoryContents(`${htmlPackKey}/html`, htmlFolder);
+        statusElement.innerText = `Fetching contents of ${htmlPack.folderPath}/html/...`;
+        await fetchDirectoryContents(`${htmlPack.folderPath}/html`, htmlFolder);
 
         // Handle game config file - place in root folder
-        const gameConfigURL = `${GITHUB_RAW_URL}/${gameConfigKey}`;
+        const gameConfigURL = `${GITHUB_RAW_URL}/${gameConfig.folderPath}/${gameConfig.fileName}`;
         const gameConfigResponse = await fetch(gameConfigURL);
         if (!gameConfigResponse.ok) {
-            throw new Error(`Failed to fetch file: ${gameConfigKey}`);
+            throw new Error(`Failed to fetch file: ${gameConfig.fileName}`);
         }
         const gameConfigBlob = await gameConfigResponse.blob();
-        mainFolder.file(gameConfigKey.split('/').pop(), gameConfigBlob);
+        mainFolder.file(gameConfig.fileName, gameConfigBlob);
 
         // Add config.ini to root folder
         const configIni = `name=${configName}\nauthor=${configAuthor}\nversion=${configVersion}\npathToReplace=${pathToReplace}`;
