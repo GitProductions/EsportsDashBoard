@@ -1,6 +1,3 @@
-const githubRepoPath = "https://api.github.com/repos/GitProductions/EsportsDashBoard/contents";
-const GITHUB_RAW_URL = "https://raw.githubusercontent.com/GitProductions/EsportsDashBoard/main";
-
 const globalConfigURL = '../../globalConfig.json';
 
 // On page load, fetch globalConfig and populate the select elements
@@ -55,13 +52,12 @@ function populateSelect(id, options) {
 
 const JSZip = window.JSZip; 
 
-async function fetchFolderContents(folderKey) {
-    const folderURL = `${githubRepoPath}/${folderKey}`;
-    const response = await fetch(folderURL);
+async function fetchLocalFile(filePath) {
+    const response = await fetch(filePath);
     if (!response.ok) {
-        throw new Error(`Failed to fetch folder contents: ${folderKey}`);
+        throw new Error(`Failed to fetch file: ${filePath}`);
     }
-    return response.json(); 
+    return response.blob();
 }
 
 document.getElementById('generateZip').addEventListener('click', async () => {
@@ -78,30 +74,33 @@ document.getElementById('generateZip').addEventListener('click', async () => {
 
     // Helper function to recursively fetch files from a directory
     async function fetchDirectoryContents(path, parentFolder) {
-        const contents = await fetchFolderContents(path);
-        
-        for (const item of contents) {
-            const fullPath = `${GITHUB_RAW_URL}/${item.path}`;
-            
-            if (item.type === 'file') {
-                const response = await fetch(fullPath);
-                if (!response.ok) {
-                    throw new Error(`Failed to fetch file: ${item.path}`);
-                }
-                const blob = await response.blob();
-
-                // Get the file path relative to the /raw/ directory
-                const pathParts = item.path.split('/');
-                const rawIndex = pathParts.indexOf('html');
-                const relativePath = pathParts.slice(rawIndex + 1).join('/');
-
-                // Add file to the html folder maintaining subfolder structure
-                parentFolder.file(relativePath, blob);
-                statusElement.innerText = `Added ${relativePath} to html folder`;
-            } else if (item.type === 'dir') {
-                // Recursively process subdirectories
-                await fetchDirectoryContents(item.path, parentFolder);
+        try {
+            const response = await fetch(path);
+            if (!response.ok) {
+                throw new Error(`Failed to fetch directory contents: ${path}`);
             }
+            const contents = await response.json();
+            
+            for (const item of contents) {
+                const fullPath = `${path}/${item.name}`;
+                
+                if (item.type === 'file') {
+                    const blob = await fetchLocalFile(fullPath);
+
+                    // Get the file path relative to the directory
+                    const relativePath = fullPath.replace(/^.*[\\\/]/, '');
+
+                    // Add file to the html folder maintaining subfolder structure
+                    parentFolder.file(relativePath, blob);
+                    statusElement.innerText = `Added ${relativePath} to html folder`;
+                } else if (item.type === 'dir') {
+                    // Recursively process subdirectories
+                    const subFolder = parentFolder.folder(item.name);
+                    await fetchDirectoryContents(fullPath, subFolder);
+                }
+            }
+        } catch (error) {
+            console.error(`Error fetching directory contents: ${error}`);
         }
     }
 
@@ -110,32 +109,23 @@ document.getElementById('generateZip').addEventListener('click', async () => {
         const htmlFolder = mainFolder.folder('html');
 
         // First fetch the obsconfig.json from the HTML pack directory
-        const obsConfigURL = `${GITHUB_RAW_URL}/${htmlPack.folderPath}/obsConfig.json`;
+        const obsConfigURL = `../../${htmlPack.folderPath}/obsConfig.json`;
         try {
-            const obsConfigResponse = await fetch(obsConfigURL);
-            if (obsConfigResponse.ok) {
-                const obsConfigBlob = await obsConfigResponse.blob();
-                mainFolder.file('obsConfig.json', obsConfigBlob);
-                statusElement.innerText = 'Added obsConfig.json';
-            } else {
-                throw new Error('Failed to fetch obsConfig.json');
-            }
+            const obsConfigBlob = await fetchLocalFile(obsConfigURL);
+            mainFolder.file('obsConfig.json', obsConfigBlob);
+            statusElement.innerText = 'Added obsConfig.json';
         } catch (error) {
             alert("Warning: Could not fetch obsConfig.json: " + error);
             statusElement.innerText = "Warning: Missing obsConfig.json";
         }
 
-        // Fetch all HTML files recursively from raw directory
-        statusElement.innerText = `Fetching contents of ${htmlPack.folderPath}/html/...`;
-        await fetchDirectoryContents(`${htmlPack.folderPath}/html`, htmlFolder);
+        // Fetch all HTML files recursively from the local directory
+        statusElement.innerText = `Fetching contents of ../../${htmlPack.folderPath}/html/...`;
+        await fetchDirectoryContents(`../../${htmlPack.folderPath}/html`, htmlFolder);
 
         // Handle game config file - place in root folder
-        const gameConfigURL = `${GITHUB_RAW_URL}/${gameConfig.folderPath}/${gameConfig.fileName}`;
-        const gameConfigResponse = await fetch(gameConfigURL);
-        if (!gameConfigResponse.ok) {
-            throw new Error(`Failed to fetch file: ${gameConfig.fileName}`);
-        }
-        const gameConfigBlob = await gameConfigResponse.blob();
+        const gameConfigURL = `../../${gameConfig.folderPath}/${gameConfig.fileName}`;
+        const gameConfigBlob = await fetchLocalFile(gameConfigURL);
         mainFolder.file(gameConfig.fileName, gameConfigBlob);
 
         // Add config.ini to root folder
