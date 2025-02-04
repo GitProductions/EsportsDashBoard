@@ -164,6 +164,15 @@ const configurations = {
                     description: "Starter Pack includes Game Config, HTML Files & OBS Scene Collection",
                     folderPath: "Starter Packs",
                     fileName: "Valorant_Starter_v1.1.bggstarter"
+                },
+                {
+                    name: "Valorant Starter Pack",
+                    author: "EsportsDash",
+                    version: "1.2",
+                    image: "Game Configs/Valorant/Valorant.webp",
+                    description: "Starter Pack includes Game Config, HTML Files & OBS Scene Collection",
+                    folderPath: "Starter Packs",
+                    fileName: "Valorant_Starter_v1.2.bggstarter"
                 }
             ],
 
@@ -193,8 +202,6 @@ const configurations = {
                 folderPath: "Game Configs/Valorant",
                 fileName: "Valorant-EsportsDash-1.2.bgg"
             },
-
-            
             {
                 id: "esportsdash.valorant",
                 name: "Valorant Game Config",
