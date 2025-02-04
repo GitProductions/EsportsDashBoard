@@ -1,3 +1,9 @@
+//  ----------------------------------------
+//  Purpose: This script is used to generate a starter pack for the EsportsDashBoard application.
+//  Usage: Run the script and follow the prompts to select a game, HTML pack, and game config.
+//  The script will then generate a starter pack based on the selected options.
+//  ----------------------------------------
+
 import inquirer from 'inquirer';
 import { promises as fs } from 'fs';
 import path from 'path';

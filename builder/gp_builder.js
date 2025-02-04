@@ -1,3 +1,11 @@
+// ----------------------------------------
+// This script is used to pack game configs into a .bgg file.
+// Automatically packs all game configs or allows the user to select a specific game.
+// Each game config is packed into a separate .bgg file.
+// ----------------------------------------
+
+
+
 import { promises as fs } from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
