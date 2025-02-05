@@ -1,21 +1,25 @@
 {
   "name": "builder",
   "version": "1.0.0",
-  "main": "gp_builder.js",
+  "main": "builder.js",
   "type": "module",
   "bin": {
     "gpbuilder": "./src/gp_builder.js",
     "spbuilder": "./src/sp_builder.js",
+    "configbuilder": "./src/config_builder.js",
     "builder": "./builder.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "EsportsDash",
+  "description":"Package & Config Builder CLI",
   "license": "ISC",
-  "description": "",
   "dependencies": {
+    "chalk": "^5.4.1",
+    "figlet": "^1.8.0",
+    "gradient-string": "^3.0.0",
     "inquirer": "^9.0.0",
     "jszip": "^3.10.1"
   }
