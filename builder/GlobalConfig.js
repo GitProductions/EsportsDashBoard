@@ -39,6 +39,7 @@ export const configurations = {
 
 
         gameConfigs: [
+
             {
                 id: "esportsdash.overwatch",
                 name: "Overwatch Game Config",
