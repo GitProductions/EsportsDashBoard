@@ -53,11 +53,11 @@ export const configurations = {
                 id: "esportsdash.overwatch",
                 name: "Overwatch Game Config",
                 author: "EsportsDash",
-                version: "1.3",
+                version: "1.4",
                 image: "Game Configs/Overwatch/Overwatch.webp",
                 description: "Game configuration file.",
                 folderPath: "Game Configs/Overwatch",
-                fileName: "esportsdash.overwatch_v1.3.bgg"
+                fileName: "esportsdash.overwatch_v1.4.bgg"
             }
         ]
     },
