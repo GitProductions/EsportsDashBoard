@@ -237,6 +237,10 @@
       position: relative;
       top: -10px;
       /* line-height: ; */
+
+      animation: vsslideout 0.5s forwards;
+      animation-delay: 1s;
+      animation-fill-mode: backwards;
     }
 
     .scoreboard {
@@ -726,8 +730,8 @@
           let teamColor1 = themeColors.BGG_C3.value;
           let teamColor2 = themeColors.BGG_C3.value;
           if (useTeamColors) {
-            teamColor1 = team1.teamColor || themeColors.BGG_C3.value;
-            teamColor2 = team2.teamColor || themeColors.BGG_C3.value;
+            teamColor1 = teamData.team1.teamColor || themeColors.BGG_C3.value;
+            teamColor2 = teamData.team2.teamColor || themeColors.BGG_C3.value;
           }
 
           $(`.team1`).css("border-color", teamColor1);
