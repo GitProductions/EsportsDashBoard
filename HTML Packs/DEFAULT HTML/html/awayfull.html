@@ -96,6 +96,28 @@
       }
     }
 
+    @keyframes teamslideup {
+      0% {
+        clip-path: polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%);
+        transform: translateY(100%);
+      }
+
+      100% {
+        clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+        transform: translateY(0px);
+      }
+    }
+
+    @keyframes vsslideout {
+      0% {
+        clip-path: polygon(50% 0%, 50% 0%, 50% 100%, 50% 100%);
+      }
+
+      100% {
+        clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+      }
+    }
+
     @keyframes slideright {
       0% {
         transform: translateX(-100%);
@@ -113,6 +135,18 @@
 
       100% {
         transform: translateX(0px);
+      }
+    }
+
+    @keyframes socialsSlideUp {
+      0% {
+        clip-path: polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%);
+        transform: translateY(100%);
+      }
+
+      100% {
+        clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+        transform: translateY(0px);
       }
     }
 
@@ -216,8 +250,10 @@
       min-width: 150px;
       max-width: 150px;
 
-      /* animation: fadeIn; 
-      animation-duration: 1s;  */
+      animation: vsslideout; 
+      animation-fill-mode: backwards;
+      animation-duration: 0.5s; 
+      animation-delay: 1s;
     }
 
     .scoreboard .vs span {
@@ -329,20 +365,27 @@
       font-family: 'Rajdhani';
       text-transform: uppercase;
       position: absolute;
+
       left: 0px;
       top: 920px;
       width: 1520px;
       padding: 0px 200px 0px 200px;
+
       display: flex;
       flex-direction: row;
       align-items: center;
       justify-content: center;
       text-align: center;
       font-size: 3em;
+
+      animation: socialsSlideUp 1s forwards;
+      animation-delay: 2.5s;
+      animation-fill-mode: backwards;
     }
 
     .socials div {
       flex: 1 1 0;
+      /* transform: translateY(500%); */
     }
 
     .socials span:before {
@@ -366,6 +409,27 @@
     .youtube:before {
       font-family: 'FontAwesome';
       content: "\f167"
+        /* twitter logo */
+        /* content:"\f1e8" twitch logo*/
+    }
+
+    .bluesky:before {
+      font-family: 'FontAwesome';
+      content: "\e671"
+        /* twitter logo */
+        /* content:"\f1e8" twitch logo*/
+    }
+
+    .facebook:before {
+      font-family: 'FontAwesome';
+      content: "\f39e"
+        /* twitter logo */
+        /* content:"\f1e8" twitch logo*/
+    }
+
+    .instagram:before {
+      font-family: 'FontAwesome';
+      content: "\f16d"
         /* twitter logo */
         /* content:"\f1e8" twitch logo*/
     }
@@ -527,23 +591,19 @@
     }
 
     // Loads and applies the social media HTML
-    function displaySocialMedia() {
+    function displaySocialMedia(profileOne, platformOne, profileTwo, platformTwo) {
       const socials = `
         <div>
-            <span class="twitch">Broadcast
-              <span class="gg">
-                <b>GG</b>
-              </span>
+            <span class="${platformOne.value.toLowerCase()}">
+              ${profileOne.value}
             </span>
         </div>
         
-        
         <div>
-          <span class="twitter">Broadcast<b>Dot
-            <span class="gg">
-              GG</span></b>
-            </span>
-          </div>`;
+          <span class="${platformTwo.value.toLowerCase()}">
+            ${profileTwo.value}
+          </span>
+        </div>`;
       $('.socials').html(socials);
     }
 
@@ -671,10 +731,22 @@
         let bracketData = await fetchJson(`http://localhost:8080/api/get-bracket`);
 
         let tagline = fullDataGeneral.text.BGG_TAGLINE.value;
+        
+        //link one, type one, link two, type two, etc...
+        const socialsDataObj = {
+          socialOne: {
+            website: fullDataGeneral.text.SM_One_Type,
+            profile: fullDataGeneral.text.SM_One
+          }, 
+          socialTwo: {
+            website: fullDataGeneral.text.SM_Two_Type,
+            profile: fullDataGeneral.text.SM_Two
+          }
+        };
 
         // Apply theme, social media, and general message
         applyThemeColors(themeColors);
-        displaySocialMedia();
+        displaySocialMedia(socialsDataObj.socialOne.profile, socialsDataObj.socialOne.website, socialsDataObj.socialTwo.profile, socialsDataObj.socialTwo.website);
         displayGeneralMessage(fullDataGeneral.text.Message);
 
         // Process and display matches, using Object.values to get an array of match objects
@@ -688,10 +760,7 @@
           })
         );
 
-
         displayMatchData(matches, themeColors);
-
-
 
         async function setTagline() {
           try {
