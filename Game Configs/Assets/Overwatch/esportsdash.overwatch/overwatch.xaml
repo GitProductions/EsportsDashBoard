@@ -30,7 +30,7 @@ Example:
 <config>
   <id>esportsdash.overwatch</id>
   <game>Overwatch</game>
-  <version>1.4</version>
+  <version>1.5</version>
   <author>EsportsDash</author>
 
   <maps>
@@ -96,7 +96,7 @@ Example:
   <heroes>
     <Tank>
       <hero name="D.Va" file="D.Va"  />
-	  <hero name="Hazard" file="Hazard"  />
+	    <hero name="Hazard" file="Hazard"  />
       <hero name="Orisa" file="Orisa"  />
       <hero name="Reinhardt" file="Reinhardt"  />
       <hero name="Roadhog" file="Roadhog"  />
@@ -126,6 +126,9 @@ Example:
       <hero name="Torbjörn" file="Torbjörn"  />
       <hero name="Tracer" file="Tracer"  />
       <hero name="Widowmaker" file="Widowmaker"  />
+      <hero name="Sojourn" file="Sojourn"  />
+      <!-- <hero name="Freja" file="Freja"  /> -->
+
     </DPS>
 
     <Support>
@@ -138,6 +141,8 @@ Example:
       <hero name="Mercy" file="Mercy"  />
       <hero name="Moira" file="Moira"  />
       <hero name="Zenyatta" file="Zenyatta"  />
+      <hero name="Kiriko" file="Kiriko"  />
+      <!-- <hero name="Aqua" file="Aqua"  /> -->
     </Support>
     
   </heroes>
