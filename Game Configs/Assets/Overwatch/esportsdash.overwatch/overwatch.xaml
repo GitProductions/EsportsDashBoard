@@ -97,6 +97,7 @@ Example:
     <Tank>
       <hero name="D.Va" file="D.Va"  />
 	    <hero name="Hazard" file="Hazard"  />
+      <hero name="Mauga" file="Mauga"  />
       <hero name="Orisa" file="Orisa"  />
       <hero name="Reinhardt" file="Reinhardt"  />
       <hero name="Roadhog" file="Roadhog"  />
@@ -104,44 +105,44 @@ Example:
       <hero name="Winston" file="Winston"  />
       <hero name="Wrecking Ball" file="Wrecking_Ball"  />
       <hero name="Zarya" file="Zarya"  />
-      <hero name="Mauga" file="Mauga"  />
     </Tank>
 
     <DPS>
-      <hero name="Venture" file="Venture"  />
       <hero name="Ashe" file="Ashe"  />
       <hero name="Bastion" file="Bastion"  />
+      <hero name="Cassidy" file="Cassidy"  />
       <hero name="Doomfist" file="Doomfist"  />
       <hero name="Echo" file="Echo"  />
       <hero name="Genji" file="Genji"  />
       <hero name="Hanzo" file="Hanzo"  />
       <hero name="Junkrat" file="Junkrat"  />
-      <hero name="Cassidy" file="Cassidy"  />
       <hero name="Mei" file="Mei"  />
       <hero name="Pharah" file="Pharah"  />
       <hero name="Reaper" file="Reaper"  />
       <hero name="Soldier: 76" file="Soldier-_76"  />
+      <hero name="Sojourn" file="Sojourn"  />
       <hero name="Sombra" file="Sombra"  />
       <hero name="Symmetra" file="Symmetra"  />
       <hero name="Torbjörn" file="Torbjörn"  />
       <hero name="Tracer" file="Tracer"  />
+      <hero name="Venture" file="Venture"  />
       <hero name="Widowmaker" file="Widowmaker"  />
-      <hero name="Sojourn" file="Sojourn"  />
       <!-- <hero name="Freja" file="Freja"  /> -->
 
     </DPS>
 
     <Support>
-      <hero name="Juno" file="Juno"  />
-      <hero name="Illari" file="Illari"  />
+
       <hero name="Ana" file="Ana"  />
       <hero name="Baptiste" file="Baptiste"  />
       <hero name="Brigitte" file="Brigitte"  />
+      <hero name="Illari" file="Illari"  />
+      <hero name="Juno" file="Juno"  />
+      <hero name="Kiriko" file="Kiriko"  />
       <hero name="Lúcio" file="Lucio"  />
       <hero name="Mercy" file="Mercy"  />
       <hero name="Moira" file="Moira"  />
       <hero name="Zenyatta" file="Zenyatta"  />
-      <hero name="Kiriko" file="Kiriko"  />
       <!-- <hero name="Aqua" file="Aqua"  /> -->
     </Support>
     
