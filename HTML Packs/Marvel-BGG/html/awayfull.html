@@ -44,9 +44,14 @@
     }
 
 
-    @font-face {
+    /* @font-face {
       font-family: 'FontAwesome';
       src: url("fonts/Font Awesome/Font Awesome 5 Brands-Regular-400.otf") format('OpenType');
+    } */
+
+    @font-face {
+      font-family: 'FontAwesome';
+      src: url("fonts/Font Awesome/Font Awesome 6 Brands-Regular-400.otf") format('OpenType');
     }
 
     @keyframes headeranimate {
@@ -93,6 +98,28 @@
       }
     }
 
+    @keyframes teamslideup {
+      0% {
+        clip-path: polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%);
+        transform: translateY(100%);
+      }
+
+      100% {
+        clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+        transform: translateY(0px);
+      }
+    }
+
+    @keyframes vsslideout {
+      0% {
+        clip-path: polygon(50% 0%, 50% 0%, 50% 100%, 50% 100%);
+      }
+
+      100% {
+        clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+      }
+    }
+
     @keyframes slideright {
       0% {
         transform: translateX(-100%);
@@ -110,6 +137,18 @@
 
       100% {
         transform: translateX(0px);
+      }
+    }
+
+    @keyframes socialsSlideUp {
+      0% {
+        clip-path: polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%);
+        transform: translateY(100%);
+      }
+
+      100% {
+        clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+        transform: translateY(0px);
       }
     }
 
@@ -196,6 +235,10 @@
       position: relative;
       top: -10px;
       /* line-height: ; */
+
+      animation: vsslideout 0.5s forwards;
+      animation-delay: 1s;
+      animation-fill-mode: backwards;
     }
 
     .scoreboard {
@@ -214,8 +257,10 @@
       min-width: 150px;
       max-width: 150px;
 
-      /* animation: fadeIn; 
-      animation-duration: 1s;  */
+      animation: vsslideout; 
+      animation-fill-mode: backwards;
+      animation-duration: 0.5s; 
+      animation-delay: 1s;
     }
 
     .scoreboard .vs span {
@@ -327,20 +372,27 @@
       font-family: 'Rajdhani';
       text-transform: uppercase;
       position: absolute;
+
       left: 0px;
       top: 920px;
       width: 1520px;
       padding: 0px 200px 0px 200px;
+
       display: flex;
       flex-direction: row;
       align-items: center;
       justify-content: center;
       text-align: center;
       font-size: 3em;
+
+      animation: socialsSlideUp 1s forwards;
+      animation-delay: 2.5s;
+      animation-fill-mode: backwards;
     }
 
     .socials div {
       flex: 1 1 0;
+      /* transform: translateY(500%); */
     }
 
     .socials span:before {
@@ -364,6 +416,62 @@
     .youtube:before {
       font-family: 'FontAwesome';
       content: "\f167"
+        /* twitter logo */
+        /* content:"\f1e8" twitch logo*/
+    }
+
+    .bluesky:before {
+      font-family: 'FontAwesome';
+      content: "\e671"
+        /* twitter logo */
+        /* content:"\f1e8" twitch logo*/
+    }
+
+    .facebook:before {
+      font-family: 'FontAwesome';
+      content: "\f39e"
+        /* twitter logo */
+        /* content:"\f1e8" twitch logo*/
+    }
+
+    .instagram:before {
+      font-family: 'FontAwesome';
+      content: "\f16d"
+        /* twitter logo */
+        /* content:"\f1e8" twitch logo*/
+    }
+
+    .x-twitter:before {
+      font-family: 'FontAwesome';
+      content: "\e61b"
+        /* twitter logo */
+        /* content:"\f1e8" twitch logo*/
+    }
+
+    .tiktok:before {
+      font-family: 'FontAwesome';
+      content: "\e07b"
+        /* twitter logo */
+        /* content:"\f1e8" twitch logo*/
+    }
+
+    .discord:before {
+      font-family: 'FontAwesome';
+      content: "\f392"
+        /* twitter logo */
+        /* content:"\f1e8" twitch logo*/
+    }
+
+    .tumblr:before {
+      font-family: 'FontAwesome';
+      content: "\f173"
+        /* twitter logo */
+        /* content:"\f1e8" twitch logo*/
+    }
+
+    .meta:before {
+      font-family: 'FontAwesome';
+      content: "\e49b"
         /* twitter logo */
         /* content:"\f1e8" twitch logo*/
     }
@@ -548,23 +656,23 @@
     }
 
     // Loads and applies the social media HTML
-    function displaySocialMedia() {
+    function displaySocialMedia(socialsDataObj) {
+      const team1 = socialsDataObj.socialOne;
+      const team2 = socialsDataObj.socialTwo;
       const socials = `
         <div>
-            <span class="twitch">Broadcast
-              <span class="gg">
-                <b>GG</b>
-              </span>
+            <span class="${team1.logo.value.toLowerCase()}">
+              ${team1.company.value}
             </span>
         </div>
         
-        
         <div>
-          <span class="twitter">Broadcast<b>Dot
-            <span class="gg">
-              GG</span></b>
-            </span>
-          </div>`;
+          <span class="${team2.logo.value.toLowerCase()}">
+            ${team2.company.value}
+          </span>
+        </div>`;
+
+        //Setting the socials
       $('.socials').html(socials);
     }
 
@@ -691,8 +799,8 @@
           let teamColor1 = themeColors.BGG_C3.value;
           let teamColor2 = themeColors.BGG_C3.value;
           if (useTeamColors) {
-            teamColor1 = team1.teamColor || themeColors.BGG_C3.value;
-            teamColor2 = team2.teamColor || themeColors.BGG_C3.value;
+            teamColor1 = teamData.team1.teamColor || themeColors.BGG_C3.value;
+            teamColor2 = teamData.team2.teamColor || themeColors.BGG_C3.value;
           }
 
           $(`.team1`).css("border-color", teamColor1);
@@ -736,10 +844,25 @@
         let bracketData = await fetchJson(`http://localhost:8080/api/get-bracket`);
 
         let tagline = fullDataGeneral.text.BGG_TAGLINE.value;
+        
+        //link one, type one, link two, type two, etc...
+        const socialsDataObj = {
+          socialOne: {
+            company: fullDataGeneral.text.BGG_SM1,
+            logo: fullDataGeneral.list.BGG_SM1_LOGO
+          }, 
+          socialTwo: {
+            company: fullDataGeneral.text.BGG_SM2,
+            logo: fullDataGeneral.list.BGG_SM2_LOGO
+          }
+        };
 
         // Apply theme, social media, and general message
         applyThemeColors(themeColors);
-        displaySocialMedia();
+
+        // displaySocialMedia(socialsDataObj.socialOne.company, socialsDataObj.socialOne.logo, socialsDataObj.socialTwo.company, socialsDataObj.socialTwo.logo);
+        displaySocialMedia(socialsDataObj)
+        
         displayGeneralMessage(fullDataGeneral.text.Message);
 
         // Process and display matches, using Object.values to get an array of match objects
@@ -753,10 +876,7 @@
           })
         );
 
-
         displayMatchData(matches, themeColors);
-
-
 
         async function setTagline() {
           try {
