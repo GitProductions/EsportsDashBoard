@@ -656,19 +656,23 @@
     }
 
     // Loads and applies the social media HTML
-    function displaySocialMedia(profileOne, platformOne, profileTwo, platformTwo) {
+    function displaySocialMedia(socialsDataObj) {
+      const team1 = socialsDataObj.socialOne;
+      const team2 = socialsDataObj.socialTwo;
       const socials = `
         <div>
-            <span class="${platformOne.value.toLowerCase()}">
-              ${profileOne.value}
+            <span class="${team1.logo.value.toLowerCase()}">
+              ${team1.company.value}
             </span>
         </div>
         
         <div>
-          <span class="${platformTwo.value.toLowerCase()}">
-            ${profileTwo.value}
+          <span class="${team2.logo.value.toLowerCase()}">
+            ${team2.company.value}
           </span>
         </div>`;
+
+        //Setting the socials
       $('.socials').html(socials);
     }
 
@@ -844,18 +848,21 @@
         //link one, type one, link two, type two, etc...
         const socialsDataObj = {
           socialOne: {
-            website: fullDataGeneral.text.SM_One_Type,
-            profile: fullDataGeneral.text.SM_One
+            company: fullDataGeneral.text.BGG_SM1,
+            logo: fullDataGeneral.list.BGG_SM1_LOGO
           }, 
           socialTwo: {
-            website: fullDataGeneral.text.SM_Two_Type,
-            profile: fullDataGeneral.text.SM_Two
+            company: fullDataGeneral.text.BGG_SM2,
+            logo: fullDataGeneral.list.BGG_SM2_LOGO
           }
         };
 
         // Apply theme, social media, and general message
         applyThemeColors(themeColors);
-        displaySocialMedia(socialsDataObj.socialOne.profile, socialsDataObj.socialOne.website, socialsDataObj.socialTwo.profile, socialsDataObj.socialTwo.website);
+
+        // displaySocialMedia(socialsDataObj.socialOne.company, socialsDataObj.socialOne.logo, socialsDataObj.socialTwo.company, socialsDataObj.socialTwo.logo);
+        displaySocialMedia(socialsDataObj)
+        
         displayGeneralMessage(fullDataGeneral.text.Message);
 
         // Process and display matches, using Object.values to get an array of match objects
