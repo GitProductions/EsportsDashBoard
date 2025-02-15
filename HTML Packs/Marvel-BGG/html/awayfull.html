@@ -1,8 +1,5 @@
 <head>
-  <link
-  rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
-/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
   <style>
     :root {
       /* These values can be 'adjusted/changed inside of OBS custom CSS to force certain things' */
@@ -122,6 +119,7 @@
       margin: 0px auto;
       overflow: hidden;
       background-color: rgba(0, 0, 0, 255);
+      /* background-color: 'white'; */
       font-family: 'Rajdhani';
     }
 
@@ -445,19 +443,42 @@
     }
 
 
-    .title::before {
+    /* .title::before {
       content: var(--titleText);
       font-family: 'Rajdhani';
       text-transform: uppercase;
-    }
+    } */
   </style>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
   <script>
+    let titleText = 'Starting Soon'
 
+    document.addEventListener('DOMContentLoaded', function () {
+      const urlParams = new URLSearchParams(window.location.search);
+      titleText = urlParams.get('titleText');
+      const useTeamLogos = urlParams.get('useTeamLogos');
+      
+      // set css
+      if (useTeamLogos) {
+        document.documentElement.style.setProperty('--useTeamLogos', useTeamLogos);
+      }
 
+      if (titleText) {
+        const titleElement = document.querySelector('.title');
+        if (titleElement) {
+          titleElement.textContent = titleText;
+          console.log('Title updated to:', titleText);
+        } else {
+          console.error('Title element not found');
+        }
+      } else {
+        console.log('No titleText parameter provided');
+      }
+    });
 
+    
     // if (active == 0) {
     //         $('.title').text("Starting Soon");
     //         $('.todaywrapper').css("display", "flex");
@@ -554,8 +575,52 @@
     }
 
 
+    function determineTitleText(matches) {
+      let hasStarted = false;
+      let allComplete = true;
+      let anyScores = false;
+
+      matches.forEach(match => {
+        if (match && match.team1 && match.team2) {
+          const team1Score = match.team1.score || 0;
+          const team2Score = match.team2.score || 0;
+
+          // Check if any match has scores
+          if (team1Score > 0 || team2Score > 0) {
+            hasStarted = true;
+            anyScores = true;
+          }
+
+          // Check if all matches are complete (assuming a match is complete when either team reaches winning score)
+          const winningScore = parseInt(getComputedStyle(document.documentElement)
+            .getPropertyValue('--winningScore')) || 10;
+
+          if (team1Score < winningScore && team2Score < winningScore) {
+            allComplete = false;
+          }
+        }
+      });
+
+      // Determine title text based on match states
+      if (!hasStarted) {
+        return "Starting Soon";
+      } else if (allComplete) {
+        return "Thanks for Watching";
+      } else if (anyScores) {
+        return "Be Right Back";
+      } else {
+        return "Live Now";
+      }
+    }
+
+
     function displayMatchData(matches, themeColors) {
       console.log(`Matches: ${JSON.stringify(matches)}`);
+
+      if (!titleText) {
+        titleText = determineTitleText(matches);
+        $('.title').text(titleText);
+      }
 
       matches.forEach((match, index) => {
         if (match && match.reference) {
@@ -568,7 +633,7 @@
 
           // Display the match block
 
-          if (team1.name !=='' && team2.name !=='') {
+          if (team1.name !== '' && team2.name !== '') {
             $(matchSelector).css("display", "block");
           } else {
             $(matchSelector).css("display", "none");
@@ -706,7 +771,7 @@
         console.error("Error updating page content:", error);
       }
     }
-    
+
 
     setInterval(updatePageContent, 3000);
     // Initial load
@@ -721,7 +786,7 @@
 
   <div class="header">
     <span class="info"></span>
-    <span class="title"></span>
+    <span class="title">Starting Soon</span>
   </div>
 
   <div class="wrapper todaywrapper">
