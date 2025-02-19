@@ -119,6 +119,24 @@ body {
 
 
 
+
+
+  @keyframes tagline {
+    0% {
+      clip-path: polygon(0% -100%, 0 -100%, 0% 200%, 0% 200%);
+      transform: translateX(50%)
+      ;
+    }
+
+    100% {
+      clip-path: polygon(0% -100%, 100% -100%, 100% 200%, 0% 200%);
+      transform: translateX(0%)
+      ;
+    }
+  }
+
+
+
 /* scenes that involve the scoreboard (not ingame) */
 .team {
     flex: 1 1 0;
@@ -221,6 +239,8 @@ body {
   }
 
 
+  
+
   .wrapper {
     position: absolute;
     left: 0px;
@@ -302,7 +322,7 @@ body {
     }
   }
 
-  div.tagline {
+  /* div.tagline {
     min-width: 375px;
     animation: tagline .5s;
     animation-fill-mode: backwards;
@@ -320,7 +340,10 @@ body {
     background-color: black;
     display: flex;
     justify-content: center;
-  }
+  } */
+
+
+  
 
 
 
