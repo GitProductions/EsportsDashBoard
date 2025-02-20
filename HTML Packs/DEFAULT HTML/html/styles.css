@@ -277,97 +277,6 @@ body {
     width: 1870px;
     clip-path: polygon(0% 0, 100% 0%, 100% 100%, 0% 100%);
     display: flex;
-    /* YEAH THIS IS HUGE */
-    flex-direction: row;
-    align-items: center;
-    /* YEAH THIS IS HUGE */
-    justify-content: center;
-    /* YEAH THIS IS HUGE */
-    padding: 25px;
-  }
-
-  .tournament {
-    flex: 1 1 0;
-    height: 80px;
-    background-position: left;
-    background-size: contain;
-    background-repeat: no-repeat;
-    animation: slideright 1s;
-    animation-fill-mode: backwards;
-    animation-delay: 1s;
-  }
-
-  .channel {
-    flex: 1 1 0;
-    height: 80px;
-    background-position: right;
-    background-size: contain;
-    background-repeat: no-repeat;
-    animation: slideleft 1s;
-    animation-fill-mode: backwards;
-    animation-delay: 1s;
-  }
-
-  @keyframes tagline {
-    0% {
-      clip-path: polygon(0% -100%, 0 -100%, 0% 200%, 0% 200%);
-      transform: translateX(50%)
-      ;
-    }
-
-    100% {
-      clip-path: polygon(0% -100%, 100% -100%, 100% 200%, 0% 200%);
-      transform: translateX(0%)
-      ;
-    }
-  }
-
-  /* div.tagline {
-    min-width: 375px;
-    animation: tagline .5s;
-    animation-fill-mode: backwards;
-    animation-delay: 2s;
-  }
-
-  span.tertiary {
-    font-size: 1.8em;
-    border-style: solid;
-    font-weight: bold;
-    text-align: center;
-    font-family: 'Rajdhani';
-    padding: 3px 15px 2px 15px;
-    border-width: 0px 6px 0px 6px;
-    background-color: black;
-    display: flex;
-    justify-content: center;
-  } */
-
-
-  
-
-
-
-
-
-
-/* 
-  img {
-    height: 80px;
-    width: 80px;
-    max-height: 80px;
-    max-width: 80px;
-    margin: 10px 20px 10px 20px;
-    object-fit: contain;
-    overflow: hidden;
-  }
-
-  .footer {
-    position: fixed;
-    left: 0px;
-    top: 950px;
-    width: 1870px;
-    clip-path: polygon(0% 0, 100% 0%, 100% 100%, 0% 100%);
-    display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
@@ -409,27 +318,6 @@ body {
       ;
     }
   }
-
-  div.tagline {
-    min-width: 375px;
-    animation: tagline .5s;
-    animation-fill-mode: backwards;
-    animation-delay: 2s;
-  }
-
-  span.tertiary {
-    font-size: 1.8em;
-    border-style: solid;
-    font-weight: bold;
-    text-align: center;
-    font-family: 'Rajdhani';
-    padding: 3px 15px 2px 15px;
-    border-width: 0px 6px 0px 6px;
-    background-color: black;
-    display:flex;
-    justify-content: center;
-  } */
-
 
 
   
