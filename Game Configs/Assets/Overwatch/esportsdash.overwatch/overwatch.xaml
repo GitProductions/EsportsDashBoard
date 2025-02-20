@@ -30,7 +30,7 @@ Example:
 <config>
   <id>esportsdash.overwatch</id>
   <game>Overwatch</game>
-  <version>1.5</version>
+  <version>1.6</version>
   <author>EsportsDash</author>
 
   <maps>
