@@ -4,7 +4,7 @@ export const configurations = {
 
         starterPack: [
             {
-                name: "BGG Overwatch Starter Pack",
+                name: "Overwatch Starter Pack",
                 author: "EsportsDash",
                 version: "1.6",
                 image: "Game Configs/Overwatch/Overwatch.webp",
