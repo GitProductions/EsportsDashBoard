@@ -30,7 +30,7 @@ Example:
 <config>
   <id>esportsdash.overwatch</id>
   <game>Overwatch</game>
-  <version>1.6</version>
+  <version>1.7</version>
   <author>EsportsDash</author>
 
   <maps>
@@ -97,6 +97,7 @@ Example:
     <Tank>
       <hero name="D.Va" file="D.Va"  />
 	    <hero name="Hazard" file="Hazard"  />
+      <hero name="JunkerQueen" file="JunkerQueen"  />
       <hero name="Mauga" file="Mauga"  />
       <hero name="Orisa" file="Orisa"  />
       <hero name="Reinhardt" file="Reinhardt"  />
