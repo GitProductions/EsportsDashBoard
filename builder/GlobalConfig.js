@@ -30,7 +30,6 @@ export const configurations = {
 
 
         gameConfigs: [
-
             {
                 id: "esportsdash.overwatch",
                 name: "Overwatch Game Config",
@@ -57,18 +56,8 @@ export const configurations = {
 
 
     "Valorant": {
-
         starterPack:
             [
-                // {
-                //     name: "Valorant Starter Pack",
-                //     author: "EsportsDash",
-                //     version: "1.1",  // comes with version 1.2 for game config.. & works fine
-                //     image: "Game Configs/Valorant/Valorant.webp",
-                //     description: "Starter Pack includes Game Config, HTML Files & OBS Scene Collection",
-                //     folderPath: "Starter Packs",
-                //     fileName: "Valorant_Starter_v1.1.bggstarter"
-                // },
                 {
                     name: "Valorant Starter Pack",
                     author: "EsportsDash",
