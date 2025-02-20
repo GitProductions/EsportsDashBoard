@@ -1,7 +1,7 @@
 <config>
   <id>esportsdash.valorant</id>
   <game>Valorant</game>
-  <version>1.3</version>
+  <version>1.4</version>
   <author>EsportsDash</author>
 
   <maps>
@@ -36,6 +36,7 @@
       <hero name="Phoenix" file="Phoenix" />
       <hero name="Reyna" file="Reyna" />
       <hero name="Yoru" file="Yoru" />
+      <hero name="Iso" file="Iso" />
     </Duelist>
     <Initiator>
       <hero name="Skye" file="Skye" />
@@ -43,6 +44,9 @@
       <hero name="Sova" file="Sova" />
       <hero name="Fade" file="Fade" />
       <hero name="Kayo" file="Kayo" />
+      <hero name="Gekko" file="Gekko" />
+      <hero name="Tejo" file="Tejo" />
+
     </Initiator>
     <Controller>
       <hero name="Astra" file="Astra" />
@@ -55,8 +59,10 @@
     <Sentinel>
       <hero name="KillJoy" file="KillJoy" />
       <hero name="Sage" file="Sage" />
-      <hero name="Sypher" file="Sypher" />
+      <hero name="Cypher" file="Cypher" />
       <hero name="Chamber" file="Chamber" />
+      <hero name="Deadlock" file="Deadlock" />
+      <hero name="Vyse" file="Vyse" />
     </Sentinel>
   </heroes>
 </config>
