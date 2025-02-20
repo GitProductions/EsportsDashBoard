@@ -109,7 +109,7 @@ export const configurations = {
                 id: "esportsdash.valorant",
                 name: "Valorant Game Config",
                 author: "EsportsDash",
-                version: "1.3",
+                version: "1.4",
                 image: "Game Configs/Valorant/Valorant.webp",
                 description: "Game configuration file.",
                 folderPath: "Game Configs/Valorant",
