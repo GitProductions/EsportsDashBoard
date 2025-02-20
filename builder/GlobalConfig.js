@@ -71,11 +71,11 @@ export const configurations = {
                 {
                     name: "Valorant Starter Pack",
                     author: "EsportsDash",
-                    version: "1.3",
+                    version: "1.4",
                     image: "Game Configs/Valorant/Valorant.webp",
                     description: "Starter Pack includes Game Config, HTML Files & OBS Scene Collection",
                     folderPath: "Starter Packs",
-                    fileName: "Valorant_Starter_v1.3.bggstarter"
+                    fileName: "Valorant_Starter_v1.4.bggstarter"
                 }
             ],
 
