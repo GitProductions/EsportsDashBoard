@@ -177,7 +177,7 @@ body {
     font-size: 2.8em;
     padding: 0px 10px 0px 10px;
     position: relative;
-    line-height: 0.7;
+    line-height: 0.9;
   }
 
   .teamscore {
@@ -512,4 +512,28 @@ body {
     content: "\f099"
       /* twitter logo */
       /* content:"\f1e8" twitch logo*/
+  }
+
+
+
+
+
+  
+  div.tagline {
+    min-width: 375px;
+    animation: tagline .5s;
+    animation-fill-mode: backwards;
+    animation-delay: 2s;
+  }
+
+  span.tertiary {
+    font-size: 1.8em;
+    border-style: solid;
+    font-weight: bold;
+    text-align: center;
+    font-family: 'Rajdhani';
+    text-transform: uppercase;
+    padding: 3px 15px 2px 15px;
+    border-width: 0px 6px 0px 6px;
+    background-color: rgb(255, 255, 255);
   }
