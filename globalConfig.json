@@ -124,21 +124,11 @@
         "id": "esportsdash.valorant",
         "name": "Valorant Game Config",
         "author": "EsportsDash",
-        "version": "1.2",
+        "version": "1.5",
         "image": "Game Configs/Valorant/Valorant.webp",
         "description": "Game configuration file.",
         "folderPath": "Game Configs/Valorant",
-        "fileName": "Valorant-EsportsDash-1.2.bgg"
-      },
-      {
-        "id": "esportsdash.valorant",
-        "name": "Valorant Game Config",
-        "author": "EsportsDash",
-        "version": "1.4",
-        "image": "Game Configs/Valorant/Valorant.webp",
-        "description": "Game configuration file.",
-        "folderPath": "Game Configs/Valorant",
-        "fileName": "esportsdash.valorant.bgg"
+        "fileName": "esportsdash.valorant_v1.5.bgg"
       }
     ],
     "Marvel Rivals": [
