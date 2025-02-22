@@ -38,18 +38,6 @@ export const configurations = {
           
         ],
 
-        overlayPack: [
-            {
-                id: "esportsdash.default",
-                name: "Default HTML Pack",
-                author: "Broadcast GG",
-                version: "1.2",
-                image: "Game Configs/Overwatch/Overwatch.webp",
-                description: "This is the legacy HTML pack for BroadcastGG.",
-                folderPath: "HTML Packs/Overwatch-BGG",
-                fileName: "esportsdash-default.esportsDashOverlay"
-            }
-        ],
 
 
         gameConfigs: [
@@ -73,7 +61,21 @@ export const configurations = {
                 folderPath: "Game Configs/Overwatch",
                 fileName: "esportsdash.overwatch_v1.7.bgg"
             }
-        ]
+        ],
+
+
+        overlayPack: [
+            {
+                id: "esportsdash.default",
+                name: "Default HTML Pack",
+                author: "Broadcast GG",
+                version: "1.2",
+                image: "Game Configs/Overwatch/Overwatch.webp",
+                description: "This is the legacy HTML pack for BroadcastGG.",
+                folderPath: "HTML Packs/Overwatch-BGG",
+                fileName: "esportsdash-default.esportsDashOverlay"
+            }
+        ],
     },
 
 
@@ -119,7 +121,20 @@ export const configurations = {
                 folderPath: "Game Configs/Valorant",
                 fileName: "esportsdash.valorant_v1.5.bgg"
             }
-        ]
+        ],
+
+        overlayPack: [
+            // {
+            //     id: "esportsdash.default",
+            //     name: "Default HTML Pack",
+            //     author: "Broadcast GG",
+            //     version: "1.2",
+            //     image: "Game Configs/Overwatch/Overwatch.webp",
+            //     description: "This is the legacy HTML pack for BroadcastGG.",
+            //     folderPath: "HTML Packs/Overwatch-BGG",
+            //     fileName: "esportsdash-default.esportsDashOverlay"
+            // }
+        ],
     },
 
 
@@ -181,6 +196,19 @@ export const configurations = {
                 folderPath: "Game Configs/Marvel Rivals",
                 fileName: "esportsdash.marvelrivals_v1.3.bgg"
             }
-        ]
+        ],
+
+        overlayPack: [
+            // {
+            //     id: "esportsdash.default",
+            //     name: "Default HTML Pack",
+            //     author: "Broadcast GG",
+            //     version: "1.2",
+            //     image: "Game Configs/Overwatch/Overwatch.webp",
+            //     description: "This is the legacy HTML pack for BroadcastGG.",
+            //     folderPath: "HTML Packs/Overwatch-BGG",
+            //     fileName: "esportsdash-default.esportsDashOverlay"
+            // }
+        ],
     }
 };

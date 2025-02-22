@@ -48,11 +48,26 @@ class GameConfig {
     }
 }
 
+
+class OverlayPack {
+    constructor({ id, name, author, version, image, description, folderPath, fileName }) {
+        this.id = id;
+        this.name = name;
+        this.author = author;
+        this.version = version;
+        this.image = image;
+        this.description = description;
+        this.folderPath = folderPath;
+        this.fileName = fileName;
+    }
+}
+
 class ConfigGenerator {
     constructor() {
         this.starterPacks = {};
         this.htmlPacks = {};
         this.gameConfigs = {};
+        this.overlayPacks = {};
     }
 
     addStarterPack(game, pack) {
@@ -76,11 +91,27 @@ class ConfigGenerator {
         this.gameConfigs[game].push(config);
     }
 
+
+    addOverlayPack(game, config) {
+        if (!this.overlayPacks[game]) {
+            this.overlayPacks[game] = [];
+        }
+        this.overlayPacks[game].push(config);
+    }
+
+    // addOverlayPack(config) {
+    //     if (!this.overlayPacks[config.id]) {
+    //         this.overlayPacks[config.id] = [];
+    //     }
+    //     this.overlayPacks[config.id].push(config);
+    // }
+
     generateJson() {
         return JSON.stringify({
             "Starter Packs": this.starterPacks,
             "HTML Packs": this.htmlPacks,
-            "Game Configs": this.gameConfigs
+            "Game Configs": this.gameConfigs,
+            "Overlay Packs": this.overlayPacks
         }, null, 2);
     }
 
@@ -96,10 +127,13 @@ class ConfigGenerator {
 
 
 
-function generateConfigs(configurations) { 
+function generateConfigs(configurations) {
     const configGenerator = new ConfigGenerator();
 
+    console.log("The configurations are: ", configurations);
+
     Object.entries(configurations).forEach(([game, config]) => {
+
         config.starterPack.forEach(starterPack => {
             configGenerator.addStarterPack(game, new StarterPack(starterPack));
         });
@@ -111,13 +145,26 @@ function generateConfigs(configurations) {
         config.gameConfigs.forEach(gameConfig => {
             configGenerator.addGameConfig(game, new GameConfig(gameConfig));
         });
+
+
+        // currently we are putting 'overlayPacks' in each game array.. instead we could do
+        // if game == 'overlayPacks' then its just the stand alone overlay packs that would be seperate...
+        // ??
+
+        config.overlayPack.forEach(overlayPack => {
+            configGenerator.addOverlayPack(game, new OverlayPack(overlayPack));
+        });
+
+        // config.overlayPack.forEach(overlayPack => {
+        //     configGenerator.addOverlayPack(config, new OverlayPack(overlayPack));
+        // });
     });
 
 
 
-        // Save to JSON file
-        const outputPath = path.join(__root, 'globalConfig.json');
-        configGenerator.saveToFile(outputPath);
+    // Save to JSON file
+    const outputPath = path.join(__root, 'globalConfig.json');
+    configGenerator.saveToFile(outputPath);
 }
 
 generateConfigs(configurations);
