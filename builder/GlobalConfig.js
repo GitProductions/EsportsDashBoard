@@ -34,6 +34,16 @@ export const configurations = {
                 description: "Description of HTML pack 1",
                 folderPath: "HTML Packs/Overwatch-BGG",
                 fileName: "Overwatch-BGG-HTML-PACK.zip"
+            },
+            {
+                id: "esportsdash.default",
+                name: "Default HTML Pack",
+                author: "Broadcast GG",
+                version: "1.2",
+                image: "Game Configs/Overwatch/Overwatch.webp",
+                description: "This is the legacy HTML pack for BroadcastGG.",
+                folderPath: "HTML Packs/Overwatch-BGG",
+                fileName: "esportsdash-default.esportsDashOverlay"
             }
         ],
 
