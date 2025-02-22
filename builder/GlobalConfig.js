@@ -34,7 +34,11 @@ export const configurations = {
                 description: "Description of HTML pack 1",
                 folderPath: "HTML Packs/Overwatch-BGG",
                 fileName: "Overwatch-BGG-HTML-PACK.zip"
-            },
+            }
+          
+        ],
+
+        overlayPack: [
             {
                 id: "esportsdash.default",
                 name: "Default HTML Pack",
