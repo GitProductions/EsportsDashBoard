@@ -135,6 +135,10 @@
       }
     ]
   },
+
+
+
+  
   "Overlay Packs": {
     "esportsdash.default": {
       "id": "esportsdash.default",
@@ -144,7 +148,7 @@
       "image": "Game Configs/Overwatch/Overwatch.webp",
       "description": "This is the legacy HTML pack for BroadcastGG.",
       "folderPath": "HTML Packs/Overwatch-BGG",
-      "fileName": "esportsdash-default.esportsDashOverlay"
+      "fileName": "esportsdash-default_v2.esportsDashOverlay"
     },
     "esportsdash.defaultTEST": {
       "id": "esportsdash.defaultTEST",
