@@ -148,7 +148,7 @@
       "image": "Game Configs/Overwatch/Overwatch.webp",
       "description": "This is the legacy HTML pack for BroadcastGG.",
       "folderPath": "HTML Packs/Overwatch-BGG",
-      "fileName": "esportsdash-default_v2.esportsDashOverlay"
+      "fileName": "esportsdash-default.esportsDashOverlay"
     },
     "esportsdash.defaultTEST": {
       "id": "esportsdash.defaultTEST",
