@@ -1,0 +1,25 @@
+# sample config for new 'overlay pack' which would be partial replacement of starterpack..
+
+## Notes:
+# preview = # This is a preview image that will be shown in the overlay "store" in the app. - should we have more than one..
+###### Should it be a .GIF instead? Video preview??
+###### - Recommend 720x480
+#########################################
+# pathToReplace = # This is the path found in obsconfig.json that we will be replacing to match the users local directory instead.
+###### - This is the default path that is being in everything curretly as was redone on my machine.
+###### - As users create their own overlays, they would replace this path with their own.
+
+
+### So instead of the spbuilder creating the config.ini it would create the config.yaml with similar info but as below...
+### Sp builder would also cease to exist and we can make a new one called overlay builder??
+### this can package it as bggoverlay i reckon...
+
+### so by default we would only have .bgg and .bggoverlay as installable assets   - .bggstarter would be removed at this point to simplify it for users.
+### at this point would prefer idea of switching file extensions to someting else than .bgg ???
+
+id: esportsdash.default
+name: BGG Overlay ## this would be the name of the obs scene config in the end.. so just make it the same as the folder name?? which would be the ID...
+version: 1.1
+author: EsportsDash
+previewImage: http://esportsdash.com/preview.png
+pathToReplace: C:/Users/GitPC/Documents/GitHub/EsportsDashBoard/HTML Packs/Overwatch-BGG/raw/
