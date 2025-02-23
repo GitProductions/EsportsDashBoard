@@ -26,7 +26,7 @@
 
       --teamLeftBackgroundImage: linear-gradient(90deg, rgb(255, 255, 255) 0%, rgb(255, 255, 255) 100%);
       --teamRightBackgroundImage: linear-gradient(90deg, rgb(255, 255, 255) 0%, rgb(255, 255, 255) 100%);
-      
+
       --teamLeftTextNameAlign: left;
       --teamRightTextNameAlign: right;
 
@@ -115,7 +115,7 @@
           0 50%,
           5% 2%, 6% 1%,
           7% 0);
-   
+
 
       /* --teamBorderLeft: 0px solid #27AAE1;
       --teamBorderRight: 0px solid #C80013; */
@@ -178,7 +178,7 @@
           0 50%,
           5% 2%, 6% 1%,
           7% 0); */
-   
+
 
       /* --teamBorderLeft: 0px solid #27AAE1;
       --teamBorderRight: 0px solid #C80013; */
@@ -300,7 +300,7 @@
     }
 
 
-    
+
     @font-face {
       font-family: 'Rajdhani';
       src: url("fonts/Rajdhani/Rajdhani-Bold.ttf") format('TrueType');
@@ -319,9 +319,9 @@
       /* background-image: url('https://www.gameuidatabase.com/uploads/Valorant06252021-125331-7474.jpg'); */
 
       /* defusing */
-      background-image: url('https://interfaceingame.com/wp-content/uploads/valorant/valorant-defusing.png');
+      /* background-image: url('https://interfaceingame.com/wp-content/uploads/valorant/valorant-defusing.png');
       background-size: cover;
-      background-repeat: no-repeat;
+      background-repeat: no-repeat; */
       display: flex;
       justify-content: center;
       align-items: flex-start;
@@ -375,10 +375,8 @@
     .team-inner {
       display: flex;
       align-items: center;
-      /* Vertically center children */
       width: 100%;
       height: 100%;
-      /* Ensure it fills the parent height */
       transform: skew(calc(-1 * var(--skew-angle-positive)));
     }
 
@@ -394,7 +392,7 @@
       background-position: center;
       background-repeat: no-repeat;
       flex-shrink: 0;
-      max-height: 100%;
+      /* max-height: 100%; */
       /* Don’t exceed parent height */
     }
 
@@ -429,10 +427,7 @@
       flex-shrink: 0;
       line-height: calc(var(--teamBoxHeight) + 3px);
       /* Match container height */
-      max-height: 100%;
-      /* padding-right: 25px; */
-      /* background-color: #000000; */
-      /* Prevent overflow */
+      /* max-height: 100%; */
     }
 
     /* Center Match Info */
@@ -443,14 +438,10 @@
       transform: translateX(-50%);
 
       width: 300px;
-      /* No need for !important if specificity is clear */
       text-align: center;
       text-shadow: 0px 0px 7px #000000;
       display: flex;
-      /* Add flex to control child */
       justify-content: center;
-    
-      /* Center the content horizontally */
     }
 
     .matchtext {
@@ -460,17 +451,15 @@
       text-transform: uppercase;
       display: block;
       /* Make it block-level */
-      display:flex;
+      display: flex;
       justify-content: center;
       align-items: center;
       width: var(--middleWidth);
-      height:var(--middleHeight)
-      /* line-height:  */
-
-      /* background-color: var(--matchTextBackground); */
-      /* color:white!important; */
-      /* outline: 2px solid #000000!important; */
-      /* Optional: Improve vertical spacing */
+      height: var(--middleHeight)
+        /* background-color: var(--matchTextBackground); */
+        /* color:white!important; */
+        /* outline: 2px solid #000000!important; */
+        /* Optional: Improve vertical spacing */
     }
 
     /* Animations */
@@ -897,7 +886,7 @@
           updateTeamSide(i);
         }
       }
-      updateTeams();  // Call the main function to update all teams
+      updateTeams();
 
     }
 
