@@ -8,11 +8,11 @@
     :root {
       --teamLogoSize: 45px;
       --teamNameSize: 1.3em;
-      --scoreSize: 3em;
-      --middleWidth: 250px;
-      --middleHeight: 35px;
-      --teamLeftClipPath: polygon(0);
-      --teamRightClipPath: polygon(0);
+
+      
+      --teamPaddingLeft: 0px;
+      --teamPaddingRight: 0px;
+
 
 
       --teamLeftBorderLeft: 0px solid #27AAE1;
@@ -21,8 +21,10 @@
       --teamRightBorderLeft: 7px solid #27AAE1;
       --teamRightBorderRight: 0px solid #C80013;
 
-      --teamPaddingLeft: 0px;
-      --teamPaddingRight: 0px;
+      
+      --teamLeftClipPath: polygon(0);
+      --teamRightClipPath: polygon(0);
+
 
       --teamLeftBackgroundImage: linear-gradient(90deg, rgb(255, 255, 255) 0%, rgb(255, 255, 255) 100%);
       --teamRightBackgroundImage: linear-gradient(90deg, rgb(255, 255, 255) 0%, rgb(255, 255, 255) 100%);
@@ -30,6 +32,17 @@
       --teamLeftTextNameAlign: left;
       --teamRightTextNameAlign: right;
 
+      --scoreSize: 3em;
+
+      --middleTopPosition: 8px;
+      --middleWidth: 250px;
+      --middleHeight: 35px;
+      --middleTextSize: 1.5em;
+
+
+      /* skewing */
+      --skew-angle-positive: 0deg;
+      --skew-angle-negative: 0deg;
       /* --matchTextBackground: #ffffff; */
 
     }
@@ -437,25 +450,21 @@
       top: var(--middleTopPosition);
       left: 50%;
       transform: translateX(-50%);
-
-      width: 300px;
-      text-align: center;
-      text-shadow: 0px 0px 7px #000000;
-      display: flex;
-      justify-content: center;
+      width: var(--middleWidth);
+      display: block;
     }
 
     .matchtext {
       font-family: 'Rajdhani';
-      font-size: 1.5em;
+      font-size: var(--middleTextSize);
       color: white;
       text-transform: uppercase;
       white-space: pre-wrap;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: var(--middleWidth);
-      height: var(--middleHeight)
+      text-align: center;
+      width: 100%;
+      height: var(--middleHeight);
+      line-height: var(--middleHeight);
+      display: block;
     }
 
     /* Animations */
