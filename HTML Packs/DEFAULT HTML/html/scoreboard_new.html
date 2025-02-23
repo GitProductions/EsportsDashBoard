@@ -10,6 +10,21 @@
       --teamNameSize: 1.3em;
       --scoreSize: 3em;
       --middleWidth: 250px;
+      --teamLeftClipPath: polygon(0);
+      --teamRightClipPath: polygon(0);
+
+
+      --teamLeftBorderLeft: 0px solid #27AAE1;
+      --teamLeftBorderRight: 7px solid #C80013;
+
+      --teamRightBorderLeft: 7px solid #27AAE1;
+      --teamRightBorderRight: 0px solid #C80013;
+
+      --teamPaddingLeft: 0px;
+      --teamPaddingRight: 0px;
+
+      --teamLeftBackgroundImage: linear-gradient(90deg, rgb(255, 255, 255) 0%, rgb(255, 255, 255) 100%);
+      --teamRightBackgroundImage: linear-gradient(90deg, rgb(255, 255, 255) 0%, rgb(255, 255, 255) 100%);
     }
 
     /* Game-specific positioning */
@@ -42,7 +57,43 @@
       --skew-angle-negative: 0deg;
     }
 
-    .valorantPositions {
+
+
+    
+    .valorantPositions1 {
+      --middleWidth: 120px;
+      --scoreSize: 2.5em;
+
+      --teamBoxWidth: 430px;
+      --teamBoxHeight: 40px;
+      --teamTopPosition: 30px;
+      --teamSideOffset: -0px;
+      --middleTopPosition: 95px;
+      --skew-angle-positive: 0deg;
+      --skew-angle-negative: 0deg;
+
+
+      --teamLeftClipPath: polygon(100% 0, 93% 50%, 100% 100%, 0 100%, 0% 50%, 0 0);
+      --teamRightClipPath: polygon(100% 0, 100% 49%, 100% 100%, 0 100%, 7% 50%, 0 0);
+
+      --teamPaddingLeft: 15px;
+      --teamPaddingRight: 15px;
+
+      /* --teamBorderLeft: 0px solid #27AAE1;
+      --teamBorderRight: 0px solid #C80013; */
+
+      --teamLeftBorderLeft: 7px solid #27AAE1;
+      --teamLeftBorderRight: 0px solid #C80013;
+
+      --teamRightBorderLeft: 0px solid #27AAE1;
+      --teamRightBorderRight: 7px solid #C80013;
+
+      --teamLeftBackgroundImage: linear-gradient(90deg, rgb(255, 255, 255) 0%, hsla(159, 19%, 39%, 0.788) 100%);
+      --teamRightBackgroundImage: linear-gradient(90deg, hsla(3, 54%, 57%, 0.788), rgb(255, 255, 255) 100%);
+
+    }
+
+    .valorantPositions2 {
       --middleWidth: 120px;
       --scoreSize: 2.5em;
 
@@ -53,6 +104,18 @@
       --middleTopPosition: 95px;
       --skew-angle-positive: 0deg;
       --skew-angle-negative: 0deg;
+
+      /* valorant clip test */
+      --teamLeftClipPath: polygon(93% 0, 100% 50%, 93% 99%, 7% 99%, 0% 50%, 7% 0);
+      --teamRightClipPath: polygon(93% 0, 100% 50%, 93% 99%, 7% 99%, 0% 50%, 7% 0);
+
+
+      --teamBorderLeft: 0px solid #27AAE1;
+      --teamBorderRight: 0px solid #C80013;
+
+      /* --teamLeftBackgroundImage: linear-gradient(90deg, rgb(255, 255, 255) 0%, rgb(109, 136, 122) 100%);
+      --teamRightBackgroundImage: linear-gradient(90deg, rgb(255, 255, 255) 0%, rgb(192, 84, 84) 100%); */
+
 
     }
 
@@ -79,6 +142,14 @@
       margin: 0;
     }
 
+    .left {
+      background-image: var(--teamLeftBackgroundImage)
+    }
+
+    .right {
+      background-image: var(--teamRightBackgroundImage)
+    }
+
     /* Team Containers */
     .team {
       width: var(--teamBoxWidth);
@@ -87,22 +158,32 @@
       align-items: center;
       position: fixed;
       top: var(--teamTopPosition);
-      background-color: #000000;
+      /* background-color: #000000; */
       overflow: hidden;
       /* Prevent children from escaping */
     }
 
     .left.team1 {
       left: calc(-1 * var(--teamSideOffset));
-      border-right: 7px solid #27AAE1;
+      border-right: var(--teamLeftBorderRight);
+      border-left: var(--teamLeftBorderLeft);
       transform: skew(var(--skew-angle-positive));
+
+      clip-path: var(--teamLeftClipPath);
+      /* background-image: linear-gradient(90deg, rgb(255, 255, 255) 0%, rgb(109, 136, 122) 100%); */
+      padding-right: 15px;
     }
 
     .right.team2 {
       right: calc(-1 * var(--teamSideOffset));
-      border-left: 7px solid #C80013;
+      border-left: var(--teamRightBorderLeft);
+      border-right: var(--teamRightBorderRight);
       transform: skew(var(--skew-angle-negative));
+
+      clip-path: var(--teamRightClipPath);
+      padding-left: 15px;
     }
+    
 
     .team-inner {
       display: flex;
@@ -351,7 +432,7 @@
       $('div.center').css("text-shadow", "0px 0px 7px " + (colortheme1txt));
       $('div.side').css("-webkit-filter", "drop-shadow(0px 0px 2px " + (colortheme1txt) + ")");
       // -webkit-filter: drop-shadow(0 0 2px black)
-      $('div.left, div.right').css("background-color", (colortheme1txt));
+      // $('div.left, div.right').css("background-color", (colortheme1txt));
       $('.teamname, .score').css("color", (colortheme2txt));
 
 
