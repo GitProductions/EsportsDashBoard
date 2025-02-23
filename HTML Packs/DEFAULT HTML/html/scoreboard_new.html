@@ -10,6 +10,7 @@
       --teamNameSize: 1.3em;
       --scoreSize: 3em;
       --middleWidth: 250px;
+      --middleHeight: 35px;
       --teamLeftClipPath: polygon(0);
       --teamRightClipPath: polygon(0);
 
@@ -25,6 +26,12 @@
 
       --teamLeftBackgroundImage: linear-gradient(90deg, rgb(255, 255, 255) 0%, rgb(255, 255, 255) 100%);
       --teamRightBackgroundImage: linear-gradient(90deg, rgb(255, 255, 255) 0%, rgb(255, 255, 255) 100%);
+      
+      --teamLeftTextNameAlign: left;
+      --teamRightTextNameAlign: right;
+
+      /* --matchTextBackground: #ffffff; */
+
     }
 
     /* Game-specific positioning */
@@ -51,16 +58,184 @@
       --teamBoxWidth: 685px;
       --teamBoxHeight: 46px;
       --teamTopPosition: 13px;
-      --teamSideOffset: 7px;
-      --middleTopPosition: 29px;
+      --teamSideOffset: 0px;
+      --middleTopPosition: 8px;
       --skew-angle-positive: 0deg;
       --skew-angle-negative: 0deg;
     }
 
 
 
-    
+
+    .valorantPositions {
+      --teamLogoSize: 25px;
+      --teamNameSize: 1.1em;
+      --scoreSize: 1.4em;
+
+      --teamBoxWidth: 400px;
+      --teamBoxHeight: 20px;
+
+      --teamTopPosition: 7px;
+      --teamSideOffset: -425px;
+
+      --middleHeight: 25px;
+      --middleWidth: 120px;
+      --middleTopPosition: 95px;
+
+      --skew-angle-positive: 0deg;
+      --skew-angle-negative: 0deg;
+
+
+      /* clip is doing < inverted */
+      /* polygon(100% 0, 93% 50%, 100% 100%, 0 100%, 0% 50%, 0 0); */
+      /* ---- */
+
+      /* clip is doing < */
+      /* polygon(100% 0, 100% 49%, 100% 100%, 7% 100%, 0 50%, 7% 0); */
+      /* ---- */
+      /* clip is doing > */
+      /* polygon(93% 0, 100% 50%, 93% 100%, 0 100%, 0 50%, 0 0); */
+
+
+      --teamLeftClipPath: polygon(0 0,
+          93% 0,
+          94% 1%, 95% 2%,
+          100% 50%,
+          95% 98%, 94% 99%,
+          93% 100%,
+          0 100%,
+          0 98%, 0 52%,
+          0 50%);
+
+      --teamRightClipPath: polygon(100% 0,
+          100% 49%,
+          100% 100%,
+          7% 100%,
+          6% 99%, 5% 98%,
+          0 50%,
+          5% 2%, 6% 1%,
+          7% 0);
+   
+
+      /* --teamBorderLeft: 0px solid #27AAE1;
+      --teamBorderRight: 0px solid #C80013; */
+
+      --teamLeftBorderLeft: 4px solid #27AAE1;
+      --teamLeftBorderRight: 0px solid #C80013;
+
+      --teamRightBorderLeft: 0px solid #27AAE1;
+      --teamRightBorderRight: 4px solid #C80013;
+
+      /* --matchTextBackground: #080808!important; */
+
+      /* --teamLeftBackgroundImage: linear-gradient(90deg, rgb(255, 255, 255) 0%, hsla(159, 19%, 39%, 0.788) 100%); */
+      /* --teamRightBackgroundImage: linear-gradient(90deg, hsla(3, 54%, 57%, 0.788), rgb(255, 255, 255) 100%); */
+
+    }
+
+
     .valorantPositions1 {
+      --middleWidth: 120px;
+      --scoreSize: 2.0em;
+
+      --teamBoxWidth: 350px;
+      --teamBoxHeight: 40px;
+
+      --teamTopPosition: 90px;
+      --teamSideOffset: -490px;
+
+      --middleTopPosition: 95px;
+      --skew-angle-positive: 0deg;
+      --skew-angle-negative: 0deg;
+
+
+      /* clip is doing < inverted */
+      /* polygon(100% 0, 93% 50%, 100% 100%, 0 100%, 0% 50%, 0 0); */
+      /* ---- */
+
+      /* clip is doing < */
+      /* polygon(100% 0, 100% 49%, 100% 100%, 7% 100%, 0 50%, 7% 0); */
+      /* ---- */
+      /* clip is doing > */
+      /* polygon(93% 0, 100% 50%, 93% 100%, 0 100%, 0 50%, 0 0); */
+
+
+      /* --teamLeftClipPath: polygon(0 0,
+          93% 0,
+          94% 1%, 95% 2%,
+          100% 50%,
+          95% 98%, 94% 99%,
+          93% 100%,
+          0 100%,
+          0 98%, 0 52%,
+          0 50%);
+
+      --teamRightClipPath: polygon(100% 0,
+          100% 49%,
+          100% 100%,
+          7% 100%,
+          6% 99%, 5% 98%,
+          0 50%,
+          5% 2%, 6% 1%,
+          7% 0); */
+   
+
+      /* --teamBorderLeft: 0px solid #27AAE1;
+      --teamBorderRight: 0px solid #C80013; */
+
+      --teamLeftBorderLeft: 7px solid #27AAE1;
+      --teamLeftBorderRight: 0px solid #C80013;
+
+      --teamRightBorderLeft: 0px solid #27AAE1;
+      --teamRightBorderRight: 7px solid #C80013;
+
+      /* --matchTextBackground: #080808!important; */
+
+      /* --teamLeftBackgroundImage: linear-gradient(90deg, rgb(255, 255, 255) 0%, hsla(159, 19%, 39%, 0.788) 100%); */
+      /* --teamRightBackgroundImage: linear-gradient(90deg, hsla(3, 54%, 57%, 0.788), rgb(255, 255, 255) 100%); */
+
+    }
+
+
+    .valorantPositions2 {
+      --middleWidth: 120px;
+      --scoreSize: 2.0em;
+
+      --teamBoxWidth: 430px;
+      --teamBoxHeight: 40px;
+
+      --teamTopPosition: 90px;
+      --teamSideOffset: -500px;
+
+      --middleTopPosition: 95px;
+      --skew-angle-positive: 0deg;
+      --skew-angle-negative: 0deg;
+
+
+      --teamLeftClipPath: polygon(100% 0, 93% 50%, 100% 100%, 0 100%, 0% 50%, 0 0);
+      --teamRightClipPath: polygon(100% 0, 100% 49%, 100% 100%, 0 100%, 7% 50%, 0 0);
+
+      --teamPaddingLeft: 20px;
+      --teamPaddingRight: 20px;
+
+      /* --teamBorderLeft: 0px solid #27AAE1;
+      --teamBorderRight: 0px solid #C80013; */
+
+      --teamLeftBorderLeft: 7px solid #27AAE1;
+      --teamLeftBorderRight: 0px solid #C80013;
+
+      --teamRightBorderLeft: 0px solid #27AAE1;
+      --teamRightBorderRight: 7px solid #C80013;
+
+      /* --matchTextBackground: #080808!important; */
+
+      /* --teamLeftBackgroundImage: linear-gradient(90deg, rgb(255, 255, 255) 0%, hsla(159, 19%, 39%, 0.788) 100%); */
+      /* --teamRightBackgroundImage: linear-gradient(90deg, hsla(3, 54%, 57%, 0.788), rgb(255, 255, 255) 100%); */
+
+    }
+
+
+    .valorantPositions3 {
       --middleWidth: 120px;
       --scoreSize: 2.5em;
 
@@ -93,7 +268,8 @@
 
     }
 
-    .valorantPositions2 {
+
+    .valorantPositions4 {
       --middleWidth: 120px;
       --scoreSize: 2.5em;
 
@@ -110,8 +286,12 @@
       --teamRightClipPath: polygon(93% 0, 100% 50%, 93% 99%, 7% 99%, 0% 50%, 7% 0);
 
 
-      --teamBorderLeft: 0px solid #27AAE1;
-      --teamBorderRight: 0px solid #C80013;
+
+      --teamLeftBorderLeft: 0px solid #27AAE1;
+      --teamLeftBorderRight: 0px solid #C80013;
+
+      --teamRightBorderLeft: 0px solid #27AAE1;
+      --teamRightBorderRight: 0px solid #C80013;
 
       /* --teamLeftBackgroundImage: linear-gradient(90deg, rgb(255, 255, 255) 0%, rgb(109, 136, 122) 100%);
       --teamRightBackgroundImage: linear-gradient(90deg, rgb(255, 255, 255) 0%, rgb(192, 84, 84) 100%); */
@@ -119,6 +299,8 @@
 
     }
 
+
+    
     @font-face {
       font-family: 'Rajdhani';
       src: url("fonts/Rajdhani/Rajdhani-Bold.ttf") format('TrueType');
@@ -132,7 +314,12 @@
     }
 
     body {
-      background-image: url('../../../valorant-preview.png');
+      /* background-image: url('../../../valorant-preview.png'); */
+      /* spike planted */
+      /* background-image: url('https://www.gameuidatabase.com/uploads/Valorant06252021-125331-7474.jpg'); */
+
+      /* defusing */
+      background-image: url('https://interfaceingame.com/wp-content/uploads/valorant/valorant-defusing.png');
       background-size: cover;
       background-repeat: no-repeat;
       display: flex;
@@ -171,7 +358,7 @@
 
       clip-path: var(--teamLeftClipPath);
       /* background-image: linear-gradient(90deg, rgb(255, 255, 255) 0%, rgb(109, 136, 122) 100%); */
-      padding-right: 15px;
+      padding-right: var(--teamPaddingLeft);
     }
 
     .right.team2 {
@@ -181,9 +368,9 @@
       transform: skew(var(--skew-angle-negative));
 
       clip-path: var(--teamRightClipPath);
-      padding-left: 15px;
+      padding-left: var(--teamPaddingRight)
     }
-    
+
 
     .team-inner {
       display: flex;
@@ -211,6 +398,14 @@
       /* Don’t exceed parent height */
     }
 
+    .team1 .teamname {
+      text-align: var(--teamLeftTextNameAlign)
+    }
+
+    .team2 .teamname {
+      text-align: var(--teamRightTextNameAlign)
+    }
+
     .teamname {
       font-family: 'Rajdhani';
       font-size: var(--teamNameSize);
@@ -235,6 +430,8 @@
       line-height: calc(var(--teamBoxHeight) + 3px);
       /* Match container height */
       max-height: 100%;
+      /* padding-right: 25px; */
+      /* background-color: #000000; */
       /* Prevent overflow */
     }
 
@@ -244,6 +441,7 @@
       top: var(--middleTopPosition);
       left: 50%;
       transform: translateX(-50%);
+
       width: 300px;
       /* No need for !important if specificity is clear */
       text-align: center;
@@ -251,6 +449,7 @@
       display: flex;
       /* Add flex to control child */
       justify-content: center;
+    
       /* Center the content horizontally */
     }
 
@@ -261,8 +460,16 @@
       text-transform: uppercase;
       display: block;
       /* Make it block-level */
+      display:flex;
+      justify-content: center;
+      align-items: center;
       width: var(--middleWidth);
-      line-height: 1.2;
+      height:var(--middleHeight)
+      /* line-height:  */
+
+      /* background-color: var(--matchTextBackground); */
+      /* color:white!important; */
+      /* outline: 2px solid #000000!important; */
       /* Optional: Improve vertical spacing */
     }
 
