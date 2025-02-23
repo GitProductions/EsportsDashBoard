@@ -58,6 +58,15 @@ Available Styles:
       --skew-angle-positive: 0deg;
       --skew-angle-negative: 0deg;
       /* --matchTextBackground: #ffffff; */
+
+      --arrowLeftClipPath: polygon(100% 0, 100% 49%, 100% 100%, 7% 100%, 0 50%, 7% 0);
+      --arrowRightClipPath: polygon(93% 0, 100% 50%, 93% 100%, 0 100%, 0 50%, 0 0);
+
+      --arrowLeftInvertedClipPath: polygon(100% 0, 93% 50%, 100% 100%, 0 100%, 0% 50%, 0 0);
+      --arrowRightInvertedClipPath: polygon(100% 0, 100% 50%, 100% 100%, 0% 100%, 7% 50%, 0% 0%);
+
+      --arrowDoubleSideClipPath:  polygon(93% 0, 100% 50%, 93% 99%, 7% 99%, 0% 50%, 7% 0)
+
     }
 
     /* Game-specific positioning */
@@ -93,7 +102,7 @@ Available Styles:
 
 
 
-    .valorantPositions {
+    .valorantPositions0 {
       --teamLogoSize: 25px;
       --teamNameSize: 1.1em;
       --scoreSize: 1.4em;
@@ -239,8 +248,8 @@ Available Styles:
       --skew-angle-negative: 0deg;
 
 
-      --teamLeftClipPath: polygon(100% 0, 93% 50%, 100% 100%, 0 100%, 0% 50%, 0 0);
-      --teamRightClipPath: polygon(100% 0, 100% 49%, 100% 100%, 0 100%, 7% 50%, 0 0);
+      --teamLeftClipPath: var(--arrowLeftInvertedClipPath);
+      --teamRightClipPath: var(--arrowRightInvertedClipPath);
 
       --teamLeftInnerPadding: 20px;
       --teamRightInnerPadding: 20px;
@@ -275,8 +284,8 @@ Available Styles:
       --skew-angle-negative: 0deg;
 
 
-      --teamLeftClipPath: polygon(100% 0, 93% 50%, 100% 100%, 0 100%, 0% 50%, 0 0);
-      --teamRightClipPath: polygon(100% 0, 100% 49%, 100% 100%, 0 100%, 7% 50%, 0 0);
+      --teamLeftClipPath: var(--arrowRightClipPath);
+      --teamRightClipPath: var(--arrowLeftClipPath);
 
       --teamLeftInnerPadding: 15px;
       --teamRightInnerPadding: 15px;
@@ -309,10 +318,11 @@ Available Styles:
       --skew-angle-negative: 0deg;
 
       /* valorant clip test */
-      --teamLeftClipPath: polygon(93% 0, 100% 50%, 93% 99%, 7% 99%, 0% 50%, 7% 0);
-      --teamRightClipPath: polygon(93% 0, 100% 50%, 93% 99%, 7% 99%, 0% 50%, 7% 0);
+      --teamLeftClipPath: var(--arrowDoubleSideClipPath);
+      --teamRightClipPath: var(--arrowDoubleSideClipPath);
 
-
+      --teamLeftOuterPadding: 15px;
+      --teamRightOuterPadding: 15px;
 
       --teamLeftBorderLeft: 0px solid #27AAE1;
       --teamLeftBorderRight: 0px solid #C80013;
