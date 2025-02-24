@@ -19,7 +19,7 @@
 
 id: esportsdash.default
 name: Overwatch_Starter ## this would be the name of the obs scene config in the end.. so just make it the same as the folder name?? which would be the ID...
-version: 1.0
+version: 1.2
 author: Esports Dash
 preview: preview.jpg
 pathToReplace: C:/Users/GitPC/Documents/GitHub/EsportsDashBoard/HTML Packs/Overwatch-BGG/raw/
