@@ -1,0 +1,382 @@
+# Game Configuration
+id: conman.smash
+game: Smash Ultimate
+version: 1.0
+author: Conman
+gamelogo: Smash Ultimate
+
+# Maps Configuration
+maps:
+  - name: Final Destination
+    file: Final_Destination
+  - name: Hollow Bastion
+    file: Hollow_Bastion
+  - name: Kalos Pokémon League
+    file: Kalos_Pokémon_League
+  - name: Pokémon Stadium
+    file: Pokémon_Stadium
+  - name: Small Battlefield
+    file: Small_Battlefield
+  - name: Smashville
+    file: Smashville
+  - name: Town and City
+    file: Town_and_City
+  - name: Battlefield
+    file: Battlefield
+
+# Game Modes
+modes:
+  - name: Smash
+    file: Smash_Ball
+
+# Character Categories
+roles:
+  - name: Animal Crossing
+    file: AnimalCrossing
+    heroes:
+      - name: Villager
+        file: Villager
+      - name: Villager Alt
+        file: Villager_Alt
+      - name: Isabelle
+        file: Isabelle
+
+  - name: ARMS
+    file: ARMS
+    heroes:
+      - name: Min Min
+        file: Min_Min
+
+  - name: Banjo-Kazooie
+    file: BanjoKazooie
+    heroes:
+      - name: Banjo & Kazooie
+        file: Banjo_&_Kazooie
+
+  - name: Bayonetta
+    file: Bayonetta
+    heroes:
+      - name: Bayonetta
+        file: Bayonetta
+
+  - name: Castlevania
+    file: Castlevania
+    heroes:
+      - name: Richter
+        file: Richter
+      - name: Simon
+        file: Simon
+
+  - name: DK
+    file: DK
+    heroes:
+      - name: Diddy Kong
+        file: Diddy_Kong
+      - name: Donkey Kong
+        file: Donkey_Kong
+      - name: King K. Rool
+        file: King_K._Rool
+
+  - name: Dragon Quest
+    file: DragonQuest
+    heroes:
+      - name: Hero
+        file: Hero
+
+  - name: Duck Hunt
+    file: DuckHunt
+    heroes:
+      - name: Duck Hunt
+        file: Duck_Hunt
+
+  - name: Earthbound
+    file: Earthbound
+    heroes:
+      - name: Lucas
+        file: Lucas
+      - name: Ness
+        file: Ness
+
+  - name: Fatal Fury
+    file: FatalFury
+    heroes:
+      - name: Terry
+        file: Terry
+
+  - name: Final Fantasy
+    file: FinalFantasy
+    heroes:
+      - name: Cloud Alt
+        file: Cloud-Alt1
+      - name: Sephiroth
+        file: Sephiroth
+
+  - name: Fire Emblem
+    file: FireEmblem
+    heroes:
+      - name: Chrom
+        file: Chrom
+      - name: Corrin
+        file: Corrin
+      - name: Corrin Alt
+        file: Corrin_Alt
+      - name: Fighter byleth
+        file: Fighter-byleth
+      - name: Ike
+        file: Ike
+      - name: Lucina
+        file: Lucina
+      - name: Marth
+        file: Marth
+      - name: Robin
+        file: Robin
+      - name: Roy
+        file: Roy
+
+  - name: F-Zero
+    file: FZero
+    heroes:
+      - name: Captain Falcon
+        file: Captain_Falcon
+
+  - name: Game & Watch
+    file: Game_and_Watch
+    heroes:
+      - name: Mr. Game & Watch
+        file: Mr._Game_&_Watch
+
+  - name: Ice Climber
+    file: IceClimber
+    heroes:
+      - name: Ice Climbers
+        file: Ice_Climbers
+
+  - name: Kid Icarus
+    file: KidIcarus
+    heroes:
+      - name: Dark Pit
+        file: Dark_Pit
+      - name: Palutena
+        file: Palutena
+      - name: Pit
+        file: Pit
+
+  - name: Kingdom Hearts
+    file: KingdomHearts
+    heroes:
+      - name: Sora
+        file: Sora
+
+  - name: Kirby
+    file: Kirby
+    heroes:
+      - name: King Dedede
+        file: King_Dedede
+      - name: Kirby
+        file: Kirby
+      - name: Meta Knight
+        file: Meta_Knight
+
+  - name: Mario
+    file: Mario
+    heroes:
+      - name: Mario
+        file: Mario
+      - name: Luigi
+        file: Luigi
+      - name: Peach
+        file: Peach
+      - name: Bowser
+        file: Bowser
+      - name: Dr Mario
+        file: Dr_Mario
+      - name: Rosalina & Luma
+        file: Rosalina_&_Luma
+      - name: Bowser Jr.
+        file: Bowser_Jr.
+      - name: Piranha Plant
+        file: Piranha_Plant
+      - name: Daisy
+        file: Daisy
+
+  - name: Mega Man
+    file: MegaMan
+    heroes:
+      - name: Mega Man
+        file: Mega_Man
+
+  - name: Metal Gear
+    file: MetalGear
+    heroes:
+      - name: Snake
+        file: Snake
+
+  - name: Metroid
+    file: Metroid
+    heroes:
+      - name: Zero Suit Samus
+        file: Zero_Suit_Samus
+      - name: Dark Samus
+        file: Dark_Samus
+      - name: Ridley
+        file: Ridley
+      - name: Samus
+        file: Samus
+
+  - name: Minecraft
+    file: Minecraft
+    heroes:
+      - name: Alex
+        file: Alex
+      - name: Steve
+        file: Steve
+
+  - name: Pac-Man
+    file: PacMan
+    heroes:
+      - name: Incineroar
+        file: Incineroar
+      - name: Pac-Man
+        file: PacMan
+
+  - name: Persona
+    file: Persona
+    heroes:
+      - name: Joker
+        file: Joker
+
+  - name: Pikmin
+    file: Pikmin
+    heroes:
+      - name: Olimar
+        file: Olimar
+
+  - name: Pokemon
+    file: Pokemon
+    heroes:
+      - name: Charizard
+        file: Charizard
+      - name: Greninja
+        file: Greninja
+      - name: Ivysaur
+        file: Ivysaur
+      - name: Lucario
+        file: Lucario
+      - name: Mewtwo
+        file: Mewtwo
+      - name: Pichu
+        file: Pichu
+      - name: Pikachu
+        file: Pikachu
+      - name: Pokémon Trainer (solo)
+        file: Pokémon_Trainer_(solo)
+      - name: Squirtle
+        file: Squirtle
+
+  - name: Punch-Out
+    file: PunchOut
+    heroes:
+      - name: Little Mac
+        file: Little_Mac
+
+  - name: R.O.B.
+    file: ROB
+    heroes:
+      - name: R.O.B.
+        file: R.O.B._(JPN)
+
+  - name: Smash Bros
+    file: SmashBros
+    heroes:
+      - name: Mii Brawler
+        file: Mii_Brawler
+      - name: Mii Gunner
+        file: Mii_Gunner
+      - name: Mii Swordfighter
+        file: Mii_Swordfighter
+      - name: Sonic
+        file: Sonic
+
+  - name: Sonic
+    file: Sonic
+    heroes:
+      - name: Sonic
+        file: Sonic
+
+  - name: Splatoon
+    file: Splatoon
+    heroes:
+      - name: Inkling
+        file: Inkling
+      - name: Inkling Alt
+        file: Inkling-Alt1
+
+  - name: Star Fox
+    file: StarFox
+    heroes:
+      - name: Wolf
+        file: Wolf
+      - name: Falco
+        file: Falco
+      - name: Fox
+        file: Fox
+
+  - name: Street Fighter
+    file: StreetFighter
+    heroes:
+      - name: Ken
+        file: Ken
+      - name: Ryu
+        file: Ryu
+
+  - name: Tekken
+    file: Tekken
+    heroes:
+      - name: Kazuya
+        file: Kazuya
+
+  - name: Wario
+    file: Wario
+    heroes:
+      - name: Wario
+        file: Wario
+
+  - name: Wii Fit
+    file: WiiFit
+    heroes:
+      - name: Wii Fit Trainer
+        file: Wii_Fit_Trainer
+      - name: Wii Fit Trainer Alt
+        file: Wii_Fit_Trainer_Alt
+
+  - name: Xenoblade
+    file: Xenoblade
+    heroes:
+      - name: Mythra
+        file: Mythra
+      - name: Pyra
+        file: Pyra
+      - name: Shulk
+        file: Shulk
+
+  - name: Yoshi
+    file: Yoshi
+    heroes:
+      - name: Yoshi
+        file: Yoshi
+
+  - name: Zelda
+    file: Zelda
+    heroes:
+      - name: Young Link
+        file: Young_Link
+      - name: Zelda
+        file: Zelda
+      - name: Ganondorf
+        file: Ganondorf
+      - name: Link
+        file: Link
+      - name: Sheik
+        file: Sheik
+      - name: Toon Link
+        file: Toon_Link
