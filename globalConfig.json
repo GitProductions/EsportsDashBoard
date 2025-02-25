@@ -113,7 +113,7 @@
     "Valorant": [
       {
         "id": "esportsdash.valorant",
-        "name": "Valorant: Season 15",
+        "name": "Valorant",
         "author": "EsportsDash",
         "version": "1.5",
         "image": "Game Configs/Valorant/Valorant.webp",
@@ -135,7 +135,7 @@
       }
     ]
   },
-
+ 
   "Overlay Packs": {
     "esportsdash.default": {
       "id": "esportsdash.default",
@@ -148,5 +148,4 @@
       "fileName": "esportsdash-default.esportsDashOverlay"
     }
   }
-  
 }

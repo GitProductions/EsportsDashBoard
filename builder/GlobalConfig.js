@@ -112,7 +112,7 @@ export const configurations = {
         gameConfigs: [
             {
                 id: "esportsdash.valorant",
-                name: "Valorant: Season 15",
+                name: "Valorant",
                 author: "EsportsDash",
                 version: "1.5",
                 image: "Game Configs/Valorant/Valorant.webp",
@@ -213,3 +213,17 @@ export const configurations = {
         ],
     }
 };
+
+
+
+// "Overlay Packs": {
+//     "esportsdash.default": {
+//       "id": "esportsdash.default",
+//       "name": "Default HTML Pack",
+//       "author": "Broadcast GG",
+//       "version": "1.2",
+//       "image": "Game Configs/Overwatch/Overwatch.webp",
+//       "description": "Renewed Legacy HTML Pack created by Broadcast GG",
+//       "folderPath": "HTML Packs/Overwatch-BGG",
+//       "fileName": "esportsdash-default.esportsDashOverlay"
+//     }
