@@ -53,11 +53,11 @@ export const configurations = {
             },
             {
                 id: "esportsdash.overwatch",
-                name: "Overwatch Game Config",
+                name: "Overwatch",
                 author: "EsportsDash",
                 version: "1.7",
                 image: "Game Configs/Overwatch/Overwatch.webp",
-                description: "Game configuration file.",
+                description: "Season 15",
                 folderPath: "Game Configs/Overwatch",
                 fileName: "esportsdash.overwatch_v1.7.bgg"
             }
@@ -110,14 +110,13 @@ export const configurations = {
 
 
         gameConfigs: [
-
             {
                 id: "esportsdash.valorant",
-                name: "Valorant Game Config",
+                name: "Valorant: Season 15",
                 author: "EsportsDash",
                 version: "1.5",
                 image: "Game Configs/Valorant/Valorant.webp",
-                description: "Game configuration file.",
+                description: "Season 10",
                 folderPath: "Game Configs/Valorant",
                 fileName: "esportsdash.valorant_v1.5.bgg"
             }
@@ -188,11 +187,11 @@ export const configurations = {
         gameConfigs: [
             {
                 id: "esportsdash.marvelrivals",
-                name: "Marvel Rivals Game Config",
+                name: "Marvel Rivals: Season 1",
                 author: "EsportsDash",
                 version: "1.3",
                 image: "Game Configs/Marvel Rivals/Marvel Rivals.webp",
-                description: "Game configuration file.",
+                description: "",
                 folderPath: "Game Configs/Marvel Rivals",
                 fileName: "esportsdash.marvelrivals_v1.3.bgg"
             }

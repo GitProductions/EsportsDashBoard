@@ -101,11 +101,11 @@
       },
       {
         "id": "esportsdash.overwatch",
-        "name": "Overwatch Game Config",
+        "name": "Overwatch",
         "author": "EsportsDash",
         "version": "1.7",
         "image": "Game Configs/Overwatch/Overwatch.webp",
-        "description": "Game configuration file.",
+        "description": "Season 15",
         "folderPath": "Game Configs/Overwatch",
         "fileName": "esportsdash.overwatch_v1.7.bgg"
       }
@@ -113,11 +113,11 @@
     "Valorant": [
       {
         "id": "esportsdash.valorant",
-        "name": "Valorant Game Config",
+        "name": "Valorant: Season 15",
         "author": "EsportsDash",
         "version": "1.5",
         "image": "Game Configs/Valorant/Valorant.webp",
-        "description": "Game configuration file.",
+        "description": "Season 10",
         "folderPath": "Game Configs/Valorant",
         "fileName": "esportsdash.valorant_v1.5.bgg"
       }
@@ -125,20 +125,17 @@
     "Marvel Rivals": [
       {
         "id": "esportsdash.marvelrivals",
-        "name": "Marvel Rivals Game Config",
+        "name": "Marvel Rivals: Season 1",
         "author": "EsportsDash",
         "version": "1.3",
         "image": "Game Configs/Marvel Rivals/Marvel Rivals.webp",
-        "description": "Game configuration file.",
+        "description": "",
         "folderPath": "Game Configs/Marvel Rivals",
         "fileName": "esportsdash.marvelrivals_v1.3.bgg"
       }
     ]
   },
 
-
-
-  
   "Overlay Packs": {
     "esportsdash.default": {
       "id": "esportsdash.default",
@@ -146,9 +143,10 @@
       "author": "Broadcast GG",
       "version": "1.2",
       "image": "Game Configs/Overwatch/Overwatch.webp",
-      "description": "This is the legacy HTML pack for BroadcastGG.",
+      "description": "Renewed Legacy HTML Pack created by Broadcast GG",
       "folderPath": "HTML Packs/Overwatch-BGG",
       "fileName": "esportsdash-default.esportsDashOverlay"
     }
   }
+  
 }
