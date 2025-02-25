@@ -125,17 +125,16 @@
     "Marvel Rivals": [
       {
         "id": "esportsdash.marvelrivals",
-        "name": "Marvel Rivals: Season 1",
+        "name": "Marvel Rivals",
         "author": "EsportsDash",
-        "version": "1.3",
+        "version": "1.4",
         "image": "Game Configs/Marvel Rivals/Marvel Rivals.webp",
-        "description": "",
+        "description": "Season 1.5",
         "folderPath": "Game Configs/Marvel Rivals",
-        "fileName": "esportsdash.marvelrivals_v1.3.bgg"
+        "fileName": "esportsdash.marvelrivals_v1.4.bgg"
       }
     ]
   },
- 
   "Overlay Packs": {
     "esportsdash.default": {
       "id": "esportsdash.default",
