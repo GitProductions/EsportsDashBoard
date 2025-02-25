@@ -149,16 +149,6 @@
       "description": "This is the legacy HTML pack for BroadcastGG.",
       "folderPath": "HTML Packs/Overwatch-BGG",
       "fileName": "esportsdash-default.esportsDashOverlay"
-    },
-    "esportsdash.defaultTEST": {
-      "id": "esportsdash.defaultTEST",
-      "name": "TEST",
-      "author": "Broadcast GG",
-      "version": "9.9",
-      "image": "Game Configs/Overwatch/Overwatch.webp",
-      "description": "TEST PACK",
-      "folderPath": "HTML Packs/Overwatch-BGG",
-      "fileName": "esportsdash-defaultTEST.esportsDashOverlay"
     }
   }
 }
