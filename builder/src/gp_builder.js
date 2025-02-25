@@ -23,7 +23,7 @@ class GameConfigPacker {
     constructor() {
         this.baseFolder = path.join(__root, 'Game Configs');
         this.assetsFolder = path.join(this.baseFolder, 'assets');
-        this.requiredXamlKeys = ['id', 'game', 'version', 'author'];
+        this.requiredXamlKeys = ['id', 'game', 'version', 'author', 'description', 'name'];
     }
 
     async validateFolderStructure() {
@@ -119,6 +119,8 @@ class GameConfigPacker {
         const fileName = `${xamlInfo.id}_v${xamlInfo.version}.bgg`;
         const outputPath = path.join(__dirname, '..', 'output', fileName);
         
+
+        // console.log(xamlInfo);
         await fs.writeFile(outputPath, zipContent);
         console.log(`Created: ${fileName}`);
     }

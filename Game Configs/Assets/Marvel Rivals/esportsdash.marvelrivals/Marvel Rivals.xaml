@@ -1,7 +1,9 @@
 <config>
   <id>esportsdash.marvelrivals</id>
-  <game>Marvel Rivals</game>
   <version>1.3</version>
+  <name>Marvel Rivals</name>
+  <description></description>
+  <game>Marvel Rivals</game>
   <author>EsportsDash</author>
   <gamelogo>Official_Logo_29</gamelogo>
 

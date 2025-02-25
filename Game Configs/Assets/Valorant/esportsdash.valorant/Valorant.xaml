@@ -1,7 +1,9 @@
 <config>
   <id>esportsdash.valorant</id>
-  <game>Valorant</game>
   <version>1.5</version>
+  <name>Valorant</name>
+  <description></description>
+  <game>Valorant</game>
   <author>EsportsDash</author>
 
   <maps>
