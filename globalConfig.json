@@ -103,11 +103,11 @@
         "id": "esportsdash.overwatch",
         "name": "Overwatch",
         "author": "EsportsDash",
-        "version": "1.7",
+        "version": "1.8",
         "image": "Game Configs/Overwatch/Overwatch.webp",
         "description": "Season 15",
         "folderPath": "Game Configs/Overwatch",
-        "fileName": "esportsdash.overwatch_v1.7.bgg"
+        "fileName": "esportsdash.overwatch_v1.8.bgg"
       }
     ],
     "Valorant": [

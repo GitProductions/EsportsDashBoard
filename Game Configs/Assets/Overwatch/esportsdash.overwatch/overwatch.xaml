@@ -29,7 +29,7 @@ Example:
 
 <config>
   <id>esportsdash.overwatch</id>
-  <version>1.7</version>
+  <version>1.8</version>
   <name>Overwatch</name>
   <description>Season 15</description>
   <game>Overwatch</game>
@@ -109,6 +109,7 @@ Example:
       <hero name="Winston" file="Winston"  />
       <hero name="Wrecking Ball" file="Wrecking_Ball"  />
       <hero name="Zarya" file="Zarya"  />
+      <hero name="Ramattra" file="Ramattra"  />
     </Tank>
 
     <DPS>
