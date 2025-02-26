@@ -4,7 +4,12 @@
   <link rel="stylesheet" type="text/css" href="styles.css">
 
   <style>
- 
+
+    .staff {
+      width: 650px;
+    }
+
+
 
 
     .camerahole {
@@ -48,8 +53,8 @@
       // Fetching General Input Data and then seperating into different variables
       let inputData = await fetch(`http://localhost:8080/getValue?path=general`);
       if (!inputData.ok) {
-            throw new Error('Network response was not ok');
-        }
+        throw new Error('Network response was not ok');
+      }
       let inputJson = await inputData.json();
 
       let themeColors = inputJson.color;
@@ -74,43 +79,43 @@
       //$('.camerahole').css("background-color", (colortheme3txt));
 
       async function updateStaffDetails(staffId, casterName, animationDelay) {
-            try {
-                let stafftxt = casterName;
+        try {
+          let stafftxt = casterName;
 
-                $('.curtain' + staffId).css("animation-delay", animationDelay + "s");
-                $('.' + staffId).css("animation-delay", (animationDelay - 0.15) + "s");
+          $('.curtain' + staffId).css("animation-delay", animationDelay + "s");
+          $('.' + staffId).css("animation-delay", (animationDelay - 0.15) + "s");
 
-                if (stafftxt.replace(/\n|\r/gi, "") == "") {
-                    $('.' + staffId + ' .staffname').html("");
-                    $('.' + staffId + ' .twitter').html("");
-                } else {
-                    let staffname = stafftxt.replace(new RegExp(/ @\w*/), "");
+          if (stafftxt.replace(/\n|\r/gi, "") == "") {
+            $('.' + staffId + ' .staffname').html("");
+            $('.' + staffId + ' .twitter').html("");
+          } else {
+            let staffname = stafftxt.replace(new RegExp(/ @\w*/), "");
 
-                    let stafftwitter = stafftxt.match(new RegExp(/ @\w*/));
+            let stafftwitter = stafftxt.match(new RegExp(/ @\w*/));
 
-                    console.log("stafftwitter value: " + stafftwitter + ".");
+            console.log("stafftwitter value: " + stafftwitter + ".");
 
-                    if (stafftwitter != null) {
-                        stafftwitter = stafftwitter.toString();
-                        stafftwitter = stafftwitter.replace(/ @/, "");
+            if (stafftwitter != null) {
+              stafftwitter = stafftwitter.toString();
+              stafftwitter = stafftwitter.replace(/ @/, "");
 
-                        $('.' + staffId + ' .twitter').html("&nbsp;" + stafftwitter);
-                        $('.' + staffId + ' .twitter').css("display", "block");
-                        $('.' + staffId + ' .staffname').html(staffname + "&nbsp;");
-                    } else {
-                        $('.' + staffId + ' .twitter').css("display", "none");
-                        $('.' + staffId + ' .staffname').html(staffname);
-                    }
-                }
-            } catch (error) {
-                console.error('Error fetching ' + staffId + ' details:', error);
+              $('.' + staffId + ' .twitter').html("&nbsp;" + stafftwitter);
+              $('.' + staffId + ' .twitter').css("display", "block");
+              $('.' + staffId + ' .staffname').html(staffname + "&nbsp;");
+            } else {
+              $('.' + staffId + ' .twitter').css("display", "none");
+              $('.' + staffId + ' .staffname').html(staffname);
             }
+          }
+        } catch (error) {
+          console.error('Error fetching ' + staffId + ' details:', error);
         }
+      }
 
       updateStaffDetails('caster1', caster1, 1.15);
       updateStaffDetails('caster2', caster2, 1.25);
-     //get team data
-     class team { }
+      //get team data
+      class team { }
       async function updateTeamDetails(teamIndex, teamData) {
         let teamcls = new team();
         teamcls.name = teamData.teamName;
@@ -157,7 +162,7 @@
       }
 
       updateTeamDetails(0, teamsData.team1);
-      updateTeamDetails(1, teamsData.team2); 
+      updateTeamDetails(1, teamsData.team2);
 
 
       async function setDynamicBackgroundImages() {
