@@ -2,27 +2,74 @@
 <html>
 
 <!-- 
+This is an overlay designed to be used with Esports Dash & OBS Studio.
 
-The main issue right now is team name is set to 2rem by default which results ina clean sizing for typical sized names. 
-this size also causes the text to center vertically as we need.. 
+Currently it has been designed to work with the following games...
+- Valorant
+- Overwatch
+- Marvel Rivals
+- Smash Brothers
 
-if a long team name exists it overflows to the left and doesnt fit..
-basically this whole thing needs reworked over to make sure its even more dynamic on spacing/sizing as far as respecitng other elements
+Available Styles:
+- Valorant: 5 different styles
+- Overwatch: 1 style
+- Smash Brothers: 1 style
+- Marvel Rivals: 2 styles(marvelDomination, marvelNonDomination)
+
+# the only way to switch between the various styles or adjust them externally would be
+ 1. a CSS override in obs by copy/pasting the proper css over along within the .valorantPositions class
+ 2. renaming .valorantPositionsX to .valorantPositions manually in the file and then saving..
+
 -->
 
 <head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
   <style>
-
     :root {
-      --teamLogoPosition: 75px;
+      --scoreSize: 3em;
+      --teamLogoSize: 45px;
+      --teamNameSize: 1.3em;
 
-      /* 450 to be on left side */
-      --teamNamePositionX: -150px;
-      --teamNamePositionY: 3px;
+      --teamLeftTextNameAlign: left;
+      --teamRightTextNameAlign: right;
+      
+      --teamLeftInnerPadding: 0px;
+      --teamRightInnerPadding: 0px;
+
+      --teamLeftBorderLeft: 0px solid #27AAE1;
+      --teamLeftBorderRight: 7px solid #C80013;
+
+      --teamRightBorderLeft: 7px solid #27AAE1;
+      --teamRightBorderRight: 0px solid #C80013;
+      
+      --teamLeftClipPath: polygon(0);
+      --teamRightClipPath: polygon(0);
+
+      --teamLeftBackgroundImage: linear-gradient(90deg, rgb(255, 255, 255) 0%, rgb(255, 255, 255) 100%);
+      --teamRightBackgroundImage: linear-gradient(90deg, rgb(255, 255, 255) 0%, rgb(255, 255, 255) 100%);
+
+      --middleTopPosition: 8px;
+      --middleWidth: 250px;
+      --middleHeight: 35px;
+      --middleTextSize: 1.5em;
+
+      /* skewing */
+      --skew-angle-positive: 0deg;
+      --skew-angle-negative: 0deg;
+      /* --matchTextBackground: #ffffff; */
+
+      --arrowLeftClipPath: polygon(100% 0, 100% 49%, 100% 100%, 7% 100%, 0 50%, 7% 0);
+      --arrowRightClipPath: polygon(93% 0, 100% 50%, 93% 100%, 0 100%, 0 50%, 0 0);
+
+      --arrowLeftInvertedClipPath: polygon(100% 0, 93% 50%, 100% 100%, 0 100%, 0% 50%, 0 0);
+      --arrowRightInvertedClipPath: polygon(100% 0, 100% 50%, 100% 100%, 0% 100%, 7% 50%, 0% 0%);
+
+      --arrowDoubleSideClipPath:  polygon(93% 0, 100% 50%, 93% 99%, 7% 99%, 0% 50%, 7% 0)
+
     }
 
-
-
+    /* Game-specific positioning */
     .marvelPositions {
       --teamBoxHeight: 50px;
       --middleTopPosition: 17px;
@@ -30,47 +77,298 @@ basically this whole thing needs reworked over to make sure its even more dynami
       --skew-angle-negative: -15deg;
     }
 
-    .marvelDomination{
+    .marvelDomination {
       --teamBoxWidth: 700px;
       --teamTopPosition: 4px;
-      --leftTeamPosition: -145px;
-      --rightTeamPosition: -145px;
+      --teamSideOffset: 145px;
     }
 
     .marvelNonDomination {
       --teamBoxWidth: 492px;
       --teamTopPosition: 31px;
-      --leftTeamPosition: -10px;
-      --rightTeamPosition: -10px;
+      --teamSideOffset: 10px;
     }
-
 
     .overWatchPositions {
       --teamBoxWidth: 685px;
       --teamBoxHeight: 46px;
-
       --teamTopPosition: 13px;
-      --leftTeamPosition: -7px;
-      --rightTeamPosition: -7px;
-      --middleTopPosition: 29px;
+      --teamSideOffset: 0px;
+      --middleTopPosition: 8px;
       --skew-angle-positive: 0deg;
       --skew-angle-negative: 0deg;
     }
 
 
-    /* havent set up for valorant yet.. */
-    .valorantPositions{
-      --teamBoxWidth: 685px;
-      --teamBoxHeight: 46px;
 
-      --teamTopPosition: 13px;
-      --leftTeamPosition: -7px;
-      --rightTeamPosition: -7px;
-      --middleTopPosition: 29px;
+
+    .valorantPositions0 {
+      --teamLogoSize: 25px;
+      --teamNameSize: 1.1em;
+      --scoreSize: 1.4em;
+
+      --teamBoxWidth: 400px;
+      --teamBoxHeight: 20px;
+
+      --teamTopPosition: 7px;
+      --teamSideOffset: -425px;
+
+      --middleHeight: 25px;
+      --middleWidth: 120px;
+      --middleTopPosition: 95px;
+
       --skew-angle-positive: 0deg;
       --skew-angle-negative: 0deg;
+
+
+      /* clip is doing < inverted */
+      /* polygon(100% 0, 93% 50%, 100% 100%, 0 100%, 0% 50%, 0 0); */
+      /* ---- */
+
+      /* clip is doing < */
+      /* polygon(100% 0, 100% 49%, 100% 100%, 7% 100%, 0 50%, 7% 0); */
+      /* ---- */
+      /* clip is doing > */
+      /* polygon(93% 0, 100% 50%, 93% 100%, 0 100%, 0 50%, 0 0); */
+
+
+      --teamLeftClipPath: polygon(0 0,
+          93% 0,
+          94% 1%, 95% 2%,
+          100% 50%,
+          95% 98%, 94% 99%,
+          93% 100%,
+          0 100%,
+          0 98%, 0 52%,
+          0 50%);
+
+      --teamRightClipPath: polygon(100% 0,
+          100% 49%,
+          100% 100%,
+          7% 100%,
+          6% 99%, 5% 98%,
+          0 50%,
+          5% 2%, 6% 1%,
+          7% 0);
+
+
+      /* --teamBorderLeft: 0px solid #27AAE1;
+      --teamBorderRight: 0px solid #C80013; */
+
+      --teamLeftBorderLeft: 4px solid #27AAE1;
+      --teamLeftBorderRight: 0px solid #C80013;
+
+      --teamRightBorderLeft: 0px solid #27AAE1;
+      --teamRightBorderRight: 4px solid #C80013;
+
+      /* --matchTextBackground: #080808!important; */
+
+      /* --teamLeftBackgroundImage: linear-gradient(90deg, rgb(255, 255, 255) 0%, hsla(159, 19%, 39%, 0.788) 100%); */
+      /* --teamRightBackgroundImage: linear-gradient(90deg, hsla(3, 54%, 57%, 0.788), rgb(255, 255, 255) 100%); */
+
     }
-    
+
+
+    .valorantPositions2 {
+      --middleWidth: 120px;
+      --scoreSize: 2.0em;
+
+      --teamBoxWidth: 350px;
+      --teamBoxHeight: 40px;
+
+      --teamTopPosition: 90px;
+      --teamSideOffset: -490px;
+
+      --middleTopPosition: 95px;
+      --skew-angle-positive: 0deg;
+      --skew-angle-negative: 0deg;
+
+
+      /* clip is doing < inverted */
+      /* polygon(100% 0, 93% 50%, 100% 100%, 0 100%, 0% 50%, 0 0); */
+      /* ---- */
+
+      /* clip is doing < */
+      /* polygon(100% 0, 100% 49%, 100% 100%, 7% 100%, 0 50%, 7% 0); */
+      /* ---- */
+      /* clip is doing > */
+      /* polygon(93% 0, 100% 50%, 93% 100%, 0 100%, 0 50%, 0 0); */
+
+
+      /* --teamLeftClipPath: polygon(0 0,
+          93% 0,
+          94% 1%, 95% 2%,
+          100% 50%,
+          95% 98%, 94% 99%,
+          93% 100%,
+          0 100%,
+          0 98%, 0 52%,
+          0 50%);
+
+      --teamRightClipPath: polygon(100% 0,
+          100% 49%,
+          100% 100%,
+          7% 100%,
+          6% 99%, 5% 98%,
+          0 50%,
+          5% 2%, 6% 1%,
+          7% 0); */
+
+
+      /* --teamBorderLeft: 0px solid #27AAE1;
+      --teamBorderRight: 0px solid #C80013; */
+
+      --teamLeftBorderLeft: 7px solid #27AAE1;
+      --teamLeftBorderRight: 0px solid #C80013;
+
+      --teamRightBorderLeft: 0px solid #27AAE1;
+      --teamRightBorderRight: 7px solid #C80013;
+
+      /* --matchTextBackground: #080808!important; */
+
+      /* --teamLeftBackgroundImage: linear-gradient(90deg, rgb(255, 255, 255) 0%, hsla(159, 19%, 39%, 0.788) 100%); */
+      /* --teamRightBackgroundImage: linear-gradient(90deg, hsla(3, 54%, 57%, 0.788), rgb(255, 255, 255) 100%); */
+
+    }
+
+
+    .valorantPositions3 {
+      --middleWidth: 120px;
+      --scoreSize: 2.0em;
+
+      --teamBoxWidth: 430px;
+      --teamBoxHeight: 40px;
+
+      --teamTopPosition: 90px;
+      --teamSideOffset: -500px;
+
+      --middleHeight: 25px;
+      --middleTopPosition: 98px;
+      --skew-angle-positive: 0deg;
+      --skew-angle-negative: 0deg;
+
+
+      --teamLeftClipPath: var(--arrowLeftInvertedClipPath);
+      --teamRightClipPath: var(--arrowRightInvertedClipPath);
+
+      --teamLeftInnerPadding: 20px;
+      --teamRightInnerPadding: 20px;
+
+      /* --teamBorderLeft: 0px solid #27AAE1;
+      --teamBorderRight: 0px solid #C80013; */
+
+      --teamLeftBorderLeft: 7px solid #27AAE1;
+      --teamLeftBorderRight: 0px solid #C80013;
+
+      --teamRightBorderLeft: 0px solid #27AAE1;
+      --teamRightBorderRight: 7px solid #C80013;
+
+      /* --matchTextBackground: #080808!important; */
+
+      /* --teamLeftBackgroundImage: linear-gradient(90deg, rgb(255, 255, 255) 0%, hsla(159, 19%, 39%, 0.788) 100%); */
+      /* --teamRightBackgroundImage: linear-gradient(90deg, hsla(3, 54%, 57%, 0.788), rgb(255, 255, 255) 100%); */
+
+    }
+
+
+    .valorantPositions4 {
+      --middleWidth: 120px;
+      --scoreSize: 2.5em;
+
+      --teamBoxWidth: 430px;
+      --teamBoxHeight: 40px;
+      --teamTopPosition: 30px;
+      --teamSideOffset: -0px;
+      --middleTopPosition: 95px;
+      --skew-angle-positive: 0deg;
+      --skew-angle-negative: 0deg;
+
+
+      --teamLeftClipPath: var(--arrowRightClipPath);
+      --teamRightClipPath: var(--arrowLeftClipPath);
+
+      --teamLeftInnerPadding: 15px;
+      --teamRightInnerPadding: 15px;
+
+      /* --teamBorderLeft: 0px solid #27AAE1;
+      --teamBorderRight: 0px solid #C80013; */
+
+      --teamLeftBorderLeft: 7px solid #27AAE1;
+      --teamLeftBorderRight: 0px solid #C80013;
+
+      --teamRightBorderLeft: 0px solid #27AAE1;
+      --teamRightBorderRight: 7px solid #C80013;
+
+      --teamLeftBackgroundImage: linear-gradient(90deg, rgb(255, 255, 255) 0%, hsla(159, 19%, 39%, 0.788) 100%);
+      --teamRightBackgroundImage: linear-gradient(90deg, hsla(3, 54%, 57%, 0.788), rgb(255, 255, 255) 100%);
+
+    }
+
+
+    .valorantPositions5 {
+      --middleWidth: 120px;
+      --scoreSize: 2.5em;
+
+      --teamBoxWidth: 400px;
+      --teamBoxHeight: 40px;
+      --teamTopPosition: 90px;
+      --teamSideOffset: -430px;
+      --middleTopPosition: 95px;
+      --skew-angle-positive: 0deg;
+      --skew-angle-negative: 0deg;
+
+      /* valorant clip test */
+      --teamLeftClipPath: var(--arrowDoubleSideClipPath);
+      --teamRightClipPath: var(--arrowDoubleSideClipPath);
+
+      --teamLeftOuterPadding: 15px;
+      --teamRightOuterPadding: 15px;
+
+      --teamLeftBorderLeft: 0px solid #27AAE1;
+      --teamLeftBorderRight: 0px solid #C80013;
+
+      --teamRightBorderLeft: 0px solid #27AAE1;
+      --teamRightBorderRight: 0px solid #C80013;
+
+      /* --teamLeftBackgroundImage: linear-gradient(90deg, rgb(255, 255, 255) 0%, rgb(109, 136, 122) 100%);
+      --teamRightBackgroundImage: linear-gradient(90deg, rgb(255, 255, 255) 0%, rgb(192, 84, 84) 100%); */
+
+
+    }
+
+
+
+    .smashPositions {
+      --teamBoxWidth: 400px;
+      --teamBoxHeight: 40px;
+      --teamTopPosition: 15px;
+      --teamSideOffset: -430px;
+      --middleTopPosition: 15px;
+      --skew-angle-positive: -15deg;
+      --skew-angle-negative: 15deg;
+
+      --teamLeftInnerPadding: 5px;
+      --teamRightInnerPadding: 5px;
+
+      --teamLeftOuterPadding: 10px;
+      --teamRightOuterPadding: 10px;
+
+      --scoreSize: 2.3em;
+
+
+      --middleWidth: 120px;
+
+
+      --teamLeftBorderLeft: 7px solid #27AAE1;
+      --teamLeftBorderRight: 0px solid #C80013;
+
+      --teamRightBorderLeft: 0px solid #27AAE1;
+      --teamRightBorderRight: 7px solid #C80013;
+
+      /* valorant clip test */
+      /* --teamLeftClipPath: polygon(93% 0, 100% 50%, 93% 100%, 0 100%, 0 50%, 0 0);; */
+      /* --teamRightClipPath: polygon(100% 0, 100% 49%, 100% 100%, 7% 100%, 0 50%, 7% 0); */
+    }
 
 
 
@@ -86,86 +384,208 @@ basically this whole thing needs reworked over to make sure its even more dynami
       font-weight: normal;
     }
 
-
-    div.left { background-color:#000000; }
-
-    div.right { background-color:#000000; }
-
-
-    div {
-      -webkit-animation-timing-function: ease-out;
-    }
-
-    span {
-      -webkit-animation-timing-function: ease-out;
-    }
-
-
     body {
-      /* dom*/
-      /* background-image: url('https://file.notion.so/f/f/f39534f6-450f-4a1b-8ac7-5fa9e666a203/8fc5de4e-92e0-4433-9c38-d81adb9e223e/image.png?table=block&id=17dae1e1-9f3e-8058-9fdf-d67d36149338&spaceId=f39534f6-450f-4a1b-8ac7-5fa9e666a203&expirationTimestamp=1737266400000&signature=JFu7gXL-kM6fgCh7aC-ifwYPV2Q4lAZnoyUrUXjFiz8&downloadName=image.png'); */
+      /* background-image: url('../../../valorant-preview.png'); */
+      /* spike planted */
+      /* background-image: url('https://www.gameuidatabase.com/uploads/Valorant06252021-125331-7474.jpg'); */
 
-      /* non dom */
-      /* background-image: url('https://file.notion.so/f/f/f39534f6-450f-4a1b-8ac7-5fa9e666a203/c1af7a82-681d-41d3-9a76-cbb022843a69/image.png?table=block&id=17bae1e1-9f3e-80c8-af9e-f256de03a699&spaceId=f39534f6-450f-4a1b-8ac7-5fa9e666a203&expirationTimestamp=1737266400000&signature=t3IpjPTFA5-C1eezcQds309QhtfYzV3_ZVG7ZPWZcqg&downloadName=image.png'); */
-      
-      /* valorant */
-      /* background-image:url('https://cdn.discordapp.com/attachments/331345179917156353/1327379563038244864/Val.PNG?ex=678e0ecd&is=678cbd4d&hm=be37e71181b2a00b57b90fd4083bdb601766176c97da26a44402f76a93906b42&'); */
+      /* defusing */
+      /* background-image: url('https://interfaceingame.com/wp-content/uploads/valorant/valorant-defusing.png'); */
+
+      /* smash bro */
+      background-image: url('https://cdn.discordapp.com/attachments/1343355429383831624/1343358179043704832/smash_bro_ultimate_example.png?ex=67bcfb4c&is=67bba9cc&hm=a3f6b4cff4e69686b8dd56a1658648b2bbab435d94bc01a4c588e78d02eb9710&');
       background-size: cover;
       background-repeat: no-repeat;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    .left {
+      background-image: var(--teamLeftBackgroundImage)
+    }
+
+    .right {
+      background-image: var(--teamRightBackgroundImage)
+    }
+
+    /* Team Containers */
+    .team {
+      width: var(--teamBoxWidth);
+      height: var(--teamBoxHeight);
+      display: flex;
+      align-items: center;
+      position: fixed;
+      top: var(--teamTopPosition);
+      overflow: hidden;
+      /* Prevent children from escaping */
+    }
+
+    .left.team1 {
+      left: calc(-1 * var(--teamSideOffset));
+      border-right: var(--teamLeftBorderRight);
+      border-left: var(--teamLeftBorderLeft);
+      transform: skew(var(--skew-angle-positive));
+
+      clip-path: var(--teamLeftClipPath);
+      padding-left: var(--teamLeftOuterPadding);
+      padding-right: var(--teamLeftInnerPadding);
+    }
+
+    .right.team2 {
+      right: calc(-1 * var(--teamSideOffset));
+      border-left: var(--teamRightBorderLeft);
+      border-right: var(--teamRightBorderRight);
+      transform: skew(var(--skew-angle-negative));
+
+      clip-path: var(--teamRightClipPath);
+
+      padding-right: var(--teamRightOuterPadding);
+      padding-left: var(--teamRightInnerPadding)
     }
 
 
-    #team1side span,
-    #team2side span,
-    div.right,
-    div.left,
-    div.center,
-    span.score,
-    span.logo,
-    span.logoshade,
-    span.teamname
-    /* span.teamsr  */
-    {
-        animation-fill-mode: backwards;
-        animation-delay: 1s;
+    .team-inner {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      transform: skew(calc(-1 * var(--skew-angle-positive)));
     }
 
-    div.left { animation: leftmove 0.75s}
-    #team1side span { animation: leftmove 1.5s; }
-    div.right { animation: rightmove 0.75s; }
-    #team2side span { animation: rightmove 1.5s; }
-    div.center { animation: topmove 1s; }
-    span.score { animation: fadein 2s; }
-    span.logo { animation: fadein 3s; }
-    span.logoshade { animation: fadein 3s; }
-    span.teamname { animation: fadein 4s; }
-    /* span.teamsr { animation: fadein 5s; } */
+    .right .team-inner {
+      flex-direction: row-reverse;
+      transform: skew(calc(-1 * var(--skew-angle-negative)));
+    }
 
-    @-webkit-keyframes leftmove {
+    .logo {
+      width: var(--teamLogoSize);
+      height: var(--teamLogoSize);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      flex-shrink: 0;
+      /* max-height: 100%; */
+      /* Don’t exceed parent height */
+    }
+
+    .team1 .teamname {
+      text-align: var(--teamLeftTextNameAlign)
+    }
+
+    .team2 .teamname {
+      text-align: var(--teamRightTextNameAlign)
+    }
+
+    .teamname {
+      font-family: 'Rajdhani';
+      font-size: var(--teamNameSize);
+      color: white;
+      text-transform: uppercase;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      flex-grow: 1;
+      padding: 0 10px;
+      line-height: calc(var(--teamBoxHeight) + 3px);
+    }
+
+    .score {
+      font-family: 'Rajdhani';
+      font-size: var(--scoreSize);
+      font-weight: bold;
+      color: white;
+      min-width: 75px;
+      text-align: center;
+      flex-shrink: 0;
+      line-height: calc(var(--teamBoxHeight) + 3px);
+      /* Match container height */
+      /* max-height: 100%; */
+    }
+
+    /* Center Match Info */
+    .center {
+      position: fixed;
+      top: var(--middleTopPosition);
+      left: 50%;
+      transform: translateX(-50%) ;
+      width: var(--middleWidth);
+      display: block;
+    }
+
+    .matchtext {
+      font-family: 'Rajdhani';
+      font-size: var(--middleTextSize);
+      color: white;
+      text-transform: uppercase;
+      white-space: pre-wrap;
+      text-align: center;
+      width: 100%;
+      height: var(--middleHeight);
+      line-height: var(--middleHeight);
+      display: block;
+    }
+
+    /* Animations */
+    .team1,
+    .team2,
+    .center,
+    .logo,
+    .teamname,
+    .score {
+      animation-fill-mode: backwards;
+      animation-delay: 1s;
+    }
+
+    .team1 {
+      animation: leftmove 0.75s;
+    }
+
+    .team2 {
+      animation: rightmove 0.75s;
+    }
+
+    .center {
+      animation: topmove 1s;
+    }
+
+    .score {
+      animation: fadein 2s;
+    }
+
+    .logo {
+      animation: fadein 3s;
+    }
+
+    .teamname {
+      animation: fadein 4s;
+    }
+
+    @keyframes leftmove {
       from {
         left: -850px;
       }
 
       to {
-        left: var(--leftTeamPosition);
+        left: calc(-1 * var(--teamSideOffset));
       }
     }
 
-    @-webkit-keyframes rightmove {
+    @keyframes rightmove {
       from {
         right: -850px;
       }
 
       to {
-        right: var(--rightTeamPosition);
+        right: calc(-1 * var(--teamSideOffset));
       }
     }
 
     @keyframes topmove {
-      0% {
-        top: -46px;
-      }
 
+      0%,
       50% {
         top: -46px;
       }
@@ -176,10 +596,8 @@ basically this whole thing needs reworked over to make sure its even more dynami
     }
 
     @keyframes fadein {
-      0% {
-        opacity: 0;
-      }
 
+      0%,
       15% {
         opacity: 0;
       }
@@ -188,246 +606,33 @@ basically this whole thing needs reworked over to make sure its even more dynami
         opacity: 1;
       }
     }
-
-    @keyframes slideleft {
-      0% {
-        transform: translateX(100%);
-      }
-
-      100% {
-        transform: translateX(0px);
-      }
-    }
-
-
-
-
-    div.left,
-    div.right {
-      width: var(--teamBoxWidth);
-      height: var(--teamBoxHeight);
-      /* border: 0px solid black; */
-      vertical-align: middle;
-    }
-
-  body {
-    display: flex;
-    justify-content: center;
-  }
-
-  div.center {
-    position: fixed; 
-    left: 50%;
-    top: var(--middleTopPosition);
-    transform: translateX(-50%);
-    width: 300px;
-    text-shadow: 0px 0px 7px #000000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-    .center .matchtext {
-      display: block;
-      text-align: center;
-      line-height: 1.5;
-    }
-
-    span {
-      margin: 0;
-      top: 50%;
-      font-family: 'Rajdhani';
-      font-variant-ligatures: none;
-      text-transform: uppercase;
-      color: white;
-    }
-
-    span.logo,
-    span.logoshade,
-    div.side span {
-      position: absolute;
-    }
-
-
-    div.center span.matchtext {
-      text-align: center;
-      transform: translate(0%, -50%);
-      font-size: 1.5em;
-      width:230px;
-      padding-left: 5px;
-      padding-right: 5px;
-      font-family: 'Rajdhani';
-    }
-
-
-    span.teamname {
-      font-size: 2em;
-    }
-
-    /* span.teamsr {
-      font-size: 1.5em;
-      font-family: 'Rajdhani';
-    } */
-
-    span.score {
-      position: absolute;
-      font-size: 3em;
-      font-weight: bold;
-      top: 23px;
-    }
-
-
-    /* Team 1 */
-    div.left {
-      position: fixed;
-      top: var(--teamTopPosition);
-      left: var(--leftTeamPosition);
-      text-align: right;
-      border-style: solid;
-      border-width: 0px 7px 0px 0px;
-      border-color: #27AAE1;
-      transform: skew(var(--skew-angle-positive));
-    }
-
-
-    div.left.team1 span.teamname {
-      display: inline-block; 
-      position: relative;
-      transform: skew(var(--skew-angle-negative));
-
-      top: var(--teamNamePositionY);
-      left: var(--teamNamePositionX);
-
-    }
-
-    /* div.left span.teamsr {
-      position: relative;
-      right: 210px;
-      top: var(--teamNamePositionY);
-    } */
-
-
-    div.left span.score {
-      width: 65px;
-      right: 0px;
-      top: 25px;
-      text-align: center;
-      transform: translate(-7px, -50%) skew(var(--skew-angle-negative));
-    }
-
-
-    /* #team1side span {
-      position: fixed;
-      width: 818px;
-      height: 36px;
-      top: 30px;
-      left: -7px;
-      transform: translate(-70px, -50%);
-      -webkit-mask-position: right;
-      -webkit-mask-size: contain;
-      -webkit-mask-repeat: no-repeat;
-    } */
-
-    div.left span.logo {
-      /* width: calc( var(--teamBoxHeight) * 1.6); */
-      width: calc( var(--teamBoxHeight));
-      height: var(--teamBoxHeight);
-      right: var(--teamLogoPosition);
-      top: 0px;
-
-      transform: skew(var(--skew-angle-negative));
-
-      background-position: center;
-      background-size: cover; /* previously contain until it looked visibly different due to logos sizes not being consistent.. */
-      background-repeat: no-repeat;
-    }
-
-    div.left span.logoshade {
-      width: 100px;
-      height: 46px;
-      right: 0px;
-      transform: translate(-80px, -50%) skew(var(--skew-angle-negative))
-    }
-
-    /* END TEAM1 */
-
-
-
-    /* TEAM 2 */
-    /* needs readdded much later. lol */
-    /* #team2side span {
-      position: fixed;
-      width: 818px;
-      height: 36px;
-      right: -7px;
-      top: 30px;
-      transform: translate(70px, -50%);
-      -webkit-mask-position: left;
-      -webkit-mask-size: contain;
-      -webkit-mask-repeat: no-repeat;
-    } */
-
-
-    div.right {
-      position: fixed;
-      right: var(--rightTeamPosition);
-      top:var(--teamTopPosition);
-      border-style: solid;
-      border-width: 0px 0px 0px 7px;
-      border-color: #C80013;
-      transform: skew(var(--skew-angle-negative));
-    }
-
-    
-    div.right.team2 span.teamname {
-      display: inline-block; 
-      position: relative;
-   
-      transform: skew(var(--skew-angle-positive));
-      top: var(--teamNamePositionY);
-      right: var(--teamNamePositionX);
-    }
-
-    /* div.right span.teamsr {
-      position: relative;
-      left: 210px;
-      top: var(--teamNamePositionY);
-    } */
-
-    div.right span.logo {
-      /* width: calc( var(--teamBoxHeight) * 1.6); */
-      width: calc( var(--teamBoxHeight));
-
-      height: var(--teamBoxHeight);
-      left: var(--teamLogoPosition);
-      top: 0px;
-
-      transform: skew(var(--skew-angle-positive));
-      background-position:center;
-      background-size: contain;
-      background-repeat: no-repeat;
-    }
-
-
-    div.right span.logoshade {
-      width: 100px;
-      height: 46px;
-      left: 0px;
-      transform: translate(80px, -50%) skew(var(--skew-angle-positive))
-    }
-
-    div.right span.score {
-      width: 65px;
-      text-align: center;
-      left: 0px;
-      top: 25px;
-      transform: translate(7px, -50%) skew(var(--skew-angle-positive));
-      ;
-    }
-    /* END TEAM 2 */
-
   </style>
+</head>
+
+<body class="">
+  <div class="center">
+    <span class="matchtext" id="matchtext"></span>
+  </div>
+
+  <div class="left team team1" id="team1color">
+    <div class="team-inner">
+      <span class="teamname" id="team1name"></span>
+      <span class="logo" id="team1logo"></span>
+      <span class="score" id="team1score"></span>
+    </div>
+  </div>
+
+  <div class="right team team2" id="team2color">
+    <div class="team-inner">
+      <span class="teamname" id="team2name"></span>
+      <span class="logo" id="team2logo"></span>
+      <span class="score" id="team2score"></span>
+
+    </div>
+  </div>
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!-- import bootstrap-css -->
   <script>
     async function interval() {
       let fullJson = await fetch(`http://localhost:8080/getFullJson`);
@@ -446,7 +651,7 @@ basically this whole thing needs reworked over to make sure its even more dynami
       let currentGameMode = null
 
 
-      
+
 
 
       const setOverlayPosition = (mapData) => {
@@ -461,7 +666,7 @@ basically this whole thing needs reworked over to make sure its even more dynami
         let body = document.querySelector('body');
 
         // Remove all game-specific classes
-        body.classList.remove('marvelPositions', 'marvelDomination', 'marvelNonDomination', 'overWatchPositions', 'valorantPositions');
+        body.classList.remove('marvelPositions', 'marvelDomination', 'marvelNonDomination', 'overWatchPositions', 'valorantPositions', 'smashPositions');
 
         if (currentGame === 'Marvel Rivals') {
           body.classList.add('marvelPositions');
@@ -478,6 +683,11 @@ basically this whole thing needs reworked over to make sure its even more dynami
 
         if (currentGame === 'Valorant') {
           body.classList.add('valorantPositions');
+          // body.classList.add('smashPositions');
+        }
+
+        if (currentGame === 'Smash Ultimate') {
+          body.classList.add('smashPositions');
         }
       };
 
@@ -489,7 +699,7 @@ basically this whole thing needs reworked over to make sure its even more dynami
       $('div.center').css("text-shadow", "0px 0px 7px " + (colortheme1txt));
       $('div.side').css("-webkit-filter", "drop-shadow(0px 0px 2px " + (colortheme1txt) + ")");
       // -webkit-filter: drop-shadow(0 0 2px black)
-      $('div.left, div.right').css("background-color", (colortheme1txt));
+      // $('div.left, div.right').css("background-color", (colortheme1txt));
       $('.teamname, .score').css("color", (colortheme2txt));
 
 
@@ -747,7 +957,7 @@ basically this whole thing needs reworked over to make sure its even more dynami
           updateTeamSide(i);
         }
       }
-      updateTeams();  // Call the main function to update all teams
+      updateTeams();
 
     }
 
@@ -756,37 +966,6 @@ basically this whole thing needs reworked over to make sure its even more dynami
       setInterval(interval, 3000);
     });
   </script>
-</head>
-
-<body class="">
-  <div class="center">
-    <span class="matchtext" id="matchtext"></span>
-  </div>
-
-  <div class="side" id="team1side"><span></span></div>
-  <div class="side" id="team2side"><span></span></div>
-
-  <div class="left team1" id="team1color">
-    <span class="teamslash" id="team1slash"></span>
-    <span class="logoshade" id="team1logoshade"></span>
-    <span class="logo" id="team1logo"></span>
-    <img class="logo" id="team1logo"></img>
-
-    <span class="teamsr" id="team1sr"></span>
-    <span class="teamname" id="team1name"></span>
-    <span class="score" id="team1score"></span>
-  </div>
-
-  <div class="right team2" id="team2color">
-    <span class="logoshade" id="team2logoshade"></span>
-    <span class="logo" id="team2logo"></span>
-    <span class="teamname" id="team2name"></span>
-    <span class="teamsr" id="team2sr"></span>
-    <span class="score" id="team2score"></span>
-
-  </div>
-
-
 </body>
 
 </html>
