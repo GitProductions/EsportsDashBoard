@@ -257,17 +257,17 @@
       let themeLogos = fullJson.general.file;
 
       let themeColors = fullJson.general.color;
-      let colortheme1txt = themeColors.BGG_C1.value;
-      let colortheme2txt = themeColors.BGG_C2.value;
-      let colortheme3txt = themeColors.BGG_C3.value;
-      let colortheme4txt = themeColors.BGG_C4.value;
-      let colortheme5txt = themeColors.BGG_C5.value;
-      let colortheme6txt = themeColors.BGG_C6.value;
+      let primaryColor = themeColors.BGG_C1.value;
+      let secondaryColor = themeColors.BGG_C2.value;
+      let tertiaryColor = themeColors.BGG_C3.value;
+      let quaternaryColor = themeColors.BGG_C4.value;
+      let quinaryColor = themeColors.BGG_C5.value;
+      let senaryColor = themeColors.BGG_C6.value;
 
-      $('body').css("border-color", colortheme3txt);
-      $('.info').css("color", colortheme6txt);
-      $('.title, .matchinfo').css("color", colortheme5txt);
-      $('.teamscore').css("background-color", colortheme4txt);
+      $('body').css("border-color", tertiaryColor);
+      $('.info').css("color", senaryColor);
+      $('.title, .matchinfo').css("color", quinaryColor);
+      $('.teamscore').css("background-color", quaternaryColor);
 
       let generalmessage = fullJson.general.text.Message.value;
       $('.info').html(generalmessage);
@@ -337,35 +337,42 @@
         }
         setVisibility();
 
-        let check = node === "wfm1" ? 10 : 0;
+        let check = 10; //node === "wfm1" ? 10 : 0;
         if (score1 >= check) {
-          $('.' + node + ' .team1').css({
-            "background-color": colortheme1txt,
-            "border-color": colortheme2txt,
-            "color": colortheme2txt
-          });
-          $('.' + node + ' .team2').css({
-            "background-color": colortheme1txt,
-            "border-color": colortheme3txt,
-            "color": colortheme3txt
-          });
+          //HOME WINS
+          
+          // $('.' + node + ' .team1').css("background-color", colortheme3txt); // changed to colortheme 1 because it was blue on black??
+          $('.' + node + ' .team1').css("background-color", tertiaryColor);
+          $('.' + node + ' .team1').css("border-color", secondaryColor);
+          $('.' + node + ' .team1').css("color", primaryColor);
+
+          $('.' + node + ' .team2').css("background-color", primaryColor);
+          $('.' + node + ' .team2').css("border-color", tertiaryColor);
+          $('.' + node + ' .team2').css("color", secondaryColor);
+
+          $('.' + node + ' .score1').css("color", tertiaryColor);
         } else if (score2 >= check) {
-          $('.' + node + ' .team2').css({
-            "background-color": colortheme3txt,
-            "border-color": colortheme2txt,
-            "color": colortheme2txt
-          });
-          $('.' + node + ' .team1').css({
-            "background-color": colortheme1txt,
-            "border-color": colortheme3txt,
-            "color": colortheme3txt
-          });
+          //AWAY WINS
+
+          $('.' + node + ' .team1').css("background-color", primaryColor);
+          $('.' + node + ' .team1').css("border-color", tertiaryColor);
+          $('.' + node + ' .team1').css("color", secondaryColor);
+
+          $('.' + node + ' .team2').css("background-color", tertiaryColor);
+          $('.' + node + ' .team2').css("border-color", secondaryColor);
+          $('.' + node + ' .team2').css("color", primaryColor);
+
+          $('.' + node + ' .score2').css("color", tertiaryColor);
         } else {
-          $('.' + node + ' .team1, .' + node + ' .team2').css({
-            "background-color": colortheme1txt,
-            "border-color": colortheme3txt,
-            "color": colortheme2txt
-          });
+          //OTHER
+          
+          $('.' + node + ' .team1').css("background-color", primaryColor);
+          $('.' + node + ' .team1').css("border-color", tertiaryColor);
+          $('.' + node + ' .team1').css("color", secondaryColor);
+          
+          $('.' + node + ' .team2').css("background-color", primaryColor);
+          $('.' + node + ' .team2').css("border-color", tertiaryColor);
+          $('.' + node + ' .team2').css("color", secondaryColor);
         }
 
         function highlightWords(teamName) {

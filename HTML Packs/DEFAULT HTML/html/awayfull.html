@@ -1,10 +1,14 @@
 <head>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+/>
   <style>
     :root {
       /* These values can be 'adjusted/changed inside of OBS custom CSS to force certain things' */
 
       --useTeamColors: false;
+      /* --useTeamColors: true; */
       /* Not woorking yet.. err.. well not implmenetd in the bracket data yet.. */
       --winningScore: 10;
       --useTeamLogos: true;
@@ -157,8 +161,7 @@
       height: 1080px;
       margin: 0px auto;
       overflow: hidden;
-      /* background-color: rgba(0, 0, 0, 255); */
-      /* background-color: 'white'; */
+      background-color: rgba(0, 0, 0, 255);
       font-family: 'Rajdhani';
     }
 
@@ -308,10 +311,9 @@
       font-family: 'Rajdhani';
       font-weight: normal;
       text-transform: uppercase;
-      font-size: 2.8em;
+      font-size: 3em;
       position: relative;
-      /* bottom: 0.02em; */
-      line-height: 0.8;
+      bottom: 0.02em;
     }
 
     .teamscore {
@@ -539,69 +541,32 @@
       /* transform: skewX(-15deg); */
     }
 
-    /* span.tertiary {
-      font-size: 1.8em;
-      border-style: solid;
-      font-weight: bold;
-      text-align: center;
-      font-family: 'Rajdhani';
-      text-transform: uppercase;
-      padding: 3px 15px 2px 15px;
-      border-width: 0px 6px 0px 6px;
-      background-color: black;
-    } */
-
     span.tertiary {
       font-size: 1.8em;
       border-style: solid;
       font-weight: bold;
       text-align: center;
       font-family: 'Rajdhani';
+      text-transform: uppercase;
       padding: 3px 15px 2px 15px;
       border-width: 0px 6px 0px 6px;
-      text-transform: uppercase;
       background-color: black;
-      display:flex;
-      justify-content: center;
     }
 
 
-    /* .title::before {
+    .title::before {
       content: var(--titleText);
       font-family: 'Rajdhani';
       text-transform: uppercase;
-    } */
+    }
   </style>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
   <script>
-    let titleText = 'Starting Soon'
 
-    document.addEventListener('DOMContentLoaded', function () {
-      const urlParams = new URLSearchParams(window.location.search);
-      titleText = urlParams.get('titleText');
-      const useTeamLogos = urlParams.get('useTeamLogos');
-      
-      // set css
-      if (useTeamLogos) {
-        document.documentElement.style.setProperty('--useTeamLogos', useTeamLogos);
-      }
 
-      if (titleText) {
-        const titleElement = document.querySelector('.title');
-        if (titleElement) {
-          titleElement.textContent = titleText;
-          console.log('Title updated to:', titleText);
-        } else {
-          console.error('Title element not found');
-        }
-      } else {
-        console.log('No titleText parameter provided');
-      }
-    });
 
-    
     // if (active == 0) {
     //         $('.title').text("Starting Soon");
     //         $('.todaywrapper').css("display", "flex");
@@ -644,50 +609,49 @@
     // Sets theme colors on page elements based on the JSON data
     function applyThemeColors(themeColors) {
       const colors = {
-        colortheme1txt: themeColors.BGG_C1.value,
-        colortheme2txt: themeColors.BGG_C2.value,
-        colortheme3txt: themeColors.BGG_C3.value,
-        colortheme4txt: themeColors.BGG_C4.value,
-        colortheme5txt: themeColors.BGG_C5.value,
-        colortheme6txt: themeColors.BGG_C6.value,
+        primaryColor: themeColors.BGG_C1.value,
+        secondaryColor: themeColors.BGG_C2.value,
+        tertiaryColor: themeColors.BGG_C3.value,
+        quuaternaryColor: themeColors.BGG_C4.value,
+        quinaryColor: themeColors.BGG_C5.value,
+        senaryColor: themeColors.BGG_C6.value,
       };
 
-      $('body').css("border-color", colors.colortheme3txt);
-      $('.matchinfo, .socials, .title').css("color", colors.colortheme5txt);
-      $('.teamscore, .gg').css("color", colors.colortheme3txt);
+      $('body').css("border-color", colors.tertiaryColor);
+      $('.matchinfo, .socials, .title').css("color", colors.quinaryColor);
+      $('.teamscore, .gg').css("color", colors.tertiaryColor);
       $('.vs').css({
-        "background-color": colors.colortheme3txt,
-        "color": colors.colortheme1txt,
+        "background-color": colors.tertiaryColor,
+        "color": colors.primaryColor,
       });
       // $('.vs').addClass('animate__animated animate__bounce ');
 
-      $('.scorebox').css("background-color", colors.colortheme4txt);
-      $('.info').css("color", colors.colortheme6txt);
+      $('.scorebox').css("background-color", colors.quuaternaryColor);
+      $('.info').css("color", colors.senaryColor);
       $('span.tertiary').css({
-        "background-color": colors.colortheme1txt,
-        "color": colors.colortheme2txt,
-        "border-color": colors.colortheme3txt,
+        "background-color": colors.primaryColor,
+        "color": colors.secondaryColor,
+        "border-color": colors.tertiaryColor,
       });
+
+      $('.team').css("background-color", colors.primaryColor)
+      $('.team').css("color", colors.quinaryColor)
     }
 
     // Loads and applies the social media HTML
-    function displaySocialMedia(socialsDataObj) {
-      const team1 = socialsDataObj.socialOne;
-      const team2 = socialsDataObj.socialTwo;
+    function displaySocialMedia(profileOne, platformOne, profileTwo, platformTwo) {
       const socials = `
         <div>
-            <span class="${team1.logo.value.toLowerCase()}">
-              ${team1.company.value}
+            <span class="${platformOne.value.toLowerCase()}">
+              ${profileOne.value}
             </span>
         </div>
         
         <div>
-          <span class="${team2.logo.value.toLowerCase()}">
-            ${team2.company.value}
+          <span class="${platformTwo.value.toLowerCase()}">
+            ${profileTwo.value}
           </span>
         </div>`;
-
-        //Setting the socials
       $('.socials').html(socials);
     }
 
@@ -698,52 +662,8 @@
     }
 
 
-    function determineTitleText(matches) {
-      let hasStarted = false;
-      let allComplete = true;
-      let anyScores = false;
-
-      matches.forEach(match => {
-        if (match && match.team1 && match.team2) {
-          const team1Score = match.team1.score || 0;
-          const team2Score = match.team2.score || 0;
-
-          // Check if any match has scores
-          if (team1Score > 0 || team2Score > 0) {
-            hasStarted = true;
-            anyScores = true;
-          }
-
-          // Check if all matches are complete (assuming a match is complete when either team reaches winning score)
-          const winningScore = parseInt(getComputedStyle(document.documentElement)
-            .getPropertyValue('--winningScore')) || 10;
-
-          if (team1Score < winningScore && team2Score < winningScore) {
-            allComplete = false;
-          }
-        }
-      });
-
-      // Determine title text based on match states
-      if (!hasStarted) {
-        return "Starting Soon";
-      } else if (allComplete) {
-        return "Thanks for Watching";
-      } else if (anyScores) {
-        return "Be Right Back";
-      } else {
-        return "Live Now";
-      }
-    }
-
-
     function displayMatchData(matches, themeColors) {
       console.log(`Matches: ${JSON.stringify(matches)}`);
-
-      if (!titleText) {
-        titleText = determineTitleText(matches);
-        $('.title').text(titleText);
-      }
 
       matches.forEach((match, index) => {
         if (match && match.reference) {
@@ -756,7 +676,7 @@
 
           // Display the match block
 
-          if (team1.name !== '' && team2.name !== '') {
+          if (team1.name !=='' && team2.name !=='') {
             $(matchSelector).css("display", "block");
           } else {
             $(matchSelector).css("display", "none");
@@ -848,21 +768,6 @@
     }
 
 
-    async function setDynamicBackgroundImages(themeLogos) {
-        try {
-          // Set the background images dynamically
-          if (themeLogos.BGG_L1 && themeLogos.BGG_L1.value) {
-            // document.querySelector(".tournament.image1").style.backgroundImage = `url(/${themeLogos.BGG_L1.value})`;
-            document.querySelector(".tournament.image1").style.backgroundImage = `url("${themeLogos.BGG_L1.value}")`;
-            
-          }
-          if (themeLogos.BGG_L2 && themeLogos.BGG_L2.value) {
-            document.querySelector(".channel.image2").style.backgroundImage = `url("${themeLogos.BGG_L2.value}")`;
-          }
-        } catch (error) {
-          console.error('Failed to fetch or set background images:', error);
-        }
-      }
 
     // Main function to orchestrate data fetching, processing, and displaying
     async function updatePageContent() {
@@ -871,32 +776,25 @@
         const fullDataJson = await fetchJson(`http://localhost:8080/getfullJson`);
         const fullDataGeneral = fullDataJson.general;
         const themeColors = fullDataGeneral.color;
-        const themeLogos = fullDataGeneral.file;
         let bracketData = await fetchJson(`http://localhost:8080/api/get-bracket`);
-
-        setDynamicBackgroundImages(themeLogos);
-
 
         let tagline = fullDataGeneral.text.BGG_TAGLINE.value;
         
         //link one, type one, link two, type two, etc...
         const socialsDataObj = {
           socialOne: {
-            company: fullDataGeneral.text.BGG_SM1,
-            logo: fullDataGeneral.list.BGG_SM1_LOGO
+            website: fullDataGeneral.list.BGG_SM1_LOGO,
+            profile: fullDataGeneral.text.BGG_SM1
           }, 
           socialTwo: {
-            company: fullDataGeneral.text.BGG_SM2,
-            logo: fullDataGeneral.list.BGG_SM2_LOGO
+            website: fullDataGeneral.list.BGG_SM2_LOGO,
+            profile: fullDataGeneral.text.BGG_SM2
           }
         };
 
         // Apply theme, social media, and general message
         applyThemeColors(themeColors);
-
-        // displaySocialMedia(socialsDataObj.socialOne.company, socialsDataObj.socialOne.logo, socialsDataObj.socialTwo.company, socialsDataObj.socialTwo.logo);
-        displaySocialMedia(socialsDataObj)
-        
+        displaySocialMedia(socialsDataObj.socialOne.profile, socialsDataObj.socialOne.website, socialsDataObj.socialTwo.profile, socialsDataObj.socialTwo.website);
         displayGeneralMessage(fullDataGeneral.text.Message);
 
         // Process and display matches, using Object.values to get an array of match objects
@@ -925,7 +823,7 @@
         console.error("Error updating page content:", error);
       }
     }
-
+    
 
     setInterval(updatePageContent, 3000);
     // Initial load
@@ -940,7 +838,7 @@
 
   <div class="header">
     <span class="info"></span>
-    <span class="title">Starting Soon</span>
+    <span class="title"></span>
   </div>
 
   <div class="wrapper todaywrapper">
