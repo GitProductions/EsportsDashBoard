@@ -176,11 +176,12 @@
       async function setDynamicBackgroundImages() {
         try {
           // Set the background images dynamically
-          // if (themeLogos.BGG_L1 && themeLogos.BGG_L1.value) {
-          // document.querySelector(".tournament.image1").style.backgroundImage = `url(/${themeLogos.BGG_L1.value})`;
-          // }
+          if (themeLogos.BGG_L1 && themeLogos.BGG_L1.value) {
+            // document.querySelector(".tournament.image1").style.backgroundImage = `url(/${themeLogos.BGG_L1.value})`;
+            document.querySelector(".tournament.image1").style.backgroundImage = `url("${themeLogos.BGG_L1.value}")`;
+            
+          }
           if (themeLogos.BGG_L2 && themeLogos.BGG_L2.value) {
-            console.log("Setting background image 2: " + themeLogos.BGG_L2.value);
             document.querySelector(".channel.image2").style.backgroundImage = `url("${themeLogos.BGG_L2.value}")`;
           }
         } catch (error) {
