@@ -848,6 +848,21 @@
     }
 
 
+    async function setDynamicBackgroundImages(themeLogos) {
+        try {
+          // Set the background images dynamically
+          if (themeLogos.BGG_L1 && themeLogos.BGG_L1.value) {
+            // document.querySelector(".tournament.image1").style.backgroundImage = `url(/${themeLogos.BGG_L1.value})`;
+            document.querySelector(".tournament.image1").style.backgroundImage = `url("${themeLogos.BGG_L1.value}")`;
+            
+          }
+          if (themeLogos.BGG_L2 && themeLogos.BGG_L2.value) {
+            document.querySelector(".channel.image2").style.backgroundImage = `url("${themeLogos.BGG_L2.value}")`;
+          }
+        } catch (error) {
+          console.error('Failed to fetch or set background images:', error);
+        }
+      }
 
     // Main function to orchestrate data fetching, processing, and displaying
     async function updatePageContent() {
@@ -856,7 +871,11 @@
         const fullDataJson = await fetchJson(`http://localhost:8080/getfullJson`);
         const fullDataGeneral = fullDataJson.general;
         const themeColors = fullDataGeneral.color;
+        const themeLogos = fullDataGeneral.file;
         let bracketData = await fetchJson(`http://localhost:8080/api/get-bracket`);
+
+        setDynamicBackgroundImages(themeLogos);
+
 
         let tagline = fullDataGeneral.text.BGG_TAGLINE.value;
         
