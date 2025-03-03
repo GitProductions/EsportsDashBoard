@@ -477,8 +477,6 @@ GrayWinner: Set this to grayscale the map image
     const GrayWinner = urlParams.get('graywinner');
     const useTeamColors = urlParams.get('useTeamColors');
 
-    
-
     if (BlurWinner) {
       document.documentElement.style.setProperty('--winnerBlur', BlurWinner+'px');
     }
@@ -558,18 +556,18 @@ GrayWinner: Set this to grayscale the map image
       let tagline = fullJson.general.text.BGG_TAGLINE.value;
 
 
-      let colortheme1txt = themeColors.BGG_C1.value
-      let colortheme2txt = themeColors.BGG_C2.value;
-      let colortheme3txt = themeColors.BGG_C3.value;
-      let colortheme4txt = themeColors.BGG_C4.value
+      let primaryColor = themeColors.BGG_C1.value
+      let secondaryColor = themeColors.BGG_C2.value;
+      let tertiaryColor = themeColors.BGG_C3.value;
+      let quaternaryColor = themeColors.BGG_C4.value
 
       if (useTeamColors) {
         //Set the global team colors
         $('div').css("border-left-color", (t1colortxt));
         $('div').css("border-right-color", (t2colortxt));
       } else {
-        $('div').css("border-left-color", (colortheme3txt));
-        $('div').css("border-right-color", (colortheme3txt));
+        $('div').css("border-left-color", (tertiaryColor));
+        $('div').css("border-right-color", (tertiaryColor));
       }
 
       t1colorspan = lightOrDark(t1colortxt);
@@ -580,14 +578,14 @@ GrayWinner: Set this to grayscale the map image
 
 
       //Set theme colors
-      $('body').css("border-color", (colortheme3txt));
-      $('span.maptype').css("color", (colortheme3txt));
-      $('span.mapname, div.scoreboard').css("color", (colortheme2txt));
-      $('div.wrapper').css("background-color", (colortheme1txt));
+      $('body').css("border-color", (tertiaryColor));
+      $('span.maptype').css("color", (tertiaryColor));
+      $('span.mapname, div.scoreboard').css("color", (secondaryColor));
+      $('div.wrapper').css("background-color", (primaryColor));
 
-      $('span.tertiary').css("background-color", (colortheme1txt));
-      $('span.tertiary').css("color", (colortheme2txt));
-      $('span.tertiary').css("border-color", (colortheme3txt));
+      $('span.tertiary').css("background-color", (primaryColor));
+      $('span.tertiary').css("color", (secondaryColor));
+      $('span.tertiary').css("border-color", (tertiaryColor));
 
       const processMapData = async (mapJson) => {
         const maxMaps = fullJson.maps.totalMaps;
@@ -701,14 +699,14 @@ GrayWinner: Set this to grayscale the map image
       };
 
       const updateDrawDisplay = (mapBg, mapScore, mt1scoretxt, mt2scoretxt) => {
-        mapBg.css("background-color", colortheme1txt);
+        mapBg.css("background-color", primaryColor);
         mapScore.find('.score').html(`${mt1scoretxt}-${mt2scoretxt}`);
         mapScore.find('span').css({ "color": "white", "text-shadow": "0px 0px 10px black" });
       };
 
       const updateIncompleteMap = (i, mapBg, mapScore) => {
         mapBg.find('img').css({ "filter": "greyscale(0%)",  "mix-blend-mode": "normal" });
-        mapBg.css("background-color", colortheme1txt);
+        mapBg.css("background-color", primaryColor);
         mapScore.find('.score').html("");
         mapScore.find('span').css({ "color": "white", "text-shadow": "0px 0px 10px black" });
         document.querySelector(`.mapbg${i + 1} .mapscore .logo`).style.backgroundImage = "url(data:image/jpeg;base64,)";
