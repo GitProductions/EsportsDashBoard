@@ -34,7 +34,10 @@ body {
   }
 
 
-
+  @font-face {
+    font-family: 'FontAwesome';
+    src: url("fonts/Font Awesome/Font Awesome 6 Brands-Regular-400.otf") format('OpenType');
+  }
 
 
   /* ANIMATIONS */
@@ -403,6 +406,99 @@ body {
   }
 
 
+     
+/* !! NEEDS TO BE ADJUSTED WHEN NEW SOCIAL PLATFORMS ARE ADDED*/
+.socials, .twitter, .twitch, .youtube, .bluesky, .facebook, .instagram, .x-twitter, .tiktok, .discord, .tumblr, .meta {
+  font-family: 'Rajdhani';
+  font-weight: normal;
+  text-transform: none;
+  font-size: 2em;
+  position: relative;
+}
+
+.socials:before {
+  font-family: 'FontAwesome';
+  content: "\f099"
+    /* twitter logo */
+    /* content:"\f1e8" twitch logo*/
+}
+
+.twitter:before {
+  font-family: 'FontAwesome';
+  content: "\f099"
+    /* twitter logo */
+    /* content:"\f1e8" twitch logo*/
+}
+
+.twitch:before {
+  font-family: 'FontAwesome';
+  content: "\f1e8"
+    /* twitter logo */
+    /* content:"\f1e8" twitch logo*/
+}
+
+.youtube:before {
+  font-family: 'FontAwesome';
+  content: "\f167"
+    /* twitter logo */
+    /* content:"\f1e8" twitch logo*/
+}
+
+.bluesky:before {
+  font-family: 'FontAwesome';
+  content: "\e671"
+    /* twitter logo */
+    /* content:"\f1e8" twitch logo*/
+}
+
+.facebook:before {
+  font-family: 'FontAwesome';
+  content: "\f39e"
+    /* twitter logo */
+    /* content:"\f1e8" twitch logo*/
+}
+
+.instagram:before {
+  font-family: 'FontAwesome';
+  content: "\f16d"
+    /* twitter logo */
+    /* content:"\f1e8" twitch logo*/
+}
+
+.x-twitter:before {
+  font-family: 'FontAwesome';
+  content: "\e61b"
+    /* twitter logo */
+    /* content:"\f1e8" twitch logo*/
+}
+
+.tiktok:before {
+  font-family: 'FontAwesome';
+  content: "\e07b"
+    /* twitter logo */
+    /* content:"\f1e8" twitch logo*/
+}
+
+.discord:before {
+  font-family: 'FontAwesome';
+  content: "\f392"
+    /* twitter logo */
+    /* content:"\f1e8" twitch logo*/
+}
+
+.tumblr:before {
+  font-family: 'FontAwesome';
+  content: "\f173"
+    /* twitter logo */
+    /* content:"\f1e8" twitch logo*/
+}
+
+.meta:before {
+  font-family: 'FontAwesome';
+  content: "\e49b"
+    /* twitter logo */
+    /* content:"\f1e8" twitch logo*/
+}
 
 
 
