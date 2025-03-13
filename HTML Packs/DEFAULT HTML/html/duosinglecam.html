@@ -1,16 +1,156 @@
 <!DOCTYPE html>
 
 <head>
-  <link rel="stylesheet" type="text/css" href="styles.css">
-
   <style>
-
-    .staff {
-      width: 650px;
+    /*.skew {
+      transform: skewX(-15deg);
     }
 
+    .askew {
+      transform: skewX(15deg);
+    }*/
 
+    @font-face {
+      font-family: 'Rajdhani';
+      src: url("fonts/Rajdhani/Rajdhani-Bold.ttf") format('TrueType');
+      font-weight: bold;
+    }
 
+    @font-face {
+      font-family: 'Rajdhani';
+      src: url("fonts/Rajdhani/Rajdhani-Regular.ttf") format('TrueType');
+      font-weight: normal;
+    }
+
+    @font-face {
+      font-family: 'FontAwesome';
+      src: url("fonts/Font Awesome/Font Awesome 6 Brands-Regular-400.otf") format('OpenType');
+    }
+
+    @keyframes staffanimate {
+      0% {
+        clip-path: polygon(0% -100%, 0 -100%, 0% 200%, 0% 200%);
+        transform: translateX(50%);
+      }
+
+      100% {
+        clip-path: polygon(0% -100%, 100% -100%, 100% 200%, 0% 200%);
+        transform: translateX(0%);
+      }
+    }
+
+    @keyframes curtainanimate-r {
+      0% {
+        clip-path: polygon(0% -100%, 100% -100%, 100% 200%, 0% 200%);
+      }
+
+      100% {
+        clip-path: polygon(100% -100%, 100% -100%, 100% 200%, 100% 200%);
+      }
+    }
+
+    @keyframes curtainanimate-l {
+      0% {
+        clip-path: polygon(0% -100%, 100% -100%, 100% 200%, 0% 200%);
+      }
+
+      100% {
+        clip-path: polygon(0% -100%, 0 -100%, 0% 200%, 0% 200%);
+      }
+    }
+
+    @keyframes slideright {
+      0% {
+        transform: translateX(-100%);
+      }
+
+      100% {
+        transform: translateX(0px);
+      }
+    }
+
+    @keyframes slideleft {
+      0% {
+        transform: translateX(100%);
+      }
+
+      100% {
+        transform: translateX(0px);
+      }
+    }
+
+    @keyframes teamslideright {
+      0% {
+        clip-path: polygon(100% 0%, 100% 0%, 100% 100%, 100% 100%);
+        transform: translateX(-100%);
+      }
+
+      100% {
+        clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+        transform: translateX(0px);
+      }
+    }
+
+    @keyframes teamslideleft {
+      0% {
+        clip-path: polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%);
+        transform: translateX(100%);
+      }
+
+      100% {
+        clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+        transform: translateX(0px);
+      }
+    }
+
+    body {
+      font-family: 'Rajdhani';
+      font-weight: bold;
+      text-transform: uppercase;
+      -webkit-animation-timing-function: cubic-bezier(0, 0, 0, 1);
+    }
+
+    body {
+      width: 1920px;
+      height: 1080px;
+      margin: 0px auto;
+      overflow: hidden;
+      background-color: rgba(0, 0, 0, 0);
+    }
+
+    .camerabox {
+      display: flex;
+      flex-direction: column;
+      border-style: solid;
+      border-width: 0px 6px 0px 6px;
+      border-color: #8cba11;
+      margin: 20px;
+    }
+
+    .staffiso,
+    .curtain {
+      background-color: #8cba11;
+    }
+
+    .curtain {
+      flex: 1 1 0;
+      height: 100%;
+      background-color: #8cba11;
+    }
+
+    .curtainl {
+      animation: curtainanimate-l 0.5s;
+    }
+
+    .curtainr {
+      animation: curtainanimate-r 0.5s;
+    }
+
+    .curtainl,
+    .curtainr {
+      animation-fill-mode: forwards;
+      animation-delay: 10s;
+    }
 
     .camerahole {
       display: flex;
@@ -22,6 +162,7 @@
     .wrapper {
       position: absolute;
       left: 0px;
+      /* top: 100px; */
       top: 930px;
       display: flex;
       flex-direction: column;
@@ -39,6 +180,264 @@
       justify-content: center;
       text-align: center;
     }
+
+    .staff {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      width: 650px;
+      animation: staffanimate 0.5s;
+      animation-fill-mode: backwards;
+      animation-delay: 10s;
+    }
+
+    .staffname {
+      font-family: 'Rajdhani';
+      font-weight: bold;
+      text-transform: uppercase;
+      font-size: 2.5em;
+      position: relative;
+
+    }
+
+/* !! NEEDS TO BE ADJUSTED WHEN NEW SOCIAL PLATFORMS ARE ADDED*/
+    .socials, .twitter, .twitch, .youtube, .bluesky, .facebook, .instagram, .x-twitter, .tiktok, .discord, .tumblr, .meta {
+      font-family: 'Rajdhani';
+      font-weight: normal;
+      text-transform: none;
+      font-size: 2em;
+      position: relative;
+    }
+
+    .socials:before {
+      font-family: 'FontAwesome';
+      content: "\f099"
+        /* twitter logo */
+        /* content:"\f1e8" twitch logo*/
+    }
+
+    .twitter:before {
+      font-family: 'FontAwesome';
+      content: "\f099"
+        /* twitter logo */
+        /* content:"\f1e8" twitch logo*/
+    }
+
+    .twitch:before {
+      font-family: 'FontAwesome';
+      content: "\f1e8"
+        /* twitter logo */
+        /* content:"\f1e8" twitch logo*/
+    }
+
+    .youtube:before {
+      font-family: 'FontAwesome';
+      content: "\f167"
+        /* twitter logo */
+        /* content:"\f1e8" twitch logo*/
+    }
+
+    .bluesky:before {
+      font-family: 'FontAwesome';
+      content: "\e671"
+        /* twitter logo */
+        /* content:"\f1e8" twitch logo*/
+    }
+
+    .facebook:before {
+      font-family: 'FontAwesome';
+      content: "\f39e"
+        /* twitter logo */
+        /* content:"\f1e8" twitch logo*/
+    }
+
+    .instagram:before {
+      font-family: 'FontAwesome';
+      content: "\f16d"
+        /* twitter logo */
+        /* content:"\f1e8" twitch logo*/
+    }
+
+    .x-twitter:before {
+      font-family: 'FontAwesome';
+      content: "\e61b"
+        /* twitter logo */
+        /* content:"\f1e8" twitch logo*/
+    }
+
+    .tiktok:before {
+      font-family: 'FontAwesome';
+      content: "\e07b"
+        /* twitter logo */
+        /* content:"\f1e8" twitch logo*/
+    }
+
+    .discord:before {
+      font-family: 'FontAwesome';
+      content: "\f392"
+        /* twitter logo */
+        /* content:"\f1e8" twitch logo*/
+    }
+
+    .tumblr:before {
+      font-family: 'FontAwesome';
+      content: "\f173"
+        /* twitter logo */
+        /* content:"\f1e8" twitch logo*/
+    }
+
+    .meta:before {
+      font-family: 'FontAwesome';
+      content: "\e49b"
+        /* twitter logo */
+        /* content:"\f1e8" twitch logo*/
+    }
+
+    .scoreboardwrapper {
+      position: absolute;
+      left: 0px;
+      /* top: 100px; */
+      top: 40px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      width: 1920px;
+      height: 100px;
+    }
+
+    .scoreboard {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      width: 1620px;
+      height: 100px;
+    }
+
+    .scoreboard .vs {
+      flex: 0 0 0;
+      background-color: #8cba11;
+      height: 100px;
+      min-width: 150px;
+      max-width: 150px;
+    }
+
+    .scoreboard .vs span {
+      font-family: 'Rajdhani';
+      font-weight: bold;
+      text-transform: uppercase;
+      font-size: 5em;
+      position: relative;
+
+    }
+
+    .team {
+      flex: 1 1 0;
+      height: 100px;
+      background-color: #000000;
+
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+
+      border-style: solid;
+      border-color: #8cba11;
+    }
+
+    .team1 {
+      border-width: 0px 0px 0px 6px;
+      animation: teamslideleft 0.5s;
+      animation-delay: 1s;
+      animation-fill-mode: backwards;
+    }
+
+    .team2 {
+      border-width: 0px 6px 0px 0px;
+      animation: teamslideright 0.5s;
+      animation-delay: 1s;
+      animation-fill-mode: backwards;
+    }
+
+    .teamname {
+      flex: 5 1 0;
+      font-family: 'Rajdhani';
+      font-weight: normal;
+      text-transform: uppercase;
+      font-size: 3em;
+      position: relative;
+
+    }
+
+    .teamscore {
+      font-family: 'Rajdhani';
+      font-weight: bold;
+      text-transform: uppercase;
+      font-size: 5em;
+      position: relative;
+
+    }
+
+    .scorebox {
+      flex: 1 1 0;
+      top: 0px;
+      height: 100px;
+      max-width: 105px;
+    }
+
+    img {
+      height: 80px;
+      width: 80px;
+      max-height: 80px;
+      max-width: 80px;
+      margin: 10px 20px 10px 20px;
+      object-fit: contain;
+      overflow: hidden;
+    }
+
+    .footer {
+      position: fixed;
+      left: 0px;
+      top: 950px;
+      width: 1870px;
+      clip-path: polygon(0% 0, 100% 0%, 100% 100%, 0% 100%);
+      display: flex;
+      /* YEAH THIS IS HUGE */
+      flex-direction: row;
+      align-items: center;
+      /* YEAH THIS IS HUGE */
+      justify-content: center;
+      /* YEAH THIS IS HUGE */
+      padding: 25px;
+    }
+
+    .tournament {
+      flex: 1 1 0;
+      height: 80px;
+      background-position: left;
+      background-size: contain;
+      background-repeat: no-repeat;
+      animation: slideright 1s;
+      animation-fill-mode: backwards;
+      animation-delay: 1s;
+    }
+
+    .channel {
+      flex: 1 1 0;
+      height: 80px;
+      background-position: right;
+      background-size: contain;
+      background-repeat: no-repeat;
+      animation: slideleft 1s;
+      animation-fill-mode: backwards;
+      animation-delay: 1s;
+    }
   </style>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -53,69 +452,64 @@
       // Fetching General Input Data and then seperating into different variables
       let inputData = await fetch(`http://localhost:8080/getValue?path=general`);
       if (!inputData.ok) {
-        throw new Error('Network response was not ok');
-      }
+            throw new Error('Network response was not ok');
+        }
       let inputJson = await inputData.json();
 
       let themeColors = inputJson.color;
       let themeLogos = inputJson.file;
       let caster1 = inputJson.text.Caster1.value;
+      let caster1handle = inputJson.text.CSTR1_SOCIAL.value;
+      let caster1platform = inputJson.list.CSTR1_PLATFORM.value;
       let caster2 = inputJson.text.Caster2.value;
+      let caster2handle = inputJson.text.CSTR2_SOCIAL.value;
+      let caster2platform = inputJson.list.CSTR2_PLATFORM.value;
 
-      let colortheme1txt = themeColors.BGG_C1.value
-      let colortheme2txt = themeColors.BGG_C2.value;
-      let colortheme3txt = themeColors.BGG_C3.value;
-      let colortheme4txt = themeColors.BGG_C4.value
+      let primaryColor = themeColors.BGG_C1.value
+      let secondaryColor = themeColors.BGG_C2.value;
+      let tertiaryColor = themeColors.BGG_C3.value;
+      let quaternaryColor = themeColors.BGG_C4.value;
+      let quinaryColor = themeColors.BGG_C5.value;
 
-      $('body').css("border-color", (colortheme3txt));
-      $('.camerabox').css("border-color", (colortheme3txt));
-      $('.staffname, .team').css("color", colortheme2txt);
-      $('.twitter, .teamscore').css("color", colortheme3txt);
-      $('.staff, .team').css("background-color", colortheme1txt);
-      $('.curtain, .staffiso').css("background-color", colortheme3txt);
-      $('.vs').css("background-color", colortheme3txt);
-      $('.vs').css("color", colortheme1txt);
-      $('.scorebox').css("background-color", colortheme4txt);
+      $('body').css("border-color", (tertiaryColor));
+      $('.camerabox').css("border-color", (tertiaryColor));
+      $('.staffname, .team').css("color", secondaryColor);
+      $('.socials, .teamscore').css("color", tertiaryColor);
+      $('.staff, .team').css("background-color", primaryColor);
+      $('.curtain, .staffiso').css("background-color", tertiaryColor);
+      $('.vs').css("background-color", tertiaryColor);
+      $('.vs').css("color", primaryColor);
+      $('.scorebox').css("background-color", quaternaryColor);
       //$('.camerahole').css("background-color", (colortheme3txt));
 
-      async function updateStaffDetails(staffId, casterName, animationDelay) {
+      $(`.socials`).css("color", quinaryColor);
+
+      async function updateStaffDetails(staffId, casterName, animationDelay, socialPlatform, socialHandle) {
         try {
-          let stafftxt = casterName;
+            $('.curtain' + staffId).css("animation-delay", animationDelay + "s");
+            $('.' + staffId).css("animation-delay", (animationDelay - 0.15) + "s");
+            // console.log("stafftwitter value: " + stafftwitter + ".");
 
-          $('.curtain' + staffId).css("animation-delay", animationDelay + "s");
-          $('.' + staffId).css("animation-delay", (animationDelay - 0.15) + "s");
+            if (socialPlatform && socialHandle) {
+                $(`.${staffId} .socials`).html("&nbsp;" + socialHandle);
+                $(`.${staffId} .socials`).css("display", "block");
 
-          if (stafftxt.replace(/\n|\r/gi, "") == "") {
-            $('.' + staffId + ' .staffname').html("");
-            $('.' + staffId + ' .twitter').html("");
-          } else {
-            let staffname = stafftxt.replace(new RegExp(/ @\w*/), "");
+                $(`.${staffId} .socials`).attr("class", socialPlatform);
 
-            let stafftwitter = stafftxt.match(new RegExp(/ @\w*/));
-
-            console.log("stafftwitter value: " + stafftwitter + ".");
-
-            if (stafftwitter != null) {
-              stafftwitter = stafftwitter.toString();
-              stafftwitter = stafftwitter.replace(/ @/, "");
-
-              $('.' + staffId + ' .twitter').html("&nbsp;" + stafftwitter);
-              $('.' + staffId + ' .twitter').css("display", "block");
-              $('.' + staffId + ' .staffname').html(staffname + "&nbsp;");
+                $(`.${staffId} .staffname`).html(casterName + "&nbsp;");
             } else {
-              $('.' + staffId + ' .twitter').css("display", "none");
-              $('.' + staffId + ' .staffname').html(staffname);
+                $('.' + staffId + ' .socials').css("display", "none");
+                $('.' + staffId + ' .staffname').html(casterName);
             }
-          }
         } catch (error) {
-          console.error('Error fetching ' + staffId + ' details:', error);
+            console.error('Error fetching ' + staffId + ' details:', error);
         }
       }
 
-      updateStaffDetails('caster1', caster1, 1.15);
-      updateStaffDetails('caster2', caster2, 1.25);
-      //get team data
-      class team { }
+      updateStaffDetails('caster1', caster1, 1.15, caster1platform, caster1handle);
+      updateStaffDetails('caster2', caster2, 1.25, caster2platform, caster2handle);
+     //get team data
+     class team { }
       async function updateTeamDetails(teamIndex, teamData) {
         let teamcls = new team();
         teamcls.name = teamData.teamName;
@@ -162,7 +556,7 @@
       }
 
       updateTeamDetails(0, teamsData.team1);
-      updateTeamDetails(1, teamsData.team2);
+      updateTeamDetails(1, teamsData.team2); 
 
 
       async function setDynamicBackgroundImages() {
@@ -217,7 +611,7 @@
         <div class="staffiso">
           <div class="staff caster1">
             <span class="staffname"></span>
-            <span class="twitter"></span>
+            <span class="socials"></span>
           </div>
         </div>
       </div>
@@ -225,7 +619,7 @@
         <div class="staffiso">
           <div class="staff caster2">
             <span class="staffname"></span>
-            <span class="twitter"></span>
+            <span class="socials"></span>
           </div>
         </div>
       </div>
