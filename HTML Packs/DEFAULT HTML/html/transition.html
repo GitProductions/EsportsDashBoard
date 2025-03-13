@@ -1,4 +1,3 @@
-
 <!-- 
 OPTIONS:
 Using URL Parameters
@@ -16,127 +15,133 @@ If you don't use any URL parameters, the transition will display the branding lo
 -->
 
 <head>
-  <style>
-    body {
-      margin: 0px auto;
-      overflow: hidden;
-    }
+	<style>
+		body {
+			margin: 0px auto;
+			overflow: hidden;
+		}
 
-    div {
-      -webkit-animation-timing-function: ease-out;
-    }
+		div {
+			-webkit-animation-timing-function: ease-out;
+		}
 
-    @-webkit-keyframes slideease {
-      0% {
-        transform: translateX(1000px) skewX(15deg);
-      }
+		@-webkit-keyframes slideease {
+			0% {
+				transform: translateX(1000px) skewX(15deg);
+			}
 
-      50% {
-        transform: translateX(20px) skewX(15deg);
-      }
+			50% {
+				transform: translateX(20px) skewX(15deg);
+			}
 
-      100% {
-        /* left: transform: translateX(0px) skewX(15deg); */
-        transform: translateX(0px) skewX(15deg);
-      }
-    }
+			100% {
+				/* left: transform: translateX(0px) skewX(15deg); */
+				transform: translateX(0px) skewX(15deg);
+			}
+		}
 
-    @keyframes stingerwipe {
-      0% {
-        clip-path: polygon(0 0, 100% 0%, 100% 100%, 0% 100%);
-        transform: translateX(0) skewX(-15deg);
-      }
+		@keyframes stingerwipe {
+			0% {
+				clip-path: polygon(0 0, 100% 0%, 100% 100%, 0% 100%);
+				transform: translateX(0) skewX(-15deg);
+			}
 
-      100% {
-        clip-path: polygon(0% 0, 50% 0, 50% 100%, 0% 100%);
-        transform: translateX(-50%) skewX(-15deg);
-      }
-    }
+			100% {
+				clip-path: polygon(0% 0, 50% 0, 50% 100%, 0% 100%);
+				transform: translateX(-50%) skewX(-15deg);
+			}
+		}
 
-    div.stingerlogo {
-      position: absolute;
-      top: 0px;
-      left: -150px;
-      width: 2220px;
-      height: 1080px;
-      vertical-align: middle;
-      background-color: #202224;
-      animation: stingerwipe 0.3s;
-      animation-fill-mode: forwards;
-      animation-delay: 1s;
-      transform: skewX(-15deg);
-    }
+		div.stingerlogo {
+			position: absolute;
+			top: 0px;
+			left: -150px;
+			width: 2220px;
+			height: 1080px;
+			vertical-align: middle;
+			background-color: #202224;
+			animation: stingerwipe 0.3s;
+			animation-fill-mode: forwards;
+			animation-delay: 1s;
+			transform: skewX(-15deg);
+		}
 
-    div.stingerlogo span.logo {
-      width: 1120px;
-      height: 680px;
-      position: absolute;
-      top: 200px;
-      left: 550px;
-      background-position: center;
-      background-size: contain;
-      background-repeat: no-repeat;
-      animation: slideease 1s;
-      animation-fill-mode: forwards;
-      animation-delay: 0s;
-      transform: skewX(15deg);
-      /* background-image: url('../scoreboard/general/image2.png'); */
-      -webkit-animation-timing-function: cubic-bezier(0, 0, 0, 1);
-    }
+		div.stingerlogo span.logo {
+			width: 1120px;
+			height: 680px;
+			position: absolute;
+			top: 200px;
+			left: 550px;
+			background-position: center;
+			background-size: contain;
+			background-repeat: no-repeat;
+			animation: slideease 1s;
+			animation-fill-mode: forwards;
+			animation-delay: 0s;
+			transform: skewX(15deg);
+			/* background-image: url('../scoreboard/general/image2.png'); */
+			-webkit-animation-timing-function: cubic-bezier(0, 0, 0, 1);
+		}
 
-    div.altcolor {
-      position: absolute;
-      top: 0px;
-      left: -150px;
-      width: 2220px;
-      height: 1080px;
-      vertical-align: middle;
-      background-color: white;
-      animation: stingerwipe 0.35s;
-      animation-fill-mode: forwards;
-      animation-delay: 1.05s;
-      transform: skewX(-15deg);
-    }
-  </style>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script>
-    async function interval() {
-      let fullJson = await fetch(`http://localhost:8080/getFullJson`);
-      fullJson = await fullJson.json();
+		div.altcolor {
+			position: absolute;
+			top: 0px;
+			left: -150px;
+			width: 2220px;
+			height: 1080px;
+			vertical-align: middle;
+			background-color: white;
+			animation: stingerwipe 0.35s;
+			animation-fill-mode: forwards;
+			animation-delay: 1.05s;
+			transform: skewX(-15deg);
+		}
+	</style>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script>
+		async function interval() {
+			let fullJson = await fetch(`http://localhost:8080/getFullJson`);
+			fullJson = await fullJson.json();
 
-      let themeColors = fullJson.general.color
+			let themeColors = fullJson.general.color;
 
-      let colorthemesting = themeColors.BGG_C1.value; // by default its white
-      let colorthemealt = themeColors.BGG_C3.value; // by default its the 'navy blue'
+			let colorthemesting = themeColors.BGG_C1.value; // by default its white
+			let colorthemealt = themeColors.BGG_C3.value; // by default its the 'navy blue'
 
-      // Set theme colors
-      $('div.stingerlogo').css("background-color", colorthemesting);
-      $('div.altcolor').css("background-color", colorthemealt);
+			// Set theme colors
+			$('div.stingerlogo').css('background-color', colorthemesting);
+			$('div.altcolor').css('background-color', colorthemealt);
 
-      // Get URL parameters
-      const urlParams = new URLSearchParams(window.location.search);
-      const team = urlParams.get('team');
+			// Get URL parameters
+			const urlParams = new URLSearchParams(window.location.search);
+			const team = urlParams.get('team');
 
-      // Set the logo based on the team parameter
-      if (team === 'team1') {
-        $('span#team1logobig').css("background-image", "url('" + fullJson.teams.team1.teamLogoUrl + "')");
-      } else if (team === 'team2') {
-        $('span#team1logobig').css("background-image", "url('" + fullJson.teams.team2.teamLogoUrl + "')");
-      } else {
-        $('span.logo').css("background-image", "url('" + fullJson.general.file.BGG_L1.value + "')");
-      }
-    }
+			// Set the logo based on the team parameter
+			if (team === 'team1') {
+				$('span#team1logobig').css(
+					'background-image',
+					"url('" + fullJson.teams.team1.teamLogoUrl + "')"
+				);
+			} else if (team === 'team2') {
+				$('span#team1logobig').css(
+					'background-image',
+					"url('" + fullJson.teams.team2.teamLogoUrl + "')"
+				);
+			} else {
+				$('span.logo').css('background-image', "url('" + fullJson.general.file.BGG_L1.value + "')");
+			}
+		}
 
-    $(() => {
-      interval();
-      setInterval(interval, 10000);
-    });
-  </script>
+		$(() => {
+			interval();
+			setInterval(interval, 10000);
+		});
+	</script>
 </head>
 
 <body>
-  <div class="altcolor"></div>
-  <div class="stingerlogo" id="team1colorstinger">
-    <span class="logo" id="team1logobig"></span>
-  </div>
+	<div class="altcolor"></div>
+	<div class="stingerlogo" id="team1colorstinger">
+		<span class="logo" id="team1logobig"></span>
+	</div>
 </body>

@@ -138,6 +138,18 @@ body {
     }
   }
 
+  @keyframes stingerwipe {
+    0% {
+      clip-path: polygon(0 0, 100% 0%, 100% 100%, 0% 100%);
+      transform: translateX(0) skewX(-15deg);
+    }
+
+    100% {
+      clip-path: polygon(0% 0, 50% 0, 50% 100%, 0% 100%);
+      transform: translateX(-50%) skewX(-15deg);
+    }
+  }
+
 
 
 /* scenes that involve the scoreboard (not ingame) */
@@ -503,21 +515,94 @@ body {
 
 
   
-  div.tagline {
-    min-width: 375px;
-    animation: tagline .5s;
-    animation-fill-mode: backwards;
-    animation-delay: 2s;
-  }
+div.tagline {
+  min-width: 375px;
+  animation: tagline .5s;
+  animation-fill-mode: backwards;
+  animation-delay: 2s;
+}
 
-  span.tertiary {
-    font-size: 1.8em;
-    border-style: solid;
-    font-weight: bold;
-    text-align: center;
-    font-family: 'Rajdhani';
-    text-transform: uppercase;
-    padding: 3px 15px 2px 15px;
-    border-width: 0px 6px 0px 6px;
-    background-color: rgb(255, 255, 255);
-  }
+span.tertiary {
+  font-size: 1.8em;
+  border-style: solid;
+  font-weight: bold;
+  text-align: center;
+  font-family: 'Rajdhani';
+  text-transform: uppercase;
+  padding: 3px 15px 2px 15px;
+  border-width: 0px 6px 0px 6px;
+  background-color: rgb(255, 255, 255);
+}
+
+div.stingerlogo {
+  position: absolute;
+  top: 0px;
+  left: -150px;
+  width: 2220px;
+  height: 1080px;
+  vertical-align: middle;
+  /* background-color: #202224; */
+  animation: stingerwipe 0.3s;
+  animation-fill-mode: forwards;
+  animation-delay: 1s;
+  transform: skewX(-15deg);
+}
+
+div.stingerlogo span.logo {
+  width: 1120px;
+  height: 680px;
+  position: absolute;
+  top: 200px;
+  left: 550px;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  animation: slideease 1s;
+  animation-fill-mode: forwards;
+  animation-delay: 0s;
+  transform: skewX(15deg);
+  /* background-image: url('../scoreboard/general/image2.png'); */
+  -webkit-animation-timing-function: cubic-bezier(0, 0, 0, 1);
+}
+
+
+
+div.replaytext {
+  position: absolute;
+  top: 210px;
+  left: 30px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+
+  /* text-shadow: 0px 0px 15px #000000; */
+  font-size: 3em;
+}
+
+div.replaytext span {
+  margin: 20px;
+  position: relative;
+  top: 1px;
+}
+
+div.replaytext div {
+  background-color: #000000;
+  border-style: solid;
+  border-width: 0px 0px 0px 7px;
+  border-color: #8cba11;
+  font-family: 'Rajdhani';
+  font-weight: bold;
+  padding: 5px;
+  text-transform: uppercase;
+  color: white;
+  /* transform: skewX(-15deg); */
+
+  animation: leftmove 1s;
+  animation-fill-mode: backwards;
+  animation-delay: 1.5s;
+  -webkit-animation-timing-function: cubic-bezier(0, 0, 0, 1);
+}
