@@ -717,22 +717,12 @@ Available Styles:
       let mapcounter = 1;
       let teamcolor = 1; // Set to 0 for default blue/red team colors, 1 to import from scoreboard
 
-      // Determine the Match Format, Best of 5, First to 3 etc - formerly utility9.txt
-      let completeMatchFormat = fullJson.matchFormat + fullJson.maps.totalMaps;
 
-      // console.log(`match format: ${completeMatchFormat}`);
+      let matchFormatCount = fullJson.matchFormat.target
+      let matchFormatType = fullJson.matchFormat.formatType.toLowerCase()
 
-      // console.log(`all maps: ${allmaps}`);
-      let gametype = null;
-      if (completeMatchFormat.match(/bo/gi) != null || completeMatchFormat.match(/best of/gi) != null) {
-        gametype = "bo";
-        completeMatchFormat = completeMatchFormat.replace(/\n/gi, "").replace(/\r/gi, "").replace(/bo/gi, "").replace(/best of/gi, "");
-        completeMatchFormat = parseInt(completeMatchFormat, 10);
-      } else if (completeMatchFormat.match(/ft/gi) != null || completeMatchFormat.match(/first to/gi) != null) {
-        gametype = "ft";
-        completeMatchFormat = completeMatchFormat.replace(/\n/gi, "").replace(/\r/gi, "").replace(/ft/gi, "").replace(/first to/gi, "");
-        completeMatchFormat = parseInt(completeMatchFormat, 10);
-      }
+      console.log("Complete Match Format: ", matchFormatCount);
+      console.log("Game Type: ", matchFormatType);
 
       // CENTER TEXT
       // Get mutual info text
@@ -781,10 +771,10 @@ Available Styles:
             if (isTiebreaker) {
               $('.center .matchtext').html("<b>Tiebreaker </b>Map");
             } else {
-              if (gametype == "bo") {
-                $('.center .matchtext').html("Map <b>" + (completedmap + 1) + "</b> of <b>" + (completeMatchFormat) + "</b>");
-              } else if (gametype == "ft") {
-                $('.center .matchtext').html("Map <b>" + (completedmap + 1) + "</b> - First to <b>" + (completeMatchFormat) + "</b>");
+              if (matchFormatType == "bo") {
+                $('.center .matchtext').html("Map <b>" + (completedmap + 1) + "</b> of <b>" + (matchFormatCount) + "</b>");
+              } else if (matchFormatType == "ft") {
+                $('.center .matchtext').html("Map <b>" + (completedmap + 1) + "</b> - First to <b>" + (matchFormatCount) + "</b>");
               } else {
                 $('.center .matchtext').html("Map <b>" + (completedmap + 1) + "</b>");
               }
@@ -802,7 +792,7 @@ Available Styles:
               if (isTiebreaker) {
                 $('.center .matchtext').html("<b>Tiebreaker </b>Map");
               } else {
-                $('.center .matchtext').html("Map <b>" + (completedmap + 1) + "</b> of <b>" + (completeMatchFormat) + "</b>");
+                $('.center .matchtext').html("Map <b>" + (completedmap + 1) + "</b> of <b>" + (matchFormatCount) + "</b>");
               }
             }
           } else {
@@ -813,7 +803,7 @@ Available Styles:
             }
           }
         }
-        console.log(`all maps: ${completeMatchFormat}, completed maps: ${completedmap}`);
+        console.log(`all maps: ${matchFormatCount}, completed maps: ${completedmap}`);
       }
 
 
@@ -948,7 +938,7 @@ Available Styles:
           // Update the mask image with the fetched icon
           document.querySelector(`#team${teamIndex + 1}side span`).style.webkitMaskImage = `url(data:image/png;base64,${btoa(str)})`;
         } catch (error) {
-          console.error('Error fetching team side icon:', error);
+          // console.error('Error fetching team side icon:', error);
         }
       }
 
