@@ -644,6 +644,12 @@ Available Styles:
       let fullJson = await fetch(`http://localhost:8080/getFullJson`);
       fullJson = await fullJson.json();
 
+      // if appversion is less than 0.6.0 then we need to return an error screen for user.. that just says upload the main app..
+      // if (fullJson.appVersion < "0.6.0") {
+      //   document.body.innerHTML = "<h1 style='color: white; text-align: center; margin-top: 50vh;'>Please update the main app to use this overlay</h1>";
+      //   return;
+      // }
+
       let inputJson = fullJson.general;
       let themeColors = inputJson.color;
       let themeLogos = inputJson.file;
