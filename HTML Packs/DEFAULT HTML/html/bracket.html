@@ -57,6 +57,7 @@
     }
 
     body {
+
       width: 1920px;
       height: 1080px;
       margin: 0px auto;
@@ -237,6 +238,7 @@
       // so getBracketTab would give us eveyrthing we need for this page only??
       let bracketData = await fetch(`http://localhost:8080/api/get-bracket`);
       bracketData = await bracketData.json();
+      
 
       let themeLogos = fullJson.general.file;
 
