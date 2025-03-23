@@ -33,7 +33,7 @@ Available Styles:
 
       --teamLeftTextNameAlign: left;
       --teamRightTextNameAlign: right;
-      
+
       --teamLeftInnerPadding: 0px;
       --teamRightInnerPadding: 0px;
 
@@ -45,7 +45,7 @@ Available Styles:
 
       --teamRightBorderLeft: 7px solid #27AAE1;
       --teamRightBorderRight: 0px solid #C80013;
-      
+
       --teamLeftClipPath: polygon(0);
       --teamRightClipPath: polygon(0);
 
@@ -68,8 +68,7 @@ Available Styles:
       --arrowLeftInvertedClipPath: polygon(100% 0, 93% 50%, 100% 100%, 0 100%, 0% 50%, 0 0);
       --arrowRightInvertedClipPath: polygon(100% 0, 100% 50%, 100% 100%, 0% 100%, 7% 50%, 0% 0%);
 
-      --arrowDoubleSideClipPath:  polygon(93% 0, 100% 50%, 93% 99%, 7% 99%, 0% 50%, 7% 0)
-
+      --arrowDoubleSideClipPath: polygon(93% 0, 100% 50%, 93% 99%, 7% 99%, 0% 50%, 7% 0)
     }
 
     /* Game-specific positioning */
@@ -516,7 +515,7 @@ Available Styles:
       position: fixed;
       top: var(--middleTopPosition);
       left: 50%;
-      transform: translateX(-50%) ;
+      transform: translateX(-50%);
       width: var(--middleWidth);
       display: block;
     }
@@ -687,21 +686,21 @@ Available Styles:
           } else {
             body.classList.add('marvelNonDomination');
           }
-        }
-
-        if (currentGame === 'Overwatch') {
+          return;
+        } else if (currentGame === 'Overwatch') {
           body.classList.add('overWatchPositions');
-        }
-
-        if (currentGame === 'Valorant') {
+          return;
+        } else if (currentGame === 'Valorant') {
           body.classList.add('valorantPositions');
-          // body.classList.add('smashPositions');
-        }
-
-        if (currentGame === 'Smash Ultimate') {
+          return;
+        } else if (currentGame === 'Smash Ultimate') {
           body.classList.add('smashPositions');
+          return;
+        } else {
+          body.classList.add('overWatchPositions');
+          return;
         }
-      };
+      }
 
       setOverlayPosition(fullJson.maps.mapData);
 
@@ -759,7 +758,7 @@ Available Styles:
         // lets filter totalMaps to remove any maps that are 'hidden'
 
         let totalmap = fullJson.maps.mapData.filter((map) => !map.hidden).length;
-        
+
         let completedmap = 0;
         for (let m = 0; m < fullJson.maps.mapData.length; ++m) {
           let mapData = fullJson.maps.mapData[m];
@@ -800,7 +799,7 @@ Available Styles:
           let divisionnumbertxt = fullJson.matchDivision;
           divisionnumbertxt = divisionnumbertxt.replace(/\n/gi, "").replace(/\r/gi, "");
           if (divisionnumbertxt == "") {
-            
+
             if (completedmap >= totalmap) {
               $('.center .matchtext').html("<b>Final</b> Score");
             } else {
