@@ -719,7 +719,7 @@ Available Styles:
 
 
       let matchFormatCount = fullJson.matchFormat.target
-      let matchFormatType = fullJson.matchFormat.formatType.toLowerCase()
+      let matchFormatType = fullJson.matchFormat?.formatType?.toLowerCase()
 
       console.log("Complete Match Format: ", matchFormatCount);
       console.log("Game Type: ", matchFormatType);
@@ -750,7 +750,10 @@ Available Styles:
 
       // Get map count
       if (mapcounter >= 1) {
-        let totalmap = fullJson.maps.mapData.length;
+        // lets filter totalMaps to remove any maps that are 'hidden'
+
+        let totalmap = fullJson.maps.mapData.filter((map) => !map.hidden).length;
+        
         let completedmap = 0;
         for (let m = 0; m < fullJson.maps.mapData.length; ++m) {
           let mapData = fullJson.maps.mapData[m];
@@ -762,6 +765,11 @@ Available Styles:
         }
 
         const isTiebreaker = (team1Wins === team2Wins) && (completedmap === totalmap - 1);
+
+        console.log("is it a tiebreaker? ", isTiebreaker);
+        console.log("why not working? ", team1Wins, team2Wins, completedmap, totalmap);
+
+        // what about total maps that dont have hidden=true
 
 
         if (mapcounter == 1) {
@@ -786,6 +794,7 @@ Available Styles:
           let divisionnumbertxt = fullJson.matchDivision;
           divisionnumbertxt = divisionnumbertxt.replace(/\n/gi, "").replace(/\r/gi, "");
           if (divisionnumbertxt == "") {
+            
             if (completedmap >= totalmap) {
               $('.center .matchtext').html("<b>Final</b> Score");
             } else {
