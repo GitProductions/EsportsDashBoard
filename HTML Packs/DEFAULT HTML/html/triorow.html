@@ -280,25 +280,26 @@
 
       $(`.socials`).css("color", quinaryColor);
 
-      async function updateStaffDetails(staffId, casterName, animationDelay, socialPlatform, socialHandle, casterNumber) {
+      async function updateStaffDetails(staffId, casterName, animationDelay, socialPlatform, socialHandle) {
         try {
-            $('.curtain' + staffId).css("animation-delay", animationDelay + "s");
-            $('.' + staffId).css("animation-delay", (animationDelay - 0.15) + "s");
-            // console.log("stafftwitter value: " + stafftwitter + ".");
+          $('.curtain' + staffId).css("animation-delay", animationDelay + "s");
+          $('.' + staffId).css("animation-delay", (animationDelay - 0.15) + "s");
 
-            if (socialPlatform && socialHandle) {
-                $(`.${staffId} .socials`).html("&nbsp;" + socialHandle);
-                $(`.${staffId} .socials`).css("display", "block");
+          if (socialPlatform && socialHandle) {
+            $(`.${staffId} .socials`).html("&nbsp;" + socialHandle);
+            $(`.${staffId} .socials`).css("display", "block");
 
-                $(`.${staffId} .socials`).attr("class", socialPlatform);
+            // Remove old platform classes before adding the new one
+            $(`.${staffId} .socials`).removeClass().addClass(`socials ${socialPlatform}`);
 
-                $(`.${staffId} .staffname`).html(casterName + "&nbsp;");
-            } else {
-                $('.' + staffId + ' .socials').css("display", "none");
-                $('.' + staffId + ' .staffname').html(casterName);
-            }
+            $(`.${staffId} .staffname`).html(casterName + "&nbsp;");
+          } else {
+            $(`.${staffId} .socials`).css("display", "none");
+            $(`.${staffId} .staffname`).html(casterName);
+          }
+
         } catch (error) {
-            console.error('Error fetching ' + staffId + ' details:', error);
+          console.error('Error fetching ' + staffId + ' details:', error);
         }
       }
 

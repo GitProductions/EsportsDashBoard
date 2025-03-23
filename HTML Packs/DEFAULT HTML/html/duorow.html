@@ -11,8 +11,6 @@ Get Color Data from API for theme colors?
   <link rel="stylesheet" type="text/css" href="styles.css">
 
   <style>
-
-
     .camerahole {
       display: flex;
       flex-direction: row;
@@ -28,8 +26,6 @@ Get Color Data from API for theme colors?
       justify-content: center;
       text-align: center;
     }
-
-
   </style>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -45,8 +41,8 @@ Get Color Data from API for theme colors?
       // Fetching General Input Data and then seperating into different variables
       let inputData = await fetch(`http://localhost:8080/getValue?path=general`);
       if (!inputData.ok) {
-            throw new Error('Network response was not ok');
-        }
+        throw new Error('Network response was not ok');
+      }
       let inputJson = await inputData.json();
 
       let themeColors = inputJson.color;
@@ -59,7 +55,7 @@ Get Color Data from API for theme colors?
       let caster2platform = inputJson.list.Caster2_Platform?.value;
       let tagline = inputJson.text.BGG_TAGLINE.value;
 
-    
+
       //Set to 1 for video functions, 0 to disable
       let blankimage = "iVBORw0KGgoAAAANSUhEUgAAAHAAAABkCAYAAABep7TGAAAABGdBTUEAALGPC/xhBQAAAEJJREFUeF7twQENAAAAwqD3T+1mDiAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAuBqvZAABFEy6BwAAAABJRU5ErkJggg=="
 
@@ -88,23 +84,24 @@ Get Color Data from API for theme colors?
 
       async function updateStaffDetails(staffId, casterName, animationDelay, socialPlatform, socialHandle) {
         try {
-            $('.curtain' + staffId).css("animation-delay", animationDelay + "s");
-            $('.' + staffId).css("animation-delay", (animationDelay - 0.15) + "s");
-            // console.log("stafftwitter value: " + stafftwitter + ".");
+          $('.curtain' + staffId).css("animation-delay", animationDelay + "s");
+          $('.' + staffId).css("animation-delay", (animationDelay - 0.15) + "s");
 
-            if (socialPlatform && socialHandle) {
-                $(`.${staffId} .socials`).html("&nbsp;" + socialHandle);
-                $(`.${staffId} .socials`).css("display", "block");
+          if (socialPlatform && socialHandle) {
+            $(`.${staffId} .socials`).html("&nbsp;" + socialHandle);
+            $(`.${staffId} .socials`).css("display", "block");
 
-                $(`.${staffId} .socials`).attr("class", socialPlatform);
+            // Remove old platform classes before adding the new one
+            $(`.${staffId} .socials`).removeClass().addClass(`socials ${socialPlatform}`);
 
-                $(`.${staffId} .staffname`).html(casterName + "&nbsp;");
-            } else {
-                $('.' + staffId + ' .socials').css("display", "none");
-                $('.' + staffId + ' .staffname').html(casterName);
-            }
+            $(`.${staffId} .staffname`).html(casterName + "&nbsp;");
+          } else {
+            $(`.${staffId} .socials`).css("display", "none");
+            $(`.${staffId} .staffname`).html(casterName);
+          }
+
         } catch (error) {
-            console.error('Error fetching ' + staffId + ' details:', error);
+          console.error('Error fetching ' + staffId + ' details:', error);
         }
       }
 
@@ -160,7 +157,7 @@ Get Color Data from API for theme colors?
       }
 
       updateTeamDetails(0, teamsData.team1);
-      updateTeamDetails(1, teamsData.team2); 
+      updateTeamDetails(1, teamsData.team2);
 
       async function setDynamicBackgroundImages() {
         try {
@@ -168,7 +165,7 @@ Get Color Data from API for theme colors?
           if (themeLogos.BGG_L1 && themeLogos.BGG_L1.value) {
             // document.querySelector(".tournament.image1").style.backgroundImage = `url(/${themeLogos.BGG_L1.value})`;
             document.querySelector(".tournament.image1").style.backgroundImage = `url("${themeLogos.BGG_L1.value}")`;
-            
+
           }
           if (themeLogos.BGG_L2 && themeLogos.BGG_L2.value) {
             document.querySelector(".channel.image2").style.backgroundImage = `url("${themeLogos.BGG_L2.value}")`;
@@ -182,15 +179,15 @@ Get Color Data from API for theme colors?
 
       async function setTagline() {
         try {
-            document.querySelector(".tertiary").textContent = tagline;
+          document.querySelector(".tertiary").textContent = tagline;
         } catch (error) {
-            console.error('Failed to fetch or set tagline:', error);
+          console.error('Failed to fetch or set tagline:', error);
         }
-    }
+      }
 
-    // Call the function to set the tagline
-    setTagline();
-    console.log("Refreshing...")
+      // Call the function to set the tagline
+      setTagline();
+      console.log("Refreshing...")
     }
 
     const urlParams = new URLSearchParams(window.location.search);
