@@ -45,21 +45,21 @@ export const configurations = {
                 id: "esportsdash.overwatch",
                 name: "Overwatch Game Config",
                 author: "EsportsDash",
-                version: "1.6",
+                version: "1.9",
                 image: "Game Configs/Overwatch/Overwatch.webp",
                 description: "Game configuration file.",
                 folderPath: "Game Configs/Overwatch",
-                fileName: "esportsdash.overwatch_v1.6.bgg"
+                fileName: "esportsdash.overwatch_v1.9.bgg"
             },
             {
                 id: "esportsdash.overwatch",
                 name: "Overwatch",
                 author: "EsportsDash",
-                version: "1.9",
+                version: "2.0",
                 image: "Game Configs/Overwatch/Overwatch.webp",
                 description: "Season 15",
                 folderPath: "Game Configs/Overwatch",
-                fileName: "esportsdash.overwatch_v1.9.bgg"
+                fileName: "esportsdash.overwatch_v2.0.bgg"
             }
         ],
 
@@ -116,7 +116,7 @@ export const configurations = {
                 author: "EsportsDash",
                 version: "1.6",
                 image: "Game Configs/Valorant/Valorant.webp",
-                description: "Season 10",
+                description: "Season 2025 Act 2",
                 folderPath: "Game Configs/Valorant",
                 fileName: "esportsdash.valorant_v1.6.bgg"
             }
