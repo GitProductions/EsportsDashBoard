@@ -746,6 +746,14 @@
     function displayMatchData(matches, themeColors) {
       console.log(`Matches: ${JSON.stringify(matches)}`);
 
+      for (let i = 1; i <= 8; i++) {
+        if (!matches[i-1]) {
+            $(`.match${i}`).css("display", "none");
+            // $(`.match${i} .teamlogo1, .match${i} .teamlogo2`).css("display", "none");
+        }
+    }
+
+
       // Always update title text based on current match states
       titleText = determineTitleText(matches);
       $('.title').text(titleText);
@@ -765,13 +773,7 @@
 
           // Set match info and details
           $(`${matchSelector} .matchinfo`).text(details);
-
-          // update team logo
-          // $(`${matchSelector} .teamlogo1`).attr("src", team1?.logo || `data:image/png;base64,${blankimage}`);
-          // $(`${matchSelector} .teamlogo2`).attr("src", team2?.logo || `data:image/png;base64,${blankimage}`);
-
-          // $(".teamlogo" + (teamIndex + 1)).attr("src", team[teamIndex].logo);
-          // if useTeamLogo is true, then fetch the image and set it
+    
 
           // document.documentElement.style.setProperty('--useTeamLogos', useTeamLogos);
           const useTeamLogos = getComputedStyle(document.documentElement).getPropertyValue('--useTeamLogos').trim() === 'true';
