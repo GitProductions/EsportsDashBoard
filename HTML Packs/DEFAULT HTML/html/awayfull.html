@@ -99,6 +99,31 @@
       }
     }
 
+
+    @keyframes teamsliderightReverse {
+    0% {
+        clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+        transform: translateX(0px);
+    }
+
+    100% {
+        clip-path: polygon(100% 0%, 100% 0%, 100% 100%, 100% 100%);
+        transform: translateX(-100%);
+    }
+}
+
+@keyframes teamslideleftReverse {
+    0% {
+        clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+        transform: translateX(0px);
+    }
+
+    100% {
+        clip-path: polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%);
+        transform: translateX(100%);
+    }
+}
+
     @keyframes teamslideup {
       0% {
         clip-path: polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%);
@@ -140,6 +165,9 @@
         transform: translateX(0px);
       }
     }
+
+
+    
 
     @keyframes socialsSlideUp {
       0% {
@@ -700,6 +728,7 @@
 
       for (let i = 1; i <= 8; i++) {
         if (!matches[i-1]) {
+            // remove .team${i} animation and add new one
             $(`.match${i}`).css("display", "none");
         }
     }
