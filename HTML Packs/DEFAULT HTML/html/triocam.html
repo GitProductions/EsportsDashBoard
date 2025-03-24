@@ -18,7 +18,7 @@
 
     @font-face {
       font-family: 'FontAwesome';
-      src: url("fonts/Font Awesome/Font Awesome 5 Brands-Regular-400.otf") format('OpenType');
+      src: url("fonts/Font Awesome/Font Awesome 6 Brands-Regular-400.otf") format('OpenType');
     }
 
     @keyframes staffanimate {
@@ -189,18 +189,95 @@
       bottom: 0.02em;
     }
 
-    .twitter {
+/* !! NEEDS TO BE ADJUSTED WHEN NEW SOCIAL PLATFORMS ARE ADDED*/
+.socials, .twitter, .twitch, .youtube, .bluesky, .facebook, .instagram, .x-twitter, .tiktok, .discord, .tumblr, .meta {
       font-family: 'Rajdhani';
       font-weight: normal;
       text-transform: none;
       font-size: 2em;
       position: relative;
-      bottom: 0.02em;
+    }
+
+    .socials:before {
+      font-family: 'FontAwesome';
+      content: "\f099"
+        /* twitter logo */
+        /* content:"\f1e8" twitch logo*/
     }
 
     .twitter:before {
       font-family: 'FontAwesome';
       content: "\f099"
+        /* twitter logo */
+        /* content:"\f1e8" twitch logo*/
+    }
+
+    .twitch:before {
+      font-family: 'FontAwesome';
+      content: "\f1e8"
+        /* twitter logo */
+        /* content:"\f1e8" twitch logo*/
+    }
+
+    .youtube:before {
+      font-family: 'FontAwesome';
+      content: "\f167"
+        /* twitter logo */
+        /* content:"\f1e8" twitch logo*/
+    }
+
+    .bluesky:before {
+      font-family: 'FontAwesome';
+      content: "\e671"
+        /* twitter logo */
+        /* content:"\f1e8" twitch logo*/
+    }
+
+    .facebook:before {
+      font-family: 'FontAwesome';
+      content: "\f39e"
+        /* twitter logo */
+        /* content:"\f1e8" twitch logo*/
+    }
+
+    .instagram:before {
+      font-family: 'FontAwesome';
+      content: "\f16d"
+        /* twitter logo */
+        /* content:"\f1e8" twitch logo*/
+    }
+
+    .x-twitter:before {
+      font-family: 'FontAwesome';
+      content: "\e61b"
+        /* twitter logo */
+        /* content:"\f1e8" twitch logo*/
+    }
+
+    .tiktok:before {
+      font-family: 'FontAwesome';
+      content: "\e07b"
+        /* twitter logo */
+        /* content:"\f1e8" twitch logo*/
+    }
+
+    .discord:before {
+      font-family: 'FontAwesome';
+      content: "\f392"
+        /* twitter logo */
+        /* content:"\f1e8" twitch logo*/
+    }
+
+    .tumblr:before {
+      font-family: 'FontAwesome';
+      content: "\f173"
+        /* twitter logo */
+        /* content:"\f1e8" twitch logo*/
+    }
+
+    .meta:before {
+      font-family: 'FontAwesome';
+      content: "\e49b"
         /* twitter logo */
         /* content:"\f1e8" twitch logo*/
     }
@@ -371,65 +448,61 @@
       let themeColors = inputJson.color;
       let themeLogos = inputJson.file;
       let caster1 = inputJson.text.Caster1.value;
+      let caster1handle = inputJson.text.Caster1_Social.value;
+      let caster1platform = inputJson.list.Caster1_Platform.value;
       let caster2 = inputJson.text.Caster2.value;
+      let caster2handle = inputJson.text.Caster2_Social.value;
+      let caster2platform = inputJson.list.Caster2_Platform.value;
       let host = inputJson.text.Host.value;
+      let hostHandle = inputJson.text.Host_Social.value;
+      let hostPlatform = inputJson.list.Host_Plaform.value;
       
       //Get constant theme data
-      let colortheme1txt = themeColors.BGG_C1.value
-      let colortheme2txt = themeColors.BGG_C2.value;
-      let colortheme3txt = themeColors.BGG_C3.value;
-      let colortheme4txt = themeColors.BGG_C4.value
+      let primaryColor = themeColors.BGG_C1.value
+      let secondaryColor = themeColors.BGG_C2.value;
+      let tertiaryColor = themeColors.BGG_C3.value;
+      let quaternaryColor = themeColors.BGG_C4.value;
+      let quinaryColor = themeColors.BGG_C5.value;
 
-      $('body').css("border-color", (colortheme3txt));
-      $('.camerabox').css("border-color", (colortheme3txt));
-      $('.staffname, .team').css("color", colortheme2txt);
-      $('.twitter, .teamscore').css("color", colortheme3txt);
-      $('.staff, .team').css("background-color", colortheme1txt);
-      $('.curtain, .staffiso').css("background-color", colortheme3txt);
-      $('.vs').css("background-color", colortheme3txt);
-      $('.vs').css("color", colortheme1txt);
-      $('.scorebox').css("background-color", colortheme4txt);
+      $('body').css("border-color", (tertiaryColor));
+      $('.camerabox').css("border-color", (tertiaryColor));
+      $('.staffname, .team').css("color", secondaryColor);
+      $('.socials, .teamscore').css("color", tertiaryColor);
+      $('.staff, .team').css("background-color", primaryColor);
+      $('.curtain, .staffiso').css("background-color", tertiaryColor);
+      $('.vs').css("background-color", tertiaryColor);
+      $('.vs').css("color", primaryColor);
+      $('.scorebox').css("background-color", quaternaryColor);
       //$('.camerahole').css("background-color", (colortheme3txt));
 
-      async function updateStaffDetails(staffId, casterName, animationDelay) {
-            try {
-                let stafftxt = casterName;
+      $(`.socials`).css("color", quinaryColor);
 
-                $('.curtain' + staffId).css("animation-delay", animationDelay + "s");
-                $('.' + staffId).css("animation-delay", (animationDelay - 0.15) + "s");
+      async function updateStaffDetails(staffId, casterName, animationDelay, socialPlatform, socialHandle) {
+        try {
+          $('.curtain' + staffId).css("animation-delay", animationDelay + "s");
+          $('.' + staffId).css("animation-delay", (animationDelay - 0.15) + "s");
 
-                if (stafftxt.replace(/\n|\r/gi, "") == "") {
-                    $('.' + staffId + ' .staffname').html("");
-                    $('.' + staffId + ' .twitter').html("");
-                } else {
-                    let staffname = stafftxt.replace(new RegExp(/ @\w*/), "");
+          if (socialPlatform && socialHandle) {
+            $(`.${staffId} .socials`).html("&nbsp;" + socialHandle);
+            $(`.${staffId} .socials`).css("display", "block");
 
-                    let stafftwitter = stafftxt.match(new RegExp(/ @\w*/));
+            // Remove old platform classes before adding the new one
+            $(`.${staffId} .socials`).removeClass().addClass(`socials ${socialPlatform}`);
 
-                    console.log("stafftwitter value: " + stafftwitter + ".");
+            $(`.${staffId} .staffname`).html(casterName + "&nbsp;");
+          } else {
+            $(`.${staffId} .socials`).css("display", "none");
+            $(`.${staffId} .staffname`).html(casterName);
+          }
 
-                    if (stafftwitter != null) {
-                        stafftwitter = stafftwitter.toString();
-                        stafftwitter = stafftwitter.replace(/ @/, "");
-
-                        $('.' + staffId + ' .twitter').html("&nbsp;" + stafftwitter);
-                        $('.' + staffId + ' .twitter').css("display", "block");
-                        $('.' + staffId + ' .staffname').html(staffname + "&nbsp;");
-                    } else {
-                        $('.' + staffId + ' .twitter').css("display", "none");
-                        $('.' + staffId + ' .staffname').html(staffname);
-                    }
-                }
-            } catch (error) {
-                console.error('Error fetching ' + staffId + ' details:', error);
-            }
+        } catch (error) {
+          console.error('Error fetching ' + staffId + ' details:', error);
         }
+      }
 
-      updateStaffDetails('caster1', caster1, 1.15);
-      updateStaffDetails('caster2', caster2, 1.25);
-      updateStaffDetails('host', host, 1.25);
-
-
+      updateStaffDetails('caster1', caster1, 1.15, caster1platform, caster1handle, 1);
+      updateStaffDetails('caster2', caster2, 1.25, caster2platform, caster2handle, 2);
+      updateStaffDetails('host', host, 1.35, hostPlatform, hostHandle);
 
       class team { }
       async function updateTeamDetails(teamIndex, teamData) {
@@ -540,7 +613,7 @@
         <div class="staffiso">
           <div class="staff caster1">
             <span class="staffname"></span>
-            <span class="twitter"></span>
+            <span class="socials"></span>
           </div>
         </div>
       </div>
@@ -554,7 +627,7 @@
         <div class="staffiso">
           <div class="staff caster2">
             <span class="staffname"></span>
-            <span class="twitter"></span>
+            <span class="socials"></span>
           </div>
         </div>
       </div>
@@ -566,7 +639,7 @@
         <div class="staffiso">
           <div class="staff host">
             <span class="staffname"></span>
-            <span class="twitter"></span>
+            <span class="socials"></span>
           </div>
         </div>
       </div>

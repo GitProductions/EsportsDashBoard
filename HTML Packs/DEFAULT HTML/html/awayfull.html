@@ -1,11 +1,12 @@
 <head>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+  <!-- appears .wrapper is different -->
   <style>
     :root {
       /* These values can be 'adjusted/changed inside of OBS custom CSS to force certain things' */
 
       --useTeamColors: false;
-      /* Not woorking yet.. err.. well not implmenetd in the bracket data yet.. */
       --winningScore: 10;
       --useTeamLogos: true;
       --titleText: "Be Right Back!";
@@ -98,6 +99,31 @@
       }
     }
 
+
+    @keyframes teamsliderightReverse {
+    0% {
+        clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+        transform: translateX(0px);
+    }
+
+    100% {
+        clip-path: polygon(100% 0%, 100% 0%, 100% 100%, 100% 100%);
+        transform: translateX(-100%);
+    }
+}
+
+@keyframes teamslideleftReverse {
+    0% {
+        clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+        transform: translateX(0px);
+    }
+
+    100% {
+        clip-path: polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%);
+        transform: translateX(100%);
+    }
+}
+
     @keyframes teamslideup {
       0% {
         clip-path: polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%);
@@ -140,6 +166,9 @@
       }
     }
 
+
+    
+
     @keyframes socialsSlideUp {
       0% {
         clip-path: polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%);
@@ -159,6 +188,7 @@
       overflow: hidden;
       /* background-color: rgba(0, 0, 0, 255); */
       /* background-color: 'white'; */
+
       font-family: 'Rajdhani';
     }
 
@@ -312,6 +342,7 @@
       position: relative;
       /* bottom: 0.02em; */
       line-height: 0.8;
+
     }
 
     .teamscore {
@@ -393,7 +424,6 @@
 
     .socials div {
       flex: 1 1 0;
-      /* transform: translateY(500%); */
     }
 
     .socials span:before {
@@ -403,78 +433,56 @@
     .twitter:before {
       font-family: 'FontAwesome';
       content: "\f099"
-        /* twitter logo */
-        /* content:"\f1e8" twitch logo*/
     }
 
     .twitch:before {
       font-family: 'FontAwesome';
       content: "\f1e8"
-        /* twitter logo */
-        /* content:"\f1e8" twitch logo*/
     }
 
     .youtube:before {
       font-family: 'FontAwesome';
       content: "\f167"
-        /* twitter logo */
-        /* content:"\f1e8" twitch logo*/
     }
 
     .bluesky:before {
       font-family: 'FontAwesome';
       content: "\e671"
-        /* twitter logo */
-        /* content:"\f1e8" twitch logo*/
     }
 
     .facebook:before {
       font-family: 'FontAwesome';
       content: "\f39e"
-        /* twitter logo */
-        /* content:"\f1e8" twitch logo*/
     }
 
     .instagram:before {
       font-family: 'FontAwesome';
       content: "\f16d"
-        /* twitter logo */
-        /* content:"\f1e8" twitch logo*/
     }
 
     .x-twitter:before {
       font-family: 'FontAwesome';
       content: "\e61b"
-        /* twitter logo */
-        /* content:"\f1e8" twitch logo*/
     }
 
     .tiktok:before {
       font-family: 'FontAwesome';
       content: "\e07b"
-        /* twitter logo */
-        /* content:"\f1e8" twitch logo*/
     }
 
     .discord:before {
       font-family: 'FontAwesome';
       content: "\f392"
-        /* twitter logo */
-        /* content:"\f1e8" twitch logo*/
     }
 
     .tumblr:before {
       font-family: 'FontAwesome';
       content: "\f173"
-        /* twitter logo */
-        /* content:"\f1e8" twitch logo*/
     }
 
     .meta:before {
       font-family: 'FontAwesome';
       content: "\e49b"
-        /* twitter logo */
-        /* content:"\f1e8" twitch logo*/
     }
 
     .footer {
@@ -484,12 +492,9 @@
       width: 1870px;
       clip-path: polygon(0% 0, 100% 0%, 100% 100%, 0% 100%);
       display: flex;
-      /* YEAH THIS IS HUGE */
       flex-direction: row;
       align-items: center;
-      /* YEAH THIS IS HUGE */
       justify-content: center;
-      /* YEAH THIS IS HUGE */
       padding: 25px;
     }
 
@@ -602,26 +607,6 @@
     });
 
 
-    // if (active == 0) {
-    //         $('.title').text("Starting Soon");
-    //         $('.todaywrapper').css("display", "flex");
-    //         $('.nextwrapper').css("display", "none");
-    //       } else if (complete < totalmatch) {
-    //         $('.title').text("Be Right Back");
-    //         $('.todaywrapper').css("display", "flex");
-    //         $('.nextwrapper').css("display", "none");
-    //       } else if (complete >= totalmatch) {
-    //         $('.title').text("Thanks for Watching");
-    //         if (complete == allmatch) {
-    //           $('.todaywrapper').css("display", "flex");
-    //           $('.nextwrapper').css("display", "none");
-    //         } else {
-    //           $('.todaywrapper').css("display", "none");
-    //           $('.nextwrapper').css("display", "flex");
-    //         }
-    //       }
-
-
     let blankimage = "iVBORw0KGgoAAAANSUhEUgAAAHAAAABkCAYAAABep7TGAAAABGdBTUEAALGPC/xhBQAAAEJJREFUeF7twQENAAAAwqD3T+1mDiAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAuBqvZAABFEy6BwAAAABJRU5ErkJggg=="
 
     // Fetches JSON data from a given URL
@@ -644,30 +629,33 @@
     // Sets theme colors on page elements based on the JSON data
     function applyThemeColors(themeColors) {
       const colors = {
-        colortheme1txt: themeColors.BGG_C1.value,
-        colortheme2txt: themeColors.BGG_C2.value,
-        colortheme3txt: themeColors.BGG_C3.value,
-        colortheme4txt: themeColors.BGG_C4.value,
-        colortheme5txt: themeColors.BGG_C5.value,
-        colortheme6txt: themeColors.BGG_C6.value,
+        primaryColor: themeColors.BGG_C1.value,
+        secondaryColor: themeColors.BGG_C2.value,
+        tertiaryColor: themeColors.BGG_C3.value,
+        quuaternaryColor: themeColors.BGG_C4.value,
+        quinaryColor: themeColors.BGG_C5.value,
+        senaryColor: themeColors.BGG_C6.value,
       };
 
-      $('body').css("border-color", colors.colortheme3txt);
-      $('.matchinfo, .socials, .title').css("color", colors.colortheme5txt);
-      $('.teamscore, .gg').css("color", colors.colortheme3txt);
+      $('body').css("border-color", colors.tertiaryColor);
+      $('.matchinfo, .socials, .title').css("color", colors.quinaryColor);
+      $('.teamscore, .gg').css("color", colors.tertiaryColor);
       $('.vs').css({
-        "background-color": colors.colortheme3txt,
-        "color": colors.colortheme1txt,
+        "background-color": colors.tertiaryColor,
+        "color": colors.primaryColor,
       });
       // $('.vs').addClass('animate__animated animate__bounce ');
 
-      $('.scorebox').css("background-color", colors.colortheme4txt);
-      $('.info').css("color", colors.colortheme6txt);
+      $('.scorebox').css("background-color", colors.quuaternaryColor);
+      $('.info').css("color", colors.senaryColor);
       $('span.tertiary').css({
-        "background-color": colors.colortheme1txt,
-        "color": colors.colortheme2txt,
-        "border-color": colors.colortheme3txt,
+        "background-color": colors.primaryColor,
+        "color": colors.secondaryColor,
+        "border-color": colors.tertiaryColor,
       });
+
+      $('.team').css("background-color", colors.primaryColor)
+      $('.team').css("color", colors.quinaryColor)
     }
 
     // Loads and applies the social media HTML
@@ -696,7 +684,6 @@
       // console.log(`General Message: ${JSON.stringify(generalMessage)}`);
       $('.info').html(generalMessage.value.replace(/\n|\r/g, ""));
     }
-
 
     function determineTitleText(matches) {
       let hasStarted = false;
@@ -737,52 +724,83 @@
       }
     }
     function displayMatchData(matches, themeColors) {
-    console.log(`Matches: ${JSON.stringify(matches)}`);
+      console.log(`Matches: ${JSON.stringify(matches)}`);
 
-    // Always update title text based on current match states
-    titleText = determineTitleText(matches);
-    $('.title').text(titleText);
-
-    matches.forEach((match, index) => {
-        if (match && match.reference) {
-            let { reference, details, team1, team2 } = match;
-
-            const isMatchComplete = match.completed || false;
-            console.log("Is match complete: ", isMatchComplete);
-
-            let matchSelector = `.match${index + 1}`;
-
-            // Display the match block only if both teams have names
-            $(matchSelector).css("display", team1.name !== '' && team2.name !== '' ? "block" : "none");
-
-            // Set match info and details
-            $(`${matchSelector} .matchinfo`).text(details);
-
-            // Update team names
-            $(`${matchSelector} .teamname1`).text(team1.name || "");
-            $(`${matchSelector} .teamname2`).text(team2.name || "");
-
-            // Update team scores, displaying "0" if the score is missing
-            $(`${matchSelector} .teamscore1`).text(team1.score ?? 0);
-            $(`${matchSelector} .teamscore2`).text(team2.score ?? 0);
-
-            // Show or hide scorebox based on whether scores are available
-            const hasScores = team1.score > 0 || team2.score > 0;
-            $(`${matchSelector} .scorebox`).css("display", hasScores ? "block" : "none");
-
-            // Handle match completion and styling
-            if (isMatchComplete) {
-                if (team1.score > team2.score) {
-                    styleWinningTeam(matchSelector, "team1", themeColors);
-                } else if (team2.score > team1.score) {
-                    styleWinningTeam(matchSelector, "team2", themeColors);
-                }
-            } else {
-                resetMatchStyling(matchSelector, themeColors);
-            }
+      for (let i = 1; i <= 8; i++) {
+        if (!matches[i-1]) {
+            // remove .team${i} animation and add new one
+            $(`.match${i}`).css("display", "none");
         }
-    });
-}
+    }
+
+
+      // Always update title text based on current match states
+      titleText = determineTitleText(matches);
+      $('.title').text(titleText);
+
+      matches.forEach((match, index) => {
+        if (match && match.reference) {
+          let { reference, details, team1, team2 } = match;
+
+          const isMatchComplete = match.completed || false;
+          // console.log("Is match complete: ", isMatchComplete);
+
+
+          let matchSelector = `.match${index + 1}`;
+
+          // Display the match block only if both teams have names
+          $(matchSelector).css("display", team1?.name !== '' && team2?.name !== '' ? "block" : "none");
+
+          // Set match info and details
+          $(`${matchSelector} .matchinfo`).text(details);
+    
+
+          // This could be its own function to handle team logos..
+          const useTeamLogos = getComputedStyle(document.documentElement).getPropertyValue('--useTeamLogos').trim() === 'true';
+          if (useTeamLogos) {
+            // Handle team1 logo
+            if (team1?.logo && team1.logo !== blankimage) {
+              $(`${matchSelector} .teamlogo1`).css("display", "inherit");
+              $(`${matchSelector} .teamlogo1`).attr("src", team1.logo);
+            } else {
+              $(`${matchSelector} .teamlogo1`).css("display", "none");
+            }
+
+            // Handle team2 logo
+            if (team2?.logo && team2.logo !== blankimage) {
+              $(`${matchSelector} .teamlogo2`).css("display", "inherit");
+              $(`${matchSelector} .teamlogo2`).attr("src", team2.logo);
+            } else {
+              $(`${matchSelector} .teamlogo2`).css("display", "none");
+            }
+          }
+
+
+          // Update team names
+          $(`${matchSelector} .teamname1`).text(team1?.name || "");
+          $(`${matchSelector} .teamname2`).text(team2?.name || "");
+
+          // Update team scores, displaying "0" if the score is missing
+          $(`${matchSelector} .teamscore1`).text(team1?.score ?? 0);
+          $(`${matchSelector} .teamscore2`).text(team2?.score ?? 0);
+
+          // Show or hide scorebox based on whether scores are available
+          const hasScores = team1?.score > 0 || team2?.score > 0;
+          $(`${matchSelector} .scorebox`).css("display", hasScores ? "block" : "none");
+
+          // Handle match completion and styling
+          if (isMatchComplete) {
+            if (team1?.score > team2?.score) {
+              styleWinningTeam(matchSelector, "team1", themeColors);
+            } else if (team2?.score > team1?.score) {
+              styleWinningTeam(matchSelector, "team2", themeColors);
+            }
+          } else {
+            resetMatchStyling(matchSelector, themeColors);
+          }
+        }
+      });
+    }
 
 
     // Reset styling function
@@ -817,7 +835,6 @@
       try {
         // Set the background images dynamically
         if (themeLogos.BGG_L1 && themeLogos.BGG_L1.value) {
-          // document.querySelector(".tournament.image1").style.backgroundImage = `url(/${themeLogos.BGG_L1.value})`;
           document.querySelector(".tournament.image1").style.backgroundImage = `url("${themeLogos.BGG_L1.value}")`;
 
         }
@@ -837,14 +854,20 @@
         const fullDataGeneral = fullDataJson.general;
         const themeColors = fullDataGeneral.color;
         const themeLogos = fullDataGeneral.file;
+
         let bracketData = await fetchJson(`http://localhost:8080/api/get-bracket`);
+
+
+        // checking to make sure its compatible app version with new changes..
+        if (fullDataJson.appVersion >= "0.6.0") {
+          bracketData = bracketData.forLivePreview
+        }
+
 
         setDynamicBackgroundImages(themeLogos);
 
-
         let tagline = fullDataGeneral.text.BGG_TAGLINE.value;
 
-        //link one, type one, link two, type two, etc...
         const socialsDataObj = {
           socialOne: {
             company: fullDataGeneral.text.BGG_SM1,
@@ -859,7 +882,6 @@
         // Apply theme, social media, and general message
         applyThemeColors(themeColors);
 
-        // displaySocialMedia(socialsDataObj.socialOne.company, socialsDataObj.socialOne.logo, socialsDataObj.socialTwo.company, socialsDataObj.socialTwo.logo);
         displaySocialMedia(socialsDataObj)
 
         displayGeneralMessage(fullDataGeneral.text.Message);
@@ -874,6 +896,8 @@
             return { ...match, logo1, logo2, reference: key };
           })
         );
+
+        console.log("Da matches: ", matches);
 
         displayMatchData(matches, themeColors);
 

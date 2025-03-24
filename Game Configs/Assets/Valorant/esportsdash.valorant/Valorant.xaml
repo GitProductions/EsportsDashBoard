@@ -1,8 +1,8 @@
 <config>
   <id>esportsdash.valorant</id>
-  <version>1.6</version>
+  <version>1.5</version>
   <name>Valorant</name>
-  <description>Default Game Config</description>
+  <description></description>
   <game>Valorant</game>
   <author>EsportsDash</author>
 
@@ -45,7 +45,6 @@
       <hero name="Reyna" file="Reyna" />
       <hero name="Yoru" file="Yoru" />
       <hero name="Iso" file="Iso" />
-      <hero name="Waylay" file="Waylay" />
     </Duelist>
     <Initiator>
       <hero name="Skye" file="Skye" />
