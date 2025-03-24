@@ -7,8 +7,6 @@
       /* These values can be 'adjusted/changed inside of OBS custom CSS to force certain things' */
 
       --useTeamColors: false;
-      /* --useTeamColors: true; */
-      /* Not woorking yet.. err.. well not implmenetd in the bracket data yet.. */
       --winningScore: 10;
       --useTeamLogos: true;
       --titleText: "Be Right Back!";
@@ -398,7 +396,6 @@
 
     .socials div {
       flex: 1 1 0;
-      /* transform: translateY(500%); */
     }
 
     .socials span:before {
@@ -408,78 +405,56 @@
     .twitter:before {
       font-family: 'FontAwesome';
       content: "\f099"
-        /* twitter logo */
-        /* content:"\f1e8" twitch logo*/
     }
 
     .twitch:before {
       font-family: 'FontAwesome';
       content: "\f1e8"
-        /* twitter logo */
-        /* content:"\f1e8" twitch logo*/
     }
 
     .youtube:before {
       font-family: 'FontAwesome';
       content: "\f167"
-        /* twitter logo */
-        /* content:"\f1e8" twitch logo*/
     }
 
     .bluesky:before {
       font-family: 'FontAwesome';
       content: "\e671"
-        /* twitter logo */
-        /* content:"\f1e8" twitch logo*/
     }
 
     .facebook:before {
       font-family: 'FontAwesome';
       content: "\f39e"
-        /* twitter logo */
-        /* content:"\f1e8" twitch logo*/
     }
 
     .instagram:before {
       font-family: 'FontAwesome';
       content: "\f16d"
-        /* twitter logo */
-        /* content:"\f1e8" twitch logo*/
     }
 
     .x-twitter:before {
       font-family: 'FontAwesome';
       content: "\e61b"
-        /* twitter logo */
-        /* content:"\f1e8" twitch logo*/
     }
 
     .tiktok:before {
       font-family: 'FontAwesome';
       content: "\e07b"
-        /* twitter logo */
-        /* content:"\f1e8" twitch logo*/
     }
 
     .discord:before {
       font-family: 'FontAwesome';
       content: "\f392"
-        /* twitter logo */
-        /* content:"\f1e8" twitch logo*/
     }
 
     .tumblr:before {
       font-family: 'FontAwesome';
       content: "\f173"
-        /* twitter logo */
-        /* content:"\f1e8" twitch logo*/
     }
 
     .meta:before {
       font-family: 'FontAwesome';
       content: "\e49b"
-        /* twitter logo */
-        /* content:"\f1e8" twitch logo*/
     }
 
     .footer {
@@ -489,12 +464,9 @@
       width: 1870px;
       clip-path: polygon(0% 0, 100% 0%, 100% 100%, 0% 100%);
       display: flex;
-      /* YEAH THIS IS HUGE */
       flex-direction: row;
       align-items: center;
-      /* YEAH THIS IS HUGE */
       justify-content: center;
-      /* YEAH THIS IS HUGE */
       padding: 25px;
     }
 
@@ -605,26 +577,6 @@
         console.log('No titleText parameter provided');
       }
     });
-
-
-    // if (active == 0) {
-    //         $('.title').text("Starting Soon");
-    //         $('.todaywrapper').css("display", "flex");
-    //         $('.nextwrapper').css("display", "none");
-    //       } else if (complete < totalmatch) {
-    //         $('.title').text("Be Right Back");
-    //         $('.todaywrapper').css("display", "flex");
-    //         $('.nextwrapper').css("display", "none");
-    //       } else if (complete >= totalmatch) {
-    //         $('.title').text("Thanks for Watching");
-    //         if (complete == allmatch) {
-    //           $('.todaywrapper').css("display", "flex");
-    //           $('.nextwrapper').css("display", "none");
-    //         } else {
-    //           $('.todaywrapper').css("display", "none");
-    //           $('.nextwrapper').css("display", "flex");
-    //         }
-    //       }
 
 
     let blankimage = "iVBORw0KGgoAAAANSUhEUgAAAHAAAABkCAYAAABep7TGAAAABGdBTUEAALGPC/xhBQAAAEJJREFUeF7twQENAAAAwqD3T+1mDiAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAuBqvZAABFEy6BwAAAABJRU5ErkJggg=="
@@ -749,7 +701,6 @@
       for (let i = 1; i <= 8; i++) {
         if (!matches[i-1]) {
             $(`.match${i}`).css("display", "none");
-            // $(`.match${i} .teamlogo1, .match${i} .teamlogo2`).css("display", "none");
         }
     }
 
@@ -775,7 +726,7 @@
           $(`${matchSelector} .matchinfo`).text(details);
     
 
-          // document.documentElement.style.setProperty('--useTeamLogos', useTeamLogos);
+          // This could be its own function to handle team logos..
           const useTeamLogos = getComputedStyle(document.documentElement).getPropertyValue('--useTeamLogos').trim() === 'true';
           if (useTeamLogos) {
             // Handle team1 logo
@@ -855,7 +806,6 @@
       try {
         // Set the background images dynamically
         if (themeLogos.BGG_L1 && themeLogos.BGG_L1.value) {
-          // document.querySelector(".tournament.image1").style.backgroundImage = `url(/${themeLogos.BGG_L1.value})`;
           document.querySelector(".tournament.image1").style.backgroundImage = `url("${themeLogos.BGG_L1.value}")`;
 
         }
@@ -889,7 +839,6 @@
 
         let tagline = fullDataGeneral.text.BGG_TAGLINE.value;
 
-        //link one, type one, link two, type two, etc...
         const socialsDataObj = {
           socialOne: {
             company: fullDataGeneral.text.BGG_SM1,
@@ -904,7 +853,6 @@
         // Apply theme, social media, and general message
         applyThemeColors(themeColors);
 
-        // displaySocialMedia(socialsDataObj.socialOne.profile, socialsDataObj.socialOne.website, socialsDataObj.socialTwo.profile, socialsDataObj.socialTwo.website);
         displaySocialMedia(socialsDataObj)
 
         displayGeneralMessage(fullDataGeneral.text.Message);
