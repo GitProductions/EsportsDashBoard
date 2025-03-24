@@ -1,10 +1,7 @@
 <head>
-  <link
-  rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
-/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
-<!-- appears .wrapper is different -->
+  <!-- appears .wrapper is different -->
   <style>
     :root {
       /* These values can be 'adjusted/changed inside of OBS custom CSS to force certain things' */
@@ -164,7 +161,7 @@
       margin: 0px auto;
       overflow: hidden;
       /* background-color: rgba(0, 0, 0, 255); */
-            /* background-color: 'white'; */
+      /* background-color: 'white'; */
 
       font-family: 'Rajdhani';
     }
@@ -586,28 +583,28 @@
   <script>
     let titleText = 'Starting Soon'
 
-document.addEventListener('DOMContentLoaded', function () {
-  const urlParams = new URLSearchParams(window.location.search);
-  titleText = urlParams.get('titleText');
-  const useTeamLogos = urlParams.get('useTeamLogos');
-  
-  // set css
-  if (useTeamLogos) {
-    document.documentElement.style.setProperty('--useTeamLogos', useTeamLogos);
-  }
+    document.addEventListener('DOMContentLoaded', function () {
+      const urlParams = new URLSearchParams(window.location.search);
+      titleText = urlParams.get('titleText');
+      const useTeamLogos = urlParams.get('useTeamLogos');
 
-  if (titleText) {
-    const titleElement = document.querySelector('.title');
-    if (titleElement) {
-      titleElement.textContent = titleText;
-      console.log('Title updated to:', titleText);
-    } else {
-      console.error('Title element not found');
-    }
-  } else {
-    console.log('No titleText parameter provided');
-  }
-});
+      // set css
+      if (useTeamLogos) {
+        document.documentElement.style.setProperty('--useTeamLogos', useTeamLogos);
+      }
+
+      if (titleText) {
+        const titleElement = document.querySelector('.title');
+        if (titleElement) {
+          titleElement.textContent = titleText;
+          console.log('Title updated to:', titleText);
+        } else {
+          console.error('Title element not found');
+        }
+      } else {
+        console.log('No titleText parameter provided');
+      }
+    });
 
 
     // if (active == 0) {
@@ -747,52 +744,81 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     }
     function displayMatchData(matches, themeColors) {
-    console.log(`Matches: ${JSON.stringify(matches)}`);
+      console.log(`Matches: ${JSON.stringify(matches)}`);
 
-    // Always update title text based on current match states
-    titleText = determineTitleText(matches);
-    $('.title').text(titleText);
+      // Always update title text based on current match states
+      titleText = determineTitleText(matches);
+      $('.title').text(titleText);
 
-    matches.forEach((match, index) => {
+      matches.forEach((match, index) => {
         if (match && match.reference) {
-            let { reference, details, team1, team2 } = match;
+          let { reference, details, team1, team2 } = match;
 
-            const isMatchComplete = match.completed || false;
-            console.log("Is match complete: ", isMatchComplete);
+          const isMatchComplete = match.completed || false;
+          // console.log("Is match complete: ", isMatchComplete);
 
-            let matchSelector = `.match${index + 1}`;
 
-            // Display the match block only if both teams have names
-            $(matchSelector).css("display", team1.name !== '' && team2.name !== '' ? "block" : "none");
+          let matchSelector = `.match${index + 1}`;
 
-            // Set match info and details
-            $(`${matchSelector} .matchinfo`).text(details);
+          // Display the match block only if both teams have names
+          $(matchSelector).css("display", team1?.name !== '' && team2?.name !== '' ? "block" : "none");
 
-            // Update team names
-            $(`${matchSelector} .teamname1`).text(team1.name || "");
-            $(`${matchSelector} .teamname2`).text(team2.name || "");
+          // Set match info and details
+          $(`${matchSelector} .matchinfo`).text(details);
 
-            // Update team scores, displaying "0" if the score is missing
-            $(`${matchSelector} .teamscore1`).text(team1.score ?? 0);
-            $(`${matchSelector} .teamscore2`).text(team2.score ?? 0);
+          // update team logo
+          // $(`${matchSelector} .teamlogo1`).attr("src", team1?.logo || `data:image/png;base64,${blankimage}`);
+          // $(`${matchSelector} .teamlogo2`).attr("src", team2?.logo || `data:image/png;base64,${blankimage}`);
 
-            // Show or hide scorebox based on whether scores are available
-            const hasScores = team1.score > 0 || team2.score > 0;
-            $(`${matchSelector} .scorebox`).css("display", hasScores ? "block" : "none");
+          // $(".teamlogo" + (teamIndex + 1)).attr("src", team[teamIndex].logo);
+          // if useTeamLogo is true, then fetch the image and set it
 
-            // Handle match completion and styling
-            if (isMatchComplete) {
-                if (team1.score > team2.score) {
-                    styleWinningTeam(matchSelector, "team1", themeColors);
-                } else if (team2.score > team1.score) {
-                    styleWinningTeam(matchSelector, "team2", themeColors);
-                }
+          // document.documentElement.style.setProperty('--useTeamLogos', useTeamLogos);
+          const useTeamLogos = getComputedStyle(document.documentElement).getPropertyValue('--useTeamLogos').trim() === 'true';
+          if (useTeamLogos) {
+            // Handle team1 logo
+            if (team1?.logo && team1.logo !== blankimage) {
+              $(`${matchSelector} .teamlogo1`).css("display", "inherit");
+              $(`${matchSelector} .teamlogo1`).attr("src", team1.logo);
             } else {
-                resetMatchStyling(matchSelector, themeColors);
+              $(`${matchSelector} .teamlogo1`).css("display", "none");
             }
+
+            // Handle team2 logo
+            if (team2?.logo && team2.logo !== blankimage) {
+              $(`${matchSelector} .teamlogo2`).css("display", "inherit");
+              $(`${matchSelector} .teamlogo2`).attr("src", team2.logo);
+            } else {
+              $(`${matchSelector} .teamlogo2`).css("display", "none");
+            }
+          }
+
+
+          // Update team names
+          $(`${matchSelector} .teamname1`).text(team1?.name || "");
+          $(`${matchSelector} .teamname2`).text(team2?.name || "");
+
+          // Update team scores, displaying "0" if the score is missing
+          $(`${matchSelector} .teamscore1`).text(team1?.score ?? 0);
+          $(`${matchSelector} .teamscore2`).text(team2?.score ?? 0);
+
+          // Show or hide scorebox based on whether scores are available
+          const hasScores = team1?.score > 0 || team2?.score > 0;
+          $(`${matchSelector} .scorebox`).css("display", hasScores ? "block" : "none");
+
+          // Handle match completion and styling
+          if (isMatchComplete) {
+            if (team1?.score > team2?.score) {
+              styleWinningTeam(matchSelector, "team1", themeColors);
+            } else if (team2?.score > team1?.score) {
+              styleWinningTeam(matchSelector, "team2", themeColors);
+            }
+          } else {
+            resetMatchStyling(matchSelector, themeColors);
+          }
         }
-    });
-}
+      });
+    }
 
 
     // Reset styling function
@@ -850,8 +876,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
         let bracketData = await fetchJson(`http://localhost:8080/api/get-bracket`);
 
-        setDynamicBackgroundImages(themeLogos);
 
+        // checking to make sure its compatible app version with new changes..
+        if (fullDataJson.appVersion >= "0.6.0") {
+          bracketData = bracketData.forLivePreview
+        }
+
+
+        setDynamicBackgroundImages(themeLogos);
 
         let tagline = fullDataGeneral.text.BGG_TAGLINE.value;
 
@@ -886,6 +918,8 @@ document.addEventListener('DOMContentLoaded', function () {
           })
         );
 
+        console.log("Da matches: ", matches);
+
         displayMatchData(matches, themeColors);
 
         async function setTagline() {
@@ -901,7 +935,7 @@ document.addEventListener('DOMContentLoaded', function () {
         console.error("Error updating page content:", error);
       }
     }
-    
+
 
     setInterval(updatePageContent, 3000);
     // Initial load
