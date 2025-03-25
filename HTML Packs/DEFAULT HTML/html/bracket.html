@@ -282,7 +282,11 @@
       // Populate teams array with bracket data
       Object.values(bracketData).forEach(match => {
         ['team1', 'team2'].forEach(teamKey => {
-          if (match[teamKey].name !== "TBA") {
+          // if no teamkey.name then make it tba
+
+          console.log("The team", match[teamKey]);
+          
+          if (match[teamKey] && match[teamKey]?.name !== "" ) {
             teams.push(new Team(match[teamKey].name, match[teamKey].logo, match[teamKey].score));
           }
         });

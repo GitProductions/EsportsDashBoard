@@ -292,7 +292,7 @@
 
       Object.values(bracketData).forEach(match => {
         ['team1', 'team2'].forEach(teamKey => {
-          if (match[teamKey].name !== "TBA") {
+          if (match[teamKey] && match[teamKey].name !== "TBA") {
             teams.push(new Team(match[teamKey].name, match[teamKey].logo, match[teamKey].score));
           }
         });
