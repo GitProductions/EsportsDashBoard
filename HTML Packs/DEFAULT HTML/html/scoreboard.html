@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 
@@ -33,7 +34,7 @@ Available Styles:
 
       --teamLeftTextNameAlign: left;
       --teamRightTextNameAlign: right;
-      
+
       --teamLeftInnerPadding: 0px;
       --teamRightInnerPadding: 0px;
 
@@ -45,7 +46,7 @@ Available Styles:
 
       --teamRightBorderLeft: 7px solid #27AAE1;
       --teamRightBorderRight: 0px solid #C80013;
-      
+
       --teamLeftClipPath: polygon(0);
       --teamRightClipPath: polygon(0);
 
@@ -68,8 +69,7 @@ Available Styles:
       --arrowLeftInvertedClipPath: polygon(100% 0, 93% 50%, 100% 100%, 0 100%, 0% 50%, 0 0);
       --arrowRightInvertedClipPath: polygon(100% 0, 100% 50%, 100% 100%, 0% 100%, 7% 50%, 0% 0%);
 
-      --arrowDoubleSideClipPath:  polygon(93% 0, 100% 50%, 93% 99%, 7% 99%, 0% 50%, 7% 0)
-
+      --arrowDoubleSideClipPath: polygon(93% 0, 100% 50%, 93% 99%, 7% 99%, 0% 50%, 7% 0)
     }
 
     /* Game-specific positioning */
@@ -516,7 +516,7 @@ Available Styles:
       position: fixed;
       top: var(--middleTopPosition);
       left: 50%;
-      transform: translateX(-50%) ;
+      transform: translateX(-50%);
       width: var(--middleWidth);
       display: block;
     }
@@ -644,6 +644,12 @@ Available Styles:
       let fullJson = await fetch(`http://localhost:8080/getFullJson`);
       fullJson = await fullJson.json();
 
+      // if appversion is less than 0.6.0 then we need to return an error screen for user.. that just says upload the main app..
+      // if (fullJson.appVersion < "0.6.0") {
+      //   document.body.innerHTML = "<h1 style='color: white; text-align: center; margin-top: 50vh;'>Please update the main app to use this overlay</h1>";
+      //   return;
+      // }
+
       let inputJson = fullJson.general;
       let themeColors = inputJson.color;
       let themeLogos = inputJson.file;
@@ -681,21 +687,21 @@ Available Styles:
           } else {
             body.classList.add('marvelNonDomination');
           }
-        }
-
-        if (currentGame === 'Overwatch') {
+          return;
+        } else if (currentGame === 'Overwatch') {
           body.classList.add('overWatchPositions');
-        }
-
-        if (currentGame === 'Valorant') {
+          return;
+        } else if (currentGame === 'Valorant') {
           body.classList.add('valorantPositions');
-          // body.classList.add('smashPositions');
-        }
-
-        if (currentGame === 'Smash Ultimate') {
+          return;
+        } else if (currentGame === 'Smash Ultimate') {
           body.classList.add('smashPositions');
+          return;
+        } else {
+          body.classList.add('overWatchPositions');
+          return;
         }
-      };
+      }
 
       setOverlayPosition(fullJson.maps.mapData);
 
@@ -717,22 +723,12 @@ Available Styles:
       let mapcounter = 1;
       let teamcolor = 1; // Set to 0 for default blue/red team colors, 1 to import from scoreboard
 
-      // Determine the Match Format, Best of 5, First to 3 etc - formerly utility9.txt
-      let completeMatchFormat = fullJson.matchFormat + fullJson.maps.totalMaps;
 
-      // console.log(`match format: ${completeMatchFormat}`);
+      let matchFormatCount = fullJson.matchFormat.target
+      let matchFormatType = fullJson.matchFormat?.formatType?.toLowerCase()
 
-      // console.log(`all maps: ${allmaps}`);
-      let gametype = null;
-      if (completeMatchFormat.match(/bo/gi) != null || completeMatchFormat.match(/best of/gi) != null) {
-        gametype = "bo";
-        completeMatchFormat = completeMatchFormat.replace(/\n/gi, "").replace(/\r/gi, "").replace(/bo/gi, "").replace(/best of/gi, "");
-        completeMatchFormat = parseInt(completeMatchFormat, 10);
-      } else if (completeMatchFormat.match(/ft/gi) != null || completeMatchFormat.match(/first to/gi) != null) {
-        gametype = "ft";
-        completeMatchFormat = completeMatchFormat.replace(/\n/gi, "").replace(/\r/gi, "").replace(/ft/gi, "").replace(/first to/gi, "");
-        completeMatchFormat = parseInt(completeMatchFormat, 10);
-      }
+      console.log("Complete Match Format: ", matchFormatCount);
+      console.log("Game Type: ", matchFormatType);
 
       // CENTER TEXT
       // Get mutual info text
@@ -760,7 +756,10 @@ Available Styles:
 
       // Get map count
       if (mapcounter >= 1) {
-        let totalmap = fullJson.maps.mapData.length;
+        // lets filter totalMaps to remove any maps that are 'hidden'
+
+        let totalmap = fullJson.maps.mapData.filter((map) => !map.hidden).length;
+
         let completedmap = 0;
         for (let m = 0; m < fullJson.maps.mapData.length; ++m) {
           let mapData = fullJson.maps.mapData[m];
@@ -773,6 +772,11 @@ Available Styles:
 
         const isTiebreaker = (team1Wins === team2Wins) && (completedmap === totalmap - 1);
 
+        console.log("is it a tiebreaker? ", isTiebreaker);
+        console.log("why not working? ", team1Wins, team2Wins, completedmap, totalmap);
+
+        // what about total maps that dont have hidden=true
+
 
         if (mapcounter == 1) {
           if (completedmap >= totalmap) {
@@ -781,10 +785,10 @@ Available Styles:
             if (isTiebreaker) {
               $('.center .matchtext').html("<b>Tiebreaker </b>Map");
             } else {
-              if (gametype == "bo") {
-                $('.center .matchtext').html("Map <b>" + (completedmap + 1) + "</b> of <b>" + (completeMatchFormat) + "</b>");
-              } else if (gametype == "ft") {
-                $('.center .matchtext').html("Map <b>" + (completedmap + 1) + "</b> - First to <b>" + (completeMatchFormat) + "</b>");
+              if (matchFormatType == "bo") {
+                $('.center .matchtext').html("Map <b>" + (completedmap + 1) + "</b> of <b>" + (matchFormatCount) + "</b>");
+              } else if (matchFormatType == "ft") {
+                $('.center .matchtext').html("Map <b>" + (completedmap + 1) + "</b> - First to <b>" + (matchFormatCount) + "</b>");
               } else {
                 $('.center .matchtext').html("Map <b>" + (completedmap + 1) + "</b>");
               }
@@ -796,13 +800,14 @@ Available Styles:
           let divisionnumbertxt = fullJson.matchDivision;
           divisionnumbertxt = divisionnumbertxt.replace(/\n/gi, "").replace(/\r/gi, "");
           if (divisionnumbertxt == "") {
+
             if (completedmap >= totalmap) {
               $('.center .matchtext').html("<b>Final</b> Score");
             } else {
               if (isTiebreaker) {
                 $('.center .matchtext').html("<b>Tiebreaker </b>Map");
               } else {
-                $('.center .matchtext').html("Map <b>" + (completedmap + 1) + "</b> of <b>" + (completeMatchFormat) + "</b>");
+                $('.center .matchtext').html("Map <b>" + (completedmap + 1) + "</b> of <b>" + (matchFormatCount) + "</b>");
               }
             }
           } else {
@@ -813,7 +818,7 @@ Available Styles:
             }
           }
         }
-        console.log(`all maps: ${completeMatchFormat}, completed maps: ${completedmap}`);
+        console.log(`all maps: ${matchFormatCount}, completed maps: ${completedmap}`);
       }
 
 
@@ -948,7 +953,7 @@ Available Styles:
           // Update the mask image with the fetched icon
           document.querySelector(`#team${teamIndex + 1}side span`).style.webkitMaskImage = `url(data:image/png;base64,${btoa(str)})`;
         } catch (error) {
-          console.error('Error fetching team side icon:', error);
+          // console.error('Error fetching team side icon:', error);
         }
       }
 
