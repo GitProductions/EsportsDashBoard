@@ -516,6 +516,7 @@ body {
 
   
 div.tagline {
+  text-align: center;
   min-width: 375px;
   animation: tagline .5s;
   animation-fill-mode: backwards;
