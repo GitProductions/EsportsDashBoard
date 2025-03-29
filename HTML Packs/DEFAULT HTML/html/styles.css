@@ -294,7 +294,7 @@ body {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     padding: 25px;
   }
 
@@ -533,6 +533,7 @@ span.tertiary {
   padding: 3px 15px 2px 15px;
   border-width: 0px 6px 0px 6px;
   background-color: rgb(255, 255, 255);
+  display: block;
 }
 
 div.stingerlogo {
