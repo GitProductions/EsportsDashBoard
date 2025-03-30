@@ -200,6 +200,11 @@
 	</style>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script>
+
+		const urlParams = new URLSearchParams(window.location.search);
+		const useTeamColors = urlParams.get('useTeamColors') !=='false';
+
+
 		function calculateGrid(totalPlayers) {
 			// Default to 4 players per row
 			let playersPerRow = 4;
@@ -291,7 +296,6 @@
 					};
 
 					let t1colortxt = teamData.teamColor;
-					$('div.top').css('border-color', t1colortxt);
 
 					// Apply team data
 					document.querySelector('.teamname').textContent = teamData.teamName;
@@ -333,15 +337,23 @@
 						playersGrid.appendChild(playerElement);
 					});
 
-					$('div.player-role').css('border-color', colors.tertiary);
-
 					$('div.player-info').css('background-color', colors.primary);
 					$('div.player-info').css('color', colors.secondary);
-					$('div.player-info').css('border-color', colors.tertiary);
 
 					$('div.top').css('background-color', colors.primary);
 					$('div.top').css('color', colors.secondary);
 
+					if (useTeamColors) {
+						$('div.player-info').css('border-color', t1colortxt);
+						$('div.player-role').css('border-color', t1colortxt);
+						$('div.top').css('border-color', t1colortxt);
+					} else {
+						$('div.player-info').css('border-color', colors.tertiary);
+						$('div.player-role').css('border-color', colors.tertiary);
+
+						$('div.top').css('border-color', colors.tertiary);
+					}
+		
 					isInitialLoad = false; // Reset initial load flag after the first update
 				}
 			}
