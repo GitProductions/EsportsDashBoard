@@ -1,11 +1,11 @@
 <config>
   <id>esportsdash.marvelrivals</id>
-  <version>1.6</version>
+  <version>1.7</version>
   <name>Marvel Rivals</name>
-  <description>Season 1.6</description>
+  <description>Season 1.5</description>
   <game>Marvel Rivals</game>
   <author>EsportsDash</author>
-  <gamelogo>Official_Logo_29</gamelogo>
+  <gamelogo>Marvel Rivals</gamelogo>
 
   <maps>
     <map name="Birnin t challa" file="Birnin-t-challa" />
@@ -21,9 +21,9 @@
   </maps>
 
   <modes>
-    <mode name="Convergence" file="Official_Logo_29" />
-    <mode name="Convoy" file="Official_Logo_29" />
-    <mode name="Domination" file="Official_Logo_29" />
+    <mode name="Convergence" file="Convergence" />
+    <mode name="Convoy" file="Convoy" />
+    <mode name="Domination" file="Domination" />
 
   </modes>
 

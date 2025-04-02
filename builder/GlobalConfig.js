@@ -189,11 +189,11 @@ export const configurations = {
                 id: "esportsdash.marvelrivals",
                 name: "Marvel Rivals",
                 author: "EsportsDash",
-                version: "1.6",
+                version: "1.7",
                 image: "Game Configs/Marvel Rivals/Marvel Rivals.webp",
                 description: "Season 1.5",
                 folderPath: "Game Configs/Marvel Rivals",
-                fileName: "esportsdash.marvelrivals_v1.6.bgg"
+                fileName: "esportsdash.marvelrivals_v1.7.bgg"
             }
         ],
 
