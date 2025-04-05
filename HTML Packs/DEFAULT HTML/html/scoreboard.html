@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 
@@ -54,6 +53,7 @@ Available Styles:
       --teamRightBackgroundImage: linear-gradient(90deg, rgb(255, 255, 255) 0%, rgb(255, 255, 255) 100%);
 
       --middleTopPosition: 8px;
+      --middleLeftPosition: 50%;
       --middleWidth: 250px;
       --middleHeight: 35px;
       --middleTextSize: 1.5em;
@@ -70,6 +70,16 @@ Available Styles:
       --arrowRightInvertedClipPath: polygon(100% 0, 100% 50%, 100% 100%, 0% 100%, 7% 50%, 0% 0%);
 
       --arrowDoubleSideClipPath: polygon(93% 0, 100% 50%, 93% 99%, 7% 99%, 0% 50%, 7% 0)
+    }
+
+    .defaultPositions{
+      --teamBoxWidth: 685px;
+      --teamBoxHeight: 46px;
+      --teamTopPosition: 13px;
+      --teamSideOffset: 0px;
+      --middleTopPosition: 8px;
+      --skew-angle-positive: 0deg;
+      --skew-angle-negative: 0deg;
     }
 
     /* Game-specific positioning */
@@ -376,6 +386,8 @@ Available Styles:
       /* --teamRightClipPath: polygon(100% 0, 100% 49%, 100% 100%, 7% 100%, 0 50%, 7% 0); */
     }
 
+    
+
 
 
     @font-face {
@@ -515,7 +527,8 @@ Available Styles:
     .center {
       position: fixed;
       top: var(--middleTopPosition);
-      left: 50%;
+      /* left: 50%; */
+      left: var(--middleLeftPosition);
       transform: translateX(-50%);
       width: var(--middleWidth);
       display: block;
@@ -640,15 +653,80 @@ Available Styles:
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <!-- import bootstrap-css -->
   <script>
+    const allOverlayStyles = [
+      "defaultPositions",
+      "marvelPositions",
+      "marvelDomination",
+      "marvelNonDomination",
+      "overWatchPositions",
+      "valorantPositions",
+      "valorantPositions2",
+      "valorantPositions3",
+      "valorantPositions4",
+      "valorantPositions5",
+      "smashPositions"
+    ];
+
+    let RUNNING = false
+
+    // Shared function to apply game-specific styles
+    function applyGameStyles(currentGame, currentMode) {
+      // Remove all game-specific classes
+      removePreviousStyleClass();
+      
+      // Get the stored style preference
+      const overlayStyle = window.selectedOverlayStyle || '';
+      const body = document.querySelector('body');
+
+      // Apply appropriate classes based on game and mode
+      if (currentGame === 'Marvel Rivals' || currentGame === "Marvel") {
+        body.classList.add('marvelPositions');
+        if (currentMode === 'Domination') {
+          body.classList.add('marvelDomination');
+        } else {
+          body.classList.add('marvelNonDomination');
+        }
+      } else if (currentGame === 'Overwatch') {
+        body.classList.add(`overWatchPositions${overlayStyle}`);
+      } else if (currentGame === 'Valorant') {
+        if (overlayStyle && !isNaN(overlayStyle) && parseInt(overlayStyle) > 0 && parseInt(overlayStyle) <= 5) {
+          body.classList.add(`valorantPositions${overlayStyle}`);
+        } else {
+          body.classList.add('valorantPositions');
+        }
+      } else if (currentGame === 'Smash Ultimate' || currentGame === 'Smash Bros') {
+        body.classList.add('smashPositions');
+      } else {
+        body.classList.add('defaultPositions');
+      }
+    }
+
+    const applyInitialStyle = (currentGame) => {
+      // Lets figure out what style user wants from URL parameters
+      const urlParams = new URLSearchParams(window.location.search);
+      const overlayStyle = urlParams.get('style') || '';
+
+      console.log("Initial Overlay Style Chosen: ", overlayStyle);
+      
+      // Store the style preference in a variable that persists across intervals
+      window.selectedOverlayStyle = overlayStyle;
+
+      // Apply the styles using the shared function (no specific mode yet)
+      applyGameStyles(currentGame, '');
+
+      RUNNING = true;
+    };
+
     async function interval() {
       let fullJson = await fetch(`http://localhost:8080/getFullJson`);
       fullJson = await fullJson.json();
 
-      // if appversion is less than 0.6.0 then we need to return an error screen for user.. that just says upload the main app..
-      // if (fullJson.appVersion < "0.6.0") {
-      //   document.body.innerHTML = "<h1 style='color: white; text-align: center; margin-top: 50vh;'>Please update the main app to use this overlay</h1>";
-      //   return;
-      // }
+      if (!RUNNING) {
+        console.log("Running Overlay...");
+        applyInitialStyle(fullJson.currentGame);
+      }
+
+
 
       let inputJson = fullJson.general;
       let themeColors = inputJson.color;
@@ -667,6 +745,7 @@ Available Styles:
 
 
       const setOverlayPosition = (mapData) => {
+        // Find the first incomplete map
         for (let i = 0; i < fullJson.maps.mapData.length; i++) {
           if (!fullJson.maps.mapData[i].completed) {
             currentMap = fullJson.maps.mapData[i];
@@ -674,33 +753,16 @@ Available Styles:
           }
         }
 
-        let currentMode = currentMap.selectedMode;
-        let body = document.querySelector('body');
-
-        // Remove all game-specific classes
-        body.classList.remove('marvelPositions', 'marvelDomination', 'marvelNonDomination', 'overWatchPositions', 'valorantPositions', 'smashPositions');
-
-        if (currentGame === 'Marvel Rivals') {
-          body.classList.add('marvelPositions');
-          if (currentMode === 'Domination') {
-            body.classList.add('marvelDomination');
-          } else {
-            body.classList.add('marvelNonDomination');
-          }
-          return;
-        } else if (currentGame === 'Overwatch') {
-          body.classList.add('overWatchPositions');
-          return;
-        } else if (currentGame === 'Valorant') {
-          body.classList.add('valorantPositions');
-          return;
-        } else if (currentGame === 'Smash Ultimate') {
-          body.classList.add('smashPositions');
-          return;
-        } else {
-          body.classList.add('overWatchPositions');
-          return;
+        // If no incomplete map was found, try to use the last map
+        if (!currentMap && fullJson.maps.mapData.length > 0) {
+          currentMap = fullJson.maps.mapData[fullJson.maps.mapData.length - 1];
         }
+
+        // Get the current mode safely
+        let currentMode = currentMap?.selectedMode || '';
+        
+        // Apply the styles using the shared function with the current mode
+        applyGameStyles(currentGame, currentMode);
       }
 
       setOverlayPosition(fullJson.maps.mapData);
@@ -974,6 +1036,7 @@ Available Styles:
     }
 
     $(() => {
+
       interval();
       setInterval(interval, 3000);
     });
