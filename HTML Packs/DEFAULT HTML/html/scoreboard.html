@@ -669,6 +669,15 @@ Available Styles:
 
     let RUNNING = false
 
+
+    function removePreviousStyleClass() {
+      // Remove all game-specific classes
+      // body.classList.remove('marvelPositions', 'marvelDomination', 'marvelNonDomination', 'overWatchPositions', 'valorantPositions', 'smashPositions', 'defaultPositions');
+      allOverlayStyles.forEach(style => {
+        document.body.classList.remove(style);
+      });
+    }
+
     // Shared function to apply game-specific styles
     function applyGameStyles(currentGame, currentMode) {
       // Remove all game-specific classes
