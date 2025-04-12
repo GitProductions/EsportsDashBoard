@@ -1,17 +1,38 @@
 <config>
   <id>esportsdash.marvelrivals</id>
-  <version>1.7</version>
+  <version>2.0</version>
   <name>Marvel Rivals</name>
-  <description>Season 1.5</description>
+  <description>Season 2</description>
   <game>Marvel Rivals</game>
   <author>EsportsDash</author>
   <gamelogo>Marvel Rivals</gamelogo>
+
+
+<!-- convergence -->
+<!-- Central Park
+Hall of Djalia
+Symbiotic Surface
+Shin-Shibuya -->
+
+
+<!-- Convoy -->
+<!-- Midtown
+Spider-Islands
+Yggdrasill Path -->
+
+<!-- Domination -->
+<!-- Birnin-t-challa
+Hells Heaven
+Royal Palace
+Krakoa -->
+
 
   <maps>
     <map name="Birnin t challa" file="Birnin-t-challa" />
     <map name="Central Park" file="Central_Park" />
     <map name="Hall of Djalia" file="Djalia_Hall" />
     <map name="Hells Heaven" file="Hells_Heaven" />
+    <map name="Krakoa" file="Krakoa" />
     <map name="Midtown" file="Midtown" />
     <map name="Royal Palace" file="Royal_Palace" />
     <map name="Shin Shibuya" file="Shin-Shibuya" />
@@ -37,6 +58,7 @@
     <Vanguard>
       <hero name="Captain America" file="Captain_America_Hero_Portrait" />
       <hero name="Doctor Strange" file="Doctor_Strange_Hero_Portrait" />
+      <hero name="Emma Frost" file="Emma_Frost_Hero_Portrait" />
       <hero name="Groot" file="Groot_Hero_Portrait" />
       <hero name="Hulk" file="Hulk_Hero_Portrait" />
       <hero name="Magneto" file="Magneto_Hero_Portrait" />
