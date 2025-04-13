@@ -1,5 +1,14 @@
+<!DOCTYPE html>
+<html>
+
+<!-- URL PARAMS
+showlogo: true/false
+
+// seem to have an issue with webp logos???
+team: 1/2 - setting this param replaces default logo with team logo instead 
+-->
+
 <head>
-	<link rel="stylesheet" href="styles.css" />
   <style>
     @font-face {
       font-family: 'Rajdhani';
@@ -13,19 +22,7 @@
       font-weight: normal;
     }
 
-    @-webkit-keyframes leftmove {
-      from {
-        transform: translate(50%, 0%); /* skewX(-15deg); */
-        clip-path: polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%);
-      }
-
-      to {
-        transform: translate(0%, 0%); /* skewX(-15deg); */
-        clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
-      }
-    }
-
-    @-webkit-keyframes leftmoveimg {
+    @keyframes leftmove {
       from {
         transform: translate(50%, 0%);
         clip-path: polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%);
@@ -43,79 +40,108 @@
       background-color: rgba(0, 0, 0, 0);
     }
 
-    video {
-      width: 1920px;
-      height: 1080px;
-      object-fit: cover;
-    }
-
     div.replay {
       width: 100%;
       height: 100%;
     }
 
-    img {
-      max-width: 150px;
-      padding-bottom: 20px;
-      padding-left: 10px;
-      padding-right: 10px;
+    /* Main replaytext container */
+    div.replaytext {
+      position: absolute;
+      top: 185px;
+      left: 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 3em;
+    }
 
-      animation: leftmoveimg 1s;
+    /* Common styles for all divs inside replaytext */
+    div.replaytext div {
+      background-color: #000000;
+      border-style: solid;
+      border-width: 0px 0px 0px 7px;
+      border-color: #8cba11;
+      font-family: 'Rajdhani';
+      font-weight: bold;
+      padding: 5px;
+      text-transform: uppercase;
+      color: white;
+
+      animation: leftmove 1s;
       animation-fill-mode: backwards;
       animation-delay: 1.5s;
-      -webkit-animation-timing-function: cubic-bezier(0, 0, 0, 1);
+      animation-timing-function: cubic-bezier(0, 0, 0, 1);
+    }
+
+    /* Logo-specific styles */
+    .replaytext div.logo {
+      width: 205px;
+      height: 145px;
+      box-sizing: border-box;
+      background-size: 80% auto;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-origin: content-box;
+      background-color: rgb(247, 247, 247) !important;
+      padding: 10px;
+    }
+
+    /* Text span styles */
+    div.replaytext span {
+      margin: 20px;
+      position: relative;
+      top: 1px;
+      height: 100%;
     }
   </style>
   <script src="scripts/jquery/jquery-3.3.1.min.js"></script>
   <script>
+
+    let team = null;
+
+    async function analyzeParams() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const showlogo = urlParams.get('showlogo') !== 'false';
+      team = urlParams.get('team')
+
+      if (showlogo) {
+        $(".logo").css("display", "block");
+      } else {
+        $(".logo").css("display", "none");
+      }
+    }
+
     async function interval() {
       let fullJson = await fetch(`http://localhost:8080/getFullJson`);
       fullJson = await fullJson.json();
 
-      //Get constant theme data
+      // Get constant theme data
       let themeColors = fullJson.general.color;
-      let colortheme1txt = themeColors.BGG_C1.value
+      let colortheme1txt = themeColors.BGG_C1.value;
       let colortheme2txt = themeColors.BGG_C2.value;
       let colortheme3txt = themeColors.BGG_C3.value;
 
-      //Set theme colors
-      $('div.replaytext div').css("border-color", (colortheme3txt));
-      $('div.replaytext div').css("color", (colortheme2txt));
-      $('div.replaytext div').css("background-color", (colortheme1txt));
+      // Set theme colors
+      $('div.replaytext div').css("border-color", colortheme3txt);
+      $('div.replaytext div').css("color", colortheme2txt);
+      $('div.replaytext div').css("background-color", colortheme1txt);
 
-      //  here is where we need to fetch the video url from the server.. but replay tab is not complete yet
+      // $(".logo").css("background-color", "rgb(247, 247, 247)");
 
-      let replaysrc = await fetch('../scoreboard/replay/replaypath.txt');
-      replaysrc = await replaysrc.text();
-      let video = "../scoreboard/replay/playlist/" + (replaysrc).replace("\u00fa", "u").replace("\u00f6", "o").replace(":", "");
-      let node1 = $(".replay1 video");
-      let node2 = $(".replay2 video");
-      if (flip == 1) {
-        if (node2.attr("src") != video) {
-          node1.attr("src", video);
-          setTimeout(function() {
-            node1.css("display", "block");
-            node2.css("display", "none");
-          }, 250);
-          flip = 2;
-        }
-      } else if (flip == 2) {
-        if (node1.attr("src") != video) {
-          node2.attr("src", video);
-          setTimeout(function() {
-            node2.css("display", "block");
-            node1.css("display", "none");
-          }, 250);
-          flip = 1;
-        }
+      // Set logo background image
+      if (team) {
+        $(".logo").css("background-image", `url(${fullJson.teams[`team${team}`].teamLogoUrl})`);
+      } else {
+        $(".logo").css("background-image", `url(${fullJson.general.file.BGG_L1.value})`);
       }
-
-      // Setting "Branding" logo
-      $(".logo").attr("src", fullJson.general.file.BGG_L1.value);
     }
 
     $(() => {
-      flip = 1
+      analyzeParams();
+
       interval();
       setInterval(interval, 1000);
     });
@@ -123,9 +149,10 @@
 </head>
 
 <body>
-  <div class="replay1"><video autoplay muted loop></video></div>
-  <div class="replay2"><video autoplay muted loop></video></div>
-  <div class="replaytext"><img class="logo"></img>
+  <div class="replaytext">
+    <div class="logo"></div>
     <div><span>replay</span></div>
   </div>
 </body>
+
+</html>
