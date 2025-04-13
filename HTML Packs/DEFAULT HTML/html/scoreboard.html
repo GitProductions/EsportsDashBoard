@@ -27,13 +27,16 @@ Available Styles:
 
   <style>
     :root {
-      --scoreSize: 3em;
+      --scoreSize: 3em; 
       --teamLogoSize: 45px;
       --teamNameSize: 1.3em;
+      --teamNameInnerPadding: 10px;
 
+      
       --teamLeftTextNameAlign: left;
       --teamRightTextNameAlign: right;
 
+      /* team paddings could be turned into a single since we should have identical on both sides? */
       --teamLeftInnerPadding: 0px;
       --teamRightInnerPadding: 0px;
 
@@ -88,20 +91,22 @@ Available Styles:
       --middleTopPosition: 3px;
       --skew-angle-positive: 15deg;
       --skew-angle-negative: -15deg;
-      --teamLeftOuterPadding: 10px;
-      --teamRightOuterPadding: 10px;
+      --teamLeftOuterPadding: 8px;
+      --teamRightOuterPadding: 8px;
+      --teamNameInnerPadding: 20px;
+
     }
 
     .marvelDomination {
       --teamBoxWidth: 570px;
       --teamTopPosition: 4px;
-      --teamSideOffset: 10px;
+      --teamSideOffset: 15px;
     }
 
     .marvelNonDomination {
-      --teamBoxWidth: 495px;
+      --teamBoxWidth: 510px;
       --teamTopPosition: 31px;
-      --teamSideOffset: 6px;
+      --teamSideOffset: 15px;
 
     }
 
@@ -135,6 +140,8 @@ Available Styles:
 
       --skew-angle-positive: 0deg;
       --skew-angle-negative: 0deg;
+
+      --middleTextSize: 1.1em;
 
 
       /* clip is doing < inverted */
@@ -386,7 +393,7 @@ Available Styles:
       /* --teamRightClipPath: polygon(100% 0, 100% 49%, 100% 100%, 7% 100%, 0 50%, 7% 0); */
     }
 
-    
+
 
 
 
@@ -411,14 +418,16 @@ Available Styles:
       /* background-image: url('https://interfaceingame.com/wp-content/uploads/valorant/valorant-defusing.png'); */
 
       /* smash bro */
-      background-image: url('https://cdn.discordapp.com/attachments/1343355429383831624/1343358179043704832/smash_bro_ultimate_example.png?ex=67bcfb4c&is=67bba9cc&hm=a3f6b4cff4e69686b8dd56a1658648b2bbab435d94bc01a4c588e78d02eb9710&');
+      /* background-image: url('https://cdn.discordapp.com/attachments/1343355429383831624/1343358179043704832/smash_bro_ultimate_example.png?ex=67bcfb4c&is=67bba9cc&hm=a3f6b4cff4e69686b8dd56a1658648b2bbab435d94bc01a4c588e78d02eb9710&');
       background-size: cover;
-      background-repeat: no-repeat;
+      background-repeat: no-repeat; */
       display: flex;
       justify-content: center;
       align-items: flex-start;
       min-height: 100vh;
       margin: 0;
+
+
     }
 
     .left {
@@ -461,7 +470,9 @@ Available Styles:
       clip-path: var(--teamRightClipPath);
 
       padding-right: var(--teamRightOuterPadding);
-      padding-left: var(--teamRightInnerPadding)
+      padding-left: var(--teamRightInnerPadding);
+            /* transform: skew(calc(-1 * var(--skew-angle-positive))); */
+
     }
 
 
@@ -470,13 +481,18 @@ Available Styles:
       align-items: center;
       width: 100%;
       height: 100%;
-      transform: skew(calc(-1 * var(--skew-angle-positive)));
+      /* transform: skew(calc(-1 * var(--skew-angle-positive))); */
     }
 
     .right .team-inner {
       flex-direction: row-reverse;
-      transform: skew(calc(-1 * var(--skew-angle-negative)));
+      /* transform: skew(calc(-1 * var(--skew-angle-negative))); */
     }
+
+    /* .left .team-inner {
+      flex-direction: row;
+      transform: skew(calc(-1 * var(--skew-angle-positive)));
+    } */
 
     .logo {
       width: var(--teamLogoSize);
@@ -489,12 +505,24 @@ Available Styles:
       /* Don’t exceed parent height */
     }
 
+    .team1 .logo {
+      transform: skew(calc(-1 * var(--skew-angle-positive)));
+    }
+
+    .team2 .logo {
+      transform: skew(calc(-1 * var(--skew-angle-negative)));
+    }
+
     .team1 .teamname {
-      text-align: var(--teamLeftTextNameAlign)
+      text-align: var(--teamLeftTextNameAlign);
+      transform: skew(calc(-1 * var(--skew-angle-positive)));
+      padding: 0 var(--teamNameInnerPadding) 0 var(--teamNameInnerPadding);
     }
 
     .team2 .teamname {
-      text-align: var(--teamRightTextNameAlign)
+      text-align: var(--teamRightTextNameAlign);
+      padding: 0 var(--teamNameInnerPadding) 0 var(--teamNameInnerPadding);
+      transform: skew(calc(-1 * var(--skew-angle-negative)));
     }
 
     .teamname {
@@ -521,6 +549,15 @@ Available Styles:
       line-height: calc(var(--teamBoxHeight) + 3px);
       /* Match container height */
       /* max-height: 100%; */
+    }
+
+
+    .team1 .score {
+      transform: skew(calc(-1 * var(--skew-angle-positive)));
+    }
+
+    .team2 .score {
+      transform: skew(calc(-1 * var(--skew-angle-negative)));
     }
 
     /* Center Match Info */
@@ -646,7 +683,7 @@ Available Styles:
       <span class="teamname" id="team2name"></span>
       <span class="logo" id="team2logo"></span>
       <span class="score" id="team2score"></span>
-
+      <!--  -->
     </div>
   </div>
 
@@ -682,7 +719,7 @@ Available Styles:
     function applyGameStyles(currentGame, currentMode) {
       // Remove all game-specific classes
       removePreviousStyleClass();
-      
+
       // Get the stored style preference
       const overlayStyle = window.selectedOverlayStyle || '';
       const body = document.querySelector('body');
@@ -716,7 +753,7 @@ Available Styles:
       const overlayStyle = urlParams.get('style') || '';
 
       console.log("Initial Overlay Style Chosen: ", overlayStyle);
-      
+
       // Store the style preference in a variable that persists across intervals
       window.selectedOverlayStyle = overlayStyle;
 
@@ -769,7 +806,7 @@ Available Styles:
 
         // Get the current mode safely
         let currentMode = currentMap?.selectedMode || '';
-        
+
         // Apply the styles using the shared function with the current mode
         applyGameStyles(currentGame, currentMode);
       }
