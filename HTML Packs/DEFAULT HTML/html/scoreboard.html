@@ -87,6 +87,10 @@ Available Styles:
 
     /* Game-specific positioning */
     .marvelPositions {
+      --teamBoxWidth: 510px;
+      --teamTopPosition: 31px;
+      --teamSideOffset: 15px;
+
       --teamBoxHeight: 50px;
       --middleTopPosition: 3px;
       --skew-angle-positive: 15deg;
@@ -97,7 +101,7 @@ Available Styles:
 
     }
 
-    .marvelDomination {
+    /* .marvelDomination {
       --teamBoxWidth: 570px;
       --teamTopPosition: 4px;
       --teamSideOffset: 15px;
@@ -108,7 +112,7 @@ Available Styles:
       --teamTopPosition: 31px;
       --teamSideOffset: 15px;
 
-    }
+    } */
 
     .overWatchPositions {
       --teamBoxWidth: 685px;
@@ -727,11 +731,11 @@ Available Styles:
       // Apply appropriate classes based on game and mode
       if (currentGame === 'Marvel Rivals' || currentGame === "Marvel") {
         body.classList.add('marvelPositions');
-        if (currentMode === 'Domination') {
-          body.classList.add('marvelDomination');
-        } else {
-          body.classList.add('marvelNonDomination');
-        }
+        // if (currentMode === 'Domination') {
+        //   body.classList.add('marvelDomination');
+        // } else {
+        //   body.classList.add('marvelNonDomination');
+        // }
       } else if (currentGame === 'Overwatch') {
         body.classList.add(`overWatchPositions${overlayStyle}`);
       } else if (currentGame === 'Valorant') {
