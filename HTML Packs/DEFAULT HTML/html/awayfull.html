@@ -678,18 +678,18 @@
 
     // Loads and applies the social media HTML
     function displaySocialMedia(socialsDataObj) {
-      const team1 = socialsDataObj.socialOne;
-      const team2 = socialsDataObj.socialTwo;
+      const logo1 = socialsDataObj.socialOne;
+      const logo2 = socialsDataObj.socialTwo;
       const socials = `
         <div>
-            <span class="${team1.logo.value.toLowerCase()}">
-              ${team1.company.value}
+            <span class="${logo1.logo.value.toLowerCase()}">
+              ${logo1.company.value}
             </span>
         </div>
         
         <div>
-          <span class="${team2.logo.value.toLowerCase()}">
-            ${team2.company.value}
+          <span class="${logo2.logo.value.toLowerCase()}">
+            ${logo2.company.value}
           </span>
         </div>`;
 
@@ -946,7 +946,7 @@
     }
 
     // Dynamically create match elements
-    function createMatchElements(count = 4) {
+    function createMatchElements(count = 5) {
       const container = document.getElementById('matches-container');
       if (!container) return; // Prevent error if not found
       container.innerHTML = ''; // Clear previous
