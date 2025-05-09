@@ -238,16 +238,17 @@
 
     .wrapper {
       position: absolute;
-      left: 0px;
-      top: 200px;
+      left: 50%;
+      transform: translateX(-50%);
+      top: 225px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
       width: 1620px;
-      height: 700px;
-      padding: 0px 150px 0px 150px;
+      /* height: 400px; */
+      /* padding: 0px 150px 0px 150px; */
     }
 
     .nextwrapper {
@@ -273,7 +274,7 @@
       font-size: 2em;
       padding: 0px 0px 20px 0px;
       position: relative;
-      top: -10px;
+      top: 5px;
       /* line-height: ; */
 
       animation: vsslideout 0.5s forwards;
@@ -977,10 +978,22 @@
         `;
         container.insertAdjacentHTML('beforeend', matchHtml);
       }
+
     }
 
     document.addEventListener('DOMContentLoaded', function () {
-      createMatchElements(5);
+
+      // if matchelements isc reate than 4 we need to adjust some css stuff
+
+      // adjustments needed...
+      // adjust .scoreboardwrapper padding to 5px 0px 5px 0px 
+      // adjust .matchInfo to top 15px 
+      // also gonna need to adjust the height of logos and teach matchInfo ?? 
+
+      const totalMatches = 4
+
+
+      createMatchElements(totalMatches);
       setInterval(updatePageContent, 3000);
       updatePageContent();
     });
