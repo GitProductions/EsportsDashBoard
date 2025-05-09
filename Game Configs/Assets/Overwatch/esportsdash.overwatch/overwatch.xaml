@@ -29,9 +29,9 @@ Example:
 
 <config>
   <id>esportsdash.overwatch</id>
-  <version>2.0</version>
+  <version>2.1</version>
   <name>Overwatch</name>
-  <description>Season 15</description>
+  <description>Season 16</description>
   <game>Overwatch</game>
   <author>EsportsDash</author>
 
@@ -132,7 +132,7 @@ Example:
       <hero name="Tracer" file="Tracer"  />
       <hero name="Venture" file="Venture"  />
       <hero name="Widowmaker" file="Widowmaker"  />
-      <!-- <hero name="Freja" file="Freja"  /> -->
+      <hero name="Freja" file="Freja"  />
 
     </DPS>
 

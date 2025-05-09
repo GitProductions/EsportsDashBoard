@@ -43,16 +43,6 @@ export const configurations = {
         gameConfigs: [
             {
                 id: "esportsdash.overwatch",
-                name: "Overwatch Game Config",
-                author: "EsportsDash",
-                version: "1.9",
-                image: "Game Configs/Overwatch/Overwatch.webp",
-                description: "Game configuration file.",
-                folderPath: "Game Configs/Overwatch",
-                fileName: "esportsdash.overwatch_v1.9.bgg"
-            },
-            {
-                id: "esportsdash.overwatch",
                 name: "Overwatch",
                 author: "EsportsDash",
                 version: "2.0",
@@ -60,6 +50,16 @@ export const configurations = {
                 description: "Season 15",
                 folderPath: "Game Configs/Overwatch",
                 fileName: "esportsdash.overwatch_v2.0.bgg"
+            },
+            {
+                id: "esportsdash.overwatch",
+                name: "Overwatch",
+                author: "EsportsDash",
+                version: "2.1",
+                image: "Game Configs/Overwatch/Overwatch.webp",
+                description: "Season 16",
+                folderPath: "Game Configs/Overwatch",
+                fileName: "esportsdash.overwatch_v2.1.bgg"
             }
         ],
 
