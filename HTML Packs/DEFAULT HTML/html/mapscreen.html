@@ -1,21 +1,17 @@
 <!DOCTYPE html>
 
-<!-- 
+<!-- URL Params Available:
+  - interval: Set this to override the 'refresh' time
+    Example: <the-url>?interval=5000 would set the refresh to 5s seconds
 
-OPTIONS:
-Using URL Parameters
+  - useTeamColors: Use this if wanting to use team colors on the outer border of map select box
+    Example: <the-url>?useTeamColors=1 would use team colors
 
-loopInterval: Set this to override the 'refresh' time
-- Example: <the-url>?loopInterval=5000 would set the refresh to 5s seconds
+  - BlurWinner: Set this to blur out the map image
+    Example: <the-url>?blurwinner=5 would blur the map image by 5px 
 
-useTeamColors: Use this if wanting to use team colors on the outer border of map select box
-- Example: <the-url>?useTeamColors=1 would use team colors
-
-BlurWinner: Set this to blur out the map image
-- Example: <the-url>?BlurWinner=5 would blur the map image by 5px
-
-GrayWinner: Set this to grayscale the map image
-- Example: <the-url>?GrayWinner=50 would grayscale the map image by 50%
+  - GrayWinner: Set this to grayscale the map image
+    Example: <the-url>?graywinner=50 would grayscale the map image by 50%
 
 -->
 
@@ -472,7 +468,7 @@ GrayWinner: Set this to grayscale the map image
     const urlParams = new URLSearchParams(window.location.search);
     // const team = urlParams.get('team');
 
-    const loopInterval = urlParams.get('loopInterval') || 3000;
+    const loopInterval = urlParams.get('loopInterval') ||  urlParams.get('interval') || 3000;
     const BlurWinner = urlParams.get('blurwinner');
     const GrayWinner = urlParams.get('graywinner');
     const useTeamColors = urlParams.get('useTeamColors');
