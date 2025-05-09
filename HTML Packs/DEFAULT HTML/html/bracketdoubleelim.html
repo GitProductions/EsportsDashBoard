@@ -330,11 +330,6 @@
         });
       });
 
-      teams.forEach((team, index) => {
-        $(`.teamname${index}`).html(team.name);
-        $(`.teamlogo${index}`).attr("src", `${team.logo}`);
-      });
-
       for (let m = 0; m < matches.length; ++m) {
         let animate1 = 1 + 0.15 * m;
         let animate2 = 1.05 + 0.15 * m;
@@ -423,19 +418,20 @@
         $('.' + node + ' .score2').html(score2);
 
         const BLANK_LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAYAAAA6/NlyAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAALEwAACxMBAJqcGAAAAA5JREFUeJztwTEBAAAAwqD1T+1hAAAAAODHAFiQAAHuXEeWAAAAAElFTkSuQmCC";
-        
-        if (matchData.team1.logo) {
-          $('.' + node + ' .logo1').attr("src", `${matchData.team1.logo}`);
-        } else {
-          $('.' + node + ' .logo1').attr("src", BLANK_LOGO);
-        }
-        
-        if (matchData.team2.logo) {
-          $('.' + node + ' .logo2').attr("src", `${matchData.team2.logo}`);
-        } else {
-          $('.' + node + ' .logo2').attr("src", BLANK_LOGO);
-        }
 
+        $('.' + node + ' .logo1')
+          .on("error", function () {
+            $(this).attr("src", BLANK_LOGO);
+          })
+          .attr("src", matchData.team1.logo || BLANK_LOGO);
+
+        $('.' + node + ' .logo2')
+          .on("error", function () {
+            $(this).attr("src", BLANK_LOGO);
+          })
+          .attr("src", matchData.team2.logo || BLANK_LOGO);
+
+        // Set animation delays
         $('.' + node + ' .team1').css("animation-delay", animate1 + "s");
         $('.' + node + ' .team2').css("animation-delay", animate2 + "s");
         $('.' + node + ' .matchinfo').css("animation-delay", animate3 + "s");
