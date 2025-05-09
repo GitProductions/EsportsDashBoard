@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<!-- This is the new heroes1 and heroes2.html 
- as it is slimmer and allows for any amount of players -->
+<html>
 
 <head>
 	<style>
@@ -34,6 +33,23 @@
 			}
 		}
 
+		@keyframes crop-revealX {
+			0% {
+				clip-path: polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%);
+				opacity: 0;
+			}
+
+			50% {
+				clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+				opacity: 0.5;
+			}
+
+			100% {
+				clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+				opacity: 1;
+			}
+		}
+
 		@font-face {
 			font-family: 'Rajdhani';
 			src: url('fonts/Rajdhani/Rajdhani-Bold.ttf') format('TrueType');
@@ -58,12 +74,18 @@
 			animation: roleslide 0.5s backwards;
 		}
 
+		.animate-name {
+			animation: crop-revealX 0.8s backwards;
+		}
+
 		body {
 			width: 1920px;
 			height: 1080px;
 			margin: 0px auto;
 			overflow: hidden;
 			background-color: rgba(0, 0, 0, 0);
+			font-family: 'Rajdhani';
+			font-weight: normal;
 		}
 
 		.top {
@@ -76,11 +98,9 @@
 			border-width: 0px 0px 0px 7px;
 			border-color: #333333 #333333 #333333 #8cba11;
 			clip-path: polygon(0% 0, 100% 0%, 100% 100%, 0% 100%);
-
 			animation: topmove 1.34s;
 			animation-fill-mode: backwards;
 			animation-delay: 0.5s;
-
 			background-color: white;
 		}
 
@@ -122,14 +142,7 @@
 			flex-direction: column;
 			animation: herowipe 1.5s backwards;
 			animation-delay: 1s;
-			/* 1.0 - 2.0 - incrment delay .2 every player */
 		}
-
-		/* .player-info{
-      animation: herowipe 0.5s;
-      animation-fill-mode: backwards;
-      animation-delay: 1.1s; 
-    } */
 
 		.hero-image {
 			width: 453px;
@@ -146,12 +159,12 @@
 
 		.player-info {
 			height: 74px;
-			/* margin-top: 10px; */
 			background-color: #ffffff;
 			border-style: solid;
 			border-width: 0px 0px 0px 7px;
 			border-color: #333333 #333333 #333333 #8cba11;
 			position: relative;
+
 		}
 
 		.player-role {
@@ -163,7 +176,6 @@
 			border-style: solid;
 			border-width: 0px 0px 0px 7px;
 			border-color: #333333 #333333 #333333 #8cba11;
-
 			animation: roleslide 0.5s;
 			animation-fill-mode: backwards;
 			animation-delay: 2.5s;
@@ -196,72 +208,59 @@
 			font-weight: normal;
 			text-transform: uppercase;
 			font-size: 1.75em;
+
 		}
 	</style>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script>
-
 		const urlParams = new URLSearchParams(window.location.search);
-		const useTeamColors = urlParams.get('useTeamColors') !=='false';
-
+		const useTeamColors = urlParams.get('useTeamColors') !== 'false';
 
 		function calculateGrid(totalPlayers) {
-			// Default to 4 players per row
 			let playersPerRow = 4;
 			$('.players-grid').css('top', '200px');
-
-			// Adjust players per row based on total players
 			if (totalPlayers <= 3) {
 				playersPerRow = 3;
-				// adjusting location of player-grid to fill in empty space
 				$('.players-grid').css('top', '350px');
 			} else if (totalPlayers <= 8) {
 				playersPerRow = 4;
 			} else {
 				playersPerRow = 5;
 			}
-
-			return {
-				playersPerRow,
-				rows: Math.ceil(totalPlayers / playersPerRow),
-			};
+			return { playersPerRow, rows: Math.ceil(totalPlayers / playersPerRow) };
 		}
-		function createPlayerElement(playerData, index, totalPlayers) {
+
+		function createPlayerElement(playerData, index, totalPlayers, animateName = false) {
 			const container = document.createElement('div');
 			container.className = 'player-container';
 
-			// Base delays for different elements
 			const baseDelay = 1.0;
 			const stepDelay = 0.2;
-
-			// Calculate delays for this player's components
 			const heroDelay = baseDelay + index * stepDelay;
 			const infoDelay = heroDelay + 0.5;
-			const roleDelay = 3; // Role comes in last
+			const roleDelay = 2.5;
 
 			container.innerHTML = `
-        <div class="hero-image animate-hero" style="animation-delay: ${heroDelay}s">
-          <img src="${
-						playerData.images.heroImage ||
+    		    <div class="hero-image animate-hero" style="animation-delay: ${heroDelay}s">
+    		      <img src="${playerData.images.heroImage ||
 						'https://upload.wikimedia.org/wikipedia/en/d/d2/Blank.png'
-					}" alt="HERO">
-        </div>
-        <div class="player-info animate-info" style="animation-delay: ${infoDelay}s">
-          <div class="player-role animate-role" style="animation-delay: ${roleDelay}s">
-            <div class="role-icon" style="background-image: url('${
-							playerData.images.roleImage
+						}" alt="HERO">
+    		    </div>
+    		    <div class="player-info animate-info" style="animation-delay: ${infoDelay}s">
+    		      <div class="player-role animate-role" style="animation-delay: ${roleDelay}s">
+    		        <div class="role-icon" style="background-image: url('${playerData.images.roleImage
 						}')"></div>
-          </div>
-          <span class="battletag">${playerData.playerName || 'Player ' + (index + 1)}</span>
-          <span class="fullname">${playerData.role || ''}</span>
-        </div>
-      `;
-
+    		      </div>
+    		      <span class="battletag ${animateName ? 'animate-name' : ''}">${playerData.playerName || 'Player ' + (index + 1)
+						}</span>
+    		      <span class="fullname">${playerData.role || ''}</span>
+    		    </div>
+    		  `;
+			
 			if (!playerData.images.roleImage) {
 				container.querySelector('.player-role').style.display = 'none';
 			}
 
-			// Make container visible after all animations
 			container.style.animationDelay = `${heroDelay}s`;
 			container.style.opacity = '1';
 			container.style.transition = 'opacity 0.3s ease-in';
@@ -273,22 +272,22 @@
 			let fullDataJson = await fetch(`http://localhost:8080/getfullJson`);
 			fullDataJson = await fullDataJson.json();
 
-			let themeInputColors = await fetch(`http://localhost:8080/getValue?path=general.color`);
-			let themeColors = await themeInputColors.json();
+			let themeColors = fullDataJson.general.color;
+			//   let themeInputColors = await fetch(`http://localhost:8080/getValue?path=general.color`);
+			//   let themeColors = await themeInputColors.json();
 
 			let isInitialLoad = true;
 			let previousTeamData = null;
+			let previousPlayerNames = {};
 
 			async function updateDisplay() {
 				let team = 1;
 				let teamJson = await fetch(`http://localhost:8080/getValue?path=teams.team${team}`);
 				let teamData = await teamJson.json();
 
-				// Compare new data with previous data
 				if (JSON.stringify(teamData) !== JSON.stringify(previousTeamData)) {
 					previousTeamData = teamData;
 
-					// Update theme colors
 					const colors = {
 						primary: themeColors.BGG_C1.value,
 						secondary: themeColors.BGG_C2.value,
@@ -297,49 +296,89 @@
 
 					let t1colortxt = teamData.teamColor;
 
-					// Apply team data
 					document.querySelector('.teamname').textContent = teamData.teamName;
 					if (teamData.teamLogoUrl) {
-						document.querySelector(
-							'.logo'
-						).style.backgroundImage = `url('${teamData.teamLogoUrl}')`;
+						document.querySelector('.logo').style.backgroundImage = `url('${teamData.teamLogoUrl}')`;
 					}
 
-					// Clear and rebuild players grid
 					const playersGrid = document.querySelector('.players-grid');
-					playersGrid.innerHTML = '';
-
-					// we need to find how many players have the 'hidden flag' to determine length
+					const currentPlayers = playersGrid.querySelectorAll('.player-container');
 					let totalPlayers = 0;
 					teamData.players.forEach((player) => {
-						console.log('Player hidden: ', player.hidden);
-						if (!player.hidden) {
-							totalPlayers++;
-						}
+						if (!player.hidden) totalPlayers++;
 					});
 
-					console.log('Total players: ', totalPlayers);
-					// const totalPlayers = teamData.players.length;
 					const grid = calculateGrid(totalPlayers);
-
-					// Adjust grid layout
 					playersGrid.style.gridTemplateColumns = `repeat(${grid.playersPerRow}, 453px)`;
 
-					// Create and add player elements
+					// Track name changes
+					const nameChanges = {};
 					teamData.players.forEach((player, index) => {
-						if (player.hidden) {
-							return;
+						if (!player.hidden) {
+							nameChanges[index] = player.playerName !== previousPlayerNames[index];
 						}
-						const playerElement = createPlayerElement(player, index);
-						// if (!isInitialLoad) {
-						//   playerElement.classList.remove('player-container'); // Remove animation class
-						// }
-						playersGrid.appendChild(playerElement);
 					});
+
+					// Update previous names
+					const newPlayerNames = {};
+					teamData.players.forEach((player, index) => {
+						if (!player.hidden) newPlayerNames[index] = player.playerName;
+					});
+					previousPlayerNames = newPlayerNames;
+
+					// Rebuild only if player count or structure changes
+					let playerIndex = 0;
+					const newPlayers = teamData.players.filter(player => !player.hidden);
+					if (currentPlayers.length !== totalPlayers) {
+						playersGrid.innerHTML = '';
+						newPlayers.forEach((player, index) => {
+							const playerElement = createPlayerElement(player, index, totalPlayers, !isInitialLoad && nameChanges[index]);
+							playersGrid.appendChild(playerElement);
+						});
+					} else {
+						// Update existing elements
+						currentPlayers.forEach((element, idx) => {
+							const player = newPlayers[idx];
+							const battletag = element.querySelector('.battletag');
+							const fullname = element.querySelector('.fullname');
+							const heroImg = element.querySelector('.hero-image img');
+							const roleIcon = element.querySelector('.role-icon');
+
+							if (battletag.textContent !== (player.playerName || 'Player ' + (idx + 1))) {
+								battletag.textContent = player.playerName || 'Player ' + (idx + 1);
+
+								if (!isInitialLoad) {
+									battletag.classList.add('animate-name');
+									setTimeout(() => battletag.classList.remove('animate-name'), 800);
+
+									// animate hero 
+									heroImg.classList.add('animate-hero');
+									setTimeout(() => heroImg.classList.remove('animate-hero'), 800);
+
+									// player role
+									// roleIcon.classList.add('animate-role');
+									// setTimeout(() => roleIcon.classList.remove('animate-role'), 800);
+
+
+
+								}
+							}
+							fullname.textContent = player.role || '';
+							heroImg.src = player.images.heroImage || 'https://upload.wikimedia.org/wikipedia/en/d/d2/Blank.png';
+							
+							roleIcon.style.backgroundImage = `url('${player.images.roleImage}')`;
+
+							// Show/hide role icon based on image availability
+							if (!player.images.roleImage) {
+								roleIcon.style.display = 'none';
+							} else {
+								roleIcon.style.display = '';
+							}
+						});
+					}
 
 					$('div.player-info').css('background-color', colors.primary);
 					$('div.player-info').css('color', colors.secondary);
-
 					$('div.top').css('background-color', colors.primary);
 					$('div.top').css('color', colors.secondary);
 
@@ -350,15 +389,13 @@
 					} else {
 						$('div.player-info').css('border-color', colors.tertiary);
 						$('div.player-role').css('border-color', colors.tertiary);
-
 						$('div.top').css('border-color', colors.tertiary);
 					}
-		
-					isInitialLoad = false; // Reset initial load flag after the first update
+
+					isInitialLoad = false;
 				}
 			}
 
-			// Initial update and interval
 			setTimeout(() => {
 				updateDisplay();
 				setInterval(updateDisplay, 3000);
@@ -376,3 +413,5 @@
 	</div>
 	<div class="players-grid"></div>
 </body>
+
+</html>
