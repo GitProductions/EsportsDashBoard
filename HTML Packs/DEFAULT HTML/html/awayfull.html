@@ -927,7 +927,7 @@
           })
         );
 
-        console.log("Da matches: ", matches);
+
 
         displayMatchData(matches, themeColors);
 
@@ -945,11 +945,45 @@
       }
     }
 
+    // Dynamically create match elements
+    function createMatchElements(count = 4) {
+      const container = document.getElementById('matches-container');
+      if (!container) return; // Prevent error if not found
+      container.innerHTML = ''; // Clear previous
 
-    setInterval(updatePageContent, 3000);
-    // Initial load
-    updatePageContent();
+      for (let i = 1; i <= count; i++) {
+        // Use a template string for each match block
+        const matchHtml = `
+          <div class="scoreboardwrapper skew match${i}">
+            <span class="matchinfo"></span>
+            <div class="scoreboard">
+              <div class="team team1">
+                <img class="teamlogo teamlogo1 askew"></img>
+                <span class="teamname teamname1">Team 1</span>
+                <div class="scorebox">
+                  <span class="teamscore teamscore1">0</span>
+                </div>
+              </div>
+              <div class="vs"><span>VS</span></div>
+              <div class="team team2">
+                <div class="scorebox">
+                  <span class="teamscore teamscore2">0</span>
+                </div>
+                <span class="teamname teamname2">Team 2</span>
+                <img class="teamlogo teamlogo2 askew"></img>
+              </div>
+            </div>
+          </div>
+        `;
+        container.insertAdjacentHTML('beforeend', matchHtml);
+      }
+    }
 
+    document.addEventListener('DOMContentLoaded', function () {
+      createMatchElements(5);
+      setInterval(updatePageContent, 3000);
+      updatePageContent();
+    });
   </script>
 
 
@@ -962,181 +996,12 @@
     <span class="title">Starting Soon</span>
   </div>
 
-  <div class="wrapper todaywrapper">
-    <div class="scoreboardwrapper skew match1">
-      <span class="matchinfo"></span>
-      <div class="scoreboard">
-        <div class="team team1">
-          <img class="teamlogo teamlogo1 askew"></img>
-          <span class="teamname teamname1">Team 1</span>
-          <div class="scorebox">
-            <span class="teamscore teamscore1">0</span>
-          </div>
-        </div>
-        <div class="vs"><span>VS</span></div>
-        <div class="team team2">
-          <div class="scorebox">
-            <span class="teamscore teamscore2">0</span>
-          </div>
-          <span class="teamname teamname2">Team 2</span>
-          <img class="teamlogo teamlogo2 askew"></img>
-        </div>
-      </div>
-    </div>
-
-    <div class="scoreboardwrapper skew match2">
-      <span class="matchinfo"></span>
-      <div class="scoreboard">
-        <div class="team team1">
-          <img class="teamlogo teamlogo1 askew"></img>
-          <span class="teamname teamname1">Team 1</span>
-          <div class="scorebox">
-            <span class="teamscore teamscore1">0</span>
-          </div>
-        </div>
-        <div class="vs"><span>VS</span></div>
-        <div class="team team2">
-          <div class="scorebox">
-            <span class="teamscore teamscore2">0</span>
-          </div>
-          <span class="teamname teamname2">Team 2</span>
-          <img class="teamlogo teamlogo2 askew"></img>
-        </div>
-      </div>
-    </div>
-
-    <div class="scoreboardwrapper skew match3">
-      <span class="matchinfo"></span>
-      <div class="scoreboard">
-        <div class="team team1">
-          <img class="teamlogo teamlogo1 askew"></img>
-          <span class="teamname teamname1">Team 1</span>
-          <div class="scorebox">
-            <span class="teamscore teamscore1">0</span>
-          </div>
-        </div>
-        <div class="vs"><span>VS</span></div>
-        <div class="team team2">
-          <div class="scorebox">
-            <span class="teamscore teamscore2">0</span>
-          </div>
-          <span class="teamname teamname2">Team 2</span>
-          <img class="teamlogo teamlogo2 askew"></img>
-        </div>
-      </div>
-    </div>
-
-    <div class="scoreboardwrapper skew match4">
-      <span class="matchinfo"></span>
-      <div class="scoreboard">
-        <div class="team team1">
-          <img class="teamlogo teamlogo1 askew"></img>
-          <span class="teamname teamname1">Team 1</span>
-          <div class="scorebox">
-            <span class="teamscore teamscore1">0</span>
-          </div>
-        </div>
-        <div class="vs"><span>VS</span></div>
-        <div class="team team2">
-          <div class="scorebox">
-            <span class="teamscore teamscore2">0</span>
-          </div>
-          <span class="teamname teamname2">Team 2</span>
-          <img class="teamlogo teamlogo2 askew"></img>
-        </div>
-      </div>
-    </div>
-
+  <!-- Single container for all matches -->
+  <div class="wrapper">
+    <div id="matches-container"></div>
   </div>
 
-  <div class="wrapper nextwrapper">
-    <div class="scoreboardwrapper skew match5">
-      <span class="matchinfo"></span>
-      <div class="scoreboard">
-        <div class="team team1">
-          <img class="teamlogo teamlogo1 askew"></img>
-          <span class="teamname teamname1">Team 1</span>
-          <div class="scorebox">
-            <span class="teamscore teamscore1">0</span>
-          </div>
-        </div>
-        <div class="vs"><span>VS</span></div>
-        <div class="team team2">
-          <div class="scorebox">
-            <span class="teamscore teamscore2">0</span>
-          </div>
-          <span class="teamname teamname2">Team 2</span>
-          <img class="teamlogo teamlogo2 askew"></img>
-        </div>
-      </div>
-    </div>
-
-    <div class="scoreboardwrapper skew match6">
-      <span class="matchinfo"></span>
-      <div class="scoreboard">
-        <div class="team team1">
-          <img class="teamlogo teamlogo1 askew"></img>
-          <span class="teamname teamname1">Team 1</span>
-          <div class="scorebox">
-            <span class="teamscore teamscore1">0</span>
-          </div>
-        </div>
-        <div class="vs"><span>VS</span></div>
-        <div class="team team2">
-          <div class="scorebox">
-            <span class="teamscore teamscore2">0</span>
-          </div>
-          <span class="teamname teamname2">Team 2</span>
-          <img class="teamlogo teamlogo2 askew"></img>
-        </div>
-      </div>
-    </div>
-
-    <div class="scoreboardwrapper skew match7">
-      <span class="matchinfo"></span>
-      <div class="scoreboard">
-        <div class="team team1">
-          <img class="teamlogo teamlogo1 askew"></img>
-          <span class="teamname teamname1">Team 1</span>
-          <div class="scorebox">
-            <span class="teamscore teamscore1">0</span>
-          </div>
-        </div>
-        <div class="vs"><span>VS</span></div>
-        <div class="team team2">
-          <div class="scorebox">
-            <span class="teamscore teamscore2">0</span>
-          </div>
-          <span class="teamname teamname2">Team 2</span>
-          <img class="teamlogo teamlogo2 askew"></img>
-        </div>
-      </div>
-    </div>
-
-    <div class="scoreboardwrapper skew match8">
-      <span class="matchinfo"></span>
-      <div class="scoreboard">
-        <div class="team team1">
-          <img class="teamlogo teamlogo1 askew"></img>
-          <span class="teamname teamname1">Team 1</span>
-          <div class="scorebox">
-            <span class="teamscore teamscore1">0</span>
-          </div>
-        </div>
-        <div class="vs"><span>VS</span></div>
-        <div class="team team2">
-          <div class="scorebox">
-            <span class="teamscore teamscore2">0</span>
-          </div>
-          <span class="teamname teamname2">Team 2</span>
-          <img class="teamlogo teamlogo2 askew"></img>
-        </div>
-      </div>
-    </div>
-
-  </div>
-  <div class="socials">
-  </div>
+  <div class="socials"></div>
 
   <div class="footer">
     <div class="tournament image1"></div>
@@ -1149,3 +1014,5 @@
   </div>
 
 </body>
+
+</html>
