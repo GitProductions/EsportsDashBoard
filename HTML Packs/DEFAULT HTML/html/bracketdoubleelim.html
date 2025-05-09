@@ -2,6 +2,14 @@
 
 <head>
   <style>
+    :root {
+      --matchWidth: 500px;
+      --teamBoxHeight: 70px;
+      --logoSize: 60px;
+      --teamScoreWidth: 70px;
+      --teamScoreText: 1.5em;
+    }
+
     @font-face {
       font-family: 'Rajdhani';
       src: url("fonts/Rajdhani/Rajdhani-Bold.ttf") format('TrueType');
@@ -136,31 +144,73 @@
     .match {
       display: flex;
       flex-direction: column;
-      flex: 1 1 100%;
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 0px 20px 0px 20px;
+      /* width: 500px; */
+      width: var(--matchWidth);
+      /* min-width: 500px; */
+      /* max-width: 500px; */
+      box-sizing: border-box;
+      margin: 0px 20px 0px 20px;
     }
 
     .team {
-      min-width: 500px;
-      height: 70px;
-      min-height: 70px;
+      width: var(--matchWidth);
+      height: var(--teamBoxHeight);
+      /* width: 500px; */
+      /* min-width: 500px; */
+      /* max-width: 500px; */
+      /* height: 70px; */
+      /* min-height: 70px; */
       display: flex;
       align-items: center;
-      justify-content: center;
-      text-align: center;
+      /* justify-content: flex-start; */
+      /* text-align: left; */
       margin: 5px 0px 5px 0px;
       padding: 0px 0px 0px 10px;
       background-color: black;
       border-width: 0px 0px 0px 6px;
       border-color: #8cba11;
       border-style: solid;
-      -webkit-animation-timing-function: cubic-bezier(0, 0, 0, 1);
+      box-sizing: border-box;
       animation: teamanimate 0.3s;
       animation-fill-mode: backwards;
       animation-delay: 10s;
+    }
+
+    .teamlogo {
+      /* height: 60px;
+      width: 60px; */
+      height: var(--logoSize);
+      width: var(--logoSize);
+      object-fit: contain;
+    }
+
+    .teamname {
+      width: 350px;
+      /* min-width: 350px;
+      max-width: 350px; */
+      /* font-family: 'Rajdhani'; */
+      /* padding: 3px 0px 3px 0px; */
+      /* white-space: nowrap; */
+      line-height: 0.9em;
+      text-wrap: wrap;
+      font-size: 0.9em;
+      text-align:center;
+    }
+
+    .teamscore {
+      height:inherit;
+      /* width: 60px; */
+      width: var(--teamScoreWidth);
+      margin-left: auto; 
+      padding: 0;
+      font-size: var(--teamScoreText);
+      font-weight: bold;
+      display: flex; 
+      align-items: center; 
+      justify-content: center;  
     }
 
     .dummy {
@@ -181,20 +231,6 @@
       top: 0.1em;
     }
 
-    .teamname {
-      flex: 5 5 0;
-      padding: 3px 0px 3px 0px;
-      font-size: 1.2em;
-      font-family: 'Rajdhani';
-    }
-
-    .teamscore {
-      flex: 1 1 0;
-      padding: 6px 0px 6px 0px;
-      font-size: 1.5em;
-      font-weight: bold;
-    }
-
     img {
       height: 60px;
       width: 60px;
@@ -212,12 +248,9 @@
       width: 1870px;
       clip-path: polygon(0% 0, 100% 0%, 100% 100%, 0% 100%);
       display: flex;
-      /* YEAH THIS IS HUGE */
       flex-direction: row;
       align-items: center;
-      /* YEAH THIS IS HUGE */
       justify-content: center;
-      /* YEAH THIS IS HUGE */
       padding: 25px;
     }
 
@@ -246,8 +279,6 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script>
     async function interval() {
-      let blankimage = "iVBORw0KGgoAAAANSUhEUgAAAHAAAABkCAYAAABep7TGAAAABGdBTUEAALGPC/xhBQAAAEJJREFUeF7twQENAAAAwqD3T+1mDiAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAuBqvZAABFEy6BwAAAABJRU5ErkJggg==";
-
       let fullJson = await fetch(`http://localhost:8080/getFullJson`);
       fullJson = await fullJson.json();
 
@@ -290,6 +321,7 @@
 
       var teams = [];
 
+
       Object.values(bracketData).forEach(match => {
         ['team1', 'team2'].forEach(teamKey => {
           if (match[teamKey] && match[teamKey].name !== "TBA") {
@@ -315,25 +347,25 @@
         let score1 = matchData.team1.score;
         let score2 = matchData.team2.score;
 
+
         function setVisibility() {
           if (team1Name === "TBA" || matchData.team1.logo === "") {
-            $('.' + node + ' .logo1').css("display", "none");
+            $('.' + node + ' .logo1').css("visibility", "hidden");
           } else {
-            $('.' + node + ' .logo1').css("display", "block");
+            $('.' + node + ' .logo1').css("visibility", "visible");
           }
 
           if (team2Name === "TBA" || matchData.team2.logo === "") {
-            $('.' + node + ' .logo2').css("display", "none");
+            $('.' + node + ' .logo2').css("visibility", "hidden");
           } else {
-            $('.' + node + ' .logo2').css("display", "block");
+            $('.' + node + ' .logo2').css("visibility", "visible");
           }
 
           if (score1 === 0 && score2 === 0) {
-            $('.' + node + ' .score1, .' + node + ' .score2').css("display", "none");
+            $('.' + node + ' .score1, .' + node + ' .score2').css("visibility", "hidden");
           } else {
-            $('.' + node + ' .score1, .' + node + ' .score2').css("display", "block");
+            $('.' + node + ' .score1, .' + node + ' .score2').css("visibility", "visible");
           }
-
         }
         setVisibility();
 
@@ -380,16 +412,28 @@
           return "<b>" + teamName.replace(new RegExp(regex, "gi"), "</b>$1<b>").replace(/&/gi, "</b>&<b>") + "</b>";
         }
 
-        $('.' + node + ' .name1').html(highlightWords(team1Name));
-        $('.' + node + ' .name2').html(highlightWords(team2Name));
+        team1Name = highlightWords(team1Name);
+        team2Name = highlightWords(team2Name);
+
+
+        // Update HTML elements with match information
+        $('.' + node + ' .name1').html(team1Name);
+        $('.' + node + ' .name2').html(team2Name);
         $('.' + node + ' .score1').html(score1);
         $('.' + node + ' .score2').html(score2);
 
+        const BLANK_LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAYAAAA6/NlyAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAALEwAACxMBAJqcGAAAAA5JREFUeJztwTEBAAAAwqD1T+1hAAAAAODHAFiQAAHuXEeWAAAAAElFTkSuQmCC";
+        
         if (matchData.team1.logo) {
           $('.' + node + ' .logo1').attr("src", `${matchData.team1.logo}`);
+        } else {
+          $('.' + node + ' .logo1').attr("src", BLANK_LOGO);
         }
+        
         if (matchData.team2.logo) {
           $('.' + node + ' .logo2').attr("src", `${matchData.team2.logo}`);
+        } else {
+          $('.' + node + ' .logo2').attr("src", BLANK_LOGO);
         }
 
         $('.' + node + ' .team1').css("animation-delay", animate1 + "s");
@@ -407,7 +451,7 @@
 
     $(() => {
       interval();
-      setInterval(interval, 5000);
+      setInterval(interval, 3000);
     });
   </script>
 </head>
@@ -587,3 +631,4 @@
     <div class="channel image2"></div>
   </div>
 </body>
+</html>
