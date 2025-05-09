@@ -1,5 +1,13 @@
+<!-- URL Params 
+  title = "Be Right Back" ## This is the title text that will be displayed on the scoreboard.
+  useteamlogos = true ## This is a boolean value that determines whether to use team logos or not.
+  useteamcolors = true ## This is a boolean value that determines whether to use team colors or not.
+ -->
+
+
 <head>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
 
   <!-- appears .wrapper is different -->
   <style>
@@ -8,6 +16,8 @@
 
       --useTeamColors: false;
       --winningScore: 10;
+
+
       --useTeamLogos: true;
       --titleText: "Be Right Back!";
 
@@ -101,28 +111,28 @@
 
 
     @keyframes teamsliderightReverse {
-    0% {
+      0% {
         clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
         transform: translateX(0px);
-    }
+      }
 
-    100% {
+      100% {
         clip-path: polygon(100% 0%, 100% 0%, 100% 100%, 100% 100%);
         transform: translateX(-100%);
+      }
     }
-}
 
-@keyframes teamslideleftReverse {
-    0% {
+    @keyframes teamslideleftReverse {
+      0% {
         clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
         transform: translateX(0px);
-    }
+      }
 
-    100% {
+      100% {
         clip-path: polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%);
         transform: translateX(100%);
+      }
     }
-}
 
     @keyframes teamslideup {
       0% {
@@ -167,7 +177,7 @@
     }
 
 
-    
+
 
     @keyframes socialsSlideUp {
       0% {
@@ -581,23 +591,29 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
   <script>
-    let titleText = 'Starting Soon'
+    let customTitleText = 'Starting Soon'
 
     document.addEventListener('DOMContentLoaded', function () {
-      const urlParams = new URLSearchParams(window.location.search);
-      titleText = urlParams.get('titleText');
-      const useTeamLogos = urlParams.get('useTeamLogos');
+      const baseUrlParams = new URLSearchParams(window.location.search);
+      const urlParams = {};
+
+      for (const [key, value] of baseUrlParams.entries()) {
+        urlParams[key.toLowerCase()] = value;
+      }
+
+      customTitleText = urlParams['title'];
+      const useTeamLogos = urlParams['useteamlogos']
 
       // set css
       if (useTeamLogos) {
         document.documentElement.style.setProperty('--useTeamLogos', useTeamLogos);
       }
 
-      if (titleText) {
+      if (customTitleText) {
         const titleElement = document.querySelector('.title');
         if (titleElement) {
-          titleElement.textContent = titleText;
-          console.log('Title updated to:', titleText);
+          titleElement.textContent = customTitleText;
+          console.log('Title updated to:', customTitleText);
         } else {
           console.error('Title element not found');
         }
@@ -656,6 +672,7 @@
 
       $('.team').css("background-color", colors.primaryColor)
       $('.team').css("color", colors.quinaryColor)
+
     }
 
     // Loads and applies the social media HTML
@@ -686,9 +703,15 @@
     }
 
     function determineTitleText(matches) {
+      // If there is a user defined title then we ignore anything else
+      if (customTitleText) {
+        return customTitleText;
+      }
+
       let hasStarted = false;
       let allComplete = true;
       let anyScores = false;
+
 
       console.log("This is matches: ", matches);
       matches.forEach(match => {
@@ -727,16 +750,16 @@
       console.log(`Matches: ${JSON.stringify(matches)}`);
 
       for (let i = 1; i <= 8; i++) {
-        if (!matches[i-1]) {
-            // remove .team${i} animation and add new one
-            $(`.match${i}`).css("display", "none");
+        if (!matches[i - 1]) {
+          // remove .team${i} animation and add new one
+          $(`.match${i}`).css("display", "none");
         }
-    }
+      }
 
 
       // Always update title text based on current match states
-      titleText = determineTitleText(matches);
-      $('.title').text(titleText);
+      customTitleText = determineTitleText(matches);
+      $('.title').text(customTitleText);
 
       matches.forEach((match, index) => {
         if (match && match.reference) {
@@ -753,7 +776,7 @@
 
           // Set match info and details
           $(`${matchSelector} .matchinfo`).text(details);
-    
+
 
           // This could be its own function to handle team logos..
           const useTeamLogos = getComputedStyle(document.documentElement).getPropertyValue('--useTeamLogos').trim() === 'true';
@@ -806,10 +829,16 @@
     // Reset styling function
     function resetMatchStyling(matchSelector, themeColors) {
       $(`${matchSelector} .team1, ${matchSelector} .team2`).css({
-        "background-color": "",
-        "border-color": "",
-        "color": ""
+        "background-color": themeColors.BGG_C1.value,
+        "border-color": themeColors.BGG_C3.value,
+        "color": themeColors.BGG_C2.value
       });
+
+      // $(`${matchSelector} .team2`).css({
+      //   "background-color": themeColors.BGG_C1.value,
+      //   "border-color": themeColors.BGG_C3.value,
+      //   "color": themeColors.BGG_C2.value
+      // });
     }
 
 
@@ -819,7 +848,7 @@
 
       $(`${matchSelector} .${teamClass}`).css({
         "background-color": themeColors.BGG_C3.value,
-        "border-color": themeColors.BGG_C2.value,
+        "border-color": themeColors.BGG_C1.value,
         "color": themeColors.BGG_C1.value
       });
 
