@@ -33,12 +33,15 @@ Available Styles:
 
   <style>
     :root {
-      --scoreSize: 3em; 
+      --scoreSize: 3em;
       --teamLogoSize: 45px;
       --teamNameSize: 1.3em;
       --teamNameInnerPadding: 10px;
 
-      
+      --teamGroupTopPosition: 20px;
+      --teamGroupSideOffset: 220px;
+
+
       --teamLeftTextNameAlign: left;
       --teamRightTextNameAlign: right;
 
@@ -81,7 +84,7 @@ Available Styles:
       --arrowDoubleSideClipPath: polygon(93% 0, 100% 50%, 93% 99%, 7% 99%, 0% 50%, 7% 0)
     }
 
-    .defaultPositions{
+    .defaultPositions {
       --teamBoxWidth: 685px;
       --teamBoxHeight: 46px;
       --teamTopPosition: 13px;
@@ -104,6 +107,10 @@ Available Styles:
       --teamLeftOuterPadding: 8px;
       --teamRightOuterPadding: 8px;
       --teamNameInnerPadding: 20px;
+
+
+      --teamGroupTopPosition: 40px;
+      --teamGroupSideOffset: 400px;
 
     }
 
@@ -128,6 +135,9 @@ Available Styles:
       --middleTopPosition: 8px;
       --skew-angle-positive: 0deg;
       --skew-angle-negative: 0deg;
+
+      --teamGroupTopPosition: 20px;
+      --teamGroupSideOffset: 220px;
     }
 
 
@@ -481,7 +491,7 @@ Available Styles:
 
       padding-right: var(--teamRightOuterPadding);
       padding-left: var(--teamRightInnerPadding);
-            /* transform: skew(calc(-1 * var(--skew-angle-positive))); */
+      /* transform: skew(calc(-1 * var(--skew-angle-positive))); */
 
     }
 
@@ -629,6 +639,30 @@ Available Styles:
       animation: fadein 4s;
     }
 
+    @keyframes leftmoveSide {
+      from {
+        right: 850px;
+        opacity: 0;
+      }
+
+      to {
+        opacity:1;
+        right: var(--teamGroupSideOffset)
+      }
+    }
+
+    @keyframes rightmoveSide {
+      from {
+        left: 850px;
+        opacity: 0;
+      }
+
+      to {
+        opacity:1;
+        right: var(--teamGroupSideOffset)
+      }
+    }
+
     @keyframes leftmove {
       from {
         left: -850px;
@@ -672,6 +706,32 @@ Available Styles:
         opacity: 1;
       }
     }
+
+    #team1side span,
+    #team2side span {
+      display: none;
+      position: fixed;
+      width: 818px;
+      height: 36px;
+      top: var(--teamGroupTopPosition);
+      -webkit-mask-size: contain;
+      -webkit-mask-repeat: no-repeat;
+    }
+
+    #team1side span {
+      right: var(--teamGroupSideOffset);
+      -webkit-mask-position: right;
+      animation: leftmoveSide 2s;
+    }
+
+    #team2side span {
+      left: var(--teamGroupSideOffset);
+      -webkit-mask-position: left;
+      animation: rightmoveSide 2s;
+    }
+
+
+
   </style>
 </head>
 
@@ -679,6 +739,9 @@ Available Styles:
   <div class="center">
     <span class="matchtext" id="matchtext"></span>
   </div>
+
+  <div class="side" id="team1side"><span></span></div>
+  <div class="side" id="team2side"><span></span></div>
 
   <div class="left team team1" id="team1color">
     <div class="team-inner">
@@ -846,8 +909,8 @@ Available Styles:
       let matchFormatCount = fullJson.matchFormat.target
       let matchFormatType = fullJson.matchFormat?.formatType?.toLowerCase()
 
-      console.log("Complete Match Format: ", matchFormatCount);
-      console.log("Game Type: ", matchFormatType);
+      // console.log("Complete Match Format: ", matchFormatCount);
+      // console.log("Game Type: ", matchFormatType);
 
       // CENTER TEXT
       // Get mutual info text
@@ -891,12 +954,6 @@ Available Styles:
 
         const isTiebreaker = (team1Wins === team2Wins) && (completedmap === totalmap - 1);
 
-        console.log("is it a tiebreaker? ", isTiebreaker);
-        console.log("why not working? ", team1Wins, team2Wins, completedmap, totalmap);
-
-        // what about total maps that dont have hidden=true
-
-
         if (mapcounter == 1) {
           if (completedmap >= totalmap) {
             $('.center .matchtext').html(`<b>Final</b> Score <br/> ${team1Wins} - ${team2Wins}`);
@@ -937,7 +994,6 @@ Available Styles:
             }
           }
         }
-        console.log(`all maps: ${matchFormatCount}, completed maps: ${completedmap}`);
       }
 
 
@@ -982,7 +1038,12 @@ Available Styles:
 
       // Function to update team name
       function updateTeamName(teamIndex) {
-        let tnametxt = teamsData[`team${teamIndex + 1}`].teamName;
+        let tnametxt = teamsData[`team${teamIndex + 1}`]?.teamName;
+        if (!tnametxt || typeof tnametxt !== "string" || tnametxt.trim() === "") {
+          // If missing, set to "TBD" or blank
+          $(`.team${teamIndex + 1} .teamname`).html("");
+          return;
+        }
         let regex = "";
         [
           "gaming", "team", "e-?sports", "house", "academy", "uni(versity)?", "state", "tech", "and", "the", "of", "eu",
@@ -1020,6 +1081,7 @@ Available Styles:
           if (teamIndex === 0) {
             // Check the teamGroup of Team 1
             const teamGroup = teamsData[`team${teamIndex + 1}`].teamGroup;
+            console.log("Team 1 Group:", teamGroup);
             if (teamGroup === 'A') {
               teamSide = 'A';
             } else if (teamGroup === 'D') {
@@ -1051,9 +1113,9 @@ Available Styles:
 
           let iconPath;
           if (teamSide === 'A') {
-            iconPath = 'html/assets/icon-offense.png';
+            iconPath = 'assets/icon-offense.png';
           } else if (teamSide === 'D') {
-            iconPath = 'html/assets/icon-defense.png';
+            iconPath = 'assets/icon-defense.png';
           } else {
             // Neutral side, no icon to show
             document.querySelector(`#team${teamIndex + 1}side span`).style.webkitMaskImage = `url(data:image/png;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==)`;
@@ -1067,6 +1129,13 @@ Available Styles:
           let str = "";
           for (let b of bytes) {
             str += String.fromCharCode(b);
+          }
+
+          // make it visible if game is overwatch...
+          if (currentGame == "Overwatch") {
+            document.querySelector(`#team${teamIndex + 1}side span`).style.display = "block";
+          } else {
+            document.querySelector(`#team${teamIndex + 1}side span`).style.display = "none";
           }
 
           // Update the mask image with the fetched icon
