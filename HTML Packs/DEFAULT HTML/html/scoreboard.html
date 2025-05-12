@@ -32,6 +32,15 @@ Available Styles:
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 
   <style>
+    body {
+      /* background-color: #C80013; */
+      /* background-image: 'https://cdn.mos.cms.futurecdn.net/5NxxafFmkiYcicUnft6wW5.jpg'; */
+      background-image: url('overwatch-sample.png');
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+
+
     :root {
       --scoreSize: 3em;
       --teamLogoSize: 45px;
@@ -78,7 +87,7 @@ Available Styles:
       --arrowLeftClipPath: polygon(100% 0, 100% 49%, 100% 100%, 7% 100%, 0 50%, 7% 0);
       --arrowRightClipPath: polygon(93% 0, 100% 50%, 93% 100%, 0 100%, 0 50%, 0 0);
 
-      --arrowLeftInvertedClipPath: polygon(100% 0, 93% 50%, 100% 100%, 0 100%, 0% 50%, 0 0);
+      --arrowLeftInvertedClipPath: polygon(100% 0, 93% 50%, 100% 100%, 0 100%, 0% 50%, 0% 0%);
       --arrowRightInvertedClipPath: polygon(100% 0, 100% 50%, 100% 100%, 0% 100%, 7% 50%, 0% 0%);
 
       --arrowDoubleSideClipPath: polygon(93% 0, 100% 50%, 93% 99%, 7% 99%, 0% 50%, 7% 0)
@@ -137,7 +146,7 @@ Available Styles:
       --skew-angle-negative: 0deg;
 
       --teamGroupTopPosition: 20px;
-      --teamGroupSideOffset: 220px;
+      --teamGroupSideOffset: 685px;
     }
 
 
@@ -558,6 +567,14 @@ Available Styles:
       line-height: calc(var(--teamBoxHeight) + 3px);
     }
 
+    .teamdesc {
+      font-family: 'Rajdhani';
+      font-weight: bold;
+      font-size: '8px';
+      text-transform: uppercase;
+      padding: 0 10px;
+    }
+
     .score {
       font-family: 'Rajdhani';
       font-size: var(--scoreSize);
@@ -641,25 +658,25 @@ Available Styles:
 
     @keyframes leftmoveSide {
       from {
-        right: 850px;
+        right: 650px;
         opacity: 0;
       }
 
       to {
-        opacity:1;
+        opacity: 1;
         right: var(--teamGroupSideOffset)
       }
     }
 
     @keyframes rightmoveSide {
       from {
-        left: 850px;
+        left: 650px;
         opacity: 0;
       }
 
       to {
-        opacity:1;
-        right: var(--teamGroupSideOffset)
+        opacity: 1;
+        left: var(--teamGroupSideOffset)
       }
     }
 
@@ -707,45 +724,68 @@ Available Styles:
       }
     }
 
-    #team1side span,
-    #team2side span {
-      display: none;
+    .side {
       position: fixed;
-      width: 818px;
-      height: 36px;
+      background-color: rgb(255, 255, 255);
+      /* outline: 1px solid #00ffff; */
+      /* inner outline */
+
+      /* border: #27AAE1 solid 1px; */
+      width: 40px;
+      height: calc(var(--teamBoxHeight) - 15px);
       top: var(--teamGroupTopPosition);
-      -webkit-mask-size: contain;
-      -webkit-mask-repeat: no-repeat;
+      z-index: -5;
+      pointer-events: none;
+      /* Center image inside */
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    #team1side span {
-      right: var(--teamGroupSideOffset);
-      -webkit-mask-position: right;
-      animation: leftmoveSide 2s;
-    }
-
-    #team2side span {
+    #team1side {
+      opacity: 0;
       left: var(--teamGroupSideOffset);
-      -webkit-mask-position: left;
       animation: rightmoveSide 2s;
+      animation-delay: 1s;
+      animation-fill-mode: forwards;
     }
 
+    #team2side {
+      opacity: 0;
+      right: var(--teamGroupSideOffset);
+      animation: leftmoveSide 2s;
+      animation-delay: 1s;
+      animation-fill-mode: forwards;
+    }
 
+    #team1side img,
+    #team2side img {
+      display: none;
+      width: 20px;
+      height: 20px;
+      object-fit: contain;
+      background: transparent;
 
+      /* invert image */
+      filter: invert(1);
+    }
   </style>
 </head>
 
-<body class="">
+<body>
   <div class="center">
     <span class="matchtext" id="matchtext"></span>
   </div>
 
-  <div class="side" id="team1side"><span></span></div>
-  <div class="side" id="team2side"><span></span></div>
+  <div class="side" id="team1side"><img style="display:none;" /></div>
+  <div class="side" id="team2side"><img style="display:none;" /></div>
 
   <div class="left team team1" id="team1color">
     <div class="team-inner">
       <span class="teamname" id="team1name"></span>
+
+      <!-- <span class="teamdesc" id="team1desc"></span> -->
+
       <span class="logo" id="team1logo"></span>
       <span class="score" id="team1score"></span>
     </div>
@@ -754,6 +794,9 @@ Available Styles:
   <div class="right team team2" id="team2color">
     <div class="team-inner">
       <span class="teamname" id="team2name"></span>
+
+      <!-- <span class="teamdesc" id="team1desc"></span> -->
+
       <span class="logo" id="team2logo"></span>
       <span class="score" id="team2score"></span>
       <!--  -->
@@ -954,6 +997,9 @@ Available Styles:
 
         const isTiebreaker = (team1Wins === team2Wins) && (completedmap === totalmap - 1);
 
+        // if current game is smash brothers then we should use `Set` instead of `Map`
+        let currentMapTitleText = (currentGame === "Smash Ultimate" || currentGame === "Smash Bros") ? 'Set' : 'Map';
+
         if (mapcounter == 1) {
           if (completedmap >= totalmap) {
             $('.center .matchtext').html(`<b>Final</b> Score <br/> ${team1Wins} - ${team2Wins}`);
@@ -962,11 +1008,11 @@ Available Styles:
               $('.center .matchtext').html("<b>Tiebreaker </b>Map");
             } else {
               if (matchFormatType == "bo") {
-                $('.center .matchtext').html("Map <b>" + (completedmap + 1) + "</b> of <b>" + (matchFormatCount) + "</b>");
+                $('.center .matchtext').html(`${currentMapTitleText} <b>` + (completedmap + 1) + "</b> of <b>" + (matchFormatCount) + "</b>");
               } else if (matchFormatType == "ft") {
-                $('.center .matchtext').html("Map <b>" + (completedmap + 1) + "</b> - First to <b>" + (matchFormatCount) + "</b>");
+                $('.center .matchtext').html(`${currentMapTitleText} <b>` + (completedmap + 1) + "</b> - First to <b>" + (matchFormatCount) + "</b>");
               } else {
-                $('.center .matchtext').html("Map <b>" + (completedmap + 1) + "</b>");
+                $('.center .matchtext').html(`${currentMapTitleText} <b>` + (completedmap + 1) + "</b>");
               }
             }
           }
@@ -1056,6 +1102,8 @@ Available Styles:
           new RegExp(regex, "gi"), "</b>$1<b>")
           .replace(/&/gi, "</b>&<b>") + "</b>";
         $(`.team${teamIndex + 1} .teamname`).html(teamformatted);
+
+        $(`.team${teamIndex + 1} .teamdesc`).html(teamsData[`team${teamIndex + 1}`].teamInfo);
       }
 
       // Function to update team color
@@ -1088,8 +1136,8 @@ Available Styles:
               teamSide = 'D';
             } else {
               // Neutral or invalid group, no icon to show
-              document.querySelector(`#team${teamIndex + 1}side span`).style.webkitMaskImage = `url(data:image/png;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==)`;
-              document.querySelector(`#team${teamIndex + 2}side span`).style.webkitMaskImage = `url(data:image/png;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==)`;
+              document.querySelector(`#team${teamIndex + 1}side img`).style.display = "none";
+              document.querySelector(`#team${teamIndex + 2}side img`).style.display = "none";
               return;
             }
           } else if (teamIndex === 1) {
@@ -1102,7 +1150,7 @@ Available Styles:
               teamSide = 'A';
             } else {
               // Neutral or invalid group, no icon to show
-              document.querySelector(`#team${teamIndex + 1}side span`).style.webkitMaskImage = `url(data:image/png;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==)`;
+              document.querySelector(`#team${teamIndex + 1}side img`).style.display = "none";
               return;
             }
           } else {
@@ -1118,28 +1166,18 @@ Available Styles:
             iconPath = 'assets/icon-defense.png';
           } else {
             // Neutral side, no icon to show
-            document.querySelector(`#team${teamIndex + 1}side span`).style.webkitMaskImage = `url(data:image/png;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==)`;
+            document.querySelector(`#team${teamIndex + 1}side img`).style.display = "none";
             return;
           }
 
-          // Fetch the icon based on the team side
-          let response = await fetch(iconPath);
-          let data = await response.arrayBuffer();
-          let bytes = new Uint8Array(data);
-          let str = "";
-          for (let b of bytes) {
-            str += String.fromCharCode(b);
-          }
-
-          // make it visible if game is overwatch...
+          // Show/hide icon based on game
           if (currentGame == "Overwatch") {
-            document.querySelector(`#team${teamIndex + 1}side span`).style.display = "block";
+            const imgElem = document.querySelector(`#team${teamIndex + 1}side img`);
+            imgElem.src = iconPath;
+            imgElem.style.display = "block";
           } else {
-            document.querySelector(`#team${teamIndex + 1}side span`).style.display = "none";
+            document.querySelector(`#team${teamIndex + 1}side img`).style.display = "none";
           }
-
-          // Update the mask image with the fetched icon
-          document.querySelector(`#team${teamIndex + 1}side span`).style.webkitMaskImage = `url(data:image/png;base64,${btoa(str)})`;
         } catch (error) {
           // console.error('Error fetching team side icon:', error);
         }
