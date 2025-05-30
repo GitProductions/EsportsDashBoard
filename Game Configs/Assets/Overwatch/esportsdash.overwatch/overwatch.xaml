@@ -29,9 +29,9 @@ Example:
 
 <config>
   <id>esportsdash.overwatch</id>
-  <version>1.9</version>
+  <version>2.1</version>
   <name>Overwatch</name>
-  <description>Season 15</description>
+  <description>Season 16</description>
   <game>Overwatch</game>
   <author>EsportsDash</author>
 
@@ -98,6 +98,7 @@ Example:
 
   <heroes>
     <Tank>
+      <hero name="Doomfist" file="Doomfist"  />
       <hero name="D.Va" file="D.Va"  />
 	    <hero name="Hazard" file="Hazard"  />
       <hero name="JunkerQueen" file="JunkerQueen"  />
@@ -116,7 +117,6 @@ Example:
       <hero name="Ashe" file="Ashe"  />
       <hero name="Bastion" file="Bastion"  />
       <hero name="Cassidy" file="Cassidy"  />
-      <hero name="Doomfist" file="Doomfist"  />
       <hero name="Echo" file="Echo"  />
       <hero name="Genji" file="Genji"  />
       <hero name="Hanzo" file="Hanzo"  />
@@ -132,7 +132,7 @@ Example:
       <hero name="Tracer" file="Tracer"  />
       <hero name="Venture" file="Venture"  />
       <hero name="Widowmaker" file="Widowmaker"  />
-      <!-- <hero name="Freja" file="Freja"  /> -->
+      <hero name="Freja" file="Freja"  />
 
     </DPS>
 

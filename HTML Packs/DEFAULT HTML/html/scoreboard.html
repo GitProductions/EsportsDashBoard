@@ -1,3 +1,9 @@
+<!-- URL Params Available:
+  - interval: Set the interval for the loop in milliseconds. Default is 3000ms.
+  - style: Set the style of the overlay. Default is 1.
+-->
+
+
 <!DOCTYPE html>
 <html>
 
@@ -26,14 +32,29 @@ Available Styles:
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 
   <style>
+    body {
+      /* background-color: #C80013; */
+      /* background-image: 'https://cdn.mos.cms.futurecdn.net/5NxxafFmkiYcicUnft6wW5.jpg'; */
+      background-image: url('overwatch-sample.png');
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+
+
     :root {
       --scoreSize: 3em;
       --teamLogoSize: 45px;
       --teamNameSize: 1.3em;
+      --teamNameInnerPadding: 10px;
+
+      --teamGroupTopPosition: 20px;
+      --teamGroupSideOffset: 220px;
+
 
       --teamLeftTextNameAlign: left;
       --teamRightTextNameAlign: right;
-      
+
+      /* team paddings could be turned into a single since we should have identical on both sides? */
       --teamLeftInnerPadding: 0px;
       --teamRightInnerPadding: 0px;
 
@@ -45,7 +66,7 @@ Available Styles:
 
       --teamRightBorderLeft: 7px solid #27AAE1;
       --teamRightBorderRight: 0px solid #C80013;
-      
+
       --teamLeftClipPath: polygon(0);
       --teamRightClipPath: polygon(0);
 
@@ -53,6 +74,7 @@ Available Styles:
       --teamRightBackgroundImage: linear-gradient(90deg, rgb(255, 255, 255) 0%, rgb(255, 255, 255) 100%);
 
       --middleTopPosition: 8px;
+      --middleLeftPosition: 50%;
       --middleWidth: 250px;
       --middleHeight: 35px;
       --middleTextSize: 1.5em;
@@ -65,35 +87,54 @@ Available Styles:
       --arrowLeftClipPath: polygon(100% 0, 100% 49%, 100% 100%, 7% 100%, 0 50%, 7% 0);
       --arrowRightClipPath: polygon(93% 0, 100% 50%, 93% 100%, 0 100%, 0 50%, 0 0);
 
-      --arrowLeftInvertedClipPath: polygon(100% 0, 93% 50%, 100% 100%, 0 100%, 0% 50%, 0 0);
+      --arrowLeftInvertedClipPath: polygon(100% 0, 93% 50%, 100% 100%, 0 100%, 0% 50%, 0% 0%);
       --arrowRightInvertedClipPath: polygon(100% 0, 100% 50%, 100% 100%, 0% 100%, 7% 50%, 0% 0%);
 
-      --arrowDoubleSideClipPath:  polygon(93% 0, 100% 50%, 93% 99%, 7% 99%, 0% 50%, 7% 0)
+      --arrowDoubleSideClipPath: polygon(93% 0, 100% 50%, 93% 99%, 7% 99%, 0% 50%, 7% 0)
+    }
 
+    .defaultPositions {
+      --teamBoxWidth: 685px;
+      --teamBoxHeight: 46px;
+      --teamTopPosition: 13px;
+      --teamSideOffset: 0px;
+      --middleTopPosition: 8px;
+      --skew-angle-positive: 0deg;
+      --skew-angle-negative: 0deg;
     }
 
     /* Game-specific positioning */
     .marvelPositions {
+      --teamBoxWidth: 510px;
+      --teamTopPosition: 31px;
+      --teamSideOffset: 15px;
+
       --teamBoxHeight: 50px;
       --middleTopPosition: 3px;
       --skew-angle-positive: 15deg;
       --skew-angle-negative: -15deg;
-      --teamLeftOuterPadding: 10px;
-      --teamRightOuterPadding: 10px;
+      --teamLeftOuterPadding: 8px;
+      --teamRightOuterPadding: 8px;
+      --teamNameInnerPadding: 20px;
+
+
+      --teamGroupTopPosition: 40px;
+      --teamGroupSideOffset: 400px;
+
     }
 
-    .marvelDomination {
+    /* .marvelDomination {
       --teamBoxWidth: 570px;
       --teamTopPosition: 4px;
-      --teamSideOffset: 10px;
+      --teamSideOffset: 15px;
     }
 
     .marvelNonDomination {
-      --teamBoxWidth: 495px;
+      --teamBoxWidth: 510px;
       --teamTopPosition: 31px;
-      --teamSideOffset: 6px;
+      --teamSideOffset: 15px;
 
-    }
+    } */
 
     .overWatchPositions {
       --teamBoxWidth: 685px;
@@ -103,6 +144,9 @@ Available Styles:
       --middleTopPosition: 8px;
       --skew-angle-positive: 0deg;
       --skew-angle-negative: 0deg;
+
+      --teamGroupTopPosition: 20px;
+      --teamGroupSideOffset: 685px;
     }
 
 
@@ -125,6 +169,8 @@ Available Styles:
 
       --skew-angle-positive: 0deg;
       --skew-angle-negative: 0deg;
+
+      --middleTextSize: 1.1em;
 
 
       /* clip is doing < inverted */
@@ -378,6 +424,8 @@ Available Styles:
 
 
 
+
+
     @font-face {
       font-family: 'Rajdhani';
       src: url("fonts/Rajdhani/Rajdhani-Bold.ttf") format('TrueType');
@@ -399,14 +447,16 @@ Available Styles:
       /* background-image: url('https://interfaceingame.com/wp-content/uploads/valorant/valorant-defusing.png'); */
 
       /* smash bro */
-      background-image: url('https://cdn.discordapp.com/attachments/1343355429383831624/1343358179043704832/smash_bro_ultimate_example.png?ex=67bcfb4c&is=67bba9cc&hm=a3f6b4cff4e69686b8dd56a1658648b2bbab435d94bc01a4c588e78d02eb9710&');
+      /* background-image: url('https://cdn.discordapp.com/attachments/1343355429383831624/1343358179043704832/smash_bro_ultimate_example.png?ex=67bcfb4c&is=67bba9cc&hm=a3f6b4cff4e69686b8dd56a1658648b2bbab435d94bc01a4c588e78d02eb9710&');
       background-size: cover;
-      background-repeat: no-repeat;
+      background-repeat: no-repeat; */
       display: flex;
       justify-content: center;
       align-items: flex-start;
       min-height: 100vh;
       margin: 0;
+
+
     }
 
     .left {
@@ -449,7 +499,9 @@ Available Styles:
       clip-path: var(--teamRightClipPath);
 
       padding-right: var(--teamRightOuterPadding);
-      padding-left: var(--teamRightInnerPadding)
+      padding-left: var(--teamRightInnerPadding);
+      /* transform: skew(calc(-1 * var(--skew-angle-positive))); */
+
     }
 
 
@@ -458,13 +510,18 @@ Available Styles:
       align-items: center;
       width: 100%;
       height: 100%;
-      transform: skew(calc(-1 * var(--skew-angle-positive)));
+      /* transform: skew(calc(-1 * var(--skew-angle-positive))); */
     }
 
     .right .team-inner {
       flex-direction: row-reverse;
-      transform: skew(calc(-1 * var(--skew-angle-negative)));
+      /* transform: skew(calc(-1 * var(--skew-angle-negative))); */
     }
+
+    /* .left .team-inner {
+      flex-direction: row;
+      transform: skew(calc(-1 * var(--skew-angle-positive)));
+    } */
 
     .logo {
       width: var(--teamLogoSize);
@@ -477,12 +534,24 @@ Available Styles:
       /* Don’t exceed parent height */
     }
 
+    .team1 .logo {
+      transform: skew(calc(-1 * var(--skew-angle-positive)));
+    }
+
+    .team2 .logo {
+      transform: skew(calc(-1 * var(--skew-angle-negative)));
+    }
+
     .team1 .teamname {
-      text-align: var(--teamLeftTextNameAlign)
+      text-align: var(--teamLeftTextNameAlign);
+      transform: skew(calc(-1 * var(--skew-angle-positive)));
+      padding: 0 var(--teamNameInnerPadding) 0 var(--teamNameInnerPadding);
     }
 
     .team2 .teamname {
-      text-align: var(--teamRightTextNameAlign)
+      text-align: var(--teamRightTextNameAlign);
+      padding: 0 var(--teamNameInnerPadding) 0 var(--teamNameInnerPadding);
+      transform: skew(calc(-1 * var(--skew-angle-negative)));
     }
 
     .teamname {
@@ -498,6 +567,14 @@ Available Styles:
       line-height: calc(var(--teamBoxHeight) + 3px);
     }
 
+    .teamdesc {
+      font-family: 'Rajdhani';
+      font-weight: bold;
+      font-size: '8px';
+      text-transform: uppercase;
+      padding: 0 10px;
+    }
+
     .score {
       font-family: 'Rajdhani';
       font-size: var(--scoreSize);
@@ -511,12 +588,22 @@ Available Styles:
       /* max-height: 100%; */
     }
 
+
+    .team1 .score {
+      transform: skew(calc(-1 * var(--skew-angle-positive)));
+    }
+
+    .team2 .score {
+      transform: skew(calc(-1 * var(--skew-angle-negative)));
+    }
+
     /* Center Match Info */
     .center {
       position: fixed;
       top: var(--middleTopPosition);
-      left: 50%;
-      transform: translateX(-50%) ;
+      /* left: 50%; */
+      left: var(--middleLeftPosition);
+      transform: translateX(-50%);
       width: var(--middleWidth);
       display: block;
     }
@@ -569,6 +656,30 @@ Available Styles:
       animation: fadein 4s;
     }
 
+    @keyframes leftmoveSide {
+      from {
+        right: 650px;
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+        right: var(--teamGroupSideOffset)
+      }
+    }
+
+    @keyframes rightmoveSide {
+      from {
+        left: 650px;
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+        left: var(--teamGroupSideOffset)
+      }
+    }
+
     @keyframes leftmove {
       from {
         left: -850px;
@@ -612,17 +723,69 @@ Available Styles:
         opacity: 1;
       }
     }
+
+    .side {
+      position: fixed;
+      background-color: rgb(255, 255, 255);
+      /* outline: 1px solid #00ffff; */
+      /* inner outline */
+
+      /* border: #27AAE1 solid 1px; */
+      width: 40px;
+      height: calc(var(--teamBoxHeight) - 15px);
+      top: var(--teamGroupTopPosition);
+      z-index: -5;
+      pointer-events: none;
+      /* Center image inside */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #team1side {
+      opacity: 0;
+      left: var(--teamGroupSideOffset);
+      animation: rightmoveSide 2s;
+      animation-delay: 1s;
+      animation-fill-mode: forwards;
+    }
+
+    #team2side {
+      opacity: 0;
+      right: var(--teamGroupSideOffset);
+      animation: leftmoveSide 2s;
+      animation-delay: 1s;
+      animation-fill-mode: forwards;
+    }
+
+    #team1side img,
+    #team2side img {
+      display: none;
+      width: 20px;
+      height: 20px;
+      object-fit: contain;
+      background: transparent;
+
+      /* invert image */
+      filter: invert(1);
+    }
   </style>
 </head>
 
-<body class="">
+<body>
   <div class="center">
     <span class="matchtext" id="matchtext"></span>
   </div>
 
+  <div class="side" id="team1side"><img style="display:none;" /></div>
+  <div class="side" id="team2side"><img style="display:none;" /></div>
+
   <div class="left team team1" id="team1color">
     <div class="team-inner">
       <span class="teamname" id="team1name"></span>
+
+      <!-- <span class="teamdesc" id="team1desc"></span> -->
+
       <span class="logo" id="team1logo"></span>
       <span class="score" id="team1score"></span>
     </div>
@@ -631,18 +794,101 @@ Available Styles:
   <div class="right team team2" id="team2color">
     <div class="team-inner">
       <span class="teamname" id="team2name"></span>
+
+      <!-- <span class="teamdesc" id="team1desc"></span> -->
+
       <span class="logo" id="team2logo"></span>
       <span class="score" id="team2score"></span>
-
+      <!--  -->
     </div>
   </div>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <!-- import bootstrap-css -->
   <script>
+    const allOverlayStyles = [
+      "defaultPositions",
+      "marvelPositions",
+      "marvelDomination",
+      "marvelNonDomination",
+      "overWatchPositions",
+      "valorantPositions",
+      "valorantPositions2",
+      "valorantPositions3",
+      "valorantPositions4",
+      "valorantPositions5",
+      "smashPositions"
+    ];
+
+    let RUNNING = false
+
+
+    function removePreviousStyleClass() {
+      // Remove all game-specific classes
+      // body.classList.remove('marvelPositions', 'marvelDomination', 'marvelNonDomination', 'overWatchPositions', 'valorantPositions', 'smashPositions', 'defaultPositions');
+      allOverlayStyles.forEach(style => {
+        document.body.classList.remove(style);
+      });
+    }
+
+    // Shared function to apply game-specific styles
+    function applyGameStyles(currentGame, currentMode) {
+      // Remove all game-specific classes
+      removePreviousStyleClass();
+
+      // Get the stored style preference
+      const overlayStyle = window.selectedOverlayStyle || '';
+      const body = document.querySelector('body');
+
+      // Apply appropriate classes based on game and mode
+      if (currentGame === 'Marvel Rivals' || currentGame === "Marvel") {
+        body.classList.add('marvelPositions');
+        // if (currentMode === 'Domination') {
+        //   body.classList.add('marvelDomination');
+        // } else {
+        //   body.classList.add('marvelNonDomination');
+        // }
+      } else if (currentGame === 'Overwatch') {
+        body.classList.add(`overWatchPositions${overlayStyle}`);
+      } else if (currentGame === 'Valorant') {
+        if (overlayStyle && !isNaN(overlayStyle) && parseInt(overlayStyle) > 0 && parseInt(overlayStyle) <= 5) {
+          body.classList.add(`valorantPositions${overlayStyle}`);
+        } else {
+          body.classList.add('valorantPositions');
+        }
+      } else if (currentGame === 'Smash Ultimate' || currentGame === 'Smash Bros') {
+        body.classList.add('smashPositions');
+      } else {
+        body.classList.add('defaultPositions');
+      }
+    }
+
+    const applyInitialStyle = (currentGame) => {
+      // Lets figure out what style user wants from URL parameters
+      const urlParams = new URLSearchParams(window.location.search);
+      const overlayStyle = urlParams.get('style') || '';
+
+      console.log("Initial Overlay Style Chosen: ", overlayStyle);
+
+      // Store the style preference in a variable that persists across intervals
+      window.selectedOverlayStyle = overlayStyle;
+
+      // Apply the styles using the shared function (no specific mode yet)
+      applyGameStyles(currentGame, '');
+
+      RUNNING = true;
+    };
+
     async function interval() {
       let fullJson = await fetch(`http://localhost:8080/getFullJson`);
       fullJson = await fullJson.json();
+
+      if (!RUNNING) {
+        console.log("Running Overlay...");
+        applyInitialStyle(fullJson.currentGame);
+      }
+
+
 
       let inputJson = fullJson.general;
       let themeColors = inputJson.color;
@@ -661,6 +907,7 @@ Available Styles:
 
 
       const setOverlayPosition = (mapData) => {
+        // Find the first incomplete map
         for (let i = 0; i < fullJson.maps.mapData.length; i++) {
           if (!fullJson.maps.mapData[i].completed) {
             currentMap = fullJson.maps.mapData[i];
@@ -668,34 +915,17 @@ Available Styles:
           }
         }
 
-        let currentMode = currentMap.selectedMode;
-        let body = document.querySelector('body');
-
-        // Remove all game-specific classes
-        body.classList.remove('marvelPositions', 'marvelDomination', 'marvelNonDomination', 'overWatchPositions', 'valorantPositions', 'smashPositions');
-
-        if (currentGame === 'Marvel Rivals') {
-          body.classList.add('marvelPositions');
-          if (currentMode === 'Domination') {
-            body.classList.add('marvelDomination');
-          } else {
-            body.classList.add('marvelNonDomination');
-          }
+        // If no incomplete map was found, try to use the last map
+        if (!currentMap && fullJson.maps.mapData.length > 0) {
+          currentMap = fullJson.maps.mapData[fullJson.maps.mapData.length - 1];
         }
 
-        if (currentGame === 'Overwatch') {
-          body.classList.add('overWatchPositions');
-        }
+        // Get the current mode safely
+        let currentMode = currentMap?.selectedMode || '';
 
-        if (currentGame === 'Valorant') {
-          body.classList.add('valorantPositions');
-          // body.classList.add('smashPositions');
-        }
-
-        if (currentGame === 'Smash Ultimate') {
-          body.classList.add('smashPositions');
-        }
-      };
+        // Apply the styles using the shared function with the current mode
+        applyGameStyles(currentGame, currentMode);
+      }
 
       setOverlayPosition(fullJson.maps.mapData);
 
@@ -709,6 +939,7 @@ Available Styles:
       $('.teamname, .score').css("color", (colortheme2txt));
 
 
+      $('div.team-inner').css("background-color", (colortheme1txt).replace(/\n/gi, "").replace(/\r/gi, ""));
       $('div.center span').css("background-color", (colortheme1txt).replace(/\n/gi, "").replace(/\r/gi, ""));
 
 
@@ -717,22 +948,12 @@ Available Styles:
       let mapcounter = 1;
       let teamcolor = 1; // Set to 0 for default blue/red team colors, 1 to import from scoreboard
 
-      // Determine the Match Format, Best of 5, First to 3 etc - formerly utility9.txt
-      let completeMatchFormat = fullJson.matchFormat + fullJson.maps.totalMaps;
 
-      // console.log(`match format: ${completeMatchFormat}`);
+      let matchFormatCount = fullJson.matchFormat.target
+      let matchFormatType = fullJson.matchFormat?.formatType?.toLowerCase()
 
-      // console.log(`all maps: ${allmaps}`);
-      let gametype = null;
-      if (completeMatchFormat.match(/bo/gi) != null || completeMatchFormat.match(/best of/gi) != null) {
-        gametype = "bo";
-        completeMatchFormat = completeMatchFormat.replace(/\n/gi, "").replace(/\r/gi, "").replace(/bo/gi, "").replace(/best of/gi, "");
-        completeMatchFormat = parseInt(completeMatchFormat, 10);
-      } else if (completeMatchFormat.match(/ft/gi) != null || completeMatchFormat.match(/first to/gi) != null) {
-        gametype = "ft";
-        completeMatchFormat = completeMatchFormat.replace(/\n/gi, "").replace(/\r/gi, "").replace(/ft/gi, "").replace(/first to/gi, "");
-        completeMatchFormat = parseInt(completeMatchFormat, 10);
-      }
+      // console.log("Complete Match Format: ", matchFormatCount);
+      // console.log("Game Type: ", matchFormatType);
 
       // CENTER TEXT
       // Get mutual info text
@@ -760,7 +981,10 @@ Available Styles:
 
       // Get map count
       if (mapcounter >= 1) {
-        let totalmap = fullJson.maps.mapData.length;
+        // lets filter totalMaps to remove any maps that are 'hidden'
+
+        let totalmap = fullJson.maps.mapData.filter((map) => !map.hidden).length;
+
         let completedmap = 0;
         for (let m = 0; m < fullJson.maps.mapData.length; ++m) {
           let mapData = fullJson.maps.mapData[m];
@@ -773,6 +997,8 @@ Available Styles:
 
         const isTiebreaker = (team1Wins === team2Wins) && (completedmap === totalmap - 1);
 
+        // if current game is smash brothers then we should use `Set` instead of `Map`
+        let currentMapTitleText = (currentGame === "Smash Ultimate" || currentGame === "Smash Bros") ? 'Set' : 'Map';
 
         if (mapcounter == 1) {
           if (completedmap >= totalmap) {
@@ -781,12 +1007,12 @@ Available Styles:
             if (isTiebreaker) {
               $('.center .matchtext').html("<b>Tiebreaker </b>Map");
             } else {
-              if (gametype == "bo") {
-                $('.center .matchtext').html("Map <b>" + (completedmap + 1) + "</b> of <b>" + (completeMatchFormat) + "</b>");
-              } else if (gametype == "ft") {
-                $('.center .matchtext').html("Map <b>" + (completedmap + 1) + "</b> - First to <b>" + (completeMatchFormat) + "</b>");
+              if (matchFormatType == "bo") {
+                $('.center .matchtext').html(`${currentMapTitleText} <b>` + (completedmap + 1) + "</b> of <b>" + (matchFormatCount) + "</b>");
+              } else if (matchFormatType == "ft") {
+                $('.center .matchtext').html(`${currentMapTitleText} <b>` + (completedmap + 1) + "</b> - First to <b>" + (matchFormatCount) + "</b>");
               } else {
-                $('.center .matchtext').html("Map <b>" + (completedmap + 1) + "</b>");
+                $('.center .matchtext').html(`${currentMapTitleText} <b>` + (completedmap + 1) + "</b>");
               }
             }
           }
@@ -796,13 +1022,14 @@ Available Styles:
           let divisionnumbertxt = fullJson.matchDivision;
           divisionnumbertxt = divisionnumbertxt.replace(/\n/gi, "").replace(/\r/gi, "");
           if (divisionnumbertxt == "") {
+
             if (completedmap >= totalmap) {
               $('.center .matchtext').html("<b>Final</b> Score");
             } else {
               if (isTiebreaker) {
                 $('.center .matchtext').html("<b>Tiebreaker </b>Map");
               } else {
-                $('.center .matchtext').html("Map <b>" + (completedmap + 1) + "</b> of <b>" + (completeMatchFormat) + "</b>");
+                $('.center .matchtext').html("Map <b>" + (completedmap + 1) + "</b> of <b>" + (matchFormatCount) + "</b>");
               }
             }
           } else {
@@ -813,7 +1040,6 @@ Available Styles:
             }
           }
         }
-        console.log(`all maps: ${completeMatchFormat}, completed maps: ${completedmap}`);
       }
 
 
@@ -858,7 +1084,12 @@ Available Styles:
 
       // Function to update team name
       function updateTeamName(teamIndex) {
-        let tnametxt = teamsData[`team${teamIndex + 1}`].teamName;
+        let tnametxt = teamsData[`team${teamIndex + 1}`]?.teamName;
+        if (!tnametxt || typeof tnametxt !== "string" || tnametxt.trim() === "") {
+          // If missing, set to "TBD" or blank
+          $(`.team${teamIndex + 1} .teamname`).html("");
+          return;
+        }
         let regex = "";
         [
           "gaming", "team", "e-?sports", "house", "academy", "uni(versity)?", "state", "tech", "and", "the", "of", "eu",
@@ -871,6 +1102,8 @@ Available Styles:
           new RegExp(regex, "gi"), "</b>$1<b>")
           .replace(/&/gi, "</b>&<b>") + "</b>";
         $(`.team${teamIndex + 1} .teamname`).html(teamformatted);
+
+        $(`.team${teamIndex + 1} .teamdesc`).html(teamsData[`team${teamIndex + 1}`].teamInfo);
       }
 
       // Function to update team color
@@ -896,14 +1129,15 @@ Available Styles:
           if (teamIndex === 0) {
             // Check the teamGroup of Team 1
             const teamGroup = teamsData[`team${teamIndex + 1}`].teamGroup;
+            console.log("Team 1 Group:", teamGroup);
             if (teamGroup === 'A') {
               teamSide = 'A';
             } else if (teamGroup === 'D') {
               teamSide = 'D';
             } else {
               // Neutral or invalid group, no icon to show
-              document.querySelector(`#team${teamIndex + 1}side span`).style.webkitMaskImage = `url(data:image/png;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==)`;
-              document.querySelector(`#team${teamIndex + 2}side span`).style.webkitMaskImage = `url(data:image/png;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==)`;
+              document.querySelector(`#team${teamIndex + 1}side img`).style.display = "none";
+              document.querySelector(`#team${teamIndex + 2}side img`).style.display = "none";
               return;
             }
           } else if (teamIndex === 1) {
@@ -916,7 +1150,7 @@ Available Styles:
               teamSide = 'A';
             } else {
               // Neutral or invalid group, no icon to show
-              document.querySelector(`#team${teamIndex + 1}side span`).style.webkitMaskImage = `url(data:image/png;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==)`;
+              document.querySelector(`#team${teamIndex + 1}side img`).style.display = "none";
               return;
             }
           } else {
@@ -927,28 +1161,25 @@ Available Styles:
 
           let iconPath;
           if (teamSide === 'A') {
-            iconPath = 'html/assets/icon-offense.png';
+            iconPath = 'assets/icon-offense.png';
           } else if (teamSide === 'D') {
-            iconPath = 'html/assets/icon-defense.png';
+            iconPath = 'assets/icon-defense.png';
           } else {
             // Neutral side, no icon to show
-            document.querySelector(`#team${teamIndex + 1}side span`).style.webkitMaskImage = `url(data:image/png;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==)`;
+            document.querySelector(`#team${teamIndex + 1}side img`).style.display = "none";
             return;
           }
 
-          // Fetch the icon based on the team side
-          let response = await fetch(iconPath);
-          let data = await response.arrayBuffer();
-          let bytes = new Uint8Array(data);
-          let str = "";
-          for (let b of bytes) {
-            str += String.fromCharCode(b);
+          // Show/hide icon based on game
+          if (currentGame == "Overwatch") {
+            const imgElem = document.querySelector(`#team${teamIndex + 1}side img`);
+            imgElem.src = iconPath;
+            imgElem.style.display = "block";
+          } else {
+            document.querySelector(`#team${teamIndex + 1}side img`).style.display = "none";
           }
-
-          // Update the mask image with the fetched icon
-          document.querySelector(`#team${teamIndex + 1}side span`).style.webkitMaskImage = `url(data:image/png;base64,${btoa(str)})`;
         } catch (error) {
-          console.error('Error fetching team side icon:', error);
+          // console.error('Error fetching team side icon:', error);
         }
       }
 
@@ -968,8 +1199,10 @@ Available Styles:
     }
 
     $(() => {
+      const Loopinterval = new URLSearchParams(window.location.search).get('interval') || 3000
+
       interval();
-      setInterval(interval, 3000);
+      setInterval(interval, Loopinterval);
     });
   </script>
 </body>

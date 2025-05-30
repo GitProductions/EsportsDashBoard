@@ -43,23 +43,23 @@ export const configurations = {
         gameConfigs: [
             {
                 id: "esportsdash.overwatch",
-                name: "Overwatch Game Config",
+                name: "Overwatch",
                 author: "EsportsDash",
-                version: "1.6",
+                version: "2.0",
                 image: "Game Configs/Overwatch/Overwatch.webp",
-                description: "Game configuration file.",
+                description: "Season 15",
                 folderPath: "Game Configs/Overwatch",
-                fileName: "esportsdash.overwatch_v1.6.bgg"
+                fileName: "esportsdash.overwatch_v2.0.bgg"
             },
             {
                 id: "esportsdash.overwatch",
                 name: "Overwatch",
                 author: "EsportsDash",
-                version: "1.9",
+                version: "2.1",
                 image: "Game Configs/Overwatch/Overwatch.webp",
-                description: "Season 15",
+                description: "Season 16",
                 folderPath: "Game Configs/Overwatch",
-                fileName: "esportsdash.overwatch_v1.9.bgg"
+                fileName: "esportsdash.overwatch_v2.1.bgg"
             }
         ],
 
@@ -114,11 +114,11 @@ export const configurations = {
                 id: "esportsdash.valorant",
                 name: "Valorant",
                 author: "EsportsDash",
-                version: "1.5",
+                version: "1.6",
                 image: "Game Configs/Valorant/Valorant.webp",
-                description: "Season 10",
+                description: "Season 2025 Act 2",
                 folderPath: "Game Configs/Valorant",
-                fileName: "esportsdash.valorant_v1.5.bgg"
+                fileName: "esportsdash.valorant_v1.6.bgg"
             }
         ],
 
@@ -189,11 +189,11 @@ export const configurations = {
                 id: "esportsdash.marvelrivals",
                 name: "Marvel Rivals",
                 author: "EsportsDash",
-                version: "1.6",
+                version: "2.0",
                 image: "Game Configs/Marvel Rivals/Marvel Rivals.webp",
-                description: "Season 1.5",
+                description: "Season 2",
                 folderPath: "Game Configs/Marvel Rivals",
-                fileName: "esportsdash.marvelrivals_v1.6.bgg"
+                fileName: "esportsdash.marvelrivals_v2.0.bgg"
             }
         ],
 

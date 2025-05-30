@@ -34,7 +34,10 @@ body {
   }
 
 
-
+  @font-face {
+    font-family: 'FontAwesome';
+    src: url("fonts/Font Awesome/Font Awesome 6 Brands-Regular-400.otf") format('OpenType');
+  }
 
 
   /* ANIMATIONS */
@@ -132,6 +135,18 @@ body {
       clip-path: polygon(0% -100%, 100% -100%, 100% 200%, 0% 200%);
       transform: translateX(0%)
       ;
+    }
+  }
+
+  @keyframes stingerwipe {
+    0% {
+      clip-path: polygon(0 0, 100% 0%, 100% 100%, 0% 100%);
+      transform: translateX(0) skewX(-15deg);
+    }
+
+    100% {
+      clip-path: polygon(0% 0, 50% 0, 50% 100%, 0% 100%);
+      transform: translateX(-50%) skewX(-15deg);
     }
   }
 
@@ -279,7 +294,7 @@ body {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     padding: 25px;
   }
 
@@ -403,25 +418,152 @@ body {
   }
 
 
+     
+/* !! NEEDS TO BE ADJUSTED WHEN NEW SOCIAL PLATFORMS ARE ADDED*/
+.socials, .twitter, .twitch, .youtube, .bluesky, .facebook, .instagram, .x-twitter, .tiktok, .discord, .tumblr, .meta {
+  font-family: 'Rajdhani';
+  font-weight: normal;
+  text-transform: none;
+  font-size: 2em;
+  position: relative;
+}
+
+.socials:before {
+  font-family: 'FontAwesome';
+  content: "\f099"
+    /* twitter logo */
+    /* content:"\f1e8" twitch logo*/
+}
+
+.twitter:before {
+  font-family: 'FontAwesome';
+  content: "\f099"
+    /* twitter logo */
+    /* content:"\f1e8" twitch logo*/
+}
+
+.twitch:before {
+  font-family: 'FontAwesome';
+  content: "\f1e8"
+    /* twitter logo */
+    /* content:"\f1e8" twitch logo*/
+}
+
+.youtube:before {
+  font-family: 'FontAwesome';
+  content: "\f167"
+    /* twitter logo */
+    /* content:"\f1e8" twitch logo*/
+}
+
+.bluesky:before {
+  font-family: 'FontAwesome';
+  content: "\e671"
+    /* twitter logo */
+    /* content:"\f1e8" twitch logo*/
+}
+
+.facebook:before {
+  font-family: 'FontAwesome';
+  content: "\f39e"
+    /* twitter logo */
+    /* content:"\f1e8" twitch logo*/
+}
+
+.instagram:before {
+  font-family: 'FontAwesome';
+  content: "\f16d"
+    /* twitter logo */
+    /* content:"\f1e8" twitch logo*/
+}
+
+.x-twitter:before {
+  font-family: 'FontAwesome';
+  content: "\e61b"
+    /* twitter logo */
+    /* content:"\f1e8" twitch logo*/
+}
+
+.tiktok:before {
+  font-family: 'FontAwesome';
+  content: "\e07b"
+    /* twitter logo */
+    /* content:"\f1e8" twitch logo*/
+}
+
+.discord:before {
+  font-family: 'FontAwesome';
+  content: "\f392"
+    /* twitter logo */
+    /* content:"\f1e8" twitch logo*/
+}
+
+.tumblr:before {
+  font-family: 'FontAwesome';
+  content: "\f173"
+    /* twitter logo */
+    /* content:"\f1e8" twitch logo*/
+}
+
+.meta:before {
+  font-family: 'FontAwesome';
+  content: "\e49b"
+    /* twitter logo */
+    /* content:"\f1e8" twitch logo*/
+}
 
 
 
   
-  div.tagline {
-    min-width: 375px;
-    animation: tagline .5s;
-    animation-fill-mode: backwards;
-    animation-delay: 2s;
-  }
+div.tagline {
+  text-align: center;
+  min-width: 375px;
+  animation: tagline .5s;
+  animation-fill-mode: backwards;
+  animation-delay: 2s;
+}
 
-  span.tertiary {
-    font-size: 1.8em;
-    border-style: solid;
-    font-weight: bold;
-    text-align: center;
-    font-family: 'Rajdhani';
-    text-transform: uppercase;
-    padding: 3px 15px 2px 15px;
-    border-width: 0px 6px 0px 6px;
-    background-color: rgb(255, 255, 255);
-  }
+span.tertiary {
+  font-size: 1.8em;
+  border-style: solid;
+  font-weight: bold;
+  text-align: center;
+  font-family: 'Rajdhani';
+  text-transform: uppercase;
+  padding: 3px 15px 2px 15px;
+  border-width: 0px 6px 0px 6px;
+  background-color: rgb(255, 255, 255);
+  display: block;
+}
+
+div.stingerlogo {
+  position: absolute;
+  top: 0px;
+  left: -150px;
+  width: 2220px;
+  height: 1080px;
+  vertical-align: middle;
+  /* background-color: #202224; */
+  animation: stingerwipe 0.3s;
+  animation-fill-mode: forwards;
+  animation-delay: 1s;
+  transform: skewX(-15deg);
+}
+
+div.stingerlogo span.logo {
+  width: 1120px;
+  height: 680px;
+  position: absolute;
+  top: 200px;
+  left: 550px;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  animation: slideease 1s;
+  animation-fill-mode: forwards;
+  animation-delay: 0s;
+  transform: skewX(15deg);
+  /* background-image: url('../scoreboard/general/image2.png'); */
+  -webkit-animation-timing-function: cubic-bezier(0, 0, 0, 1);
+}
+
