@@ -93,21 +93,21 @@
         "id": "esportsdash.overwatch",
         "name": "Overwatch",
         "author": "EsportsDash",
-        "version": "2.0",
-        "image": "Game Configs/Overwatch/Overwatch.webp",
-        "description": "Season 15",
-        "folderPath": "Game Configs/Overwatch",
-        "fileName": "esportsdash.overwatch_v2.0.bgg"
-      },
-      {
-        "id": "esportsdash.overwatch",
-        "name": "Overwatch",
-        "author": "EsportsDash",
         "version": "2.1",
         "image": "Game Configs/Overwatch/Overwatch.webp",
         "description": "Season 16",
         "folderPath": "Game Configs/Overwatch",
         "fileName": "esportsdash.overwatch_v2.1.bgg"
+      },
+      {
+        "id": "esportsdash.overwatch",
+        "name": "Overwatch",
+        "author": "EsportsDash",
+        "version": "2.2",
+        "image": "Game Configs/Overwatch/Overwatch.webp",
+        "description": "Season 16",
+        "folderPath": "Game Configs/Overwatch",
+        "fileName": "esportsdash.overwatch_v2.2.bgg"
       }
     ],
     "Valorant": [
@@ -120,6 +120,16 @@
         "description": "Season 2025 Act 2",
         "folderPath": "Game Configs/Valorant",
         "fileName": "esportsdash.valorant_v1.6.bgg"
+      },
+      {
+        "id": "esportsdash.valorant",
+        "name": "Valorant",
+        "author": "EsportsDash",
+        "version": "1.7",
+        "image": "Game Configs/Valorant/Valorant.webp",
+        "description": "Season 2025 Act 3",
+        "folderPath": "Game Configs/Valorant",
+        "fileName": "esportsdash.valorant_v1.7.bgg"
       }
     ],
     "Marvel Rivals": [
@@ -132,10 +142,20 @@
         "description": "Season 2",
         "folderPath": "Game Configs/Marvel Rivals",
         "fileName": "esportsdash.marvelrivals_v2.0.bgg"
+      },
+      {
+        "id": "esportsdash.marvelrivals",
+        "name": "Marvel Rivals",
+        "author": "EsportsDash",
+        "version": "2.5",
+        "image": "Game Configs/Marvel Rivals/Marvel Rivals.webp",
+        "description": "Season 2.5",
+        "folderPath": "Game Configs/Marvel Rivals",
+        "fileName": "esportsdash.marvelrivals_v2.5.bgg"
       }
     ]
   },
-  "Overlay Packs": {
+   "Overlay Packs": {
     "esportsdash.default": {
       "id": "esportsdash.default",
       "name": "Default HTML Pack",
