@@ -701,7 +701,8 @@
       };
 
       const updateIncompleteMap = (i, mapBg, mapScore) => {
-        mapBg.find('img').css({ "filter": "greyscale(0%)",  "mix-blend-mode": "normal" });
+        mapBg.removeClass('winner'); // Remove winner class to clear blur/grayscale filters
+        // mapBg.find('img').css({ "filter": "greyscale(0%)",  "mix-blend-mode": "normal" });
         mapBg.css("background-color", primaryColor);
         mapScore.find('.score').html("");
         mapScore.find('span').css({ "color": "white", "text-shadow": "0px 0px 10px black" });
