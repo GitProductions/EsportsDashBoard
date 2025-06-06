@@ -45,21 +45,21 @@ export const configurations = {
                 id: "esportsdash.overwatch",
                 name: "Overwatch",
                 author: "EsportsDash",
-                version: "2.0",
-                image: "Game Configs/Overwatch/Overwatch.webp",
-                description: "Season 15",
-                folderPath: "Game Configs/Overwatch",
-                fileName: "esportsdash.overwatch_v2.0.bgg"
-            },
-            {
-                id: "esportsdash.overwatch",
-                name: "Overwatch",
-                author: "EsportsDash",
                 version: "2.1",
                 image: "Game Configs/Overwatch/Overwatch.webp",
                 description: "Season 16",
                 folderPath: "Game Configs/Overwatch",
                 fileName: "esportsdash.overwatch_v2.1.bgg"
+            },
+            {
+                id: "esportsdash.overwatch",
+                name: "Overwatch",
+                author: "EsportsDash",
+                version: "2.2",
+                image: "Game Configs/Overwatch/Overwatch.webp",
+                description: "Season 16",
+                folderPath: "Game Configs/Overwatch",
+                fileName: "esportsdash.overwatch_v2.2.bgg"
             }
         ],
 
@@ -119,6 +119,16 @@ export const configurations = {
                 description: "Season 2025 Act 2",
                 folderPath: "Game Configs/Valorant",
                 fileName: "esportsdash.valorant_v1.6.bgg"
+            },
+            {
+                id: "esportsdash.valorant",
+                name: "Valorant",
+                author: "EsportsDash",
+                version: "1.7",
+                image: "Game Configs/Valorant/Valorant.webp",
+                description: "Season 2025 Act 3",
+                folderPath: "Game Configs/Valorant",
+                fileName: "esportsdash.valorant_v1.7.bgg"
             }
         ],
 
