@@ -459,7 +459,7 @@
 
     /* Add this new class for blurred maps */
     .mapbg.winner img {
-        filter: blur(var(--winnerBlur)) grayscale(var(--winnerGray));
+      filter: blur(var(--winnerBlur)) grayscale(var(--winnerGray));
     }
   </style>
 
@@ -468,19 +468,19 @@
     const urlParams = new URLSearchParams(window.location.search);
     // const team = urlParams.get('team');
 
-    const loopInterval = urlParams.get('loopInterval') ||  urlParams.get('interval') || 3000;
+    const loopInterval = urlParams.get('loopInterval') || urlParams.get('interval') || 3000;
     const BlurWinner = urlParams.get('blurwinner');
     const GrayWinner = urlParams.get('graywinner');
     const useTeamColors = urlParams.get('useTeamColors');
 
     if (BlurWinner) {
-      document.documentElement.style.setProperty('--winnerBlur', BlurWinner+'px');
+      document.documentElement.style.setProperty('--winnerBlur', BlurWinner + 'px');
     }
 
     if (GrayWinner) {
-      document.documentElement.style.setProperty('--winnerGray', GrayWinner+'%');
+      document.documentElement.style.setProperty('--winnerGray', GrayWinner + '%');
     }
-    
+
 
 
     /* jshint esversion: 8 */
@@ -673,55 +673,56 @@
         }
       };
 
-      
-const updateCompletedMap = async (i, mapBg, mapScore, mapwinner, mt1scoretxt, mt2scoretxt) => {
-  // Add 'winner' class instead of directly setting styles
-  mapBg.addClass('winner');
 
-  if (mapwinner === t1nametxt) {
-    updateWinnerDisplay(mapBg, mapScore, t1colortxt, t1colorspan, t1colorshade, mt1scoretxt, mt2scoretxt, teamsData.team1.teamLogoUrl, mapwinner);
-  } else if (mapwinner === t2nametxt) {
-    updateWinnerDisplay(mapBg, mapScore, t2colortxt, t2colorspan, t2colorshade, mt1scoretxt, mt2scoretxt, teamsData.team2.teamLogoUrl, mapwinner);
-  } else {
-    updateDrawDisplay(mapBg, mapScore, mt1scoretxt, mt2scoretxt);
-  }
-};
+      const updateCompletedMap = async (i, mapBg, mapScore, mapwinner, mt1scoretxt, mt2scoretxt) => {
+        // Add 'winner' class instead of directly setting styles
+        mapBg.addClass('winner');
 
-const updateWinnerDisplay = (mapBg, mapScore, color, colorspan, colorshade, team1Score, team2Score, logoUrl, mapwinner) => {
-  mapBg.css("background-color", color);
-  
-  // Use the already determined winner instead of recalculating
-  let scoreHtml;
-  if (mapwinner === t1nametxt) {
-    // Team1 won
-    scoreHtml = `<b>${team1Score}</b>-${team2Score}`;
-  } else if (mapwinner === t2nametxt) {
-    // Team2 won
-    scoreHtml = `${team1Score}-<b>${team2Score}</b>`;
-  } else {
-    // Draw
-    scoreHtml = `${team1Score}-${team2Score}`;
-  }
-  
-  mapScore.find('.score').html(scoreHtml);
+        if (mapwinner === t1nametxt) {
+          updateWinnerDisplay(mapBg, mapScore, t1colortxt, t1colorspan, t1colorshade, mt1scoretxt, mt2scoretxt, teamsData.team1.teamLogoUrl, mapwinner);
+        } else if (mapwinner === t2nametxt) {
+          updateWinnerDisplay(mapBg, mapScore, t2colortxt, t2colorspan, t2colorshade, mt1scoretxt, mt2scoretxt, teamsData.team2.teamLogoUrl, mapwinner);
+        } else {
+          updateDrawDisplay(mapBg, mapScore, mt1scoretxt, mt2scoretxt);
+        }
+      };
 
-  // setting color n textshadow for winning team
-  mapScore.find('span').css({ 
-    "color": colorspan, 
-    "-webkit-text-stroke": `2px ${colorshade}`,
-    "paint-order": "stroke fill"
-  });
-  mapScore.find('.logo').css("background-image", `url("${logoUrl}")`);
-};
+      const updateWinnerDisplay = (mapBg, mapScore, color, colorspan, colorshade, team1Score, team2Score, logoUrl, mapwinner) => {
+        mapBg.css("background-color", color);
+
+        // Use the already determined winner instead of recalculating
+        let scoreHtml;
+        if (mapwinner === t1nametxt) {
+          // Team1 won
+          scoreHtml = `<b>${team1Score}</b>-${team2Score}`;
+        } else if (mapwinner === t2nametxt) {
+          // Team2 won
+          scoreHtml = `${team1Score}-<b>${team2Score}</b>`;
+        } else {
+          // Draw
+          scoreHtml = `${team1Score}-${team2Score}`;
+        }
+
+        mapScore.find('.score').html(scoreHtml);
+
+        // setting color n textshadow for winning team
+        mapScore.find('span').css({
+          "color": colorspan,
+          "-webkit-text-stroke": `2px ${colorshade}`,
+          "paint-order": "stroke fill"
+        });
+        mapScore.find('.logo').css("background-image", `url("${logoUrl}")`);
+      };
 
       const updateDrawDisplay = (mapBg, mapScore, mt1scoretxt, mt2scoretxt) => {
         mapBg.css("background-color", primaryColor);
         mapScore.find('.score').html(`${mt1scoretxt}-${mt2scoretxt}`);
-        mapScore.find('span').css({ "color": "white",
-        //  "text-shadow": "0px 0px 10px black"
+        mapScore.find('span').css({
+          "color": "white",
+          //  "text-shadow": "0px 0px 10px black"
           "-webkit-text-stroke": `2px black`,
           "paint-order": "stroke fill"
-        
+
         });
       };
 
@@ -730,11 +731,12 @@ const updateWinnerDisplay = (mapBg, mapScore, color, colorspan, colorshade, team
         // mapBg.find('img').css({ "filter": "greyscale(0%)",  "mix-blend-mode": "normal" });
         mapBg.css("background-color", primaryColor);
         mapScore.find('.score').html("");
-        mapScore.find('span').css({ "color": "white",
-        //  "text-shadow": "0px 0px 10px black"
+        mapScore.find('span').css({
+          "color": "white",
+          //  "text-shadow": "0px 0px 10px black"
           "-webkit-text-stroke": `2px black`,
           "paint-order": "stroke fill"
-         });
+        });
         document.querySelector(`.mapbg${i + 1} .mapscore .logo`).style.backgroundImage = "url(data:image/jpeg;base64,)";
       };
 
