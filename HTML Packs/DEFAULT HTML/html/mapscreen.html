@@ -602,9 +602,9 @@
         await updateMapTypeDetails(i);
         // console.log(`updating map ${i + 1}...`);
         updateMapNameDetails(mapData, i);
-        const mapwintxt = determineWinner(mapData);
-        updateTeamName(i, mapwintxt);
-        await updateMapDisplay(i, mapData, mapwintxt);
+        const mapwinner = determineWinner(mapData);
+        updateTeamName(i, mapwinner);
+        await updateMapDisplay(i, mapData, mapwinner);
       };
 
       const updateMapTypeDetails = async (i) => {
@@ -660,47 +660,59 @@
         $(`.mapbg${i + 1} .mapscore .teamname`).html(teamformatted);
       };
 
-      const updateMapDisplay = async (i, mapData, mapwintxt) => {
+      const updateMapDisplay = async (i, mapData, mapwinner) => {
         const mapBg = $(`.mapbg${i + 1}`);
         const mapScore = mapBg.find('.mapscore');
         const mt1scoretxt = String(mapData.team1Score);
         const mt2scoretxt = String(mapData.team2Score);
 
-        if (mapwintxt !== "") {
-          await updateCompletedMap(i, mapBg, mapScore, mapwintxt, mt1scoretxt, mt2scoretxt);
+        if (mapwinner !== "") {
+          await updateCompletedMap(i, mapBg, mapScore, mapwinner, mt1scoretxt, mt2scoretxt);
         } else {
           updateIncompleteMap(i, mapBg, mapScore);
         }
       };
 
-      const updateCompletedMap = async (i, mapBg, mapScore, mapwintxt, mt1scoretxt, mt2scoretxt) => {
-        // Add 'winner' class instead of directly setting styles
-        mapBg.addClass('winner');
+      
+const updateCompletedMap = async (i, mapBg, mapScore, mapwinner, mt1scoretxt, mt2scoretxt) => {
+  // Add 'winner' class instead of directly setting styles
+  mapBg.addClass('winner');
 
-        if (mapwintxt === t1nametxt) {
-          updateWinnerDisplay(mapBg, mapScore, t1colortxt, t1colorspan, t1colorshade, mt1scoretxt, mt2scoretxt, teamsData.team1.teamLogoUrl);
-        } else if (mapwintxt === t2nametxt) {
-          updateWinnerDisplay(mapBg, mapScore, t2colortxt, t2colorspan, t2colorshade, mt2scoretxt, mt1scoretxt, teamsData.team2.teamLogoUrl);
-        } else {
-          updateDrawDisplay(mapBg, mapScore, mt1scoretxt, mt2scoretxt);
-        }
-      };
+  if (mapwinner === t1nametxt) {
+    updateWinnerDisplay(mapBg, mapScore, t1colortxt, t1colorspan, t1colorshade, mt1scoretxt, mt2scoretxt, teamsData.team1.teamLogoUrl, mapwinner);
+  } else if (mapwinner === t2nametxt) {
+    updateWinnerDisplay(mapBg, mapScore, t2colortxt, t2colorspan, t2colorshade, mt1scoretxt, mt2scoretxt, teamsData.team2.teamLogoUrl, mapwinner);
+  } else {
+    updateDrawDisplay(mapBg, mapScore, mt1scoretxt, mt2scoretxt);
+  }
+};
 
-      const updateWinnerDisplay = (mapBg, mapScore, color, colorspan, colorshade, winnerScore, loserScore, logoUrl) => {
-        mapBg.css("background-color", color);
-        // mapBg.css("filter", "blur(2px)",)
-        mapScore.find('.score').html(`<b>${winnerScore}</b>-${loserScore}`);
+const updateWinnerDisplay = (mapBg, mapScore, color, colorspan, colorshade, team1Score, team2Score, logoUrl, mapwinner) => {
+  mapBg.css("background-color", color);
+  
+  // Use the already determined winner instead of recalculating
+  let scoreHtml;
+  if (mapwinner === t1nametxt) {
+    // Team1 won
+    scoreHtml = `<b>${team1Score}</b>-${team2Score}`;
+  } else if (mapwinner === t2nametxt) {
+    // Team2 won
+    scoreHtml = `${team1Score}-<b>${team2Score}</b>`;
+  } else {
+    // Draw
+    scoreHtml = `${team1Score}-${team2Score}`;
+  }
+  
+  mapScore.find('.score').html(scoreHtml);
 
-        // setting color n textshadow for winning team?? 
-        mapScore.find('span').css({ "color": colorspan, 
-        // "text-shadow": `0px 0px 10px ${colorshade}` 
-          "-webkit-text-stroke": `2px ${colorshade}`,
-          "paint-order": "stroke fill"
-
-
-      });
-        mapScore.find('.logo').css("background-image", `url("${logoUrl}")`);
-      };
+  // setting color n textshadow for winning team
+  mapScore.find('span').css({ 
+    "color": colorspan, 
+    "-webkit-text-stroke": `2px ${colorshade}`,
+    "paint-order": "stroke fill"
+  });
+  mapScore.find('.logo').css("background-image", `url("${logoUrl}")`);
+};
 
       const updateDrawDisplay = (mapBg, mapScore, mt1scoretxt, mt2scoretxt) => {
         mapBg.css("background-color", primaryColor);
