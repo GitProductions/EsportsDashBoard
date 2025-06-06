@@ -347,6 +347,7 @@
 							const fullname = element.querySelector('.fullname');
 							const heroImg = element.querySelector('.hero-image img');
 							const roleIcon = element.querySelector('.role-icon');
+							const roleContainer = element.querySelector('.player-role');
 
 							if (battletag.textContent !== (player.playerName || 'Player ' + (idx + 1))) {
 								battletag.textContent = player.playerName || 'Player ' + (idx + 1);
@@ -358,25 +359,20 @@
 									// animate hero 
 									heroImg.classList.add('animate-hero');
 									setTimeout(() => heroImg.classList.remove('animate-hero'), 800);
-
-									// player role
-									// roleIcon.classList.add('animate-role');
-									// setTimeout(() => roleIcon.classList.remove('animate-role'), 800);
-
-
-
 								}
 							}
 							fullname.textContent = player.role || '';
 							heroImg.src = player.images.heroImage || 'https://upload.wikimedia.org/wikipedia/en/d/d2/Blank.png';
 							
-							roleIcon.style.backgroundImage = `url('${player.images.roleImage}')`;
+							if (roleIcon) {
+								roleIcon.style.backgroundImage = `url('${player.images.roleImage}')`;
+							}
 
-							// Show/hide role icon based on image availability
+							// Show/hide role container based on image availability
 							if (!player.images.roleImage) {
-								roleIcon.style.display = 'none';
+								roleContainer.style.display = 'none';
 							} else {
-								roleIcon.style.display = '';
+								roleContainer.style.display = '';
 							}
 						});
 					}

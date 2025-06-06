@@ -1,5 +1,5 @@
 <!-- URL Params Available:
-  - interval: Set the interval for the loop in milliseconds. Default is 3000ms.
+ - useTeamColors: true/false (default: true) - Use team colors for borders
 -->
 
 <!DOCTYPE html>
@@ -245,22 +245,22 @@
 			const roleDelay = 2.5;
 
 			container.innerHTML = `
-    		  <div class="hero-image animate-hero" style="animation-delay: ${heroDelay}s">
-    		    <img src="${playerData.images.heroImage ||
+    		    <div class="hero-image animate-hero" style="animation-delay: ${heroDelay}s">
+    		      <img src="${playerData.images.heroImage ||
 						'https://upload.wikimedia.org/wikipedia/en/d/d2/Blank.png'
 						}" alt="HERO">
-    		  </div>
-    		  <div class="player-info animate-info" style="animation-delay: ${infoDelay}s">
-    		    <div class="player-role animate-role" style="animation-delay: ${roleDelay}s">
-    		      <div class="role-icon" style="background-image: url('${playerData.images.roleImage
-						}')"></div>
     		    </div>
-    		    <span class="battletag ${animateName ? 'animate-name' : ''}">${playerData.playerName || 'Player ' + (index + 1)
+    		    <div class="player-info animate-info" style="animation-delay: ${infoDelay}s">
+    		      <div class="player-role animate-role" style="animation-delay: ${roleDelay}s">
+    		        <div class="role-icon" style="background-image: url('${playerData.images.roleImage
+						}')"></div>
+    		      </div>
+    		      <span class="battletag ${animateName ? 'animate-name' : ''}">${playerData.playerName || 'Player ' + (index + 1)
 						}</span>
-    		    <span class="fullname">${playerData.role || ''}</span>
-    		  </div>
-    		`;
-
+    		      <span class="fullname">${playerData.role || ''}</span>
+    		    </div>
+    		  `;
+			
 			if (!playerData.images.roleImage) {
 				container.querySelector('.player-role').style.display = 'none';
 			}
@@ -347,6 +347,7 @@
 							const fullname = element.querySelector('.fullname');
 							const heroImg = element.querySelector('.hero-image img');
 							const roleIcon = element.querySelector('.role-icon');
+							const roleContainer = element.querySelector('.player-role');
 
 							if (battletag.textContent !== (player.playerName || 'Player ' + (idx + 1))) {
 								battletag.textContent = player.playerName || 'Player ' + (idx + 1);
@@ -358,25 +359,20 @@
 									// animate hero 
 									heroImg.classList.add('animate-hero');
 									setTimeout(() => heroImg.classList.remove('animate-hero'), 800);
-
-									// player role
-									// roleIcon.classList.add('animate-role');
-									// setTimeout(() => roleIcon.classList.remove('animate-role'), 800);
-
-
-
 								}
 							}
 							fullname.textContent = player.role || '';
 							heroImg.src = player.images.heroImage || 'https://upload.wikimedia.org/wikipedia/en/d/d2/Blank.png';
 							
-							roleIcon.style.backgroundImage = `url('${player.images.roleImage}')`;
+							if (roleIcon) {
+								roleIcon.style.backgroundImage = `url('${player.images.roleImage}')`;
+							}
 
-							// Show/hide role icon based on image availability
+							// Show/hide role container based on image availability
 							if (!player.images.roleImage) {
-								roleIcon.style.display = 'none';
+								roleContainer.style.display = 'none';
 							} else {
-								roleIcon.style.display = '';
+								roleContainer.style.display = '';
 							}
 						});
 					}
