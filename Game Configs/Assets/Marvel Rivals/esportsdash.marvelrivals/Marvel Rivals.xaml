@@ -1,8 +1,8 @@
 <config>
   <id>esportsdash.marvelrivals</id>
-  <version>2.0</version>
+  <version>2.5</version>
   <name>Marvel Rivals</name>
-  <description>Season 2</description>
+  <description>Season 2.5</description>
   <game>Marvel Rivals</game>
   <author>EsportsDash</author>
   <gamelogo>Marvel Rivals</gamelogo>
@@ -28,6 +28,7 @@ Krakoa -->
 
 
   <maps>
+    <map name="Arrako" file="Arrako" />
     <map name="Birnin t challa" file="Birnin-t-challa" />
     <map name="Central Park" file="Central_Park" />
     <map name="Hall of Djalia" file="Djalia_Hall" />
@@ -66,9 +67,8 @@ Krakoa -->
       <hero name="The Thing" file="The_Thing_Hero_Portrait" />
       <hero name="Thor" file="Thor_Hero_Portrait" />
       <hero name="Venom" file="Venom_Hero_Portrait" />
-
-
     </Vanguard>
+
     <Duelist>
       <hero name="Black Panther" file="Black_Panther_Hero_Portrait" />
       <hero name="Black Widow" file="Black_Widow_Hero_Portrait" />
@@ -101,6 +101,8 @@ Krakoa -->
       <hero name="Luna Snow" file="Luna_Snow_Hero_Portrait" />
       <hero name="Mantis" file="Mantis_Hero_Portrait" />
       <hero name="Rocket Raccoon" file="Rocket_Raccoon_Hero_Portrait" />
+      <hero name="Ultron" file="Ultron_Hero_Portrait" />
     </Strategist>
+
   </heroes>
 </config>
