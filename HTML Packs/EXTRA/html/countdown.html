@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Animated Countdown</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <script src="https://cdn.socket.io/4.0.1/socket.io.min.js"></script>
+
+  <style>
+    body {
+      background: #111;
+      color: #fff;
+      font-family: sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    #timer {
+      display: flex;
+      font-size: 5rem;
+      gap: 0.2ch;
+      transition: color 0.3s ease, font-size 0.3s ease;
+    }
+
+    #timer.timer-warning {
+      color: #ff9800;
+    }
+
+    #timer.timer-critical {
+      color: #dc3545;
+    }
+
+    #timer.movie-countdown {
+      font-size: 15rem;
+      font-weight: bold;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    }
+
+    .digit-wrapper {
+      position: relative;
+      width: 1ch;
+      height: 1em;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .digit {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      text-align: center;
+    }
+
+    #movie-digit {
+      text-align: center;
+    }
+
+    .final-message {
+      font-size: 3rem;
+      text-align: center;
+      animation: fadeIn 1s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="timer">
+    <!-- Digits or movie digit will be added dynamically -->
+  </div>
+
+  <script>
+    const timerEl = document.getElementById("timer");
+    let totalSeconds = 0; // Default to 0, will be set by server
+    let prevSeconds = null;
+    let socket;
+
+    function formatTime(seconds) {
+      const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+      const s = String(seconds % 60).padStart(2, '0');
+      return (m + ':' + s).split('');
+    }
+
+    function renderInitial(timeArray) {
+      timerEl.innerHTML = '';
+      timeArray.forEach(char => {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'digit-wrapper';
+        const digit = document.createElement('div');
+        digit.className = 'digit';
+        digit.textContent = char;
+        wrapper.appendChild(digit);
+        timerEl.appendChild(wrapper);
+      });
+    }
+
+    function updateDisplay(seconds, options = {}) {
+      // Show timer when we have valid data
+      timerEl.style.display = 'flex';
+      
+      timerEl.classList.remove('timer-warning', 'timer-critical', 'movie-countdown', 'animate__animated', 'animate__zoomIn', 'animate__fadeOut');
+
+      if (seconds === 0) {
+        // Don't show 0:00, just return and let final message handle it
+        return;
+      }
+
+      if (seconds <= 5 && seconds > 0 && options.movieCountdown) {
+        // Movie-style countdown for 5 seconds and below (only if enabled)
+        if (prevSeconds !== seconds) {
+          timerEl.innerHTML = ''; // Clear previous digit instantly
+          timerEl.className = 'movie-countdown'; // Reset classes
+          
+          // Force reflow to restart animation
+          timerEl.offsetHeight;
+          
+          timerEl.classList.add('animate__animated', 'animate__zoomIn', 'animate__fadeOut', 'animate__faster');
+          timerEl.innerHTML = `<div id="movie-digit">${seconds}</div>`;
+          prevSeconds = seconds;
+          
+          // Remove animation classes after animation completes to allow restart
+          setTimeout(() => {
+            timerEl.classList.remove('animate__animated', 'animate__zoomIn', 'animate__fadeOut');
+          }, 600);
+        }
+        return;
+      }
+
+      // Apply color classes for seconds > 5 or when movie countdown is disabled
+      if (seconds == options.criticalThreshold) {
+        timerEl.classList.add('timer-critical');
+      } else if (seconds == options.warningThreshold) {
+        timerEl.classList.add('timer-warning');
+      }
+
+      const newDigits = formatTime(seconds);
+
+      if (timerEl.children.length !== newDigits.length || timerEl.querySelector('#movie-digit')) {
+        renderInitial(newDigits);
+        prevSeconds = seconds;
+        return;
+      }
+
+      newDigits.forEach((char, i) => {
+        const wrapper = timerEl.children[i];
+        if (!wrapper) return;
+
+        const oldDigit = wrapper.querySelector('.digit');
+        if (!oldDigit || oldDigit.textContent === char) return;
+
+        const newDigit = document.createElement('div');
+        newDigit.className = 'digit animate__animated animate__slideInUp animate__faster';
+        newDigit.textContent = char;
+
+        oldDigit.classList.add('animate__animated', 'animate__slideOutUp', 'animate__faster');
+
+        wrapper.appendChild(newDigit);
+
+        setTimeout(() => {
+          if (wrapper.contains(oldDigit)) {
+            wrapper.removeChild(oldDigit);
+          }
+        }, 500);
+      });
+    }
+
+    function setupSocket() {
+      socket = io('http://localhost:8080');
+      socket.emit('joinRoom', {
+        room: 'overlay',
+        source: 'esportsdash.default.countdown.html'
+      });
+
+      socket.on('connect', () => {
+        console.log('Socket connected');
+      });
+
+      socket.on('disconnect', () => {
+        console.log('Socket disconnected');
+      });
+
+      socket.on("countDownTimer", (data) => {
+        console.log('countDownTimer received:', data);
+        if (!data || !data.data || typeof data.data.countdown !== 'number') {
+          console.error('Invalid countdown data:', data);
+          return;
+        }
+
+
+        if (data.data.finalMessage) {
+          timerEl.classList.remove('timer-warning', 'timer-critical', 'movie-countdown', 'animate__animated', 'animate__zoomIn', 'animate__fadeOut');
+          timerEl.innerHTML = `<div class="final-message">${data.data.finalMessage}</div>`;
+          prevSeconds = null;
+          return;
+        }
+
+        totalSeconds = data.data.countdown;
+        const options = data.data.options || {};
+
+        if (totalSeconds === 0) {
+          // Don't call updateDisplay for 0, let final message handle it
+          return;
+        } else {
+          if (timerEl.children.length === 0 || timerEl.querySelector('.final-message') || timerEl.querySelector('#movie-digit')) {
+            const initial = formatTime(totalSeconds);
+            renderInitial(initial);
+          }
+          updateDisplay(totalSeconds, options);
+        }
+      });
+    }
+
+    timerEl.style.display = 'none'; 
+    setupSocket();
+  </script>
+</body>
+</html>
