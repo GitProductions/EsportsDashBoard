@@ -219,7 +219,8 @@
 	<script>
 		const urlParams = new URLSearchParams(window.location.search);
 		const useTeamColors = urlParams.get('useTeamColors') !== 'false';
-
+		const usePlayerImages = urlParams.has('usePlayerImages');	
+			
 		function calculateGrid(totalPlayers) {
 			let playersPerRow = 4;
 			$('.players-grid').css('top', '200px');
@@ -245,22 +246,22 @@
 			const roleDelay = 2.5;
 
 			container.innerHTML = `
-    		    <div class="hero-image animate-hero" style="animation-delay: ${heroDelay}s">
-    		      <img src="${playerData.images.heroImage ||
-						'https://upload.wikimedia.org/wikipedia/en/d/d2/Blank.png'
-						}" alt="HERO">
-    		    </div>
+				<div class="hero-image animate-hero" style="animation-delay: ${heroDelay}s">
+				<img src="${usePlayerImages ? (playerData.images.playerImage || playerData.images.heroImage) : playerData.images.heroImage ||
+					'https://upload.wikimedia.org/wikipedia/en/d/d2/Blank.png'
+				}" alt="HERO">
+				</div>
     		    <div class="player-info animate-info" style="animation-delay: ${infoDelay}s">
     		      <div class="player-role animate-role" style="animation-delay: ${roleDelay}s">
     		        <div class="role-icon" style="background-image: url('${playerData.images.roleImage
-						}')"></div>
+				}')"></div>
     		      </div>
     		      <span class="battletag ${animateName ? 'animate-name' : ''}">${playerData.playerName || 'Player ' + (index + 1)
-						}</span>
+				}</span>
     		      <span class="fullname">${playerData.role || ''}</span>
     		    </div>
     		  `;
-			
+
 			if (!playerData.images.roleImage) {
 				container.querySelector('.player-role').style.display = 'none';
 			}
@@ -362,8 +363,11 @@
 								}
 							}
 							fullname.textContent = player.role || '';
-							heroImg.src = player.images.heroImage || 'https://upload.wikimedia.org/wikipedia/en/d/d2/Blank.png';
-							
+							// heroImg.src = player.images.heroImage || 'https://upload.wikimedia.org/wikipedia/en/d/d2/Blank.png';
+
+							heroImg.src = usePlayerImages ? (player.images.playerImage || player.images.heroImage) : player.images.heroImage ||
+								'https://upload.wikimedia.org/wikipedia/en/d/d2/Blank.png';
+
 							if (roleIcon) {
 								roleIcon.style.backgroundImage = `url('${player.images.roleImage}')`;
 							}
