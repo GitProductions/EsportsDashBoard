@@ -197,12 +197,26 @@
           return;
         }
 
+        // Check if animation is already in progress
+        if (wrapper.dataset.animating === 'true') {
+          return; // Skip this update if animation is in progress
+        }
+
+        // Clear any existing digits that might be left over
+        const existingDigits = wrapper.querySelectorAll('.digit');
+        existingDigits.forEach(digit => {
+          if (digit !== oldDigit) {
+            wrapper.removeChild(digit);
+          }
+        });
+
+        // Mark as animating
+        wrapper.dataset.animating = 'true';
+
         const newDigit = document.createElement('div');
-        // newDigit.className = 'digit animate__animated animate__slideInUp animate__faster';
         newDigit.className = `digit animate__animated ${chosenStyle.in} animate__faster`;
         newDigit.textContent = char;
 
-        // oldDigit.classList.add('animate__animated', 'animate__slideOutUp', 'animate__faster');
         oldDigit.classList.add('animate__animated', chosenStyle.out, 'animate__faster');
 
         wrapper.appendChild(newDigit);
@@ -211,6 +225,8 @@
           if (wrapper.contains(oldDigit)) {
             wrapper.removeChild(oldDigit);
           }
+          // Mark animation as complete
+          wrapper.dataset.animating = 'false';
         }, 500);
       });
     }
