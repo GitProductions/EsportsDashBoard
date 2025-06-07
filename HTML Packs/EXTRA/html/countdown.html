@@ -158,6 +158,32 @@
         return;
       }
 
+      const animateStyles = {
+        "slide": {
+          "in": 'animate__slideInUp',
+          "out": 'animate__slideOutUp'
+        },
+        "fade": {
+          "in": 'animate__fadeIn',
+          "out": 'animate__fadeOut'
+        },
+        "fadeUpDown": {
+          "in": 'animate__fadeInUp',
+          "out": 'animate__fadeOutDown'
+        },
+        "flipX": {
+          "in": 'animate__flipInX',
+          "out": 'animate__flipOutX'
+        },
+        "none": {
+          "in": '',
+          "out": ''
+        }
+      }
+
+      // Default to "none" for basic mode
+      const chosenStyle = animateStyles[options.animationStyle] || animateStyles.fadeUpDown;
+
       newDigits.forEach((char, i) => {
         const wrapper = timerEl.children[i];
         if (!wrapper) return;
@@ -165,11 +191,19 @@
         const oldDigit = wrapper.querySelector('.digit');
         if (!oldDigit || oldDigit.textContent === char) return;
 
+        if (chosenStyle === animateStyles.none) {
+          // Basic mode - no animations, just update text
+          oldDigit.textContent = char;
+          return;
+        }
+
         const newDigit = document.createElement('div');
-        newDigit.className = 'digit animate__animated animate__slideInUp animate__faster';
+        // newDigit.className = 'digit animate__animated animate__slideInUp animate__faster';
+        newDigit.className = `digit animate__animated ${chosenStyle.in} animate__faster`;
         newDigit.textContent = char;
 
-        oldDigit.classList.add('animate__animated', 'animate__slideOutUp', 'animate__faster');
+        // oldDigit.classList.add('animate__animated', 'animate__slideOutUp', 'animate__faster');
+        oldDigit.classList.add('animate__animated', chosenStyle.out, 'animate__faster');
 
         wrapper.appendChild(newDigit);
 
