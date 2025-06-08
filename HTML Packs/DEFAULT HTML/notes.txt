@@ -1,3 +1,0 @@
-THE DEFAULT HTML.. This is used generally for all the games we have available right now..
-Valorant overlay is only thing that needs pushed into the main scoreboard.html so its no seperate entirely.. 
-else just use default overlay and adjust it for valorant.. so its the same style.. would make better sense i believe...
