@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Animated Countdown</title>
+  <title>Countdown</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
   <script src="https://cdn.socket.io/4.0.1/socket.io.min.js"></script>
 
@@ -17,24 +17,25 @@
       align-items: center;
       height: 100vh;
       margin: 0;
+      overflow: hidden;
     }
 
     #timer {
-      display: flex;
       font-size: 5rem;
+      display: flex;
       gap: 0.2ch;
-      transition: color 0.3s ease, font-size 0.3s ease;
+      transition: color 0.3s ease, font-size 0.3s ease, opacity 1s ease;
     }
 
-    #timer.timer-warning {
+    #timer.warning-state {
       color: #ff9800;
     }
 
-    #timer.timer-critical {
+    #timer.critical-state {
       color: #dc3545;
     }
 
-    #timer.movie-countdown {
+    #timer.movie-style {
       font-size: 15rem;
       font-weight: bold;
       justify-content: center;
@@ -44,7 +45,15 @@
       text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
     }
 
-    .digit-wrapper {
+    #timer.fade-out {
+      opacity: 0;
+    }
+
+    #timer.hidden {
+      display: none;
+    }
+
+    .digit-container {
       position: relative;
       width: 1ch;
       height: 1em;
@@ -59,7 +68,7 @@
       text-align: center;
     }
 
-    #movie-digit {
+    .movie-digit {
       text-align: center;
     }
 
@@ -82,203 +91,376 @@
 </head>
 
 <body>
-  <div id="timer">
-    <!-- Digits or movie digit will be added dynamically -->
+  <div id="timer" class="hidden">
+    <!-- Timer content will be dynamically generated -->
   </div>
 
   <script>
-    const timerEl = document.getElementById("timer");
-    let totalSeconds = 0; // Default to 0, will be set by server
-    let prevSeconds = null;
-    let socket;
+    // ===== CONFIGURATION =====
+    const SOCKET_URL = 'http://localhost:8080';
+    const SOCKET_ROOM = 'overlay';
+    const SOCKET_SOURCE = 'esportsdash.default.countdown.html';
 
-    function formatTime(seconds) {
-      const m = String(Math.floor(seconds / 60)).padStart(2, '0');
-      const s = String(seconds % 60).padStart(2, '0');
-      return (m + ':' + s).split('');
+    const MOVIE_COUNTDOWN_THRESHOLD = 5; // Show movie style for 5 seconds and below
+    const FADEOUT_DELAY = 1000; // Wait 1 second before fading out at 00:00
+    const FADEOUT_DURATION = 1000; // Fade out over 1 second
+    const ANIMATION_DURATION = 500; // Digit change animation duration
+
+    // ===== GLOBAL VARIABLES =====
+    const timerElement = document.getElementById("timer");
+    let currentSeconds = 0;
+    let previousSeconds = null;
+    let socket = null;
+    let fadeOutTimer = null;
+
+    // ===== ANIMATION STYLES =====
+    const ANIMATION_STYLES = {
+      slide: {
+        in: 'animate__slideInUp',
+        out: 'animate__slideOutUp'
+      },
+      fade: {
+        in: 'animate__fadeIn',
+        out: 'animate__fadeOut'
+      },
+      fadeUpDown: {
+        in: 'animate__fadeInUp',
+        out: 'animate__fadeOutDown'
+      },
+      flipX: {
+        in: 'animate__flipInX',
+        out: 'animate__flipOutX'
+      },
+      none: {
+        in: '',
+        out: ''
+      }
+    };
+
+    // ===== UTILITY FUNCTIONS =====
+
+    /**
+     * Converts seconds to MM:SS format and returns as array of characters
+     */
+    function formatTimeToArray(seconds) {
+      const minutes = String(Math.floor(seconds / 60)).padStart(2, '0');
+      const secs = String(seconds % 60).padStart(2, '0');
+      return (minutes + ':' + secs).split('');
     }
 
-    function renderInitial(timeArray) {
-      timerEl.innerHTML = '';
-      timeArray.forEach(char => {
-        const wrapper = document.createElement('div');
-        wrapper.className = 'digit-wrapper';
+    /**
+     * Checks if a final message is valid and not empty
+     */
+    function isValidFinalMessage(message) {
+      return message &&
+        typeof message === 'string' &&
+        message.trim() !== '' &&
+        message !== null;
+    }
+
+
+
+    /*
+     * Resets all timer classes to default state
+    */
+    function resetTimerClasses() {
+      timerElement.classList.remove(
+        'warning-state',
+        'critical-state',
+        'movie-style',
+        'fade-out',
+        'animate__animated',
+        'animate__zoomIn',
+        'animate__fadeOut'
+      );
+    }
+
+    // ===== DISPLAY FUNCTIONS =====
+
+    /*
+     * Creates the initial timer display with individual digit containers
+    */
+    function createInitialTimer(timeArray) {
+      timerElement.innerHTML = '';
+
+      timeArray.forEach(character => {
+        const container = document.createElement('div');
+        container.className = 'digit-container';
+
         const digit = document.createElement('div');
         digit.className = 'digit';
-        digit.textContent = char;
-        wrapper.appendChild(digit);
-        timerEl.appendChild(wrapper);
+        digit.textContent = character;
+
+        container.appendChild(digit);
+        timerElement.appendChild(container);
       });
     }
 
-    function updateDisplay(seconds, options = {}) {
-      // Show timer when we have valid data
-      timerEl.style.display = 'flex';
-      
-      timerEl.classList.remove('timer-warning', 'timer-critical', 'movie-countdown', 'animate__animated', 'animate__zoomIn', 'animate__fadeOut');
-
-      if (seconds === 0) {
-        // Don't show 0:00, just return and let final message handle it
-        return;
+    /*
+     * Shows the final message when countdown reaches 0
+     */
+    function showFinalMessage(message) {
+      if (fadeOutTimer) {
+        clearTimeout(fadeOutTimer);
+        fadeOutTimer = null;
       }
+      resetTimerClasses();
 
-      if (seconds <= 5 && seconds > 0 && options.movieCountdown) {
-        // Movie-style countdown for 5 seconds and below (only if enabled)
-        if (prevSeconds !== seconds) {
-          timerEl.innerHTML = ''; // Clear previous digit instantly
-          timerEl.className = 'movie-countdown'; // Reset classes
-          
-          // Force reflow to restart animation
-          timerEl.offsetHeight;
-          
-          timerEl.classList.add('animate__animated', 'animate__zoomIn', 'animate__fadeOut', 'animate__faster');
-          timerEl.innerHTML = `<div id="movie-digit">${seconds}</div>`;
-          prevSeconds = seconds;
-          
-          // Remove animation classes after animation completes to allow restart
-          setTimeout(() => {
-            timerEl.classList.remove('animate__animated', 'animate__zoomIn', 'animate__fadeOut');
-          }, 600);
-        }
-        return;
-      }
+      timerElement.innerHTML = `<div class="final-message">${message}</div>`;
+      timerElement.classList.remove('hidden');
 
-      // Apply color classes for seconds > 5 or when movie countdown is disabled
-      if (seconds == options.criticalThreshold) {
-        timerEl.classList.add('timer-critical');
-      } else if (seconds == options.warningThreshold) {
-        timerEl.classList.add('timer-warning');
-      }
+      console.log('Displaying final message:', message);
+    }
 
-      const newDigits = formatTime(seconds);
+    /*
+     * Shows movie-style countdown (large single digit)
+    */
+    function showMovieCountdown(seconds) {
+      if (previousSeconds === seconds) return;
 
-      if (timerEl.children.length !== newDigits.length || timerEl.querySelector('#movie-digit')) {
-        renderInitial(newDigits);
-        prevSeconds = seconds;
-        return;
-      }
+      // Clear and reset for movie style
+      timerElement.innerHTML = '';
+      resetTimerClasses();
+      timerElement.classList.add('movie-style');
 
-      const animateStyles = {
-        "slide": {
-          "in": 'animate__slideInUp',
-          "out": 'animate__slideOutUp'
-        },
-        "fade": {
-          "in": 'animate__fadeIn',
-          "out": 'animate__fadeOut'
-        },
-        "fadeUpDown": {
-          "in": 'animate__fadeInUp',
-          "out": 'animate__fadeOutDown'
-        },
-        "flipX": {
-          "in": 'animate__flipInX',
-          "out": 'animate__flipOutX'
-        },
-        "none": {
-          "in": '',
-          "out": ''
-        }
-      }
+      // Force reflow to ensure animation restarts
+      timerElement.offsetHeight;
 
-      // Default to "none" for basic mode
-      const chosenStyle = animateStyles[options.animationStyle] || animateStyles.fadeUpDown;
+      // Add animation classes and content
+      timerElement.classList.add('animate__animated', 'animate__zoomIn', 'animate__fadeOut', 'animate__faster');
+      timerElement.innerHTML = `<div class="movie-digit">${seconds}</div>`;
 
-      newDigits.forEach((char, i) => {
-        const wrapper = timerEl.children[i];
-        if (!wrapper) return;
+      previousSeconds = seconds;
 
-        const oldDigit = wrapper.querySelector('.digit');
-        if (!oldDigit || oldDigit.textContent === char) return;
+      // Clean up animation classes after completion
+      setTimeout(() => {
+        timerElement.classList.remove('animate__animated', 'animate__zoomIn', 'animate__fadeOut');
+      }, 600);
 
-        if (chosenStyle === animateStyles.none) {
-          // Basic mode - no animations, just update text
-          oldDigit.textContent = char;
+      console.log('Movie countdown:', seconds);
+    }
+
+    /*
+     * Animates individual digit changes
+    */
+    function animateDigitChanges(newTimeArray, animationStyle) {
+      newTimeArray.forEach((character, index) => {
+        const container = timerElement.children[index];
+        if (!container) return;
+
+        const currentDigit = container.querySelector('.digit');
+        if (!currentDigit || currentDigit.textContent === character) return;
+
+        // Skip if no animation style
+        if (animationStyle === ANIMATION_STYLES.none) {
+          currentDigit.textContent = character;
           return;
         }
 
-        // Check if animation is already in progress
-        if (wrapper.dataset.animating === 'true') {
-          return; // Skip this update if animation is in progress
-        }
+        // Skip if animation already in progress
+        if (container.dataset.animating === 'true') return;
 
-        // Clear any existing digits that might be left over
-        const existingDigits = wrapper.querySelectorAll('.digit');
+        // Clean up any leftover digits
+        const existingDigits = container.querySelectorAll('.digit');
         existingDigits.forEach(digit => {
-          if (digit !== oldDigit) {
-            wrapper.removeChild(digit);
+          if (digit !== currentDigit) {
+            container.removeChild(digit);
           }
         });
 
         // Mark as animating
-        wrapper.dataset.animating = 'true';
+        container.dataset.animating = 'true';
 
+        // Create new digit with enter animation
         const newDigit = document.createElement('div');
-        newDigit.className = `digit animate__animated ${chosenStyle.in} animate__faster`;
-        newDigit.textContent = char;
+        newDigit.className = `digit animate__animated ${animationStyle.in} animate__faster`;
+        newDigit.textContent = character;
 
-        oldDigit.classList.add('animate__animated', chosenStyle.out, 'animate__faster');
+        // Add exit animation to current digit
+        currentDigit.classList.add('animate__animated', animationStyle.out, 'animate__faster');
 
-        wrapper.appendChild(newDigit);
+        container.appendChild(newDigit);
 
+        // Clean up after animation
         setTimeout(() => {
-          if (wrapper.contains(oldDigit)) {
-            wrapper.removeChild(oldDigit);
+          if (container.contains(currentDigit)) {
+            container.removeChild(currentDigit);
           }
-          // Mark animation as complete
-          wrapper.dataset.animating = 'false';
-        }, 500);
+          container.dataset.animating = 'false';
+        }, ANIMATION_DURATION);
       });
     }
 
-    function setupSocket() {
-      socket = io('http://localhost:8080');
+    /*
+     * Applies color state based on countdown value
+    */
+    function applyColorState(seconds, options) {
+      if (seconds <= (options.criticalThreshold || 0)) {
+        timerElement.classList.add('critical-state');
+      } else if (seconds <= (options.warningThreshold || 0)) {
+        timerElement.classList.add('warning-state');
+      }
+    }
+
+    /*
+     * Starts the fade out sequence when timer reaches 00:00
+    */
+    function startFadeOutSequence() {
+      console.log('Starting fade out sequence');
+
+      fadeOutTimer = setTimeout(() => {
+        timerElement.classList.add('fade-out');
+
+        // Hide completely after fade out completes
+        setTimeout(() => {
+          timerElement.classList.add('hidden');
+          console.log('Timer hidden after fade out');
+        }, FADEOUT_DURATION);
+      }, FADEOUT_DELAY);
+    }
+
+    // ===== MAIN UPDATE FUNCTION =====
+    function updateTimerDisplay(seconds, options = {}) {
+      console.log('Updating timer display:', seconds, options);
+
+      // Show timer and reset states
+      timerElement.classList.remove('hidden');
+      resetTimerClasses();
+      if (fadeOutTimer) {
+        clearTimeout(fadeOutTimer);
+        fadeOutTimer = null;
+      }
+
+      // Handle movie countdown (5 seconds and below)
+      if (seconds <= MOVIE_COUNTDOWN_THRESHOLD && seconds > 0 && options.movieCountdown) {
+        showMovieCountdown(seconds);
+        return;
+      }
+
+      // Apply color states
+      applyColorState(seconds, options);
+
+      // Format time for display
+      const newTimeArray = formatTimeToArray(seconds);
+
+      // Check if we need to recreate the timer structure
+      const needsRecreation = timerElement.children.length !== newTimeArray.length ||
+        timerElement.querySelector('.final-message') ||
+        timerElement.querySelector('.movie-digit');
+
+      if (needsRecreation) {
+        createInitialTimer(newTimeArray);
+        previousSeconds = seconds;
+
+        // Handle fadeout for 00:00
+        if (seconds === 0) {
+          startFadeOutSequence();
+        }
+        return;
+      }
+
+      // Animate digit changes
+      const animationStyle = ANIMATION_STYLES[options.animationStyle] || ANIMATION_STYLES.fadeUpDown;
+      animateDigitChanges(newTimeArray, animationStyle);
+
+      // Handle fadeout for 00:00
+      if (seconds === 0) {
+        startFadeOutSequence();
+      }
+    }
+
+    // ===== SOCKET CONNECTION =====
+
+    /*
+     * Sets up socket connection and event handlers
+    */
+    function initializeSocket() {
+      console.log('Initializing socket connection...');
+
+      socket = io(SOCKET_URL);
+
       socket.emit('joinRoom', {
-        room: 'overlay',
-        source: 'esportsdash.default.countdown.html'
+        room: SOCKET_ROOM,
+        source: SOCKET_SOURCE
       });
 
       socket.on('connect', () => {
-        console.log('Socket connected');
+        console.log('✓ Socket connected successfully');
       });
 
       socket.on('disconnect', () => {
-        console.log('Socket disconnected');
+        console.log('✗ Socket disconnected');
       });
 
-      socket.on("countDownTimer", (data) => {
-        console.log('countDownTimer received:', data);
-        if (!data || !data.data || typeof data.data.countdown !== 'number') {
-          console.error('Invalid countdown data:', data);
-          return;
-        }
-
-
-        if (data.data.finalMessage) {
-          timerEl.classList.remove('timer-warning', 'timer-critical', 'movie-countdown', 'animate__animated', 'animate__zoomIn', 'animate__fadeOut');
-          timerEl.innerHTML = `<div class="final-message">${data.data.finalMessage}</div>`;
-          prevSeconds = null;
-          return;
-        }
-
-        totalSeconds = data.data.countdown;
-        const options = data.data.options || {};
-
-        if (totalSeconds === 0) {
-          // Don't call updateDisplay for 0, let final message handle it
-          return;
-        } else {
-          if (timerEl.children.length === 0 || timerEl.querySelector('.final-message') || timerEl.querySelector('#movie-digit')) {
-            const initial = formatTime(totalSeconds);
-            renderInitial(initial);
-          }
-          updateDisplay(totalSeconds, options);
-        }
-      });
+      socket.on('countDownTimer', handleCountdownData);
     }
 
-    timerEl.style.display = 'none'; 
-    setupSocket();
+    /*
+     * Handles incoming countdown data from socket
+    */
+    function handleCountdownData(data) {
+      console.log('📥 Countdown data received:', data);
+
+      // Validate incoming data
+      if (!data || !data.data || typeof data.data.countdown !== 'number') {
+        console.error('❌ Invalid countdown data format:', data);
+        return;
+      }
+
+      const countdown = data.data.countdown;
+      const finalMessage = data.data.finalMessage;
+      const options = data.data.options || {};
+
+      // Handle final message display
+      if (isValidFinalMessage(finalMessage) && countdown === 0) {
+        showFinalMessage(finalMessage);
+        return;
+      }
+
+      // Handle negative countdown (don't display)
+      if (countdown < 0) {
+        console.log('⏸️ Countdown is negative, not displaying');
+        return;
+      }
+
+      // Update current seconds and display
+      currentSeconds = countdown;
+
+      // Reset previous seconds if timer structure needs rebuilding
+      if (timerElement.children.length === 0 ||
+        timerElement.querySelector('.final-message') ||
+        timerElement.querySelector('.movie-digit')) {
+        previousSeconds = null;
+      }
+
+      updateTimerDisplay(currentSeconds, options);
+    }
+
+    // ===== INITIALIZATION =====
+
+    /*
+     * Initialize the countdown timer application
+    */
+    function initializeCountdownTimer() {
+      console.log('🚀 Initializing Countdown Timer');
+      console.log('Configuration:', {
+        socketUrl: SOCKET_URL,
+        room: SOCKET_ROOM,
+        source: SOCKET_SOURCE,
+        movieThreshold: MOVIE_COUNTDOWN_THRESHOLD,
+        fadeoutDelay: FADEOUT_DELAY
+      });
+
+      // Start with hidden timer
+      timerElement.classList.add('hidden');
+
+      // Initialize socket connection
+      initializeSocket();
+    }
+
+    // Start the application
+    initializeCountdownTimer();
   </script>
 </body>
+
 </html>
