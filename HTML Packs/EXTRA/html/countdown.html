@@ -303,25 +303,47 @@
     }
 
     /*
-     * Starts the fade out sequence when timer reaches 00:00
+     * Starts the fade out sequence when timer reaches 00:00 or is hidden
     */
     function startFadeOutSequence() {
       console.log('Starting fade out sequence');
 
-      fadeOutTimer = setTimeout(() => {
+      // Only add fade-out if not already fading out
+      if (!timerElement.classList.contains('fade-out')) {
+        timerElement.classList.remove('hidden');
         timerElement.classList.add('fade-out');
-
-        // Hide completely after fade out completes
-        setTimeout(() => {
+        fadeOutTimer = setTimeout(() => {
           timerElement.classList.add('hidden');
+          timerElement.classList.remove('fade-out');
           console.log('Timer hidden after fade out');
         }, FADEOUT_DURATION);
-      }, FADEOUT_DELAY);
+      }
+    }
+
+    /*
+     * Animates the timer in smoothly (fade in)
+    */
+    function animateTimerIn() {
+      timerElement.classList.remove('hidden', 'fade-out');
+      timerElement.style.opacity = 0;
+      setTimeout(() => {
+        timerElement.style.transition = 'opacity 0.7s';
+        timerElement.style.opacity = 1;
+      }, 10);
+      setTimeout(() => {
+        timerElement.style.transition = '';
+        timerElement.style.opacity = '';
+      }, 800);
     }
 
     // ===== MAIN UPDATE FUNCTION =====
     function updateTimerDisplay(seconds, options = {}) {
       console.log('Updating timer display:', seconds, options);
+
+      // Animate in if coming from hidden/faded state
+      if (timerElement.classList.contains('hidden') || timerElement.classList.contains('fade-out')) {
+        animateTimerIn();
+      }
 
       // Show timer and reset states
       timerElement.classList.remove('hidden');
@@ -410,6 +432,14 @@
       const countdown = data.data.countdown;
       const finalMessage = data.data.finalMessage;
       const options = data.data.options || {};
+
+      if (data.data.countdownStatus === 'hidden') {
+        console.log('⏸️ Countdown is hidden, add fade out class');
+        // Do not stop updating the timer, just fade out visually
+        startFadeOutSequence();
+        // Do not return; let the timer keep updating in the background
+        return;
+      }
 
       // Handle final message display
       if (isValidFinalMessage(finalMessage) && countdown === 0) {
