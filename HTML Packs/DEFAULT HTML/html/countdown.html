@@ -295,10 +295,14 @@
      * Applies color state based on countdown value
     */
     function applyColorState(seconds, options) {
-      if (seconds <= (options.criticalThreshold || 0)) {
-        timerElement.classList.add('critical-state');
-      } else if (seconds <= (options.warningThreshold || 0)) {
-        timerElement.classList.add('warning-state');
+      if (seconds <= (options.criticalThreshold.value || 0)) {
+        timerElement.style.color = options.criticalThreshold.color || '#dc3545';
+
+      } else if (seconds <= (options.warningThreshold.value || 0)) {
+        timerElement.style.color = options.warningThreshold.color || '#ff9800';
+
+      } else {
+        timerElement.style.color = '#fff'; // Default color
       }
     }
 
@@ -354,8 +358,15 @@
       }
 
       // Handle movie countdown (5 seconds and below)
-      if (seconds <= MOVIE_COUNTDOWN_THRESHOLD && seconds > 0 && options.movieCountdown) {
+      if (seconds <= MOVIE_COUNTDOWN_THRESHOLD && seconds > 0 && options.movieCountdown === true) {
+        console.log("The Options are:", options);
         showMovieCountdown(seconds);
+        return;
+      }
+
+      // If movieCountdown is enabled and seconds is 0, skip showing 00:00 (for final message)
+      if (seconds === 0 && options.movieCountdown === true) {
+        timerElement.innerHTML = '';
         return;
       }
 
@@ -443,6 +454,10 @@
 
       // Handle final message display
       if (isValidFinalMessage(finalMessage) && countdown === 0) {
+        // If movieCountdown was active, clear timer immediately before showing message
+        if (options.movieCountdown === true) {
+          timerElement.innerHTML = '';
+        }
         showFinalMessage(finalMessage);
         return;
       }
