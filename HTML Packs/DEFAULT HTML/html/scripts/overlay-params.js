@@ -151,5 +151,28 @@ const overlayParams = {
 
         }
     },
+    "Call of Duty": {
+        style1: {
+            teamBoxWidth: "610px",
+            teamBoxHeight: "55px",
+            teamTopPosition: "13px",
+            teamSideOffset: "-43px",
+
+
+            middleTopPosition: "15px",
+            middleHeight: "30px",
+            middleWidth: "475px",
+
+            skewAnglePositive: "0deg",
+            skewAngleNegative: "0deg",
+            teamGroupTopPosition: "20px",
+            teamGroupSideOffset: "685px",
+
+            teamRightBorderLeft: "0px solidrgba(39, 169, 225, 0)",
+            teamRightBorderRight: "0px solidrgba(200, 0, 20, 0)",
+            teamLeftBorderLeft: "0px solidrgba(39, 169, 225, 0)",
+            teamLeftBorderRight: "0px solidrgba(200, 0, 20, 0)",
+        }
+    },
 }
 

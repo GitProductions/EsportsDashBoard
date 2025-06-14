@@ -34,8 +34,8 @@ Available Styles:
   <style>
     body {
       /* background-color: #C80013; */
-      /* background-image: url('../GameImages/cod-example.webp'); */
-      background-image: url('../GameImages/valorant-preview.png');
+      background-image: url('../GameImages/cod-example.webp');
+      /* background-image: url('../GameImages/valorant-preview.png'); */
       background-size: cover;
       background-repeat: no-repeat;
     }
@@ -93,7 +93,7 @@ Available Styles:
       --arrowDoubleSideClipPath: polygon(93% 0, 100% 50%, 93% 99%, 7% 99%, 0% 50%, 7% 0)
     }
 
-    .defaultPositions {
+    /* .defaultPositions {
       --teamBoxWidth: 685px;
       --teamBoxHeight: 46px;
       --teamTopPosition: 13px;
@@ -101,275 +101,9 @@ Available Styles:
       --middleTopPosition: 8px;
       --skew-angle-positive: 0deg;
       --skew-angle-negative: 0deg;
-    }
-
-    /* Game-specific positioning */
-    .marvelPositions {
-      --teamBoxWidth: 510px;
-      --teamTopPosition: 31px;
-      --teamSideOffset: 15px;
-
-      --teamBoxHeight: 50px;
-      --middleTopPosition: 3px;
-      --skew-angle-positive: 15deg;
-      --skew-angle-negative: -15deg;
-      --teamLeftOuterPadding: 8px;
-      --teamRightOuterPadding: 8px;
-      --teamNameInnerPadding: 20px;
-
-
-      --teamGroupTopPosition: 40px;
-      --teamGroupSideOffset: 400px;
-
-    }
-
-    /* .marvelDomination {
-      --teamBoxWidth: 570px;
-      --teamTopPosition: 4px;
-      --teamSideOffset: 15px;
-    }
-
-    .marvelNonDomination {
-      --teamBoxWidth: 510px;
-      --teamTopPosition: 31px;
-      --teamSideOffset: 15px;
-
     } */
 
-    .overWatchPositions {
-      --teamBoxWidth: 685px;
-      --teamBoxHeight: 46px;
-      --teamTopPosition: 13px;
-      --teamSideOffset: 0px;
-      --middleTopPosition: 8px;
-      --skew-angle-positive: 0deg;
-      --skew-angle-negative: 0deg;
 
-      --teamGroupTopPosition: 20px;
-      --teamGroupSideOffset: 685px;
-    }
-
-
-
-
-    .valorantPositions {
-      --teamLogoSize: 25px;
-      --teamNameSize: 1.1em;
-      --scoreSize: 1.4em;
-
-      --teamBoxWidth: 400px;
-      --teamBoxHeight: 20px;
-
-      --teamTopPosition: 7px;
-      --teamSideOffset: -425px;
-
-      --middleHeight: 25px;
-      --middleWidth: 120px;
-      --middleTopPosition: 95px;
-
-      --skew-angle-positive: 0deg;
-      --skew-angle-negative: 0deg;
-
-      --middleTextSize: 1.1em;
-
-
-      /* clip is doing < inverted */
-      /* polygon(100% 0, 93% 50%, 100% 100%, 0 100%, 0% 50%, 0 0); */
-      /* ---- */
-
-      /* clip is doing < */
-      /* polygon(100% 0, 100% 49%, 100% 100%, 7% 100%, 0 50%, 7% 0); */
-      /* ---- */
-      /* clip is doing > */
-      /* polygon(93% 0, 100% 50%, 93% 100%, 0 100%, 0 50%, 0 0); */
-
-
-      --teamLeftClipPath: polygon(0 0,
-          93% 0,
-          94% 1%, 95% 2%,
-          100% 50%,
-          95% 98%, 94% 99%,
-          93% 100%,
-          0 100%,
-          0 98%, 0 52%,
-          0 50%);
-
-      --teamRightClipPath: polygon(100% 0,
-          100% 49%,
-          100% 100%,
-          7% 100%,
-          6% 99%, 5% 98%,
-          0 50%,
-          5% 2%, 6% 1%,
-          7% 0);
-
-
-      /* --teamBorderLeft: 0px solid #27AAE1;
-      --teamBorderRight: 0px solid #C80013; */
-
-      --teamLeftBorderLeft: 4px solid #27AAE1;
-      --teamLeftBorderRight: 0px solid #C80013;
-
-      --teamRightBorderLeft: 0px solid #27AAE1;
-      --teamRightBorderRight: 4px solid #C80013;
-
-      /* --matchTextBackground: #080808!important; */
-
-      /* --teamLeftBackgroundImage: linear-gradient(90deg, rgb(255, 255, 255) 0%, hsla(159, 19%, 39%, 0.788) 100%); */
-      /* --teamRightBackgroundImage: linear-gradient(90deg, hsla(3, 54%, 57%, 0.788), rgb(255, 255, 255) 100%); */
-
-    }
-
-
-    .valorantPositions2 {
-      --middleWidth: 120px;
-      --scoreSize: 2.0em;
-
-      --teamBoxWidth: 350px;
-      --teamBoxHeight: 40px;
-
-      --teamTopPosition: 90px;
-      --teamSideOffset: -490px;
-
-      --middleTopPosition: 95px;
-      --skew-angle-positive: 0deg;
-      --skew-angle-negative: 0deg;
-
-      --teamLeftBorderLeft: 7px solid #27AAE1;
-      --teamLeftBorderRight: 0px solid #C80013;
-
-      --teamRightBorderLeft: 0px solid #27AAE1;
-      --teamRightBorderRight: 7px solid #C80013;
-    }
-
-
-    .valorantPositions3 {
-      --middleWidth: 120px;
-      --scoreSize: 2.0em;
-
-      --teamBoxWidth: 430px;
-      --teamBoxHeight: 40px;
-
-      --teamTopPosition: 90px;
-      --teamSideOffset: -500px;
-
-      --middleHeight: 25px;
-      --middleTopPosition: 98px;
-      --skew-angle-positive: 0deg;
-      --skew-angle-negative: 0deg;
-
-
-      --teamLeftClipPath: var(--arrowLeftInvertedClipPath);
-      --teamRightClipPath: var(--arrowRightInvertedClipPath);
-
-      --teamLeftInnerPadding: 20px;
-      --teamRightInnerPadding: 20px;
-
-
-      --teamLeftBorderLeft: 7px solid #27AAE1;
-      --teamLeftBorderRight: 0px solid #C80013;
-
-      --teamRightBorderLeft: 0px solid #27AAE1;
-      --teamRightBorderRight: 7px solid #C80013;
-
-    }
-
-
-    .valorantPositions4 {
-      --middleWidth: 120px;
-      --scoreSize: 2.5em;
-
-      --teamBoxWidth: 430px;
-      --teamBoxHeight: 40px;
-      --teamTopPosition: 30px;
-      --teamSideOffset: -0px;
-      --middleTopPosition: 95px;
-      --skew-angle-positive: 0deg;
-      --skew-angle-negative: 0deg;
-
-
-      --teamLeftClipPath: var(--arrowRightClipPath);
-      --teamRightClipPath: var(--arrowLeftClipPath);
-
-      --teamLeftInnerPadding: 15px;
-      --teamRightInnerPadding: 15px;
-
-      --teamLeftBorderLeft: 7px solid #27AAE1;
-      --teamLeftBorderRight: 0px solid #C80013;
-
-      --teamRightBorderLeft: 0px solid #27AAE1;
-      --teamRightBorderRight: 7px solid #C80013;
-
-      --teamLeftBackgroundImage: linear-gradient(90deg, rgb(255, 255, 255) 0%, hsla(159, 19%, 39%, 0.788) 100%);
-      --teamRightBackgroundImage: linear-gradient(90deg, hsla(3, 54%, 57%, 0.788), rgb(255, 255, 255) 100%);
-
-    }
-
-
-    .valorantPositions5 {
-      --middleWidth: 120px;
-      --scoreSize: 2.5em;
-
-      --teamBoxWidth: 400px;
-      --teamBoxHeight: 40px;
-      --teamTopPosition: 90px;
-      --teamSideOffset: -430px;
-      --middleTopPosition: 95px;
-      --skew-angle-positive: 0deg;
-      --skew-angle-negative: 0deg;
-
-      /* valorant clip test */
-      --teamLeftClipPath: var(--arrowDoubleSideClipPath);
-      --teamRightClipPath: var(--arrowDoubleSideClipPath);
-
-      --teamLeftOuterPadding: 15px;
-      --teamRightOuterPadding: 15px;
-
-      --teamLeftBorderLeft: 0px solid #27AAE1;
-      --teamLeftBorderRight: 0px solid #C80013;
-
-      --teamRightBorderLeft: 0px solid #27AAE1;
-      --teamRightBorderRight: 0px solid #C80013;
-
-      /* --teamLeftBackgroundImage: linear-gradient(90deg, rgb(255, 255, 255) 0%, rgb(109, 136, 122) 100%);
-      --teamRightBackgroundImage: linear-gradient(90deg, rgb(255, 255, 255) 0%, rgb(192, 84, 84) 100%); */
-
-
-    }
-
-
-
-    .smashPositions {
-      --teamBoxWidth: 400px;
-      --teamBoxHeight: 40px;
-      --teamTopPosition: 15px;
-      --teamSideOffset: -430px;
-      --middleTopPosition: 15px;
-      --skew-angle-positive: -15deg;
-      --skew-angle-negative: 15deg;
-
-      --teamLeftInnerPadding: 5px;
-      --teamRightInnerPadding: 5px;
-
-      --teamLeftOuterPadding: 10px;
-      --teamRightOuterPadding: 10px;
-
-      --scoreSize: 2.3em;
-
-
-      --middleWidth: 120px;
-
-
-      --teamLeftBorderLeft: 7px solid #27AAE1;
-      --teamLeftBorderRight: 0px solid #C80013;
-
-      --teamRightBorderLeft: 0px solid #27AAE1;
-      --teamRightBorderRight: 7px solid #C80013;
-
-      /* valorant clip test */
-      /* --teamLeftClipPath: polygon(93% 0, 100% 50%, 93% 100%, 0 100%, 0 50%, 0 0);; */
-      /* --teamRightClipPath: polygon(100% 0, 100% 49%, 100% 100%, 7% 100%, 0 50%, 7% 0); */
-    }
 
 
 
@@ -480,7 +214,7 @@ Available Styles:
       background-repeat: no-repeat;
       flex-shrink: 0;
       /* max-height: 100%; */
-      /* Don’t exceed parent height */
+      /* Don't exceed parent height */
     }
 
     .team1 .logo {
@@ -555,6 +289,26 @@ Available Styles:
       transform: translateX(-50%);
       width: var(--middleWidth);
       display: block;
+    }
+
+    .center-logos {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 250px;
+      height: var(--middleHeight);
+      position: relative;
+    }
+
+    .center-logos .team1.logo,
+    .center-logos .team2.logo {
+      position: absolute;
+      width: var(--teamLogoSize);
+      height: var(--teamLogoSize);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      z-index: 1;
     }
 
     .matchtext {
@@ -724,7 +478,12 @@ Available Styles:
 <body>
   <div class="center">
     <span class="matchtext" id="matchtext"></span>
+    <!-- <div class="center-logos">
+      <span class="team1 logo" id="center-team-logo2"></span>
+      <span class="team2 logo" id="center-team-logo2"></span>
+    </div> -->
   </div>
+
 
   <div class="side" id="team1side"><img style="display:none;" /></div>
   <div class="side" id="team2side"><img style="display:none;" /></div>
@@ -753,31 +512,31 @@ Available Styles:
   </div>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="scripts/overlay-params.js"></script>
 
-
-<script>
-    const allOverlayStyles = [
-      "defaultPositions",
-      "marvelPositions",
-      "marvelDomination",
-      "marvelNonDomination",
-      "overWatchPositions",
-      "valorantPositions",
-      "valorantPositions2",
-      "valorantPositions3",
-      "valorantPositions4",
-      "valorantPositions5",
-      "smashPositions"
-    ];
-
+  <script>
     let RUNNING = false
 
-
     function removePreviousStyleClass() {
-      // Remove all game-specific classes
-      // body.classList.remove('marvelPositions', 'marvelDomination', 'marvelNonDomination', 'overWatchPositions', 'valorantPositions', 'smashPositions', 'defaultPositions');
-      allOverlayStyles.forEach(style => {
-        document.body.classList.remove(style);
+      // Get all available games from overlayParams
+      Object.keys(overlayParams).forEach(game => {
+        // Convert game name to class name format (e.g. "Marvel Rivals" -> "marvelRivals")
+        const baseClassName = game.replace(/\s+/g, '');
+        // Remove any existing class with this game's name
+        document.body.classList.remove(
+          baseClassName + 'Positions',
+          baseClassName.toLowerCase() + 'Positions'
+        );
+      });
+    }
+
+    // Apply CSS variables from style object to document root
+    function applyStyleVariables(styleObj) {
+      if (!styleObj) return;
+
+      const root = document.documentElement;
+      Object.entries(styleObj).forEach(([key, value]) => {
+        root.style.setProperty(`--${key}`, value);
       });
     }
 
@@ -787,36 +546,37 @@ Available Styles:
       removePreviousStyleClass();
 
       // Get the stored style preference
-      const overlayStyle = window.selectedOverlayStyle || '';
-      const body = document.querySelector('body');
+      const overlayStyle = window.selectedOverlayStyle || '1';
 
-      // Apply appropriate classes based on game and mode
-      if (currentGame === 'Marvel Rivals' || currentGame === "Marvel") {
-        body.classList.add('marvelPositions');
-        // if (currentMode === 'Domination') {
-        //   body.classList.add('marvelDomination');
-        // } else {
-        //   body.classList.add('marvelNonDomination');
-        // }
-      } else if (currentGame === 'Overwatch') {
-        body.classList.add(`overWatchPositions${overlayStyle}`);
-      } else if (currentGame === 'Valorant') {
-        if (overlayStyle && !isNaN(overlayStyle) && parseInt(overlayStyle) > 0 && parseInt(overlayStyle) <= 5) {
-          body.classList.add(`valorantPositions${overlayStyle}`);
-        } else {
-          body.classList.add('valorantPositions');
-        }
-      } else if (currentGame === 'Smash Ultimate' || currentGame === 'Smash Bros') {
-        body.classList.add('smashPositions');
-      } else {
-        body.classList.add('defaultPositions');
+      // Find game parameters in overlayParams
+      const gameParams = overlayParams[currentGame];
+
+      if (!gameParams) {
+        // Fallback to default if game not found
+        applyStyleVariables(overlayParams["Default"]?.style1);
+        document.body.classList.add('defaultPositions');
+        return;
       }
+
+      // Apply appropriate styles based on game and style
+      const styleKey = `style${overlayStyle}`;
+
+      // If the requested style exists, use it; otherwise use style1
+      if (gameParams[styleKey]) {
+        applyStyleVariables(gameParams[styleKey]);
+      } else {
+        applyStyleVariables(gameParams.style1);
+      }
+
+      // Add class for the game
+      const gameClassName = currentGame.replace(/\s+/g, '') + 'Positions';
+      document.body.classList.add(gameClassName);
     }
 
     const applyInitialStyle = (currentGame) => {
       // Lets figure out what style user wants from URL parameters
       const urlParams = new URLSearchParams(window.location.search);
-      const overlayStyle = urlParams.get('style') || '';
+      const overlayStyle = urlParams.get('style') || '1';
 
       console.log("Initial Overlay Style Chosen: ", overlayStyle);
 
@@ -851,7 +611,6 @@ Available Styles:
       let currentMap = null // used temporarily to fetch the current map to find the mode.. declare elsewhere later
       let currentGame = fullJson.currentGame
       let currentGameMode = null
-
 
 
 
