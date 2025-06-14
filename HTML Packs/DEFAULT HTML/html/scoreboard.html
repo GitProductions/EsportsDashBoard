@@ -293,18 +293,30 @@ Available Styles:
 
     .center-logos {
       display: flex;
-      justify-content: center;
       align-items: center;
-      width: 250px;
-      height: var(--middleHeight);
-      position: relative;
+      justify-content: space-between;
+      /* gap: 230px; */
     }
+
+    .center-logos .team1,
+    .center-logos .team2 {
+      background: #13151b;
+      /* background: #47b813; */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 95px;
+      height: 115px;
+    }
+    
+
 
     .center-logos .team1.logo,
     .center-logos .team2.logo {
-      position: absolute;
-      width: var(--teamLogoSize);
-      height: var(--teamLogoSize);
+      width: 75px;
+      height: 75px;
+      /* width: var(--teamLogoSize); */
+      /* height: var(--teamLogoSize); */
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
@@ -478,12 +490,17 @@ Available Styles:
 <body>
   <div class="center">
     <span class="matchtext" id="matchtext"></span>
-    <!-- <div class="center-logos">
-      <span class="team1 logo" id="center-team-logo2"></span>
-      <span class="team2 logo" id="center-team-logo2"></span>
-    </div> -->
+    <div class="center-logos">
+      <div class="team1">
+        <span class="team1 logo" id="center-team-logo1"></span>
+      </div>
+      <div class="team2">
+        <span class="team2 logo" id="center-team-logo2"></span>
+      </div>
+    </div>
   </div>
 
+  <!-- <div class="center-logos" -->
 
   <div class="side" id="team1side"><img style="display:none;" /></div>
   <div class="side" id="team2side"><img style="display:none;" /></div>
@@ -649,7 +666,12 @@ Available Styles:
 
 
       $('div.team-inner').css("background-color", (colortheme1txt).replace(/\n/gi, "").replace(/\r/gi, ""));
-      $('div.center span').css("background-color", (colortheme1txt).replace(/\n/gi, "").replace(/\r/gi, ""));
+      $('div.center .matchtext').css("background-color", (colortheme1txt).replace(/\n/gi, "").replace(/\r/gi, ""));
+      
+      // Used for Call of Duty Center Team Logos and matching other colors if needed
+      // $('div.center-logos .team1').css("background-color", (colortheme1txt).replace(/\n/gi, "").replace(/\r/gi, ""));
+      // $('div.center-logos .team2').css("background-color", (colortheme1txt).replace(/\n/gi, "").replace(/\r/gi, ""));
+
 
 
       // FLAGS - perhaps set via dashboard later??
@@ -758,7 +780,9 @@ Available Styles:
           let teamLogoURL = teamsData[`team${teamIndex + 1}`].teamLogoUrl;
           if (teamLogoURL) {
             teamLogoURL = encodeURIComponent(teamLogoURL).replace(/%2F/g, '/').replace(/%3A/g, ':');
-            document.querySelector(`.team${teamIndex + 1} .logo`).style.backgroundImage = `url(${teamLogoURL})`;
+            document.querySelector(`.team${teamIndex + 1} .team-inner .logo`).style.backgroundImage = `url(${teamLogoURL})`;
+
+            document.querySelector(`.center-logos .team${teamIndex + 1}.logo`).style.backgroundImage = `url(${teamLogoURL})`;
             if (teamIndex == 0) {
               // $('div.left span.teamname').css("right", "200px");
               // $('div.left span.teamsr').css("right", "210px");
