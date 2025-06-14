@@ -34,8 +34,8 @@ Available Styles:
   <style>
     body {
       /* background-color: #C80013; */
-      /* background-image: 'https://cdn.mos.cms.futurecdn.net/5NxxafFmkiYcicUnft6wW5.jpg'; */
-      background-image: url('overwatch-sample.png');
+      /* background-image: url('../GameImages/cod-example.webp'); */
+      background-image: url('../GameImages/valorant-preview.png');
       background-size: cover;
       background-repeat: no-repeat;
     }
@@ -235,52 +235,11 @@ Available Styles:
       --skew-angle-positive: 0deg;
       --skew-angle-negative: 0deg;
 
-
-      /* clip is doing < inverted */
-      /* polygon(100% 0, 93% 50%, 100% 100%, 0 100%, 0% 50%, 0 0); */
-      /* ---- */
-
-      /* clip is doing < */
-      /* polygon(100% 0, 100% 49%, 100% 100%, 7% 100%, 0 50%, 7% 0); */
-      /* ---- */
-      /* clip is doing > */
-      /* polygon(93% 0, 100% 50%, 93% 100%, 0 100%, 0 50%, 0 0); */
-
-
-      /* --teamLeftClipPath: polygon(0 0,
-          93% 0,
-          94% 1%, 95% 2%,
-          100% 50%,
-          95% 98%, 94% 99%,
-          93% 100%,
-          0 100%,
-          0 98%, 0 52%,
-          0 50%);
-
-      --teamRightClipPath: polygon(100% 0,
-          100% 49%,
-          100% 100%,
-          7% 100%,
-          6% 99%, 5% 98%,
-          0 50%,
-          5% 2%, 6% 1%,
-          7% 0); */
-
-
-      /* --teamBorderLeft: 0px solid #27AAE1;
-      --teamBorderRight: 0px solid #C80013; */
-
       --teamLeftBorderLeft: 7px solid #27AAE1;
       --teamLeftBorderRight: 0px solid #C80013;
 
       --teamRightBorderLeft: 0px solid #27AAE1;
       --teamRightBorderRight: 7px solid #C80013;
-
-      /* --matchTextBackground: #080808!important; */
-
-      /* --teamLeftBackgroundImage: linear-gradient(90deg, rgb(255, 255, 255) 0%, hsla(159, 19%, 39%, 0.788) 100%); */
-      /* --teamRightBackgroundImage: linear-gradient(90deg, hsla(3, 54%, 57%, 0.788), rgb(255, 255, 255) 100%); */
-
     }
 
 
@@ -306,19 +265,12 @@ Available Styles:
       --teamLeftInnerPadding: 20px;
       --teamRightInnerPadding: 20px;
 
-      /* --teamBorderLeft: 0px solid #27AAE1;
-      --teamBorderRight: 0px solid #C80013; */
 
       --teamLeftBorderLeft: 7px solid #27AAE1;
       --teamLeftBorderRight: 0px solid #C80013;
 
       --teamRightBorderLeft: 0px solid #27AAE1;
       --teamRightBorderRight: 7px solid #C80013;
-
-      /* --matchTextBackground: #080808!important; */
-
-      /* --teamLeftBackgroundImage: linear-gradient(90deg, rgb(255, 255, 255) 0%, hsla(159, 19%, 39%, 0.788) 100%); */
-      /* --teamRightBackgroundImage: linear-gradient(90deg, hsla(3, 54%, 57%, 0.788), rgb(255, 255, 255) 100%); */
 
     }
 
@@ -341,9 +293,6 @@ Available Styles:
 
       --teamLeftInnerPadding: 15px;
       --teamRightInnerPadding: 15px;
-
-      /* --teamBorderLeft: 0px solid #27AAE1;
-      --teamBorderRight: 0px solid #C80013; */
 
       --teamLeftBorderLeft: 7px solid #27AAE1;
       --teamLeftBorderRight: 0px solid #C80013;
@@ -804,8 +753,9 @@ Available Styles:
   </div>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <!-- import bootstrap-css -->
-  <script>
+
+
+<script>
     const allOverlayStyles = [
       "defaultPositions",
       "marvelPositions",
@@ -1172,11 +1122,14 @@ Available Styles:
 
           // Show/hide icon based on game
           if (currentGame == "Overwatch") {
+            document.querySelector(`#team${teamIndex + 1}side`).style.display = "flex";
+
             const imgElem = document.querySelector(`#team${teamIndex + 1}side img`);
             imgElem.src = iconPath;
             imgElem.style.display = "block";
           } else {
             document.querySelector(`#team${teamIndex + 1}side img`).style.display = "none";
+            document.querySelector(`#team${teamIndex + 1}side`).style.display = "none";
           }
         } catch (error) {
           // console.error('Error fetching team side icon:', error);
