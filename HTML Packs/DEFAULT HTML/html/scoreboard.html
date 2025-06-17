@@ -292,10 +292,10 @@ Available Styles:
     }
 
     .center-logos {
-      display: flex;
+      /* display: flex; */
+      display: none; /* Hide by default, show for Call of Duty */
       align-items: center;
       justify-content: space-between;
-      /* gap: 230px; */
     }
 
     .center-logos .team1,
@@ -490,6 +490,7 @@ Available Styles:
 <body>
   <div class="center">
     <span class="matchtext" id="matchtext"></span>
+
     <div class="center-logos">
       <div class="team1">
         <span class="team1 logo" id="center-team-logo1"></span>
@@ -498,6 +499,7 @@ Available Styles:
         <span class="team2 logo" id="center-team-logo2"></span>
       </div>
     </div>
+
   </div>
 
   <!-- <div class="center-logos" -->
@@ -628,6 +630,16 @@ Available Styles:
       let currentMap = null // used temporarily to fetch the current map to find the mode.. declare elsewhere later
       let currentGame = fullJson.currentGame
       let currentGameMode = null
+
+
+      if (currentGame !== "Call of Duty") {
+        // if not call of duty then lets hide the "center-logos" div as it was put in place solely for it.
+        document.querySelector('.center-logos').style.display = 'none';
+      } else {
+        // if it is call of duty then lets show the "center-logos" div
+        document.querySelector('.center-logos').style.display = 'flex';
+      }
+      
 
 
 
