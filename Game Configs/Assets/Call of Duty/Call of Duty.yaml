@@ -4,134 +4,136 @@ version: '1.0'
 author: EsportsDash
 gamelogo: CallOfDutyLogo
 maps:
-- name: Dealership
-  file: Dealership
-- name: Hacienda
-  file: Hacienda
-- name: Protocol
-  file: Protocol
-- name: Red Card
-  file: RedCard
-- name: Rewind
-  file: Rewind
-- name: Skyline
-  file: Skyline
-- name: Vault
-  file: Vault
+  - name: Dealership
+    file: Dealership
+  - name: Hacienda
+    file: Hacienda
+  - name: Protocol
+    file: Protocol
+  - name: Red Card
+    file: RedCard
+  - name: Rewind
+    file: Rewind
+  - name: Skyline
+    file: Skyline
+  - name: Vault
+    file: Vault
 modes:
-- name: Search and Destroy
-  file: Search_and_Destroy
-- name: Hardpoint
-  file: Hardpoint
-- name: Control
-  file: Control
+  - name: Search and Destroy
+    file: Search_and_Destroy
+  - name: Hardpoint
+    file: Hardpoint
+  - name: Control
+    file: Control
 roles:
-- name: Operator
-  file: Operator_Icon
-  heroes:
-  - name: Alejo "Toro" Carasco
-    file: Toro_Select_BO6
-  - name: Arak Niran
-    file: Niran_Select_BO6
-  - name: Brutus
-    file: Brutus_Select_BO6
-  - name: Callum Payne
-    file: Payne_Select_BO6
-  - name: Competitor
-    file: Competitor_Away_Select_BO6
-  - name: Dominique "Domino" Tam
-    file: Domino_Select_BO6
-  - name: Donatello
-    file: Donatello_Select_BO6
-  - name: Elizabeth Grey
-    file: Grey_Select_BO6
-  - name: Eric Samuels
-    file: Samuels_Select_BO6
-  - name: Eve Macarro
-    file: EveMacarro_Select_BO6
-  - name: Frank Woods
-    file: Woods_Select_BO6
-  - name: Front Man
-    file: FrontMan_Select_BO6
-  - name: Goliath
-    file: Goliath_Select_BO6
-  - name: Grigori Weaver
-    file: Weaver_Select_BO6
-  - name: Harry Stone
-    file: Stone_Select_BO6
-  - name: Hasib Nazir
-    file: Nazir_Select_BO6
-  - name: Helen Park
-    file: Park_Select_BO6
-  - name: Jackson Caine
-    file: Caine_Select_BO6
-  - name: Jason Hudson
-    file: Hudson_Select_BO6
-  - name: Jay
-    file: Jay_Select_BO6
-  - name: John Black Ops
-    file: JohnBlackOps_Select_BO6
-  - name: Klaus
-    file: Klaus_Select_BO6
-  - name: Leonardo
-    file: Leonardo_Select_BO6
-  - name: Lion Mask VIP
-    file: LionMaskVIP_Select_BO6
-  - name: Mace
-    file: Mace_Select_BO6
-  - name: Mackenzie Carver
-    file: Carver_Select_BO6
-  - name: Masked Manager
-    file: MaskedManager_Select_BO6
-  - name: Masked Soldier
-    file: MaskedSoldier_Select_BO6
-  - name: Masked Worker
-    file: MaskedWorker_Select_BO6
-  - name: Maya Aguinaldo
-    file: Maya_Select_BO6
-  - name: Michelangelo
-    file: Michelangelo_Select_BO6
-  # - name: Mil-Sim Call of Duty  Warzone 2.0
-    # file: MilSim_Coalition_Operator_Default_MW
-  - name: Nocturne
-    file: Nocturne_Select_BO6
-  - name: Omen
-    file: Omen_Select_BO6
-  - name: Panther Mask VIP
-    file: PantherMaskVIP_Select_BO6
-  - name: R0-Z3
-    file: R0-Z3_Select_BO6
-  - name: Raphael
-    file: Raphael_Select_BO6
-  - name: Russell Adler
-    file: Adler_Select_BO6
-  - name: Seth Rogen
-    file: SethRogen_Select_BO6
-  - name: Sevati "Sev" Dumas
-    file: Sev_Select_BO6
-  - name: Silent Bob
-    file: SilentBob_Select_BO6
-  - name: Splinter
-    file: Splinter_Select_BO6
-  - name: T-800
-    file: T-800_Select_BO6
-  - name: Tamira "Westpoint" Chambers
-    file: Westpoint_Select_BO6
-  - name: Tess Bailey
-    file: Bailey_Select_BO6
-  - name: The Replacer
-    file: TheReplacer_Select_BO6
-  - name: Troy Marshall
-    file: Marshall_Select_BO6
-  - name: Vikhor "Stitch" Kuzmin
-    file: Stitch_Select_BO6
-  - name: Volta Rossi
-    file: Volta_Select_BO6
-  - name: Vortex
-    file: Vortex_Select_BO6
-  - name: Witold Bayan
-    file: Bayan_Select_BO6
-  - name: Yara Alvarez
-    file: Yara_Select_BO6
-  - name: Young-hee
-    file: YoungHee_Select_BO6
+  - name: Rogue Black Ops
+    file: Rogue_Black_Ops_Faction_Icon_BO6
+    heroes:
+      - name: Russell Adler
+        file: Adler_Select_BO6
+      - name: Helen Park
+        file: Park_Select_BO6
+      - name: Frank Woods
+        file: Woods_Select_BO6
+      - name: Hasib Nazir
+        file: Nazir_Select_BO6
+      - name: Tamira "Westpoint" Chambers
+        file: Westpoint_Select_BO6
+      - name: Witold Bayan
+        file: Bayan_Select_BO6
+      - name: Yara Alvarez
+        file: Yara_Select_BO6
+      - name: Callum Payne
+        file: Payne_Select_BO6
+      - name: Troy Marshall
+        file: Marshall_Select_BO6
+      - name: Grigori Weaver
+        file: Weaver_Select_BO6
+      - name: Maya Aguinaldo
+        file: Maya_Select_BO6
+      - name: Sevati "Sev" Dumas
+        file: Sev_Select_BO6
+      - name: Goliath
+        file: Goliath_Select_BO6
+      - name: The Replacer
+        file: TheReplacer_Select_BO6
+      - name: Eric Samuels
+        file: Samuels_Select_BO6
+      - name: Lion Mask VIP
+        file: LionMaskVIP_Select_BO6
+      - name: Leonardo
+        file: Leonardo_Select_BO6
+      - name: Donatello
+        file: Donatello_Select_BO6
+      - name: Raphael
+        file: Raphael_Select_BO6
+      - name: Michelangelo
+        file: Michelangelo_Select_BO6
+      - name: Splinter
+        file: Splinter_Select_BO6
+      - name: Jason Hudson
+        file: Hudson_Select_BO6
+      - name: Jay
+        file: Jay_Select_BO6
+      - name: Silent Bob
+        file: SilentBob_Select_BO6
+      - name: Seth Rogen
+        file: SethRogen_Select_BO6
+      - name: Vikhor "Stitch" Kuzmin
+        file: Stitch_Select_BO6
+      - name: Competitor
+        file: Competitor_Home_Select_BO6
+
+  - name: Crimson One
+    file: Crimson_One_Faction_Icon_BO6
+    heroes:
+      - name: Brutus
+        file: Brutus_Select_BO6
+      - name: Klaus
+        file: Klaus_Select_BO6
+      - name: Volta Rossi
+        file: Volta_Select_BO6
+      - name: Jackson Caine
+        file: Caine_Select_BO6
+      - name: Arak Niran
+        file: Niran_Select_BO6
+      - name: Alejo "Toro" Carasco
+        file: Toro_Select_BO6
+      - name: Tess Bailey
+        file: Bailey_Select_BO6
+      - name: Harry Stone
+        file: Stone_Select_BO6
+      - name: Mackenzie Carver
+        file: Carver_Select_BO6
+      - name: Elizabeth Grey
+        file: Grey_Select_BO6
+      - name: Front Man
+        file: FrontMan_Select_BO6
+      - name: Masked Soldier
+        file: MaskedSoldier_Select_BO6
+      - name: Masked Manager
+        file: MaskedManager_Select_BO6
+      - name: Masked Worker
+        file: MaskedWorker_Select_BO6
+      - name: Young-hee
+        file: YoungHee_Select_BO6
+      - name: Panther Mask VIP
+        file: PantherMaskVIP_Select_BO6
+      - name: Nocturne
+        file: Nocturne_Select_BO6
+      - name: Vortex
+        file: Vortex_Select_BO6
+      - name: T-800
+        file: T-800_Select_BO6
+      - name: Mace
+        file: Mace_Select_BO6
+      - name: R0-Z3
+        file: R0-Z3_Select_BO6
+      - name: John Black Ops
+        file: JohnBlackOps_Select_BO6
+      - name: Omen
+        file: Omen_Select_BO6
+      - name: Eve Macarro
+        file: EveMacarro_Select_BO6
+      - name: Competitor
+        file: Competitor_Away_Select_BO6
