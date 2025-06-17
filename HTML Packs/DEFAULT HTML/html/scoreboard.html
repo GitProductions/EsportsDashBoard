@@ -292,19 +292,31 @@ Available Styles:
     }
 
     .center-logos {
-      display: flex;
-      justify-content: center;
+      /* display: flex; */
+      display: none; /* Hide by default, show for Call of Duty */
       align-items: center;
-      width: 250px;
-      height: var(--middleHeight);
-      position: relative;
+      justify-content: space-between;
     }
+
+    .center-logos .team1,
+    .center-logos .team2 {
+      background: #13151b;
+      /* background: #47b813; */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 95px;
+      height: 115px;
+    }
+
+
 
     .center-logos .team1.logo,
     .center-logos .team2.logo {
-      position: absolute;
-      width: var(--teamLogoSize);
-      height: var(--teamLogoSize);
+      width: 75px;
+      height: 75px;
+      /* width: var(--teamLogoSize); */
+      /* height: var(--teamLogoSize); */
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
@@ -325,7 +337,7 @@ Available Styles:
     }
 
     /* Animations */
-    .team1,
+    .left.team.team1,
     .team2,
     .center,
     .logo,
@@ -335,7 +347,7 @@ Available Styles:
       animation-delay: 1s;
     }
 
-    .team1 {
+    .left.team.team1 {
       animation: leftmove 0.75s;
     }
 
@@ -478,12 +490,19 @@ Available Styles:
 <body>
   <div class="center">
     <span class="matchtext" id="matchtext"></span>
-    <!-- <div class="center-logos">
-      <span class="team1 logo" id="center-team-logo2"></span>
-      <span class="team2 logo" id="center-team-logo2"></span>
-    </div> -->
+
+    <div class="center-logos">
+      <div class="team1">
+        <span class="team1 logo" id="center-team-logo1"></span>
+      </div>
+      <div class="team2">
+        <span class="team2 logo" id="center-team-logo2"></span>
+      </div>
+    </div>
+
   </div>
 
+  <!-- <div class="center-logos" -->
 
   <div class="side" id="team1side"><img style="display:none;" /></div>
   <div class="side" id="team2side"><img style="display:none;" /></div>
@@ -613,6 +632,28 @@ Available Styles:
       let currentGameMode = null
 
 
+      if (currentGame !== "Call of Duty") {
+        // if not call of duty then lets hide the "center-logos" div as it was put in place solely for it.
+        document.querySelector('.center-logos').style.display = 'none';
+
+        // Resetting animations back to 'default'
+        document.querySelector('.center').style.animation = 'topmove 1s'; 
+        document.querySelector('.left.team.team1').style.animation = 'leftmove 1s';
+        document.querySelector('.right.team.team2').style.animation = 'rightmove 1s';
+
+      } else {
+        // if it is call of duty then lets show the "center-logos" div
+        document.querySelector('.center-logos').style.display = 'flex';
+
+        // Modifying animations to better fit the ui as it 'covers' elements so fade in is cleaner
+        document.querySelector('.center').style.animation = 'fadein 1s'; 
+        document.querySelector('.left.team.team1').style.animation = 'fadein 1s'; 
+        document.querySelector('.right.team.team2').style.animation = 'fadein 1s'; 
+
+      }
+
+
+
 
 
       const setOverlayPosition = (mapData) => {
@@ -649,7 +690,12 @@ Available Styles:
 
 
       $('div.team-inner').css("background-color", (colortheme1txt).replace(/\n/gi, "").replace(/\r/gi, ""));
-      $('div.center span').css("background-color", (colortheme1txt).replace(/\n/gi, "").replace(/\r/gi, ""));
+      $('div.center .matchtext').css("background-color", (colortheme1txt).replace(/\n/gi, "").replace(/\r/gi, ""));
+
+      // Used for Call of Duty Center Team Logos and matching other colors if needed
+      // $('div.center-logos .team1').css("background-color", (colortheme1txt).replace(/\n/gi, "").replace(/\r/gi, ""));
+      // $('div.center-logos .team2').css("background-color", (colortheme1txt).replace(/\n/gi, "").replace(/\r/gi, ""));
+
 
 
       // FLAGS - perhaps set via dashboard later??
@@ -758,7 +804,9 @@ Available Styles:
           let teamLogoURL = teamsData[`team${teamIndex + 1}`].teamLogoUrl;
           if (teamLogoURL) {
             teamLogoURL = encodeURIComponent(teamLogoURL).replace(/%2F/g, '/').replace(/%3A/g, ':');
-            document.querySelector(`.team${teamIndex + 1} .logo`).style.backgroundImage = `url(${teamLogoURL})`;
+            document.querySelector(`.team${teamIndex + 1} .team-inner .logo`).style.backgroundImage = `url(${teamLogoURL})`;
+
+            document.querySelector(`.center-logos .team${teamIndex + 1}.logo`).style.backgroundImage = `url(${teamLogoURL})`;
             if (teamIndex == 0) {
               // $('div.left span.teamname').css("right", "200px");
               // $('div.left span.teamsr').css("right", "210px");

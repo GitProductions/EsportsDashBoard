@@ -6,14 +6,13 @@
 // Each game config is packed into a separate .bgg file.
 // ----------------------------------------
 
-
-
 import { promises as fs } from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import JSZip from 'jszip';
 import { dirname } from 'path';
 import inquirer from 'inquirer';
+import yaml from 'js-yaml';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -24,6 +23,7 @@ class GameConfigPacker {
         this.baseFolder = path.join(__root, 'Game Configs');
         this.assetsFolder = path.join(this.baseFolder, 'assets');
         this.requiredXamlKeys = ['id', 'game', 'version', 'author', 'description', 'name'];
+        this.requiredYamlKeys = ['id', 'game', 'version', 'author'];
     }
 
     async validateFolderStructure() {
@@ -48,7 +48,10 @@ class GameConfigPacker {
         for (const folder of configFolders) {
             const fullPath = path.join(gameFolderPath, folder.name);
             const files = await fs.readdir(fullPath);
-            if (files.some(file => path.extname(file).toLowerCase() === '.xaml')) {
+            if (files.some(file => {
+                const ext = path.extname(file).toLowerCase();
+                return ext === '.xaml' || ext === '.yaml' || ext === '.yml';
+            })) {
                 return fullPath;
             }
         }
@@ -69,8 +72,42 @@ class GameConfigPacker {
         return validationResults;
     }
 
+    async validateYamlContent(yamlData) {
+        const validationResults = {};
+        
+        for (const key of this.requiredYamlKeys) {
+            if (!yamlData[key]) {
+                throw new Error(`Missing required key: ${key}`);
+            }
+            validationResults[key] = yamlData[key];
+        }
+        
+        return validationResults;
+    }
+
     async extractXamlInfo(folderPath) {
         const files = await fs.readdir(folderPath);
+        
+        // Check for YAML files first
+        const yamlFile = files.find(file => {
+            const ext = path.extname(file).toLowerCase();
+            return ext === '.yaml' || ext === '.yml';
+        });
+        
+        if (yamlFile) {
+            const yamlPath = path.join(folderPath, yamlFile);
+            const yamlContent = await fs.readFile(yamlPath, 'utf8');
+            
+            try {
+                const yamlData = yaml.load(yamlContent);
+                return await this.validateYamlContent(yamlData);
+            } catch (error) {
+                console.error(`Invalid YAML in ${yamlFile}: ${error.message}`);
+                return null;
+            }
+        }
+        
+        // Fall back to XAML if no YAML found
         const xamlFile = files.find(file => path.extname(file).toLowerCase() === '.xaml');
         
         if (!xamlFile) return null;
