@@ -337,7 +337,7 @@ Available Styles:
     }
 
     /* Animations */
-    .team1,
+    .left.team.team1,
     .team2,
     .center,
     .logo,
@@ -347,7 +347,7 @@ Available Styles:
       animation-delay: 1s;
     }
 
-    .team1 {
+    .left.team.team1 {
       animation: leftmove 0.75s;
     }
 
@@ -635,14 +635,20 @@ Available Styles:
       if (currentGame !== "Call of Duty") {
         // if not call of duty then lets hide the "center-logos" div as it was put in place solely for it.
         document.querySelector('.center-logos').style.display = 'none';
-        document.querySelector('.center').style.animation = 'topmove 1s'; // assuring any previous changes animations are back
+
+        // Resetting animations back to 'default'
+        document.querySelector('.center').style.animation = 'topmove 1s'; 
+        document.querySelector('.left.team.team1').style.animation = 'leftmove 1s';
+        document.querySelector('.right.team.team2').style.animation = 'rightmove 1s';
 
       } else {
         // if it is call of duty then lets show the "center-logos" div
         document.querySelector('.center-logos').style.display = 'flex';
-        document.querySelector('.center').style.animation = 'fadein 1s'; //  modify the animation style in..
 
-        // document.querySelector('.team1').style.animation = 'none'; //  modify the animation style in..
+        // Modifying animations to better fit the ui as it 'covers' elements so fade in is cleaner
+        document.querySelector('.center').style.animation = 'fadein 1s'; 
+        document.querySelector('.left.team.team1').style.animation = 'fadein 1s'; 
+        document.querySelector('.right.team.team2').style.animation = 'fadein 1s'; 
 
       }
 
