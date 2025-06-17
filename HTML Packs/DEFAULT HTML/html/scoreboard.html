@@ -308,7 +308,7 @@ Available Styles:
       width: 95px;
       height: 115px;
     }
-    
+
 
 
     .center-logos .team1.logo,
@@ -635,11 +635,17 @@ Available Styles:
       if (currentGame !== "Call of Duty") {
         // if not call of duty then lets hide the "center-logos" div as it was put in place solely for it.
         document.querySelector('.center-logos').style.display = 'none';
+        document.querySelector('.center').style.animation = 'topmove 1s'; // assuring any previous changes animations are back
+
       } else {
         // if it is call of duty then lets show the "center-logos" div
         document.querySelector('.center-logos').style.display = 'flex';
+        document.querySelector('.center').style.animation = 'fadein 1s'; //  modify the animation style in..
+
+        // document.querySelector('.team1').style.animation = 'none'; //  modify the animation style in..
+
       }
-      
+
 
 
 
@@ -679,7 +685,7 @@ Available Styles:
 
       $('div.team-inner').css("background-color", (colortheme1txt).replace(/\n/gi, "").replace(/\r/gi, ""));
       $('div.center .matchtext').css("background-color", (colortheme1txt).replace(/\n/gi, "").replace(/\r/gi, ""));
-      
+
       // Used for Call of Duty Center Team Logos and matching other colors if needed
       // $('div.center-logos .team1').css("background-color", (colortheme1txt).replace(/\n/gi, "").replace(/\r/gi, ""));
       // $('div.center-logos .team2').css("background-color", (colortheme1txt).replace(/\n/gi, "").replace(/\r/gi, ""));
