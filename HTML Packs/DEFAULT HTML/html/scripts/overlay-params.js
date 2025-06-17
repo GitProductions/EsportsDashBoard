@@ -151,7 +151,7 @@ const overlayParams = {
 
         }
     },
-    
+
     "Call of Duty": {
         style1: {
             teamLogoSize: "0px", // this is simply making the default logo size not visible in a terrible way..
@@ -159,6 +159,10 @@ const overlayParams = {
             teamBoxHeight: "55px",
             teamTopPosition: "13px",
             teamSideOffset: "-43px",
+
+            scoreSize: "2.5em",
+            teamNameSize: "1.3em",
+
 
 
             middleTopPosition: "15px",
