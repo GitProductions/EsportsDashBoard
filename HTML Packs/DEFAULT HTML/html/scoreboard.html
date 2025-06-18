@@ -293,8 +293,7 @@ Available Styles:
 
     .center-logos {
       /* display: flex; */
-      display: none;
-      /* Hide by default, show for Call of Duty */
+      display: none; /* Hide by default, show for Call of Duty */
       align-items: center;
       justify-content: space-between;
     }
@@ -307,7 +306,7 @@ Available Styles:
       align-items: center;
       justify-content: center;
       width: 95px;
-      height: 110px;
+      height: 115px;
     }
 
 
@@ -569,11 +568,9 @@ Available Styles:
       const overlayStyle = window.selectedOverlayStyle || '1';
 
       // Find game parameters in overlayParams
+      const gameParams = overlayParams[currentGame];
 
-
-      // console.log('Game Params:', gameParams);
-
-      if (!OVERLAY_PARAMS) {
+      if (!gameParams) {
         // Fallback to default if game not found
         applyStyleVariables(overlayParams["Default"]?.style1);
         document.body.classList.add('defaultPositions');
@@ -587,8 +584,7 @@ Available Styles:
       if (gameParams[styleKey]) {
         applyStyleVariables(gameParams[styleKey]);
       } else {
-        // console.log('Game Params Apply Game Style', gameParams[currentGame].style1)
-        applyStyleVariables(OVERLAY_PARAMS[currentGame].style1);
+        applyStyleVariables(gameParams.style1);
       }
 
       // Add class for the game
@@ -641,7 +637,7 @@ Available Styles:
         document.querySelector('.center-logos').style.display = 'none';
 
         // Resetting animations back to 'default'
-        document.querySelector('.center').style.animation = 'topmove 1s';
+        document.querySelector('.center').style.animation = 'topmove 1s'; 
         document.querySelector('.left.team.team1').style.animation = 'leftmove 1s';
         document.querySelector('.right.team.team2').style.animation = 'rightmove 1s';
 
@@ -650,9 +646,9 @@ Available Styles:
         document.querySelector('.center-logos').style.display = 'flex';
 
         // Modifying animations to better fit the ui as it 'covers' elements so fade in is cleaner
-        document.querySelector('.center').style.animation = 'fadein 1s';
-        document.querySelector('.left.team.team1').style.animation = 'fadein 1s';
-        document.querySelector('.right.team.team2').style.animation = 'fadein 1s';
+        document.querySelector('.center').style.animation = 'fadein 1s'; 
+        document.querySelector('.left.team.team1').style.animation = 'fadein 1s'; 
+        document.querySelector('.right.team.team2').style.animation = 'fadein 1s'; 
 
       }
 
@@ -684,35 +680,23 @@ Available Styles:
       setOverlayPosition(fullJson.maps.mapData);
 
       // Set theme colors
-      if (currentGame === "Call of Duty") {
-        // Overriding the center logos background color for games like Call of Duty
-
-        // Set to color1theme
-        // $('div.center-logos .team1').css("background-color", (colortheme1txt).replace(/\n/gi, "").replace(/\r/gi, ""));
-        // $('div.center-logos .team2').css("background-color", (colortheme1txt).replace(/\n/gi, "").replace(/\r/gi, ""));
-
-        // set to blend into stock overlay
-        $('div.team-inner').css("background-color", '#13151b');
-        $('.teamname, .score').css("color", '#ffffff');
-
-        $('div.side span, div.center span').css("background-color", '#13151b');
-        $('div.side span, div.center span').css("color", '#ffffff');
+      $('div.side span, div.center span').css("color", (colortheme2txt));
+      $('div.side span').css("background-color", (colortheme2txt));
+      $('div.center').css("text-shadow", "0px 0px 7px " + (colortheme1txt));
+      $('div.side').css("-webkit-filter", "drop-shadow(0px 0px 2px " + (colortheme1txt) + ")");
+      // -webkit-filter: drop-shadow(0 0 2px black)
+      // $('div.left, div.right').css("background-color", (colortheme1txt));
+      $('.teamname, .score').css("color", (colortheme2txt));
 
 
-      } else {
-        $('div.side span, div.center span').css("color", (colortheme2txt));
-        $('div.side span').css("background-color", (colortheme2txt));
-        $('div.center').css("text-shadow", "0px 0px 7px " + (colortheme1txt));
-        $('div.side').css("-webkit-filter", "drop-shadow(0px 0px 2px " + (colortheme1txt) + ")");
-        // -webkit-filter: drop-shadow(0 0 2px black)
-        // $('div.left, div.right').css("background-color", (colortheme1txt));
-        $('.teamname, .score').css("color", (colortheme2txt));
+      $('div.team-inner').css("background-color", (colortheme1txt).replace(/\n/gi, "").replace(/\r/gi, ""));
+      $('div.center .matchtext').css("background-color", (colortheme1txt).replace(/\n/gi, "").replace(/\r/gi, ""));
+
+      // Used for Call of Duty Center Team Logos and matching other colors if needed
+      // $('div.center-logos .team1').css("background-color", (colortheme1txt).replace(/\n/gi, "").replace(/\r/gi, ""));
+      // $('div.center-logos .team2').css("background-color", (colortheme1txt).replace(/\n/gi, "").replace(/\r/gi, ""));
 
 
-        $('div.team-inner').css("background-color", (colortheme1txt).replace(/\n/gi, "").replace(/\r/gi, ""));
-        $('div.center .matchtext').css("background-color", (colortheme1txt).replace(/\n/gi, "").replace(/\r/gi, ""));
-
-      }
 
       // FLAGS - perhaps set via dashboard later??
       // Set to 0 for Mutual Info, 1 for "Map # of #". 2 for Mutual info - Map #
@@ -951,6 +935,7 @@ Available Styles:
             imgElem.src = iconPath;
             imgElem.style.display = "block";
           } else {
+            document.querySelector(`#team${teamIndex + 1}side img`).style.display = "none";
             document.querySelector(`#team${teamIndex + 1}side`).style.display = "none";
           }
         } catch (error) {
