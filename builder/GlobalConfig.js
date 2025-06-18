@@ -35,7 +35,7 @@ export const configurations = {
                 folderPath: "HTML Packs/Overwatch-BGG",
                 fileName: "Overwatch-BGG-HTML-PACK.zip"
             }
-          
+
         ],
 
 
@@ -218,7 +218,7 @@ export const configurations = {
         ],
 
 
-        
+
         overlayPack: [
             // {
             //     id: "esportsdash.default",
@@ -231,6 +231,32 @@ export const configurations = {
             //     fileName: "esportsdash-default.esportsDashOverlay"
             // }
         ],
+    },
+
+    "Call of Duty": {
+
+        starterPack: [],
+
+
+        htmlPack: [],
+
+
+        gameConfigs: [
+            {
+                id: "esportsdash.callofduty",
+                name: "Call of Duty",
+                author: "EsportsDash",
+                version: "1.0",
+                image: "Game Configs/Call of Duty/callofduty.webp",
+                description: "",
+                folderPath: "Game Configs/Call of Duty",
+                fileName: "esportsdash.callofduty_v1.0.bgg"
+            }
+        ],
+
+
+
+        overlayPack: [],
     }
 };
 
