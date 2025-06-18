@@ -153,6 +153,18 @@
         "folderPath": "Game Configs/Marvel Rivals",
         "fileName": "esportsdash.marvelrivals_v2.5.bgg"
       }
+    ],
+    "Call of Duty": [
+      {
+        "id": "esportsdash.callofduty",
+        "name": "Call of Duty",
+        "author": "EsportsDash",
+        "version": "1.0",
+        "image": "Game Configs/Call of Duty/callofduty.webp",
+        "description": "",
+        "folderPath": "Game Configs/Call of Duty",
+        "fileName": "esportsdash.callofduty_v1.0.bgg"
+      }
     ]
   },
    "Overlay Packs": {
@@ -160,7 +172,7 @@
       "id": "esportsdash.default",
       "name": "Default HTML Pack",
       "author": "Broadcast GG",
-      "version": "2.1",
+      "version": "2.2",
       "image": "Game Configs/Overwatch/Overwatch.webp",
       "description": "HTML Pack created by Broadcast GG",
       "folderPath": "HTML Packs/DEFAULT HTML",
