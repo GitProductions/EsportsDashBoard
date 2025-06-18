@@ -152,22 +152,22 @@ const overlayParams = {
         }
     },
 
-    "Call of Duty": {
-        style1: {
-            teamLogoSize: "0px", // this is simply making the default logo size not visible in a terrible way..
-            teamBoxWidth: "610px",
-            teamBoxHeight: "55px",
-            teamTopPosition: "13px",
-            teamSideOffset: "-43px",
+            "Call of Duty": {
+                style1: {
+                    teamLogoSize: "0px", // this is simply making the default logo size not visible in a terrible way..
+                    teamBoxWidth: "611px",
+                    teamBoxHeight: "53px",
+                    teamTopPosition: "15px",
+                    teamSideOffset: "-43px",
 
-            scoreSize: "2.5em",
-            teamNameSize: "1.3em",
+                    scoreSize: "2.5em",
+                    teamNameSize: "1.5em",
 
 
 
-            middleTopPosition: "15px",
-            middleHeight: "30px",
-            middleWidth: "475px",
+                    middleTopPosition: "15px",
+                    middleHeight: "32px",
+                    middleWidth: "475px",
 
             skewAnglePositive: "0deg",
             skewAngleNegative: "0deg",
