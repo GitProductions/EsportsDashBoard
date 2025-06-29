@@ -11,25 +11,31 @@ const overlayParams = {
             teamTopPosition: "13px",
             teamSideOffset: "0px",
             middleTopPosition: "8px",
-            skewAnglePositive: "0deg",
-            skewAngleNegative: "0deg",
+            "skew-angle-positive": "0deg",
+            "skew-angle-negative": "0deg",
         }
     },
 
     "Marvel Rivals": {
         style1: {
+    //   --teamBoxHeight: 50px;
+    //   --middleTopPosition: 17px;
+    //   --skew-angle-positive: 15deg;
+    //   --skew-angle-negative: -15deg;
+
             teamBoxWidth: "510px",
             teamTopPosition: "31px",
             teamSideOffset: "15px",
             teamBoxHeight: "50px",
             middleTopPosition: "3px",
-            skewAnglePositive: "15deg",
-            skewAngleNegative: "-15deg",
+            "skew-angle-positive": "15deg",
+            "skew-angle-negative": "-15deg",
             teamLeftOuterPadding: "8px",
             teamRightOuterPadding: "8px",
             teamNameInnerPadding: "20px",
             teamGroupTopPosition: "40px",
-            teamGroupSideOffset: "400px"
+            teamGroupSideOffset: "400px",
+
         }
     },
 
@@ -40,8 +46,8 @@ const overlayParams = {
             teamTopPosition: "13px",
             teamSideOffset: "0px",
             middleTopPosition: "8px",
-            skewAnglePositive: "0deg",
-            skewAngleNegative: "0deg",
+            "skew-angle-positive": "0deg",
+            "skew-angle-negative": "0deg",
             teamGroupTopPosition: "20px",
             teamGroupSideOffset: "685px"
         }
@@ -63,8 +69,8 @@ const overlayParams = {
             middleWidth: "120px",
             middleTopPosition: "95px",
 
-            skewAnglePositive: "0deg",
-            skewAngleNegative: "0deg",
+            "skew-angle-positive": "0deg",
+            "skew-angle-negative": "0deg",
 
             middleTextSize: "1.1em",
 
@@ -88,8 +94,8 @@ const overlayParams = {
             teamSideOffset: "-490px",
 
             middleTopPosition: "95px",
-            skewAnglePositive: "0deg",
-            skewAngleNegative: "0deg",
+            "skew-angle-positive": "0deg",
+            "skew-angle-negative": "0deg",
 
             teamLeftBorderLeft: "7px solid #27AAE1",
             teamLeftBorderRight: "0px solid #C80013",
@@ -109,8 +115,8 @@ const overlayParams = {
 
             middleHeight: "25px",
             middleTopPosition: "98px",
-            skewAnglePositive: "0deg",
-            skewAngleNegative: "0deg",
+            "skew-angle-positive": "0deg",
+            "skew-angle-negative": "0deg",
 
             teamLeftClipPath: "polygon(100% 0, 100% 49%, 100% 100%, 7% 100%, 0 50%, 7% 0)",
             teamRightClipPath: "polygon(93% 0, 100% 50%, 93% 100%, 0 100%, 0 50%, 0 0)",
@@ -134,8 +140,8 @@ const overlayParams = {
             teamTopPosition: "30px",
             teamSideOffset: "-0px",
             middleTopPosition: "95px",
-            skewAnglePositive: "0deg",
-            skewAngleNegative: "0deg",
+            "skew-angle-positive": "0deg",
+            "skew-angle-negative": "0deg",
 
             teamLeftClipPath: "var(--arrowRightClipPath)",
             teamRightClipPath: "var(--arrowLeftClipPath)",
@@ -169,8 +175,8 @@ const overlayParams = {
             middleHeight: "30px",
             middleWidth: "475px",
 
-            skewAnglePositive: "0deg",
-            skewAngleNegative: "0deg",
+            "skew-angle-positive": "0deg",
+            "skew-angle-negative": "0deg",
             teamGroupTopPosition: "20px",
             teamGroupSideOffset: "685px",
 
