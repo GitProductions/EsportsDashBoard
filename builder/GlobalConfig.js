@@ -257,8 +257,27 @@ export const configurations = {
 
 
         overlayPack: [],
-    }
-};
+    },
+
+    "Rocket League": {
+
+        starterPack: [],
+        htmlPack: [],
+        gameConfigs: [
+            {
+                id: "esportsdash.rocketleague",
+                name: "Rocket League",
+                author: "EsportsDash",
+                version: "1.0",
+                image: "Game Configs/Rocket League/Rocket League.webp",
+                description: "",
+                folderPath: "Game Configs/Rocket League",
+                fileName: "esportsdash.rocketleague_v1.0.bgg"
+            }
+        ],
+    },
+}
+
 
 
 

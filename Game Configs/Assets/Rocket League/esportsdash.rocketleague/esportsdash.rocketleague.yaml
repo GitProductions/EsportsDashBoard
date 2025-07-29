@@ -1,0 +1,55 @@
+id: esportsdash.rocketleague
+game: Rocket League
+version: "1.0"
+author: EsportsDash
+gamelogo: rocket_league_(2)
+maps:
+  - name: Estadio Vida
+    file: Estadio_Vida
+  - name: Rivals Arena
+    file: Rivals_Arena
+  - name: Starbase ARC
+    file: Starbase_ARC
+  - name: Salty Shores
+    file: Salty_Shores
+  - name: Sovereign Heights
+    file: Sovereign_Heights
+  - name: Neon Fields
+    file: Neon_Fields
+  - name: Deadeye Canyon
+    file: Deadeye_Canyon
+  - name: Forbidden Temple
+    file: Forbidden_Temple
+  - name: Farmstead
+    file: Farmstead
+  - name: AquaDome
+    file: AquaDome
+  - name: Neo Tokyo
+    file: Neo_Tokyo
+  - name: Utopia Coliseum
+    file: Utopia_Coliseum
+  - name: Wasteland
+    file: Wasteland
+  - name: Beckwith Park
+    file: Beckwith_Park
+  - name: Urban Central
+    file: Urban_Central
+  - name: Champions Field
+    file: Champions_Field
+  - name: Mannfield
+    file: Mannfield
+  - name: DFH Stadium
+    file: DFH_Stadium
+modes:
+  - name: ‎Competitive
+    file: Blank
+roles:
+  - name:  
+    file: Blank
+    heroes:
+      - name: DEFAULT CAR
+        file: DEFAULT_CAR
+      - name: DEFAULT RED
+        file: DEFAULT_RED
+      - name: DEFAULT BLUE
+        file: DEFAULT_BLUE
