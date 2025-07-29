@@ -43,8 +43,6 @@ maps:
   - name: DFH Stadium
     file: DFH_Stadium
 modes:
-  - name:  
-    file: Blank
   - name: Competitive
     file: Blank
 roles:
