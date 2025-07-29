@@ -1,0 +1,14 @@
+id: TESTIDGAME
+game: TESTGAME
+version: "1.0"
+author: John Doe
+gamelogo: Rocket_League
+maps:
+  - name: DEFAULT BLUE
+    file: DEFAULT_BLUE
+modes:
+  - name: DEFAULT CAR
+    file: DEFAULT_CAR
+roles:
+  - name: DEFAULT RED
+    file: DEFAULT_RED
