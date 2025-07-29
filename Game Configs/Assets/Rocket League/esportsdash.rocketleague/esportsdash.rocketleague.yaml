@@ -5,7 +5,7 @@ author: EsportsDash
 gamelogo: rocket_league_(2)
 maps:
   - name: Random
-    file: Random
+    file: RandomMap
   - name: Estadio Vida
     file: Estadio_Vida
   - name: Rivals Arena
