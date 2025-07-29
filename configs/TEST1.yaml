@@ -1,0 +1,14 @@
+id: TEST1
+game: Hello Kitty Island Adventure
+version: "1.0"
+author: John Doe
+gamelogo: Rocket_League
+maps:
+  - name: DEFAULT BLUE
+    file: DEFAULT_BLUE
+modes:
+  - name: DEFAULT BLUE
+    file: DEFAULT_BLUE
+roles:
+  - name: DEFAULT BLUE
+    file: DEFAULT_BLUE
