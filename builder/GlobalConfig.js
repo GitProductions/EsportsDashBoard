@@ -263,6 +263,7 @@ export const configurations = {
 
         starterPack: [],
         htmlPack: [],
+        overlayPack: [],
         gameConfigs: [
             {
                 id: "esportsdash.rocketleague",

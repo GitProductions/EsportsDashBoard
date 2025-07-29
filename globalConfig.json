@@ -165,6 +165,18 @@
         "folderPath": "Game Configs/Call of Duty",
         "fileName": "esportsdash.callofduty_v1.0.bgg"
       }
+    ],
+    "Rocket League": [
+      {
+        "id": "esportsdash.rocketleague",
+        "name": "Rocket League",
+        "author": "EsportsDash",
+        "version": "1.0",
+        "image": "Game Configs/Rocket League/Rocket League.webp",
+        "description": "",
+        "folderPath": "Game Configs/Rocket League",
+        "fileName": "esportsdash.rocketleague_v1.0.bgg"
+      }
     ]
   },
    "Overlay Packs": {
