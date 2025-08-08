@@ -29,15 +29,16 @@ Example:
 
 <config>
   <id>esportsdash.overwatch</id>
-  <version>2.2</version>
+  <version>2.3</version>
   <name>Overwatch</name>
-  <description>Season 16</description>
+  <description>Season 17</description>
   <game>Overwatch</game>
   <author>EsportsDash</author>
 
 
   <maps>
     <map name="Antartic Peninsula" file="Antartic_Peninsula" />
+    <map name="Aatlis" file="Aatlis" />
     <map name="Blizzard World" file="Blizzard_World" />
     <map name="Busan" file="Busan" />
     <map name="Circuit Royale" file="Circuit_Royale" />
@@ -148,6 +149,8 @@ Example:
       <hero name="LifeWeaver" file="LifeWeaver"  />
       <hero name="Mercy" file="Mercy"  />
       <hero name="Moira" file="Moira"  />
+        <hero name="Wuyang" file="Wuyang"  />
+
       <hero name="Zenyatta" file="Zenyatta"  />
       <!-- <hero name="Aqua" file="Aqua"  /> -->
     </Support>
