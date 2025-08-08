@@ -1,11 +1,13 @@
 id: esportsdash.callofduty
 game: Call of Duty
-version: '1.0'
+version: '1.1'
 author: EsportsDash
 gamelogo: CallOfDutyLogo
 maps:
   - name: Dealership
     file: Dealership
+  - name: Fringe
+    file: Fringe
   - name: Hacienda
     file: Hacienda
   - name: Protocol

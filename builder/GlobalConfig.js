@@ -246,11 +246,11 @@ export const configurations = {
                 id: "esportsdash.callofduty",
                 name: "Call of Duty",
                 author: "EsportsDash",
-                version: "1.0",
+                version: "1.1",
                 image: "Game Configs/Call of Duty/callofduty.webp",
                 description: "",
                 folderPath: "Game Configs/Call of Duty",
-                fileName: "esportsdash.callofduty_v1.0.bgg"
+                fileName: "esportsdash.callofduty_v1.1.bgg"
             }
         ],
 
