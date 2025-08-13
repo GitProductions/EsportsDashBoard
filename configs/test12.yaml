@@ -1,0 +1,14 @@
+id: test12
+game: Hello Kitty Island Adventure
+version: "1.0"
+author: John Doefsa
+gamelogo: Hello_Kitty_Island_Adventure
+maps:
+  - name: Neon_Fields
+    file: Neon_Fields
+modes:
+  - name: Beckwith_Park
+    file: Beckwith_Park
+roles:
+  - name: Beckwith_Park
+    file: Beckwith_Park
