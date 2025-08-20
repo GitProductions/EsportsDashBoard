@@ -159,7 +159,10 @@ class GameConfigPacker {
 
         // console.log(xamlInfo);
         await fs.writeFile(outputPath, zipContent);
-        console.log(`Created: ${fileName}`);
+        // console.log(`Created: ${fileName}`);
+        // make link to utput folder
+        const relativePath = path.relative(process.cwd(), outputPath);
+        console.log(`Created: ${relativePath}`);
     }
 
     async packConfigs() {
