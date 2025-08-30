@@ -298,7 +298,8 @@ Available Styles:
 
     .center-logos {
       /* display: flex; */
-      display: none; /* Hide by default, show for Call of Duty */
+      display: none;
+      /* Hide by default, show for Call of Duty */
       align-items: center;
       justify-content: space-between;
     }
@@ -602,7 +603,7 @@ Available Styles:
       const urlParams = new URLSearchParams(window.location.search);
       const overlayStyle = urlParams.get('style') || '1';
 
-      console.log("Initial Overlay Style Chosen: ", overlayStyle);
+      // console.log("Initial Overlay Style Chosen: ", overlayStyle);
 
       // Store the style preference in a variable that persists across intervals
       window.selectedOverlayStyle = overlayStyle;
@@ -642,7 +643,7 @@ Available Styles:
         document.querySelector('.center-logos').style.display = 'none';
 
         // Resetting animations back to 'default'
-        document.querySelector('.center').style.animation = 'topmove 1s'; 
+        document.querySelector('.center').style.animation = 'topmove 1s';
         document.querySelector('.left.team.team1').style.animation = 'leftmove 1s';
         document.querySelector('.right.team.team2').style.animation = 'rightmove 1s';
 
@@ -651,9 +652,9 @@ Available Styles:
         document.querySelector('.center-logos').style.display = 'flex';
 
         // Modifying animations to better fit the ui as it 'covers' elements so fade in is cleaner
-        document.querySelector('.center').style.animation = 'fadein 1s'; 
-        document.querySelector('.left.team.team1').style.animation = 'fadein 1s'; 
-        document.querySelector('.right.team.team2').style.animation = 'fadein 1s'; 
+        document.querySelector('.center').style.animation = 'fadein 1s';
+        document.querySelector('.left.team.team1').style.animation = 'fadein 1s';
+        document.querySelector('.right.team.team2').style.animation = 'fadein 1s';
 
       }
 
@@ -685,6 +686,7 @@ Available Styles:
       setOverlayPosition(fullJson.maps.mapData);
 
       // Set theme colors
+
       $('div.side span, div.center span').css("color", (colortheme2txt));
       $('div.side span').css("background-color", (colortheme2txt));
       $('div.center').css("text-shadow", "0px 0px 7px " + (colortheme1txt));
@@ -886,26 +888,22 @@ Available Styles:
       async function updateTeamSide(teamIndex) {
         try {
           let teamSide;
+          const team1Group = teamsData['team1'].teamGroup;
 
-          // Determine the team side based on teamGroup
+          // Determine the team side based on team1Group
           if (teamIndex === 0) {
-            // Check the teamGroup of Team 1
-            const teamGroup = teamsData[`team${teamIndex + 1}`].teamGroup;
-            console.log("Team 1 Group:", teamGroup);
-            if (teamGroup === 'A') {
+            if (team1Group === 'A') {
               teamSide = 'A';
-            } else if (teamGroup === 'D') {
+            } else if (team1Group === 'D') {
               teamSide = 'D';
             } else {
               // Neutral or invalid group, no icon to show
-              document.querySelector(`#team${teamIndex + 1}side img`).style.display = "none";
-              document.querySelector(`#team${teamIndex + 2}side img`).style.display = "none";
+              document.querySelector(`#team${teamIndex + 1}side`).style.display = "none";
+              document.querySelector(`#team${teamIndex + 2}side`).style.display = "none";
               return;
             }
           } else if (teamIndex === 1) {
-            // Team 2 is always the opposite of Team 1
-            // So lets compare against Team1's info
-            const team1Group = teamsData['team1'].teamGroup;
+            // Team 2 is always the opposite of Team 1, so lets compare against Team1's info
             if (team1Group === 'A') {
               teamSide = 'D';
             } else if (team1Group === 'D') {
@@ -940,8 +938,8 @@ Available Styles:
             imgElem.src = iconPath;
             imgElem.style.display = "block";
           } else {
-            document.querySelector(`#team${teamIndex + 1}side img`).style.display = "none";
             document.querySelector(`#team${teamIndex + 1}side`).style.display = "none";
+            document.querySelector(`#team${teamIndex + 2}side`).style.display = "none";
           }
         } catch (error) {
           // console.error('Error fetching team side icon:', error);
