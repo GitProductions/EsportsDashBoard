@@ -177,6 +177,18 @@
         "folderPath": "Game Configs/Rocket League",
         "fileName": "esportsdash.rocketleague_v1.0.bgg"
       }
+    ],
+    "League of Legends": [
+      {
+        "id": "esportsdash.leagueoflegends",
+        "name": "League of Legends",
+        "author": "EsportsDash",
+        "version": "1.0",
+        "image": "Game Configs/League of Legends/League of Legends.webp",
+        "description": "",
+        "folderPath": "Game Configs/League of Legends",
+        "fileName": "esportsdash.leagueoflegends_v1.0.bgg"
+      }
     ]
   },
   "Overlay Packs": {
@@ -184,7 +196,7 @@
       "id": "esportsdash.default",
       "name": "Default HTML Pack",
       "author": "Broadcast GG",
-      "version": "2.3",
+      "version": "2.4",
       "image": "Game Configs/Overwatch/Overwatch.webp",
       "description": "HTML Pack created by Broadcast GG",
       "folderPath": "HTML Packs/DEFAULT HTML",
