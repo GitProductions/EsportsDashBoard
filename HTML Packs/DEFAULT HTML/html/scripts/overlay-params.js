@@ -18,10 +18,10 @@ const overlayParams = {
 
     "Marvel Rivals": {
         style1: {
-    //   --teamBoxHeight: 50px;
-    //   --middleTopPosition: 17px;
-    //   --skew-angle-positive: 15deg;
-    //   --skew-angle-negative: -15deg;
+            //   --teamBoxHeight: 50px;
+            //   --middleTopPosition: 17px;
+            //   --skew-angle-positive: 15deg;
+            //   --skew-angle-negative: -15deg;
 
             teamBoxWidth: "510px",
             teamTopPosition: "31px",
@@ -189,5 +189,38 @@ const overlayParams = {
             teamRightClipPath: "none",
         }
     },
+    "League of Legends": {
+        style1: {
+            teamLogoSize: "0px",
+            teamBoxWidth: "200px",
+            teamBoxHeight: "62px",
+            teamTopPosition: "0px",
+            teamSideOffset: "-220px",
+            teamRightSideOffset: "-6px",
+            // teamLeftSideOffset: "0px",
+
+            scoreSize: "2em",
+            teamNameSize: "1.3em",
+
+            middleTopPosition: "115px",
+            middleHeight: "35px",
+            middleWidth: "200px",
+
+            "skew-angle-positive": "0deg",
+            "skew-angle-negative": "0deg",
+
+            teamGroupTopPosition: "-220px", // assuring its off screen at all times 
+            teamGroupSideOffset: "-685px", // although html should do this considering no side is set
+
+            // teamRightBorderLeft: "3px solid #27AAE1",
+            teamRightBorderRight: "3px solid #C80013",
+            teamLeftBorderLeft: "3px solid #27AAE1",
+            teamRightBorderLeft: "0px solidrgba(39, 169, 225, 0)",
+            teamLeftBorderRight: "0px solidrgba(200, 0, 20, 0)",
+
+            teamRightClipPath: "polygon(100% 0, 100% 100%, 0 100%, 10% 0)",
+            teamLeftClipPath: "polygon(0 0, 0 100%, 100% 100%, 90% 0)"
+        }
+    }
 }
 

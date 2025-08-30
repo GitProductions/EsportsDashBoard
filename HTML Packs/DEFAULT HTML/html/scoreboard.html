@@ -48,6 +48,10 @@ Available Styles:
       --teamNameSize: 1.3em;
       --teamNameInnerPadding: 10px;
 
+      --teamSideOffset: 0px;
+      --teamLeftSideOffset: 0px;
+      --teamRightSideOffset: 0px;
+
       --teamGroupTopPosition: 20px;
       --teamGroupSideOffset: 220px;
 
@@ -164,7 +168,7 @@ Available Styles:
     }
 
     .left.team1 {
-      left: calc(-1 * var(--teamSideOffset));
+      left: calc(-1 * var(--teamSideOffset) + var(--teamLeftSideOffset));
       border-right: var(--teamLeftBorderRight);
       border-left: var(--teamLeftBorderLeft);
       transform: skew(var(--skew-angle-positive));
@@ -175,7 +179,7 @@ Available Styles:
     }
 
     .right.team2 {
-      right: calc(-1 * var(--teamSideOffset));
+      right: calc(-1 * var(--teamSideOffset) + var(--teamRightSideOffset));
       border-left: var(--teamRightBorderLeft);
       border-right: var(--teamRightBorderRight);
       transform: skew(var(--skew-angle-negative));
