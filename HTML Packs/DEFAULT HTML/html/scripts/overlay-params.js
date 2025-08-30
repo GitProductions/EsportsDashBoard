@@ -218,8 +218,8 @@ const overlayParams = {
         style1: {
             teamLogoSize: "0px",
             teamBoxWidth: "200px",
-            teamBoxHeight: "62px",
-            teamTopPosition: "0px",
+            teamBoxHeight: "60px",
+            teamTopPosition: "2px",
             teamSideOffset: "-220px",
             teamRightSideOffset: "-6px",
             // teamLeftSideOffset: "0px",
