@@ -387,4 +387,6 @@ roles:
     file: Mid_Bot
     heroes:
 
-    
+  - name: SUPPORT
+    file: Support_icon
+    heroes:      
