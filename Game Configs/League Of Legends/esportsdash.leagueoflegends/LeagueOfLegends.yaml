@@ -1,0 +1,390 @@
+id: esportsdash.leagueoflegends
+game: League of Legends
+version: '1.0'
+author: EsportsDash
+gamelogo: League of Legends
+maps:
+  - name: Summoner's Rift
+    file: SummonersRift
+modes:
+  - name: Classic
+    file: BLANK_ICON
+roles:
+  - name: FLEX
+    file: All_roles_icon
+    heroes:
+      - name: Aatrox
+        file: Aatrox_0
+      - name: Ahri
+        file: Ahri_0
+      - name: Akali
+        file: Akali_0
+      - name: Akshan
+        file: Akshan_0
+      - name: Alistar
+        file: Alistar_0
+      - name: Ambessa
+        file: Ambessa_0
+      - name: Amumu
+        file: Amumu_0
+      - name: Anivia
+        file: Anivia_0
+      - name: Annie
+        file: Annie_0
+      - name: Aphelios
+        file: Aphelios_0
+      - name: Ashe
+        file: Ashe_0
+      - name: AurelionSol
+        file: AurelionSol_0
+      - name: Aurora
+        file: Aurora_0
+      - name: Azir
+        file: Azir_0
+      - name: Bard
+        file: Bard_0
+      - name: Belveth
+        file: Belveth_0
+      - name: Blitzcrank
+        file: Blitzcrank_0
+      - name: Brand
+        file: Brand_0
+      - name: Braum
+        file: Braum_0
+      - name: Briar
+        file: Briar_0
+      - name: Caitlyn
+        file: Caitlyn_0
+      - name: Camille
+        file: Camille_0
+      - name: Cassiopeia
+        file: Cassiopeia_0
+      - name: Chogath
+        file: Chogath_0
+      - name: Corki
+        file: Corki_0
+      - name: Darius
+        file: Darius_0
+      - name: Diana
+        file: Diana_0
+      - name: Draven
+        file: Draven_0
+      - name: DrMundo
+        file: DrMundo_0
+      - name: Ekko
+        file: Ekko_0
+      - name: Elise
+        file: Elise_0
+      - name: Evelynn
+        file: Evelynn_0
+      - name: Ezreal
+        file: Ezreal_0
+      - name: Fiddlesticks
+        file: Fiddlesticks_0
+      - name: Fiora
+        file: Fiora_0
+      - name: Fizz
+        file: Fizz_0
+      - name: Galio
+        file: Galio_0
+      - name: Gangplank
+        file: Gangplank_0
+      - name: Garen
+        file: Garen_0
+      - name: Gnar
+        file: Gnar_0
+      - name: Gragas
+        file: Gragas_0
+      - name: Graves
+        file: Graves_0
+      - name: Gwen
+        file: Gwen_0
+      - name: Hecarim
+        file: Hecarim_0
+      - name: Heimerdinger
+        file: Heimerdinger_0
+      - name: Hwei
+        file: Hwei_0
+      - name: Illaoi
+        file: Illaoi_0
+      - name: Irelia
+        file: Irelia_0
+      - name: Ivern
+        file: Ivern_0
+      - name: Janna
+        file: Janna_0
+      - name: JarvanIV
+        file: JarvanIV_0
+      - name: Jax
+        file: Jax_0
+      - name: Jayce
+        file: Jayce_0
+      - name: Jhin
+        file: Jhin_0
+      - name: Jinx
+        file: Jinx_0
+      - name: Kaisa
+        file: Kaisa_0
+      - name: Kalista
+        file: Kalista_0
+      - name: Karma
+        file: Karma_0
+      - name: Karthus
+        file: Karthus_0
+      - name: Kassadin
+        file: Kassadin_0
+      - name: Katarina
+        file: Katarina_0
+      - name: Kayle
+        file: Kayle_0
+      - name: Kayn
+        file: Kayn_0
+      - name: Kennen
+        file: Kennen_0
+      - name: Khazix
+        file: Khazix_0
+      - name: Kindred
+        file: Kindred_0
+      - name: Kled
+        file: Kled_0
+      - name: KogMaw
+        file: KogMaw_0
+      - name: KSante
+        file: KSante_0
+      - name: Leblanc
+        file: Leblanc_0
+      - name: LeeSin
+        file: LeeSin_0
+      - name: Leona
+        file: Leona_0
+      - name: Lillia
+        file: Lillia_0
+      - name: Lissandra
+        file: Lissandra_0
+      - name: Lucian
+        file: Lucian_0
+      - name: Lulu
+        file: Lulu_0
+      - name: Lux
+        file: Lux_0
+      - name: Malphite
+        file: Malphite_0
+      - name: Malzahar
+        file: Malzahar_0
+      - name: Maokai
+        file: Maokai_0
+      - name: MasterYi
+        file: MasterYi_0
+      - name: Mel
+        file: Mel_0
+      - name: Milio
+        file: Milio_0
+      - name: MissFortune
+        file: MissFortune_0
+      - name: MonkeyKing
+        file: MonkeyKing_0
+      - name: Mordekaiser
+        file: Mordekaiser_0
+      - name: Morgana
+        file: Morgana_0
+      - name: Naafiri
+        file: Naafiri_0
+      - name: Nami
+        file: Nami_0
+      - name: Nasus
+        file: Nasus_0
+      - name: Nautilus
+        file: Nautilus_0
+      - name: Neeko
+        file: Neeko_0
+      - name: Nidalee
+        file: Nidalee_0
+      - name: Nilah
+        file: Nilah_0
+      - name: Nocturne
+        file: Nocturne_0
+      - name: Nunu
+        file: Nunu_0
+      - name: Olaf
+        file: Olaf_0
+      - name: Orianna
+        file: Orianna_0
+      - name: Ornn
+        file: Ornn_0
+      - name: Pantheon
+        file: Pantheon_0
+      - name: Poppy
+        file: Poppy_0
+      - name: Pyke
+        file: Pyke_0
+      - name: Qiyana
+        file: Qiyana_0
+      - name: Quinn
+        file: Quinn_0
+      - name: Rakan
+        file: Rakan_0
+      - name: Rammus
+        file: Rammus_0
+      - name: RekSai
+        file: RekSai_0
+      - name: Rell
+        file: Rell_0
+      - name: Renata
+        file: Renata_0
+      - name: Renekton
+        file: Renekton_0
+      - name: Rengar
+        file: Rengar_0
+      - name: Riven
+        file: Riven_0
+      - name: Rumble
+        file: Rumble_0
+      - name: Ryze
+        file: Ryze_0
+      - name: Samira
+        file: Samira_0
+      - name: Sejuani
+        file: Sejuani_0
+      - name: Senna
+        file: Senna_0
+      - name: Seraphine
+        file: Seraphine_0
+      - name: Sett
+        file: Sett_0
+      - name: Shaco
+        file: Shaco_0
+      - name: Shen
+        file: Shen_0
+      - name: Shyvana
+        file: Shyvana_0
+      - name: Singed
+        file: Singed_0
+      - name: Sion
+        file: Sion_0
+      - name: Sivir
+        file: Sivir_0
+      - name: Skarner
+        file: Skarner_0
+      - name: Smolder
+        file: Smolder_0
+      - name: Sona
+        file: Sona_0
+      - name: Soraka
+        file: Soraka_0
+      - name: Swain
+        file: Swain_0
+      - name: Sylas
+        file: Sylas_0
+      - name: Syndra
+        file: Syndra_0
+      - name: TahmKench
+        file: TahmKench_0
+      - name: Taliyah
+        file: Taliyah_0
+      - name: Talon
+        file: Talon_0
+      - name: Taric
+        file: Taric_0
+      - name: Teemo
+        file: Teemo_0
+      - name: Thresh
+        file: Thresh_0
+      - name: Tristana
+        file: Tristana_0
+      - name: Trundle
+        file: Trundle_0
+      - name: Tryndamere
+        file: Tryndamere_0
+      - name: TwistedFate
+        file: TwistedFate_0
+      - name: Twitch
+        file: Twitch_0
+      - name: Udyr
+        file: Udyr_0
+      - name: Urgot
+        file: Urgot_0
+      - name: Varus
+        file: Varus_0
+      - name: Vayne
+        file: Vayne_0
+      - name: Veigar
+        file: Veigar_0
+      - name: Velkoz
+        file: Velkoz_0
+      - name: Vex
+        file: Vex_0
+      - name: Vi
+        file: Vi_0
+      - name: Viego
+        file: Viego_0
+      - name: Viktor
+        file: Viktor_0
+      - name: Vladimir
+        file: Vladimir_0
+      - name: Volibear
+        file: Volibear_0
+      - name: Warwick
+        file: Warwick_0
+      - name: Xayah
+        file: Xayah_0
+      - name: Xerath
+        file: Xerath_0
+      - name: XinZhao
+        file: XinZhao_0
+      - name: Yasuo
+        file: Yasuo_0
+      - name: Yone
+        file: Yone_0
+      - name: Yorick
+        file: Yorick_0
+      - name: Yuumi
+        file: Yuumi_0
+      - name: Zac
+        file: Zac_0
+      - name: Zed
+        file: Zed_0
+      - name: Zeri
+        file: Zeri_0
+      - name: Ziggs
+        file: Ziggs_0
+      - name: Zilean
+        file: Zilean_0
+      - name: Zoe
+        file: Zoe_0
+      - name: Zyra
+        file: Zyra_0
+
+ 
+  - name: TOP
+    file: Top_icon
+    heroes:
+    
+  - name: JUNGLE-TOP
+    file: Jungle_Top
+    heroes:
+    
+  - name: JUNGLE_MID
+    file: Jungle_Mid
+    heroes:
+    
+  - name: JUNGLE_BOT
+    file: Jungle_Bot
+    heroes:
+    
+  - name: BOTTOM
+    file: Bottom_icon
+    heroes:
+    
+  - name: MID
+    file: Middle_icon
+    heroes:
+    
+  - name: MID-TOP
+    file: Mid_Top
+    heroes:
+    
+  - name: MID-BOT
+    file: Mid_Bot
+    heroes:
+
+    
