@@ -277,6 +277,25 @@ export const configurations = {
             }
         ],
     },
+
+     "League of Legends": {
+
+        starterPack: [],
+        htmlPack: [],
+        overlayPack: [],
+        gameConfigs: [
+            {
+                id: "esportsdash.leagueoflegends",
+                name: "League of Legends",
+                author: "EsportsDash",
+                version: "1.0",
+                image: "Game Configs/League of Legends/League of Legends.webp",
+                description: "",
+                folderPath: "Game Configs/League of Legends",
+                fileName: "esportsdash.leagueoflegends_v1.0.bgg"
+            }
+        ],
+    },
 }
 
 
