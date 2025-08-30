@@ -54,6 +54,31 @@ const overlayParams = {
     },
 
     "Valorant": {
+        default: {
+            middleWidth: "120px",
+            scoreSize: "2.5em",
+
+            teamBoxWidth: "430px",
+            teamBoxHeight: "40px",
+
+            teamTopPosition: "30px",
+            teamSideOffset: "-0px",
+            middleTopPosition: "95px",
+            "skew-angle-positive": "0deg",
+            "skew-angle-negative": "0deg",
+
+            teamLeftClipPath: "var(--arrowRightClipPath)",
+            teamRightClipPath: "var(--arrowLeftClipPath)",
+
+            teamLeftInnerPadding: "15px",
+            teamRightInnerPadding: "15px",
+
+            teamLeftBorderLeft: "7px solid #27AAE1",
+            teamLeftBorderRight: "0px solid #C80013",
+
+            teamRightBorderLeft: "0px solid #27AAE1",
+            teamRightBorderRight: "7px solid #C80013",
+        },
         style1: {
             teamLogoSize: "25px",
             teamNameSize: "1.1em",

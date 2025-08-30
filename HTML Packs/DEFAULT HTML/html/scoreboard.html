@@ -583,14 +583,16 @@ Available Styles:
         return;
       }
 
+      // if overlayStyle is equal to 'default' then make the key just 'default' aka ${overlayStyle}
+      // otherwise make it `style${overlayStyle}
       // Apply appropriate styles based on game and style
-      const styleKey = `style${overlayStyle}`;
+      const styleKey = overlayStyle === 'default' ? 'default' : `style${overlayStyle}`;
 
-      // If the requested style exists, use it; otherwise use style1
+      // If the requested style exists, use it; otherwise use style1 - this is a fallback in case 'default' is not available nor is user selected style
       if (gameParams[styleKey]) {
         applyStyleVariables(gameParams[styleKey]);
       } else {
-        applyStyleVariables(gameParams.style1);
+        applyStyleVariables(gameParams.default || gameParams.style1);
       }
 
       // Add class for the game
@@ -601,7 +603,7 @@ Available Styles:
     const applyInitialStyle = (currentGame) => {
       // Lets figure out what style user wants from URL parameters
       const urlParams = new URLSearchParams(window.location.search);
-      const overlayStyle = urlParams.get('style') || '1';
+      const overlayStyle = urlParams.get('style') || 'default';
 
       // console.log("Initial Overlay Style Chosen: ", overlayStyle);
 
