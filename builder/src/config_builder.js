@@ -4,7 +4,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
-import { configurations } from '../GlobalConfig.js';
+import { configurations, overlays } from '../GlobalConfig.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -127,10 +127,18 @@ class ConfigGenerator {
 
 
 
-function generateConfigs(configurations) {
+function generateConfigs(configurations, overlays) {
     const configGenerator = new ConfigGenerator();
 
-    console.log("The configurations are: ", configurations);
+    // loop over overlays and add to configGenerator
+    // Convert overlays object to array of values
+    const overlaysArray = Object.values(overlays);
+    
+    // loop over overlays and add to configGenerator
+    overlaysArray.forEach(overlayPack => {
+        configGenerator.overlayPacks[overlayPack.id] = new OverlayPack(overlayPack);
+    });
+    // console.log("The configurations are: ", configurations);
 
     Object.entries(configurations).forEach(([game, config]) => {
 
@@ -151,9 +159,9 @@ function generateConfigs(configurations) {
         // if game == 'overlayPacks' then its just the stand alone overlay packs that would be seperate...
         // ??
 
-        config.overlayPack.forEach(overlayPack => {
-            configGenerator.addOverlayPack(game, new OverlayPack(overlayPack));
-        });
+        // config.overlayPack.forEach(overlayPack => {
+        //     configGenerator.addOverlayPack(game, new OverlayPack(overlayPack));
+        // });
 
         // config.overlayPack.forEach(overlayPack => {
         //     configGenerator.addOverlayPack(config, new OverlayPack(overlayPack));
@@ -167,4 +175,4 @@ function generateConfigs(configurations) {
     configGenerator.saveToFile(outputPath);
 }
 
-generateConfigs(configurations);
+generateConfigs(configurations, overlays);

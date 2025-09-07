@@ -309,6 +309,18 @@ export const configurations = {
 }
 
 
+export const overlays = {
+    "Default": {
+        "id": "esportsdash.default",
+        "name": "Default HTML Pack",
+        "author": "Broadcast GG",
+        "version": "2.4",
+        "image": "Game Configs/Overwatch/Overwatch.webp",
+        "description": "HTML Pack created by Broadcast GG",
+        "folderPath": "HTML Packs/DEFAULT HTML",
+        "fileName": "esportsdash.default.esportsDashOverlay"
+    }
+}
 
 
 // "Overlay Packs": {

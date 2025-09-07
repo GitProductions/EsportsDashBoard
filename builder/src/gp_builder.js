@@ -13,6 +13,7 @@ import JSZip from 'jszip';
 import { dirname } from 'path';
 import inquirer from 'inquirer';
 import yaml from 'js-yaml';
+import { exec } from 'child_process';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -60,7 +61,7 @@ class GameConfigPacker {
 
     async validateXamlContent(xamlContent) {
         const validationResults = {};
-        
+
         for (const key of this.requiredXamlKeys) {
             const match = xamlContent.match(new RegExp(`<${key}>([^<]+)</${key}>`));
             if (!match) {
@@ -68,36 +69,36 @@ class GameConfigPacker {
             }
             validationResults[key] = match[1];
         }
-        
+
         return validationResults;
     }
 
     async validateYamlContent(yamlData) {
         const validationResults = {};
-        
+
         for (const key of this.requiredYamlKeys) {
             if (!yamlData[key]) {
                 throw new Error(`Missing required key: ${key}`);
             }
             validationResults[key] = yamlData[key];
         }
-        
+
         return validationResults;
     }
 
     async extractXamlInfo(folderPath) {
         const files = await fs.readdir(folderPath);
-        
+
         // Check for YAML files first
         const yamlFile = files.find(file => {
             const ext = path.extname(file).toLowerCase();
             return ext === '.yaml' || ext === '.yml';
         });
-        
+
         if (yamlFile) {
             const yamlPath = path.join(folderPath, yamlFile);
             const yamlContent = await fs.readFile(yamlPath, 'utf8');
-            
+
             try {
                 const yamlData = yaml.load(yamlContent);
                 return await this.validateYamlContent(yamlData);
@@ -106,15 +107,15 @@ class GameConfigPacker {
                 return null;
             }
         }
-        
+
         // Fall back to XAML if no YAML found
         const xamlFile = files.find(file => path.extname(file).toLowerCase() === '.xaml');
-        
+
         if (!xamlFile) return null;
-        
+
         const xamlPath = path.join(folderPath, xamlFile);
         const xamlContent = await fs.readFile(xamlPath, 'utf8');
-        
+
         try {
             return await this.validateXamlContent(xamlContent);
         } catch (error) {
@@ -155,7 +156,7 @@ class GameConfigPacker {
         const zipContent = await zip.generateAsync({ type: 'nodebuffer' });
         const fileName = `${xamlInfo.id}_v${xamlInfo.version}.bgg`;
         const outputPath = path.join(__dirname, '..', 'output', fileName);
-        
+
 
         // console.log(xamlInfo);
         await fs.writeFile(outputPath, zipContent);
@@ -163,6 +164,37 @@ class GameConfigPacker {
         // make link to utput folder
         const relativePath = path.relative(process.cwd(), outputPath);
         console.log(`Created: ${relativePath}`);
+
+        // ask user if they want to open the output folder, or open file directly for test import
+        const { openChoice } = await inquirer.prompt([{
+            type: 'list',
+            name: 'openChoice',
+            message: 'What would you like to do next?',
+            choices: [
+                'Nothing',
+                'Open Folder',
+                'Test Import File'
+            ]
+        }]);
+        if (openChoice === 'Open Output Folder') {
+            if (process.platform === 'win32') {
+                exec(`explorer "${path.dirname(outputPath)}"`, (error) => {
+                    if (error) console.error('Failed to open folder:', error);
+                });
+            } else {
+                const open = process.platform === 'darwin' ? 'open' : 'xdg-open';
+                exec(`${open} "${path.dirname(outputPath)}"`);
+            }
+        } else if (openChoice === 'Open Packed File') {
+            if (process.platform === 'win32') {
+                exec(`start "" "${outputPath}"`, (error) => {
+                    if (error) console.error('Failed to open file:', error);
+                });
+            } else {
+                const open = process.platform === 'darwin' ? 'open' : 'xdg-open';
+                exec(`${open} "${outputPath}"`);
+            }
+        }
     }
 
     async packConfigs() {
