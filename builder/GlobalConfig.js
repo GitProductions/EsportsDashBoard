@@ -129,6 +129,16 @@ export const configurations = {
                 description: "Season 2025 Act 3",
                 folderPath: "Game Configs/Valorant",
                 fileName: "esportsdash.valorant_v1.7.bgg"
+            },
+            {
+                id: "esportsdash.valorant",
+                name: "Valorant",
+                author: "EsportsDash",
+                version: "1.8",
+                image: "Game Configs/Valorant/Valorant.webp",
+                description: "Season 2025 Act 4",
+                folderPath: "Game Configs/Valorant",
+                fileName: "esportsdash.valorant_v1.8.bgg"
             }
         ],
 
@@ -278,7 +288,7 @@ export const configurations = {
         ],
     },
 
-     "League of Legends": {
+    "League of Legends": {
 
         starterPack: [],
         htmlPack: [],

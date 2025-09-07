@@ -1,26 +1,29 @@
 <config>
   <id>esportsdash.valorant</id>
-  <version>1.7</version>
+  <version>1.8</version>
   <name>Valorant</name>
   <description>Valorant</description>
   <game>Valorant</game>
   <author>EsportsDash</author>
 
   <maps>
-    <map name="Abyss" file="Abyss" />
+    <map name="Ascent" file="Ascent" />
     <map name="Bind" file="Bind" />
+    <map name="Corrode" file="Corrode" />
     <map name="Fracture" file="Fracture" />
     <map name="Haven" file="Haven" />
+    <map name="Icebox" file="Icebox" />
     <map name="Lotus" file="Lotus" />
+
+
+    <map name="Abyss" file="Abyss" />
     <map name="Pearl" file="Pearl" />
     <map name="Split" file="Split" />
 
-
     <!-- perhaps we can expose ALL maps and just have a 'disabled' flag?  -->
     <!-- if disabled it will just not show until user changes it via a new prompt we could make -->
-    <map name="Ascent" file="Ascent" />
+  
     <!-- <map name="Sunset" file="Sunset" /> -->
-    <map name="Icebox" file="Icebox" />
     <!-- <map name="Breeze" file="Breeze" /> -->
   </maps>
 
