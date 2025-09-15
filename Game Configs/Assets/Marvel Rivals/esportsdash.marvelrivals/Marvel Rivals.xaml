@@ -1,8 +1,8 @@
 <config>
   <id>esportsdash.marvelrivals</id>
-  <version>2.5</version>
+  <version>3.5</version>
   <name>Marvel Rivals</name>
-  <description>Season 2.5</description>
+  <description>Season 3.5</description>
   <game>Marvel Rivals</game>
   <author>EsportsDash</author>
   <gamelogo>Marvel Rivals</gamelogo>
@@ -28,17 +28,20 @@ Krakoa -->
 
 
   <maps>
+
     <map name="Arrako" file="Arrako" />
     <map name="Birnin t challa" file="Birnin-t-challa" />
     <map name="Central Park" file="Central_Park" />
     <map name="Hall of Djalia" file="Djalia_Hall" />
     <map name="Hells Heaven" file="Hells_Heaven" />
+    <map name="Klyntar Husk" file="Klyntar_Husk" />
     <map name="Krakoa" file="Krakoa" />
     <map name="Midtown" file="Midtown" />
     <map name="Royal Palace" file="Royal_Palace" />
     <map name="Shin Shibuya" file="Shin-Shibuya" />
     <map name="Spider Islands" file="Spider-Islands" />
     <map name="Symbiotic Surface" file="Symbiotic_Surface" />
+    <map name="Throne of Knull" file="Throne_of_Knull" />
     <map name="Yggdrasill Path" file="Yggdrasill_Path" />
   </maps>
 
@@ -57,6 +60,7 @@ Krakoa -->
 
   <heroes>
     <Vanguard>
+      <hero name="Angela" file="Angela_Hero_Portrait" />
       <hero name="Captain America" file="Captain_America_Hero_Portrait" />
       <hero name="Doctor Strange" file="Doctor_Strange_Hero_Portrait" />
       <hero name="Emma Frost" file="Emma_Frost_Hero_Portrait" />
@@ -72,6 +76,7 @@ Krakoa -->
     <Duelist>
       <hero name="Black Panther" file="Black_Panther_Hero_Portrait" />
       <hero name="Black Widow" file="Black_Widow_Hero_Portrait" />
+      <hero name="Blade" file="Blade_Hero_Portrait" />
       <hero name="Hawkeye" file="Hawkeye_Hero_Portrait" />
       <hero name="Hela" file="Hela_Hero_Portrait" />
       <hero name="Human Torch" file="Human_Torch_Hero_Portrait" />
@@ -94,7 +99,7 @@ Krakoa -->
 
     <Strategist>
       <hero name="Adam Warlock" file="Adam_Warlock_Hero_Portrait" />
-      <hero name="Cloak & Dagger" file="Cloak_%26_Dagger_Hero_Portrait" />
+      <hero name="Cloak & Dagger" file="Cloak_Dagger_Hero_Portrait" />
       <hero name="Invisible Woman" file="InvisibleWoman_Hero_Portrait" />
       <hero name="Jeff the Land Shark" file="Jeff_the_Land_Shark_Hero_Portrait" />
       <hero name="Loki" file="Loki_Hero_Portrait" />
