@@ -1,6 +1,6 @@
 <config>
   <id>esportsdash.marvelrivals</id>
-  <version>3.5</version>
+  <version>3.6</version>
   <name>Marvel Rivals</name>
   <description>Season 3.5</description>
   <game>Marvel Rivals</game>
@@ -86,6 +86,7 @@ Krakoa -->
       <hero name="Moon Knight" file="Moon_Knight_Hero_Portrait" />
       <hero name="Mr.Fantastic" file="Mr.Fantastic_Hero_Portrait" />
       <hero name="Namor" file="Namor_Hero_Portrait" />
+      <hero name="Phoenix" file="Phoenix_Hero_Portrait" />
       <hero name="Psylocke" file="Psylocke_Hero_Portrait" />
       <hero name="Scarlet Witch" file="Scarlet_Witch_Hero_Portrait" />
       <hero name="Spider Man" file="Spider-Man_Hero_Portrait" />
