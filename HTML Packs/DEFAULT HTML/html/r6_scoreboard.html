@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Scoreboard Overlay</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Russo+One&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Orbitron&display=swap" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <style>
+        :root {
+            --top-pos: 0px;
+            --baseHeight: 70px;
+            --logoSize: 50px;
+            --scaleOverlay: 1.0;
+
+            --skewAngle: -20deg;
+            --skewAngleRight: 20deg;
+        }
+
+        body {
+            font-family: 'Russo One', 'Orbitron', sans-serif;
+            background-image: url('../GameImages/r6-sample-preview.jpg');
+            background-size: cover;
+        }
+
+        #scoreboard {
+            position: absolute;
+            top: var(--top-pos);
+            left: 50%;
+            transform: translateX(-50%) scale(var(--scaleOverlay));
+            width: 100vw;
+            height: var(--baseHeight);
+            display: grid;
+            /*  Sponsor - Desc - Team1 Info - EventTitle - Team2Info - Map Infos*/
+            grid-template-columns: .4fr .4fr .4fr 1fr .4fr .8fr;
+            align-items: center;
+            background: rgba(30, 30, 30, 0.95);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+        }
+
+
+        .sponsor {
+            position: relative;
+            height: 100%;
+            margin: 0 -20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: transparent;
+        }
+
+        .sponsor::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-color: #08db08;
+            transform: skew(var(--skewAngle));
+            z-index: 0;
+        }
+
+        .sponsor img {
+            max-height: 48px;
+            max-width: 90px;
+            position: relative;
+            z-index: 1;
+        }
+
+
+
+        .event-desc {
+            position: relative;
+            color: #fff;
+            background: transparent;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* border-left: 3px solid #f30000; */
+        }
+
+        .event-desc::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-color: blue;
+            border-left: 3px solid #f30000;
+            transform: skew(var(--skewAngle));
+            z-index: 0;
+        }
+
+        .event-desc>div {
+            position: relative;
+            z-index: 1;
+        }
+
+
+        .team-info {
+            position: relative;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            background: transparent;
+        }
+
+        .team-info::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-color: #fff;
+            transform: skew(var(--skewAngle));
+            z-index: 0;
+        }
+
+        .team-info.team-right::before {
+            transform: skew(var(--skewAngleRight));
+        }
+
+        .team-info>* {
+            position: relative;
+            z-index: 1;
+        }
+
+        .team-logo {
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 15px;
+        }
+
+        .team-logo-img {
+            width: var(--logoSize);
+            height: var(--logoSize);
+            object-fit: contain;
+        }
+
+        .team-score {
+            padding: 0 18px 0 18px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .team-name {
+            color: #000000;
+            font-size: 1.1em;
+            min-width: 80px;
+        }
+
+
+
+        .event-title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 -20px; /* we use negative margin to cover part of the skewed sides */
+            height: 100%;
+            background-color: aqua;
+            font-size: 1.3em;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .map-selected {
+            color: #aaa;
+            font-size: 0.9em;
+            text-align: center;
+        }
+
+        .scoremarker {
+            width: 15px;
+            height: 15px;
+            display: inline-block;
+            margin: 0 3px;
+            background-color: #1111115e;
+            border-radius: 50%;
+            vertical-align: middle;
+            border: 2px solid #333;
+            transition: background 0.2s;
+        }
+
+        .scoremarker.active {
+            background-color: #ffd700;
+            border-color: #ffd700;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="scoreboard">
+
+        <div class="sponsor">
+            <img src="https://placehold.co/250x150" alt="Sponsor" />
+        </div>
+
+        <div class="event-desc">
+            <div> EDash | GRAND FINAL</div>
+        </div>
+
+
+        <div class="team-info team-left">
+            <div class="team-logo">
+                <img class="team-logo-img" src="https://placehold.co/50x50" alt="Team 1 Logo" />
+            </div>
+            <div class="team-score">
+                <div class="scoremarker active"></div>
+                <div class="scoremarker active"></div>
+                <div class="scoremarker"></div>
+                <div class="scoremarker"></div>
+                <div class="scoremarker"></div>
+            </div>
+        </div>
+
+        <div class="event-title">
+            Event Title
+        </div>
+
+        <div class="team-info team-right">
+            <div class="team-score">
+                <div class="scoremarker active"></div>
+                <div class="scoremarker"></div>
+                <div class="scoremarker"></div>
+                <div class="scoremarker"></div>
+                <div class="scoremarker"></div>
+            </div>
+            <div class="team-logo">
+                <img class="team-logo-img" src="https://placehold.co/50x50" alt="Team 2 Logo" />
+            </div>
+
+        </div>
+
+        <div class="map-selected">
+            Current Map: Clubhouse
+        </div>
+    </div>
+
+</body>
+
+</html>
