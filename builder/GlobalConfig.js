@@ -316,6 +316,25 @@ export const configurations = {
             }
         ],
     },
+
+    "Rainbow Six": {
+
+        starterPack: [],
+        htmlPack: [],
+        overlayPack: [],
+        gameConfigs: [
+            {
+                id: "esportsdash.rainbowsix",
+                name: "Rainbow Six",
+                author: "EsportsDash",
+                version: "1.0",
+                image: "Game Configs/Rainbow Six/Rainbow Six.webp",
+                description: "",
+                folderPath: "Game Configs/Rainbow Six",
+                fileName: "esportsdash.rainbowsix_v1.0.bgg"
+            }
+        ],
+    },
 }
 
 
