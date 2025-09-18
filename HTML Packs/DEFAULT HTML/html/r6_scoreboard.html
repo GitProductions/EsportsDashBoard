@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html>
 
+
+
+<!-- when no maps are present, hide all map elements without displaying the flow of layout -->
+ <!-- when a team wins, mark winner on map section but hide the map name. -->
+  <!-- when a map is 'live' or active, we need to add a 'live' label/badge  -->
+   <!-- if team has no logo, image should be hidden or avoid errors -->
+
+
+
 <head>
     <title>Scoreboard Overlay</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Russo+One&display=swap" />
@@ -12,7 +21,6 @@
             --baseHeight: 70px;
             --logoSize: 50px;
             --scaleOverlay: 1.0;
-
             --skewAngle: -20deg;
             --skewAngleRight: 20deg;
         }
@@ -21,6 +29,8 @@
             font-family: 'Russo One', 'Orbitron', sans-serif;
             background-image: url('../GameImages/r6-sample-preview.jpg');
             background-size: cover;
+            margin: 0;
+
         }
 
         #scoreboard {
@@ -31,22 +41,27 @@
             width: 100vw;
             height: var(--baseHeight);
             display: grid;
-            /*  Sponsor - Desc - Team1 Info - EventTitle - Team2Info - Map Infos*/
-            grid-template-columns: .4fr .4fr .4fr 1fr .4fr .8fr;
+            /* Fixed column template to maintain consistent width */
+            grid-template-columns: 0.4fr 0.4fr 0.4fr 1fr 0.4fr 0.8fr;
             align-items: center;
             background: rgba(30, 30, 30, 0.95);
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
         }
 
-
         .sponsor {
             position: relative;
             height: 100%;
-            margin: 0 -20px;
+            /* margin: 0 -12px; */
+            margin: 0 0 0 -15px;
             display: flex;
             justify-content: center;
             align-items: center;
             background: transparent;
+            transition: opacity 0.3s ease;
+        }
+
+        .sponsor.hidden {
+            opacity: 0;
         }
 
         .sponsor::before {
@@ -59,13 +74,11 @@
         }
 
         .sponsor img {
-            max-height: 48px;
-            max-width: 90px;
+            max-height: calc(var(--baseHeight) - 10px);
+            max-width: 250px;
             position: relative;
             z-index: 1;
         }
-
-
 
         .event-desc {
             position: relative;
@@ -75,7 +88,11 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            /* border-left: 3px solid #f30000; */
+            transition: opacity 0.3s ease;
+        }
+
+        .event-desc.hidden {
+            opacity: 0;
         }
 
         .event-desc::before {
@@ -83,7 +100,8 @@
             position: absolute;
             inset: 0;
             background-color: blue;
-            border-left: 3px solid #f30000;
+            /* border-left: 3px solid #f30000; */
+            outline: 3px solid #f30000;
             transform: skew(var(--skewAngle));
             z-index: 0;
         }
@@ -92,7 +110,6 @@
             position: relative;
             z-index: 1;
         }
-
 
         .team-info {
             position: relative;
@@ -137,7 +154,7 @@
         }
 
         .team-score {
-            padding: 0 18px 0 18px;
+            padding: 0 18px;
             display: flex;
             align-items: center;
             gap: 4px;
@@ -149,13 +166,11 @@
             min-width: 80px;
         }
 
-
-
         .event-title {
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 -20px; /* we use negative margin to cover part of the skewed sides */
+            margin: 0 -20px;
             height: 100%;
             background-color: aqua;
             font-size: 1.3em;
@@ -163,11 +178,7 @@
             letter-spacing: 2px;
         }
 
-        .map-selected {
-            color: #aaa;
-            font-size: 0.9em;
-            text-align: center;
-        }
+
 
         .scoremarker {
             width: 15px;
@@ -185,24 +196,110 @@
             background-color: #ffd700;
             border-color: #ffd700;
         }
+
+
+        .maps {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            
+            /* gap: 20px; */
+        }
+
+        .maps .map {
+            position: relative;
+            display: inline-block;
+        }
+
+        .maps .map img {
+            max-width: 250px;
+            max-height: var(--baseHeight);
+            object-fit: cover;
+            display: block;
+        }
+
+        .maps .map.selected {
+            border-color: #ffd700;
+        }
+
+        .map {
+            /* margin: 0 5px; */
+        }
+
+        .map-name {
+            position: absolute;
+            left: 50%;
+            bottom: 6px;
+            transform: translateX(-50%);
+            background: rgba(58, 58, 58, 0.397);
+            color: #fff;
+            /* font-family: 'Russo One', 'Orbitron', sans-serif; */
+            font-size: 1em;
+            padding: 0px 8px;
+            border-radius: 4px;
+
+
+            white-space: nowrap;
+            z-index: 2;
+            text-shadow: 0 2px 6px #000;
+        }
+
+        .map-winner-logo {
+            position: absolute;
+            /* top: -10px;
+            right: -10px; */
+            /* dead center */
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            /* border-radius: 50%; */
+            /* border: 2px solid #303030; */
+            z-index: 2;
+            /* background: #000; */
+            object-fit: cover;
+        }
+
+        /* Control panel for testing toggles */
+        #control-panel {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 10px;
+            border-radius: 5px;
+            color: #fff;
+        }
+
+        #control-panel button {
+            margin: 5px;
+            padding: 5px 10px;
+            background: #08db08;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+
+        #control-panel button:hover {
+            background: #06b006;
+        }
     </style>
 </head>
 
 <body>
     <div id="scoreboard">
-
-        <div class="sponsor">
-            <img src="https://placehold.co/250x150" alt="Sponsor" />
+        <div class="sponsor" id="sponsor-section">
+            <img src="https://placehold.co/450x150" alt="Sponsor" />
         </div>
-
-        <div class="event-desc">
-            <div> EDash | GRAND FINAL</div>
+        <div class="event-desc" id="event-desc-section">
+            <div>EDash | GRAND FINAL</div>
         </div>
-
-
         <div class="team-info team-left">
             <div class="team-logo">
-                <img class="team-logo-img" src="https://placehold.co/50x50" alt="Team 1 Logo" />
+                <img class="team-logo-img" src="https://esportsdash.com/icon.png" alt="Team 1 Logo" />
             </div>
             <div class="team-score">
                 <div class="scoremarker active"></div>
@@ -212,11 +309,9 @@
                 <div class="scoremarker"></div>
             </div>
         </div>
-
         <div class="event-title">
             Event Title
         </div>
-
         <div class="team-info team-right">
             <div class="team-score">
                 <div class="scoremarker active"></div>
@@ -226,16 +321,51 @@
                 <div class="scoremarker"></div>
             </div>
             <div class="team-logo">
-                <img class="team-logo-img" src="https://placehold.co/50x50" alt="Team 2 Logo" />
+                <img class="team-logo-img" src="https://esportsdash.com/icon.png" alt="Team 2 Logo" />
             </div>
-
         </div>
 
-        <div class="map-selected">
-            Current Map: Clubhouse
+        <div class="maps">
+            <div class="map selected">
+                <img class="map-img" src="https://placehold.co/250x80" alt="Map 1" />
+                <img class="map-winner-logo" src="https://esportsdash.com/icon.png" alt="Winner Logo" />
+                <!-- style="position: absolute; top: -10px; right: -10px; width: 40px; height: 40px; border-radius: 50%; border: 2px solid #fff;" /> -->
+                <div class="map-name">Map 1</div>
+            </div>
+            <div class="map">
+                <img class="map-img" src="https://placehold.co/250x80" alt="Map 2" />
+                <img class="map-winner-logo" src="https://placehold.co/40x40" alt="Winner Logo" style="display:none" />
+                <!-- style="position: absolute; top: -10px; right: -10px; width: 40px; height: 40px; border-radius: 50%; border: 2px solid #fff;" /> -->
+                <div class="map-name">Map 2</div>
+            </div>
+
+
+            <!-- <div class="map-selected">
+                Current Map: Clubhouse
+            </div>
+            <div class="map-selected">
+                Current Map: Clubhouse
+            </div> -->
         </div>
     </div>
 
+    <!-- Control panel for toggling sections -->
+    <div id="control-panel">
+        <button onclick="toggleSponsor()">Toggle Sponsor</button>
+        <button onclick="toggleEventDesc()">Toggle Event Description</button>
+    </div>
+
+    <script>
+        function toggleSponsor() {
+            const sponsorSection = document.getElementById('sponsor-section');
+            sponsorSection.classList.toggle('hidden');
+        }
+
+        function toggleEventDesc() {
+            const eventDescSection = document.getElementById('event-desc-section');
+            eventDescSection.classList.toggle('hidden');
+        }
+    </script>
 </body>
 
 </html>
