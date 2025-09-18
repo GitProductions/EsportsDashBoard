@@ -1,0 +1,157 @@
+id: esportsdash.rainbowsix
+game: RainbowSix
+version: "1.0"
+author: EsportsDash
+gamelogo: Rainbow-Six-Symbol-700x394
+maps:
+  - name: Yacht
+    file: Yacht
+  - name: Villa (Siege)
+    file: Villa_(Siege)
+  - name: Tower (Siege)
+    file: Tower_(Siege)
+  - name: Theme Park
+    file: Theme_Park
+  - name: Stadium
+    file: Stadium
+  - name: Skyscraper (Siege)
+    file: Skyscraper_(Siege)
+  - name: Presidential Plane
+    file: Presidential_Plane
+  - name: Outback
+    file: Outback
+  - name: Oregon
+    file: Oregon
+  - name: Nighthaven Labs
+    file: Nighthaven_Labs
+  - name: Neighborhood
+    file: Neighborhood
+  - name: Lair
+    file: Lair
+  - name: Kanal
+    file: Kanal
+  - name: Kafe Dostoyevsky
+    file: Kafe_Dostoyevsky
+  - name: House
+    file: House
+  - name: Hereford Base (Rework)
+    file: Hereford_Base_(Rework)
+  - name: Hereford Base (Original)
+    file: Hereford_Base_(Original)
+  - name: Fortress
+    file: Fortress
+  - name: Fort Truth
+    file: Fort_Truth
+  - name: Favela
+    file: Favela
+  - name: Emerald Plains
+    file: Emerald_Plains
+  - name: District
+    file: District
+  - name: CQB Basics
+    file: CQB_Basics
+  - name: Consulate
+    file: Consulate
+  - name: Coastline
+    file: Coastline
+  - name: Clubhouse
+    file: Clubhouse
+  - name: Close Quarter (Siege)
+    file: Close_Quarter_(Siege)
+  - name: Chalet (Siege)
+    file: Chalet_(Siege)
+  - name: Border
+    file: Border
+  - name: Bartlett U.
+    file: Bartlett_U.
+  - name: Bank
+    file: Bank
+  - name: Article 5
+    file: Article_5
+modes:
+  - name: Rainbow Six Symbol 700x394
+    file: Rainbow-Six-Symbol-700x394
+  - name: Rainbow Six Symbol 700x394
+    file: Rainbow-Six-Symbol-700x394
+roles:
+  - name: Rainbow Six Symbol 700x394
+    file: Rainbow-Six-Symbol-700x394
+    heroes:
+      - name: Ace
+        file: Ace
+      - name: Amaru
+        file: Amaru
+      - name: Ash (Siege)
+        file: Ash_(Siege)
+      - name: Background
+        file: Background
+      - name: Blackbeard
+        file: Blackbeard
+      - name: Blitz
+        file: Blitz
+      - name: Brava
+        file: Brava
+      - name: Buck
+        file: Buck
+      - name: Capitão (Siege)
+        file: Capitão_(Siege)
+      - name: Deimos
+        file: Deimos
+      - name: Dokkaebi
+        file: Dokkaebi
+      - name: Finka (Siege)
+        file: Finka_(Siege)
+      - name: Flores
+        file: Flores
+      - name: Fuze (Siege)
+        file: Fuze_(Siege)
+      - name: Glaz
+        file: Glaz
+      - name: Gridlock (Siege)
+        file: Gridlock_(Siege)
+      - name: Grim
+        file: Grim
+      - name: Hibana (Siege)
+        file: Hibana_(Siege)
+      - name: Iana
+        file: Iana
+      - name: IQ (Siege)
+        file: IQ_(Siege)
+      - name: Jackal
+        file: Jackal
+      - name: Kali
+        file: Kali
+      - name: Lion (Siege)
+        file: Lion_(Siege)
+      - name: Maverick
+        file: Maverick
+      - name: Montagne
+        file: Montagne
+      - name: Nomad (Siege)
+        file: Nomad_(Siege)
+      - name: Osa
+        file: Osa
+      - name: Ram
+        file: Ram
+      - name: Rauora
+        file: Rauora
+      - name: Recruit
+        file: Recruit
+      - name: Sens
+        file: Sens
+      - name: Sledge (Siege)
+        file: Sledge_(Siege)
+      - name: Striker (Recruit)
+        file: Striker_(Recruit)
+      - name: Thatcher
+        file: Thatcher
+      - name: Thermite (Siege)
+        file: Thermite_(Siege)
+      - name: Twitch
+        file: Twitch
+      - name: Ying
+        file: Ying
+      - name: Zero
+        file: Zero
+      - name: Zofia (Siege)
+        file: Zofia_(Siege)
