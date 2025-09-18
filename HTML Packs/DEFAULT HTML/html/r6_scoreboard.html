@@ -4,9 +4,9 @@
 
 
 <!-- when no maps are present, hide all map elements without displaying the flow of layout -->
- <!-- when a team wins, mark winner on map section but hide the map name. -->
-  <!-- when a map is 'live' or active, we need to add a 'live' label/badge  -->
-   <!-- if team has no logo, image should be hidden or avoid errors -->
+<!-- when a team wins, mark winner on map section but hide the map name. -->
+<!-- when a map is 'live' or active, we need to add a 'live' label/badge  -->
+<!-- if team has no logo, image should be hidden or avoid errors -->
 
 
 
@@ -282,6 +282,23 @@
             object-fit: cover;
         }
 
+        .map {
+            /* position: relative; */
+            /* border-left: 3px solid #ffffff; */
+
+        }
+
+        /* .map::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-left: 3px solid #d40808;
+            opacity: 0.25;
+            transform: skew(var(--skewAngleRight));
+            z-index: 0;
+            pointer-events: none;
+        } */
+
         /* Control panel for testing toggles */
         #control-panel {
             position: fixed;
@@ -347,16 +364,30 @@
 
         <div class="maps">
             <div class="map selected">
-                <img class="map-img" src="https://placehold.co/250x80" alt="Map 1" />
+                <img class="map-img" src="https://static.wikia.nocookie.net/rainbowsix/images/7/79/Bartlett_U.png"
+                    alt="Map 1" />
                 <img class="map-winner-logo" src="https://esportsdash.com/icon.png" alt="Winner Logo" />
-                <!-- style="position: absolute; top: -10px; right: -10px; width: 40px; height: 40px; border-radius: 50%; border: 2px solid #fff;" /> -->
                 <div class="map-name">Map 1</div>
             </div>
+
             <div class="map">
-                <img class="map-img" src="https://placehold.co/250x80" alt="Map 2" />
+                <img class="map-img" src="https://static.wikia.nocookie.net/rainbowsix/images/7/79/Bartlett_U.png"
+                    alt="Map 2" />
                 <img class="map-winner-logo" src="https://placehold.co/40x40" alt="Winner Logo" style="display:none" />
-                <!-- style="position: absolute; top: -10px; right: -10px; width: 40px; height: 40px; border-radius: 50%; border: 2px solid #fff;" /> -->
                 <div class="map-name">Map 2</div>
+            </div>
+
+            <div class="map">
+                <img class="map-img" src="https://static.wikia.nocookie.net/rainbowsix/images/7/79/Bartlett_U.png"
+                    alt="Map 3" />
+                <img class="map-winner-logo" src="https://placehold.co/40x40" alt="Winner Logo" style="display:none" />
+                <div class="map-name">Map 3</div>
+            </div>
+
+            <div class="map">
+                <img class="map-img" src="https://placehold.co/250x80" alt="Map 4" />
+                <img class="map-winner-logo" src="https://placehold.co/40x40" alt="Winner Logo" style="display:none" />
+                <div class="map-name">Map 4</div>
             </div>
 
 
