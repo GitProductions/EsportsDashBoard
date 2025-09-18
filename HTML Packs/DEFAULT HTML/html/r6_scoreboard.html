@@ -227,14 +227,16 @@
             height: var(--baseHeight);
             overflow: hidden;
             z-index: 0;
+            border-left: 3px solid #ffffff;
         }
+
 
         .maps .map::before {
             content: "";
             position: absolute;
             inset: 0;
-            background: #000;
-            opacity: 0.25;
+            /* background: #000; */
+            /* opacity: 0.25; */
             transform: skew(var(--skewAngleRight));
             z-index: 0;
             pointer-events: none;
@@ -282,22 +284,12 @@
             object-fit: cover;
         }
 
-        .map {
-            /* position: relative; */
-            /* border-left: 3px solid #ffffff; */
-
+        .map-img.isWinner{
+            filter: grayscale(100%) blur(1px);
+            transition: filter 1.5s ease;
         }
 
-        /* .map::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            border-left: 3px solid #d40808;
-            opacity: 0.25;
-            transform: skew(var(--skewAngleRight));
-            z-index: 0;
-            pointer-events: none;
-        } */
+
 
         /* Control panel for testing toggles */
         #control-panel {
@@ -364,7 +356,7 @@
 
         <div class="maps">
             <div class="map selected">
-                <img class="map-img" src="https://static.wikia.nocookie.net/rainbowsix/images/7/79/Bartlett_U.png"
+                <img class="map-img isWinner" src="https://static.wikia.nocookie.net/rainbowsix/images/7/79/Bartlett_U.png"
                     alt="Map 1" />
                 <img class="map-winner-logo" src="https://esportsdash.com/icon.png" alt="Winner Logo" />
                 <div class="map-name">Map 1</div>
@@ -378,13 +370,13 @@
             </div>
 
             <div class="map">
-                <img class="map-img" src="https://static.wikia.nocookie.net/rainbowsix/images/7/79/Bartlett_U.png"
+                <img class="map-img winner" src="https://static.wikia.nocookie.net/rainbowsix/images/7/79/Bartlett_U.png"
                     alt="Map 3" />
                 <img class="map-winner-logo" src="https://placehold.co/40x40" alt="Winner Logo" style="display:none" />
                 <div class="map-name">Map 3</div>
             </div>
 
-            <div class="map">
+            <div class="map" style="display:none">
                 <img class="map-img" src="https://placehold.co/250x80" alt="Map 4" />
                 <img class="map-winner-logo" src="https://placehold.co/40x40" alt="Winner Logo" style="display:none" />
                 <div class="map-name">Map 4</div>
