@@ -204,7 +204,7 @@
             align-items: center;
             justify-content: center;
             
-            /* gap: 20px; */
+            gap: 10px;
         }
 
         .maps .map {
@@ -213,18 +213,20 @@
         }
 
         .maps .map img {
-            max-width: 250px;
+            max-width: 200px;
             max-height: var(--baseHeight);
             object-fit: cover;
             display: block;
         }
 
         .maps .map.selected {
-            border-color: #ffd700;
+            outline: #ffd700 solid 3px;
+            outline-offset: -4px;
         }
 
         .map {
             /* margin: 0 5px; */
+            /* border-right: #06b006 solid 3px; */
         }
 
         .map-name {
@@ -253,8 +255,8 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
             /* border-radius: 50%; */
             /* border: 2px solid #303030; */
             z-index: 2;
