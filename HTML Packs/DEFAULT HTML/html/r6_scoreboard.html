@@ -18,11 +18,13 @@
     <style>
         :root {
             --top-pos: 0px;
-            --baseHeight: 70px;
+            --baseHeight: 60px;
             --logoSize: 50px;
             --scaleOverlay: 1.0;
-            --skewAngle: -20deg;
-            --skewAngleRight: 20deg;
+            /* --skewAngle: -20deg; */
+            /* --skewAngleRight: 20deg; */
+            --skewAngle: 0deg;
+            --skewAngleRight: 0deg;
         }
 
         body {
@@ -32,7 +34,7 @@
             margin: 0;
 
         }
-        
+
 
         #scoreboard {
             position: absolute;
@@ -178,9 +180,9 @@
             height: 100%;
             color: white;
             background-color: rgb(63, 63, 63);
-            font-family: 'roboto', sans-serif;
+            /* font-family: 'roboto', sans-serif; */
             font-size: 1.5em;
-            font-weight: bold;
+            /* font-weight: bold; */
             text-transform: uppercase;
             letter-spacing: 2px;
         }
@@ -292,7 +294,7 @@
             object-fit: cover;
         }
 
-        .map-img.isWinner{
+        .map-img.isWinner {
             filter: grayscale(100%) blur(1px);
             transition: filter 1.5s ease;
         }
@@ -356,7 +358,12 @@
 
         <!-- Event Title Section -->
         <div class="event-title">
-            Event Title
+            <div
+                style="display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;">
+                <p style="margin:0; padding:0;">Summer Bash - Finals</p>
+
+                <p style="margin:0; padding:0; font-size: 0.3em; font-family:Arial, sans-serif">Brought to you by EsportsDash</p>
+            </div>
         </div>
 
 
@@ -379,8 +386,8 @@
         <!-- Maps section -->
         <div class="maps">
             <div class="map selected">
-                <img class="map-img isWinner" src="https://static.wikia.nocookie.net/rainbowsix/images/7/79/Bartlett_U.png"
-                    alt="Map 1" />
+                <img class="map-img isWinner"
+                    src="https://static.wikia.nocookie.net/rainbowsix/images/7/79/Bartlett_U.png" alt="Map 1" />
                 <img class="map-winner-logo" src="https://esportsdash.com/icon.png" alt="Winner Logo" />
                 <div class="map-name">Map 1</div>
             </div>
@@ -393,8 +400,8 @@
             </div>
 
             <div class="map">
-                <img class="map-img winner" src="https://static.wikia.nocookie.net/rainbowsix/images/7/79/Bartlett_U.png"
-                    alt="Map 3" />
+                <img class="map-img winner"
+                    src="https://static.wikia.nocookie.net/rainbowsix/images/7/79/Bartlett_U.png" alt="Map 3" />
                 <img class="map-winner-logo" src="https://placehold.co/40x40" alt="Winner Logo" style="display:none" />
                 <div class="map-name">Map 3</div>
             </div>
