@@ -32,6 +32,7 @@
             margin: 0;
 
         }
+        
 
         #scoreboard {
             position: absolute;
@@ -41,8 +42,9 @@
             width: 100vw;
             height: var(--baseHeight);
             display: grid;
-            /* Fixed column template to maintain consistent width */
-            grid-template-columns: 0.4fr 0.4fr 0.4fr 1fr 0.4fr 0.8fr;
+            /* grid-template-columns: 0.4fr 0.4fr 0.4fr 1fr 0.4fr 0.8fr; */
+            grid-template-columns: 0.8fr 0.4fr 1fr 0.4fr 0.8fr;
+            /* grid layout, make 1st expand 2 */
             align-items: center;
             background: rgba(30, 30, 30, 0.95);
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
@@ -320,12 +322,19 @@
 
 <body>
     <div id="scoreboard">
+
+        <!-- Sponsor Section -->
         <div class="sponsor" id="sponsor-section">
             <img src="https://placehold.co/450x150" alt="Sponsor" />
         </div>
-        <div class="event-desc" id="event-desc-section">
+
+
+        <!-- Event Description Section -->
+        <!-- <div class="event-desc" id="event-desc-section">
             <div>EDash | GRAND FINAL</div>
-        </div>
+        </div> -->
+
+        <!-- Team Left Section -->
         <div class="team-info team-left">
             <div class="team-logo">
                 <img class="team-logo-img" src="https://esportsdash.com/icon.png" alt="Team 1 Logo" />
@@ -338,9 +347,14 @@
                 <div class="scoremarker"></div>
             </div>
         </div>
+
+        <!-- Event Title Section -->
         <div class="event-title">
             Event Title
         </div>
+
+
+        <!-- Team Right Section -->
         <div class="team-info team-right">
             <div class="team-score">
                 <div class="scoremarker active"></div>
@@ -354,6 +368,9 @@
             </div>
         </div>
 
+
+
+        <!-- Maps section -->
         <div class="maps">
             <div class="map selected">
                 <img class="map-img isWinner" src="https://static.wikia.nocookie.net/rainbowsix/images/7/79/Bartlett_U.png"
@@ -382,13 +399,6 @@
                 <div class="map-name">Map 4</div>
             </div>
 
-
-            <!-- <div class="map-selected">
-                Current Map: Clubhouse
-            </div>
-            <div class="map-selected">
-                Current Map: Clubhouse
-            </div> -->
         </div>
     </div>
 
