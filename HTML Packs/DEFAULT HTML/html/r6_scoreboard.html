@@ -55,10 +55,11 @@
         .sponsor {
             position: relative;
             height: 100%;
+            gap: 10px;
             /* margin: 0 -12px; */
             margin: 0 -1px 0 -12px;
             display: flex;
-            justify-content: center;
+            justify-content: space-evenly;
             align-items: center;
             background: transparent;
             transition: opacity 0.3s ease;
@@ -328,12 +329,22 @@
     </style>
 </head>
 
+
+<!-- 
+- need to set up fetch for local esportsdash data
+- add 'best of X' text section
+- add event logo in center sections, or option for it
+- colors should be 'customizable' via dash.. using default color schemes for now??
+-->
+
 <body>
     <div id="scoreboard">
 
         <!-- Sponsor Section -->
         <div class="sponsor" id="sponsor-section">
-            <img src="https://placehold.co/450x150" alt="Sponsor" />
+            <img id='sponsor-1' src="EsportsDashx1000.png" alt="Sponsor 1" />
+            <img id='sponsor-2' src="https://broadcast.gg/wp-content/uploads/2019/04/BGG-2.0-Header-MaxArtboard-1-1.png" alt="Sponsor 2" />
+            <!-- <img id='sponsor-3' src="EsportsDashx1000.png" alt="Sponsor 3" /> -->
         </div>
 
 
