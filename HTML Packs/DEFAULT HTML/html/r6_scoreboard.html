@@ -422,3 +422,548 @@
 </body>
 
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- dynamic approach but pain in butt with html solely.. brain hurts -->
+
+<!-- 
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Scoreboard Overlay</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Russo+One&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Orbitron&display=swap" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <style>
+        :root {
+            --top-pos: 0px;
+            --baseHeight: 70px;
+            --logoSize: 50px;
+            --scaleOverlay: 1.0;
+            --skewAngle: -20deg;
+            --skewAngleRight: 20deg;
+        }
+
+        body {
+            font-family: 'Russo One', 'Orbitron', sans-serif;
+            background-image: url('../GameImages/r6-sample-preview.jpg');
+            background-size: cover;
+            margin: 0;
+        }
+
+        #scoreboard {
+            position: absolute;
+            top: var(--top-pos);
+            left: 50%;
+            transform: translateX(-50%) scale(var(--scaleOverlay));
+            width: 100vw;
+            height: var(--baseHeight);
+            display: grid;
+            align-items: center;
+            background: rgba(30, 30, 30, 0.95);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+            transition: grid-template-columns 0.3s ease;
+        }
+
+        .sponsor {
+            position: relative;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: transparent;
+        }
+
+        .sponsor::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-color: #08db08;
+            transform: skew(var(--skewAngle));
+            z-index: 0;
+        }
+
+        .sponsor img {
+            max-height: calc(var(--baseHeight) - 10px);
+            max-width: 250px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .event-desc {
+            position: relative;
+            color: #fff;
+            background: transparent;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .event-desc::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-color: blue;
+            border-left: 3px solid #f30000;
+            transform: skew(var(--skewAngle));
+            z-index: 0;
+        }
+
+        .event-desc > div {
+            position: relative;
+            z-index: 1;
+        }
+
+        .team-info {
+            position: relative;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            background: transparent;
+            z-index: 2;
+        }
+
+        .team-info::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-color: #fff;
+            transform: skew(var(--skewAngle));
+            z-index: 0;
+        }
+
+        .team-info.team-right::before {
+            transform: skew(var(--skewAngleRight));
+        }
+
+        .team-info > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .team-logo {
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 15px;
+        }
+
+        .team-logo-img {
+            width: var(--logoSize);
+            height: var(--logoSize);
+            object-fit: contain;
+        }
+
+        .team-score {
+            padding: 0 18px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .event-title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 -20px;
+            height: 100%;
+            background-color: aqua;
+            font-size: 1.3em;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .scoremarker {
+            width: 15px;
+            height: 15px;
+            display: inline-block;
+            margin: 0 3px;
+            background-color: #1111115e;
+            border-radius: 50%;
+            vertical-align: middle;
+            border: 2px solid #333;
+            transition: background 0.2s;
+        }
+
+        .scoremarker.active {
+            background-color: #ffd700;
+            border-color: #ffd700;
+        }
+
+        .maps {
+            display: flex;
+            flex-direction: row;
+            align-items: stretch;
+            justify-content: center;
+            gap: 0;
+            overflow: hidden;
+            position: relative;
+            z-index: 0;
+        }
+
+        .maps .map {
+            position: relative;
+            flex: 1 1 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 0;
+            min-height: 0;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: var(--baseHeight);
+            overflow: hidden;
+            z-index: 0;
+            border-left: 3px solid #ffffff;
+        }
+
+        .maps .map::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            transform: skew(var(--skewAngleRight));
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .maps .map.selected::before {
+            background: #ffd700;
+            opacity: 0.18;
+        }
+
+        .maps .map.live::after {
+            content: "LIVE";
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: #ff0000;
+            color: #fff;
+            padding: 2px 6px;
+            font-size: 0.8em;
+            border-radius: 3px;
+            z-index: 2;
+        }
+
+        .maps .map img.map-img {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .map-name,
+        .map-winner-logo {
+            position: absolute;
+            z-index: 2;
+        }
+
+        .map-name {
+            left: 50%;
+            bottom: 6px;
+            transform: translateX(-50%);
+            background: rgba(58, 58, 58, 0.397);
+            color: #fff;
+            font-size: 1em;
+            padding: 0px 8px;
+            border-radius: 4px;
+            white-space: nowrap;
+            text-shadow: 0 2px 6px #000;
+        }
+
+        .map-winner-logo {
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+        }
+
+        .map-img.isWinner {
+            filter: grayscale(100%) blur(1px);
+            transition: filter 1.5s ease;
+        }
+
+        .map.isWinner .map-name {
+            display: none;
+        }
+
+        #control-panel {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 10px;
+            border-radius: 5px;
+            color: #fff;
+        }
+
+        #control-panel button {
+            margin: 5px;
+            padding: 5px 10px;
+            background: #08db08;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+
+        #control-panel button:hover {
+            background: #06b006;
+        }
+    </style>
+</head>
+<body>
+    <div id="scoreboard"></div>
+
+    <div id="control-panel">
+        <button onclick="toggleMapsSide()">Toggle Maps Side</button>
+        <button onclick="toggleEventDesc()">Toggle Event Description</button>
+        <button onclick="toggleSponsor()">Toggle Sponsor</button>
+    </div>
+
+    <script>
+        // Sections dictionary with rendering functions
+        const sections = {
+            sponsor: {
+                id: 'sponsor-section',
+                render: () => `
+                    <div class="sponsor" id="sponsor-section">
+                        <img src="https://placehold.co/450x150" alt="Sponsor" />
+                    </div>
+                `,
+                gridColumn: '0.4fr'
+            },
+            eventDesc: {
+                id: 'event-desc-section',
+                render: () => `
+                    <div class="event-desc" id="event-desc-section">
+                        <div>EDash | GRAND FINAL</div>
+                    </div>
+                `,
+                gridColumn: '0.4fr'
+            },
+            teamLeft: {
+                id: 'team-left-section',
+                render: () => `
+                    <div class="team-info team-left" id="team-left-section">
+                        <div class="team-logo">
+                            <img class="team-logo-img" src="https://esportsdash.com/icon.png" alt="Team 1 Logo" />
+                        </div>
+                        <div class="team-score">
+                            <div class="scoremarker active"></div>
+                            <div class="scoremarker active"></div>
+                            <div class="scoremarker"></div>
+                            <div class="scoremarker"></div>
+                            <div class="scoremarker"></div>
+                        </div>
+                    </div>
+                `,
+                gridColumn: '0.3fr'
+            },
+            eventTitle: {
+                id: 'event-title-section',
+                render: () => `
+                    <div class="event-title" id="event-title-section">
+                        Event Title
+                    </div>
+                `,
+                gridColumn: '0.4fr'
+            },
+            teamRight: {
+                id: 'team-right-section',
+                render: () => `
+                    <div class="team-info team-right" id="team-right-section">
+                        <div class="team-score">
+                            <div class="scoremarker active"></div>
+                            <div class="scoremarker"></div>
+                            <div class="scoremarker"></div>
+                            <div class="scoremarker"></div>
+                            <div class="scoremarker"></div>
+                        </div>
+                        <div class="team-logo">
+                            <img class="team-logo-img" src="https://esportsdash.com/icon.png" alt="Team 2 Logo" />
+                        </div>
+                    </div>
+                `,
+                gridColumn: '0.3fr'
+            },
+            maps: {
+                id: 'maps-section',
+                render: () => `
+                    <div class="maps" id="maps-section">
+                        <div class="map selected live">
+                            <img class="map-img isWinner" src="https://static.wikia.nocookie.net/rainbowsix/images/7/79/Bartlett_U.png" alt="Map 1" />
+                            <img class="map-winner-logo" src="https://esportsdash.com/icon.png" alt="Winner Logo" />
+                            <div class="map-name">Map 1</div>
+                        </div>
+                        <div class="map">
+                            <img class="map-img" src="https://static.wikia.nocookie.net/rainbowsix/images/7/79/Bartlett_U.png" alt="Map 2" />
+                            <img class="map-winner-logo" src="https://placehold.co/40x40" alt="Winner Logo" style="display:none" />
+                            <div class="map-name">Map 2</div>
+                        </div>
+                        <div class="map">
+                            <img class="map-img" src="https://static.wikia.nocookie.net/rainbowsix/images/7/79/Bartlett_U.png" alt="Map 3" />
+                            <img class="map-winner-logo" src="https://placehold.co/40x40" alt="Winner Logo" style="display:none" />
+                            <div class="map-name">Map 3</div>
+                        </div>
+                        <div class="map" style="display:none">
+                            <img class="map-img" src="https://placehold.co/250x80" alt="Map 4" />
+                            <img class="map-winner-logo" src="https://placehold.co/40x40" alt="Winner Logo" style="display:none" />
+                            <div class="map-name">Map 4</div>
+                        </div>
+                    </div>
+                `,
+                gridColumn: '0.8fr'
+            }
+        };
+
+        // Layout configuration
+        let layoutConfig = {
+            mapsSide: 'left', // 'left' or 'right'
+            showEventDesc: true,
+            showSponsor: true,
+            sections: [
+                { name: 'sponsor', visible: true },
+                { name: 'eventDesc', visible: true },
+                { name: 'teamLeft', visible: true },
+                { name: 'eventTitle', visible: true },
+                { name: 'teamRight', visible: true },
+                { name: 'maps', visible: true }
+            ]
+        };
+
+        // Render the scoreboard
+        function renderScoreboard() {
+            const scoreboard = document.getElementById('scoreboard');
+            const visibleSections = layoutConfig.sections.filter(section => section.visible && sections[section.name]);
+            const gridColumns = visibleSections.map(section => {
+                if (section.name === 'sponsor' && !layoutConfig.showEventDesc) {
+                    return '0.8fr'; // Expand sponsor when event description is hidden
+                }
+                if (section.name === 'eventDesc' && !layoutConfig.showSponsor) {
+                    return '0.8fr'; // Expand event description when sponsor is hidden
+                }
+
+                // check if map is left or right and adjust fr, so if left it takes more space
+                if (section.name === 'maps') {
+                    // if maps and event desscription then do X
+                    const newlayout = layoutConfig ;
+
+                    if (layoutConfig.showEventDesc) return layoutConfig.mapsSide === 'left' ? '0.8fr' : '0.1fr';
+
+                    if (layoutConfig.showSponsor) return layoutConfig.mapsSide === 'left' ? '0.8fr' : '0.6fr';
+                    // if maps and no description then do Y
+                    // return layoutConfig.mapsSide === 'left' ? '0.8fr' : '0.4fr';
+                }
+                return sections[section.name].gridColumn;
+            });
+
+            // Set grid template
+            scoreboard.style.gridTemplateColumns = gridColumns.join(' ');
+
+            // Render sections
+            scoreboard.innerHTML = visibleSections.map(section => sections[section.name].render()).join('');
+        }
+
+        // Toggle maps side
+        function toggleMapsSide() {
+            layoutConfig.mapsSide = layoutConfig.mapsSide === 'left' ? 'right' : 'left';
+            layoutConfig.sections = layoutConfig.sections.sort((a, b) => {
+                if (layoutConfig.mapsSide === 'left') {
+                    if (a.name === 'maps') return 1;
+                    if (b.name === 'maps') return -1;
+                    if (a.name === 'sponsor') return -1;
+                    if (b.name === 'sponsor') return 1;
+                } else {
+                    if (a.name === 'maps') return -1;
+                    if (b.name === 'maps') return 1;
+                    if (a.name === 'sponsor') return 1;
+                    if (b.name === 'sponsor') return -1;
+                }
+                return 0;
+            });
+            renderScoreboard();
+        }
+
+        // Toggle event description
+        function toggleEventDesc() {
+            layoutConfig.showEventDesc = !layoutConfig.showEventDesc;
+            layoutConfig.sections.find(section => section.name === 'eventDesc').visible = layoutConfig.showEventDesc;
+            renderScoreboard();
+        }
+
+        // Toggle sponsor
+        function toggleSponsor() {
+            layoutConfig.showSponsor = !layoutConfig.showSponsor;
+            layoutConfig.sections.find(section => section.name === 'sponsor').visible = layoutConfig.showSponsor;
+            renderScoreboard();
+        }
+
+        // Initial render
+        renderScoreboard();
+    </script>
+</body>
+</html> -->
