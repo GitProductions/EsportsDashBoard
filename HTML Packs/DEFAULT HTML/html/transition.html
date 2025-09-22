@@ -12,10 +12,26 @@ http://localhost:8080/transition.html?team=team2
 If you don't use any URL parameters, the transition will display the branding logo and theme colors.
 
 
+You can also use the following URL parameters to customize the logo:
+type can be "default", "url", or "input"
+selection is either a URL (if type is "url") or the name of an input field (if type is "input")
+
+Customize Stinger Logo with Custom URL Logo
+Add a url param to page like transition.html?type=url&selection=https://example.com/logo.png
+
+Customize Stinger Logo with Input Field Logo
+Add a url param to page like transition.html?type=input&selection=BGG_L1
+where BGG_L1 is the name of an input field defined in Esports Dashboard (default is BGG_L1)
+
 -->
 
 <head>
 	<style>
+		:root {
+			--type: "default";  /* default || url || input */
+			--selection: "https://cdn-icons-png.flaticon.com/512/1165/1165752.png";
+		}
+
 		body {
 			margin: 0px auto;
 			overflow: hidden;
@@ -99,42 +115,59 @@ If you don't use any URL parameters, the transition will display the branding lo
 	</style>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script>
-		async function interval() {
-			let fullJson = await fetch(`http://localhost:8080/getFullJson`);
-			fullJson = await fullJson.json();
+        async function interval() {
+            let fullJson = await fetch(`http://localhost:8080/getFullJson`);
+            fullJson = await fullJson.json();
 
-			let themeColors = fullJson.general.color;
+            let themeColors = fullJson.general.color;
 
-			let colorthemesting = themeColors.BGG_C1.value; // by default its white
-			let colorthemealt = themeColors.BGG_C3.value; // by default its the 'navy blue'
+            let colorthemesting = themeColors.BGG_C1.value;
+            let colorthemealt = themeColors.BGG_C3.value;
 
-			// Set theme colors
-			$('div.stingerlogo').css('background-color', colorthemesting);
-			$('div.altcolor').css('background-color', colorthemealt);
+            $('div.stingerlogo').css('background-color', colorthemesting);
+            $('div.altcolor').css('background-color', colorthemealt);
 
-			// Get URL parameters
-			const urlParams = new URLSearchParams(window.location.search);
-			const team = urlParams.get('team');
+            // Get URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            const team = urlParams.get('team');
+            // Get type and selection from URL parameters first, fallback to CSS variables
+            const urlType = urlParams.get('type');
+            const urlSelection = urlParams.get('selection');
+            
+            const type = urlType || getComputedStyle(document.documentElement).getPropertyValue('--type').replace(/['"]/g, '');
+            const selection = urlSelection || getComputedStyle(document.documentElement).getPropertyValue('--selection').replace(/['"]/g, '');
 
-			// Set the logo based on the team parameter
-			if (team === 'team1') {
-				$('span#team1logobig').css(
-					'background-image',
-					"url('" + fullJson.teams.team1.teamLogoUrl + "')"
-				);
-			} else if (team === 'team2') {
-				$('span#team1logobig').css(
-					'background-image',
-					"url('" + fullJson.teams.team2.teamLogoUrl + "')"
-				);
-			} else {
-				$('span.logo').css('background-image', "url('" + fullJson.general.file.BGG_L1.value + "')");
-			}
-		}
+            // Set the logo based on parameters
+            if (team === 'team1') {
+                $('span#team1logobig').css(
+                    'background-image',
+                    "url('" + fullJson.teams.team1.teamLogoUrl + "')"
+                );
+            } else if (team === 'team2') {
+                $('span#team1logobig').css(
+                    'background-image',
+                    "url('" + fullJson.teams.team2.teamLogoUrl + "')"
+                );
+            } else {
+                let logoUrl;
+                switch(type) {
+                    case 'url':
+                        logoUrl = selection;
+                        break;
+                    case 'input':
+                        logoUrl = fullJson.general.file[selection]?.value || fullJson.general.file.BGG_L1.value;
+                        break;
+                    default:
+                        logoUrl = fullJson.general.file.BGG_L1.value;
+                }
+                
+                $('span.logo').css('background-image', "url('" + logoUrl + "')");
+            }
+        }
 
 		$(() => {
 			interval();
-			setInterval(interval, 10000);
+			// setInterval(interval, 10000);
 		});
 	</script>
 </head>
