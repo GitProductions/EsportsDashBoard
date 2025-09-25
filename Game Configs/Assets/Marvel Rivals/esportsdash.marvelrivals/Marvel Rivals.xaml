@@ -1,6 +1,6 @@
 <config>
   <id>esportsdash.marvelrivals</id>
-  <version>3.6</version>
+  <version>3.7</version>
   <name>Marvel Rivals</name>
   <description>Season 3.5</description>
   <game>Marvel Rivals</game>
@@ -34,7 +34,9 @@ Krakoa -->
     <map name="Central Park" file="Central_Park" />
     <map name="Hall of Djalia" file="Djalia_Hall" />
     <map name="Hells Heaven" file="Hells_Heaven" />
-    <map name="Klyntar Husk" file="Klyntar_Husk" />
+    <!-- Klyntar Husk - Celestial husk -->
+    <map name="Celestial Husk" file="Klyntar_Husk" />
+    <map name="Klyntar" file="Klyntar" />
     <map name="Krakoa" file="Krakoa" />
     <map name="Midtown" file="Midtown" />
     <map name="Royal Palace" file="Royal_Palace" />
@@ -77,6 +79,9 @@ Krakoa -->
       <hero name="Black Panther" file="Black_Panther_Hero_Portrait" />
       <hero name="Black Widow" file="Black_Widow_Hero_Portrait" />
       <hero name="Blade" file="Blade_Hero_Portrait" />
+
+      <!-- DareDevil comes in October -->
+      <!-- <hero name="Daredevil" file="Daredevil_Hero_Portrait" /> -->
       <hero name="Hawkeye" file="Hawkeye_Hero_Portrait" />
       <hero name="Hela" file="Hela_Hero_Portrait" />
       <hero name="Human Torch" file="Human_Torch_Hero_Portrait" />
