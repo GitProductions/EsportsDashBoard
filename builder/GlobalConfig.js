@@ -144,11 +144,11 @@ export const configurations = {
                 id: "esportsdash.valorant",
                 name: "Valorant",
                 author: "EsportsDash",
-                version: "2.0",
+                version: "2.1",
                 image: "Game Configs/Valorant/Valorant.webp",
                 description: "Season 2025 Act 5",
                 folderPath: "Game Configs/Valorant",
-                fileName: "esportsdash.valorant_v2.0.bgg"
+                fileName: "esportsdash.valorant_v2.1.bgg"
             },
         ],
 
