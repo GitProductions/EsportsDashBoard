@@ -545,7 +545,7 @@
                 console.log(mapDataArray);
                 mapDataArray.forEach((map, index) => {
 
-                    const mapItem = mapsContainer.querySelectorAll('.map-item')[index];
+                    const mapItem = mapsContainer.querySelectorAll('.map-item')[index -1];
                     if (!mapItem) return;
 
                     // setting map names
@@ -557,7 +557,7 @@
 
                     // Hide 'hidden/missing' maps
                     // - should mayb use map.hidden as a flag but we hide it before sending it over which is maybe not a good thing??
-                    if (index < MAPDATA.totalMaps) {
+                    if (index - 1  < MAPDATA.totalMaps) {
                         mapItem.classList.remove('hidden');
                     } else {
                         mapItem.classList.add('hidden');
