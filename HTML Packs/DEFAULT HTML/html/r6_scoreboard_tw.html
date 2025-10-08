@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Scoreboard Overlay</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Russo+One&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Orbitron&display=swap" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <style type="text/tailwindcss">
+        @layer components {
+            /* Scoreboard Base */
+            .scoreboard {
+                @apply absolute left-1/2 -translate-x-1/2 w-screen;
+                @apply grid grid-cols-[0.8fr_0.4fr_1fr_0.4fr_0.8fr] items-center;
+                @apply bg-black/95 shadow-[0_4px_16px_rgba(0,0,0,0.4)];
+                top: var(--top-pos);
+                height: var(--baseHeight); /* Ensure the scoreboard height is set */
+                transform: translateX(-50%) scale(var(--scaleOverlay));
+            }
+
+            /* Sponsor Section */
+            .sponsor-section {
+                @apply relative h-full flex justify-evenly items-center gap-2.5;
+                @apply -ml-3 -mr-px bg-transparent transition-opacity duration-300;
+                height: var(--baseHeight);
+            }
+
+            .sponsor-section::before {
+                content: "";
+                @apply absolute inset-0 bg-white border-r-[3px] border-[#0c0c0c] z-0;
+                transform: skew(var(--skewAngle));
+            }
+
+            .sponsor-section.hidden {
+                @apply opacity-0;
+            }
+
+            .sponsor-img {
+                @apply relative z-10;
+                max-height: calc(var(--baseHeight) - 10px);
+                max-width: 250px;
+            }
+
+            /* Team Info */
+            .team-info {
+                @apply relative h-full flex items-center justify-between gap-2.5 bg-transparent z-[2];
+                height: var(--baseHeight); 
+            }
+
+            .team-info::before {
+                content: "";
+                @apply absolute inset-0 bg-white z-0;
+                transform: skew(var(--skewAngle));
+            }
+
+            .team-info.team-right::before {
+                transform: skew(var(--skewAngleRight));
+            }
+
+            .team-logo-container {
+                @apply h-full flex justify-center items-center px-[5px] relative z-10;
+            }
+
+            .team-logo-img {
+                @apply object-contain;
+                width: var(--logoSize);
+                height: var(--logoSize);
+            }
+
+            .team-score {
+                @apply px-[18px] flex items-center gap-1 relative z-10;
+            }
+
+
+
+            /* Score Markers */
+            .scoremarker {
+                @apply w-[15px] h-[15px] inline-block mx-[3px] rounded-full align-middle;
+                @apply bg-[#1111115e] outline outline-2 outline-[#5e5e5e] outline-offset-2;
+                @apply transition-all duration-200;
+            }
+
+            .scoremarker.active {
+                @apply bg-[#ffd700] outline-[#ffd700];
+            }
+
+            /* Event Title */
+            .event-title {
+                @apply flex items-center justify-center -mx-5 h-full;
+                @apply text-white bg-[rgb(63,63,63)] text-2xl uppercase tracking-[2px];
+                height: var(--baseHeight); 
+            }
+
+            .event-title-container {
+                @apply flex flex-col items-center justify-center text-center;
+            }
+
+            .event-title-main {
+                @apply m-0 p-0;
+            }
+
+            .event-title-sub {
+                @apply m-0 p-0 text-[0.3em];
+                font-family: Arial, sans-serif;
+            }
+
+
+
+
+
+            /* Maps Section */
+            .maps-container {
+                @apply flex flex-row items-stretch justify-center gap-0 m-0;
+                @apply overflow-hidden relative z-0 -mr-2.5 -ml-[15px];
+            }
+
+            .map-item {
+                @apply relative flex-1 flex items-center justify-center;
+                @apply min-w-0 min-h-0 m-0 p-0 w-full;
+                @apply overflow-hidden z-0 border-l-[3px] border-white;
+                height: var(--baseHeight); 
+            }
+
+            .map-item::before {
+                content: "";
+                @apply absolute inset-0 z-0 pointer-events-none;
+                transform: skew(var(--skewAngleRight));
+            }
+
+            .map-item.selected::before {
+                @apply bg-[#ffd700] opacity-[0.18];
+            }
+
+            .map-img {
+                @apply relative z-10 w-full h-full object-cover block;
+            }
+
+            .map-img.isWinner {
+                filter: grayscale(100%) blur(5px);
+                @apply transition-[filter] duration-[1500ms];
+            }
+
+            .map-winner-logo {
+                @apply absolute z-20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
+                @apply w-[50px] h-[50px] object-cover;
+            }
+
+            .map-name {
+                @apply absolute z-20 left-1/2 bottom-1.5 -translate-x-1/2;
+                @apply bg-[rgba(58,58,58,0.397)] text-white text-base px-2 rounded;
+                /* @apply whitespace-nowrap shadow-[0_2px_6px_#000]; */
+            }
+
+
+
+
+
+
+
+
+            
+            /* Control Panel */
+            .control-panel {
+                @apply fixed bottom-5 right-5 bg-black/80 p-2.5 rounded text-white;
+            }
+
+            .control-btn {
+                @apply m-1.5 px-2.5 py-1.5 bg-[#08db08] border-none;
+                @apply text-white cursor-pointer rounded hover:bg-[#06b006];
+            }
+        }
+    </style>
+    <style>
+        :root {
+            --top-pos: 0px;
+            --baseHeight: 55px;
+            --logoSize: 50px;
+            --scaleOverlay: 1.0;
+
+            
+            --skewAngle: 0deg;
+            --skewAngleRight: 0deg;
+        }
+
+        body {
+            font-family: 'Russo One', 'Orbitron', sans-serif;
+            background-image: url('../GameImages/r6-sample-preview.jpg');
+            background-size: cover;
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="scoreboard" class="scoreboard">
+
+        <!-- Sponsor Section -->
+        <div id="sponsor-section" class="sponsor-section">
+            <img id='sponsor-1' class="sponsor-img" src="EsportsDashx1000.png" alt="Sponsor 1" />
+            <img id='sponsor-2' class="sponsor-img" src="https://broadcast.gg/wp-content/uploads/2019/04/BGG-2.0-Header-MaxArtboard-1-1.png" alt="Sponsor 2" />
+        </div>
+
+        <!-- Team Left Section -->
+        <div class="team-info">
+            <div class="team-logo-container">
+                <img class="team-logo-img" src="https://esportsdash.com/icon.png" alt="Team 1 Logo" />
+            </div>
+            <div class="team-score">
+                <div class="scoremarker active"></div>
+                <div class="scoremarker active"></div>
+                <div class="scoremarker"></div>
+                <div class="scoremarker"></div>
+                <div class="scoremarker"></div>
+            </div>
+        </div>
+
+        <!-- Event Title Section -->
+        <div class="event-title">
+            <div class="event-title-container">
+                <p class="event-title-main">Summer Bash - Finals</p>
+                <p class="event-title-sub">Brought to you by EsportsDash</p>
+            </div>
+        </div>
+
+        <!-- Team Right Section -->
+        <div class="team-info team-right">
+            <div class="team-score">
+                <div class="scoremarker active"></div>
+                <div class="scoremarker"></div>
+                <div class="scoremarker"></div>
+                <div class="scoremarker"></div>
+                <div class="scoremarker"></div>
+            </div>
+            <div class="team-logo-container">
+                <img class="team-logo-img" src="https://esportsdash.com/icon.png" alt="Team 2 Logo" />
+            </div>
+        </div>
+
+        <!-- Maps section -->
+        <div class="maps-container">
+            <div class="map-item selected">
+                <img class="map-img isWinner"
+                    src="https://static.wikia.nocookie.net/rainbowsix/images/7/79/Bartlett_U.png" alt="Map 1" />
+                <img class="map-winner-logo" src="https://esportsdash.com/icon.png" alt="Winner Logo" />
+                <div class="map-name">Map 1</div>
+            </div>
+
+            <div class="map-item">
+                <img class="map-img" 
+                    src="https://static.wikia.nocookie.net/rainbowsix/images/7/79/Bartlett_U.png" alt="Map 2" />
+                <img class="map-winner-logo hidden" src="https://placehold.co/40x40" alt="Winner Logo" />
+                <div class="map-name">Map 2</div>
+            </div>
+
+            <div class="map-item">
+                <img class="map-img" 
+                    src="https://static.wikia.nocookie.net/rainbowsix/images/7/79/Bartlett_U.png" alt="Map 3" />
+                <img class="map-winner-logo hidden" src="https://placehold.co/40x40" alt="Winner Logo" />
+                <div class="map-name">Map 3</div>
+            </div>
+
+            <div class="map-item hidden">
+                <img class="map-img" src="https://placehold.co/250x80" alt="Map 4" />
+                <img class="map-winner-logo hidden" src="https://placehold.co/40x40" alt="Winner Logo" />
+                <div class="map-name">Map 4</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Control panel for toggling sections -->
+    <div id="control-panel" class="control-panel">
+        <button onclick="toggleSponsor()" class="control-btn">Toggle Sponsor</button>
+        <button onclick="toggleEventDesc()" class="control-btn">Toggle Event Description</button>
+    </div>
+
+    <script>
+        function toggleSponsor() {
+            const sponsorSection = document.getElementById('sponsor-section');
+            sponsorSection.classList.toggle('hidden');
+        }
+
+        function toggleEventDesc() {
+            const eventDescSection = document.getElementById('event-desc-section');
+            if (eventDescSection) {
+                eventDescSection.classList.toggle('hidden');
+            }
+        }
+    </script>
+</body>
+</html>
