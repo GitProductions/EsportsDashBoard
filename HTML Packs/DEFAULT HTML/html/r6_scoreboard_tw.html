@@ -129,29 +129,40 @@
                 transform: skew(var(--skewAngleRight));
             }
 
+
             .map-item.selected::before {
-                @apply bg-[#ffd700] opacity-[0.18];
+                @apply border-b-[3px] border-[#ffd700];
+                z-index: 15;
             }
+
+
 
             .map-img {
                 @apply relative z-10 w-full h-full object-cover block;
             }
 
             .map-img.isWinner {
-                filter: grayscale(100%) blur(5px);
+                filter: grayscale(50%) blur(2px);
                 @apply transition-[filter] duration-[1500ms];
             }
 
             .map-winner-logo {
-                @apply absolute z-20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
-                @apply w-[50px] h-[50px] object-cover;
+                @apply absolute z-20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 top-[20px];
+                @apply w-[25px] h-[25px] object-cover;
             }
 
             .map-name {
-                @apply absolute z-20 left-1/2 bottom-1.5 -translate-x-1/2;
-                @apply bg-[rgba(58,58,58,0.397)] text-white text-base px-2 rounded;
+                @apply absolute z-20 left-1/2 bottom-[4px] -translate-x-1/2 ;
+                @apply bg-[rgba(58,58,58,0.8)];
+                @apply text-white text-xs px-2 ;
+                @apply whitespace-nowrap 
                 /* @apply whitespace-nowrap shadow-[0_2px_6px_#000]; */
             }
+            
+
+            /* .map-name.selected {
+                @apply bg-[#ffd700] text-black font-bold;
+            } */
 
 
 
@@ -175,7 +186,7 @@
     <style>
         :root {
             --top-pos: 0px;
-            --baseHeight: 55px;
+            --baseHeight: 58px;
             --logoSize: 50px;
             --scaleOverlay: 1.0;
 
@@ -212,10 +223,10 @@
 
             console.log(fullJson);
 
-            
+
             let team1Logo = TEAMDATA.team1.teamLogoUrl;
             let team2Logo = TEAMDATA.team2.teamLogoUrl;
-        
+
             function updateLogos() {
                 const team1LogoElement = document.getElementById('team-1-logo');
                 const team2LogoElement = document.getElementById('team-2-logo');
@@ -230,7 +241,8 @@
             }
             updateLogos();
 
-            // Updating Team Scores
+
+
             function updateScore(team, teamContainer) {
                 const markers = teamContainer.querySelectorAll('.scoremarker');
 
@@ -266,8 +278,260 @@
                     eventTitleSub.textContent = "";
                 }
             }
-
             updateTitles();
+
+
+
+
+
+
+            //             {
+            //     "totalMaps": 9,
+            //     "selectedMap": {
+            //         "map": "",
+            //         "selectedMode": "TBA",
+            //         "team1Score": 0,
+            //         "team2Score": 0,
+            //         "modeImage": "http://localhost:8080/files/defaults/default_map.png"
+            //     },
+            //     "upNext": {
+            //         "selectedMap": null,
+            //         "mapImage": null,
+            //         "mode": "TBA",
+            //         "modeImage": "http://localhost:8080/files/defaults/default_map.png",
+            //         "team1Score": 0,
+            //         "team2Score": 0,
+            //         "completed": false,
+            //         "hidden": false
+            //     },
+            //     "mapData": [
+            //         {
+            //             "selectedMode": "TBA",
+            //             "map": "",
+            //             "team1Score": 0,
+            //             "team2Score": 0,
+            //             "completed": false,
+            //             "hidden": false,
+            //             "modeImage": "http://localhost:8080/files/defaults/default_map.png",
+            //             "winner": {
+            //                 "teamNumber": "",
+            //                 "teamName": "",
+            //                 "teamScore": 0,
+            //                 "teamLogoUrl": "",
+            //                 "teamColor": "#ffffff"
+            //             }
+            //         },
+            //         {
+            //             "selectedMode": "TBA",
+            //             "map": "",
+            //             "team1Score": 0,
+            //             "team2Score": 0,
+            //             "completed": false,
+            //             "hidden": false,
+            //             "modeImage": "http://localhost:8080/files/defaults/default_map.png",
+            //             "winner": {
+            //                 "teamNumber": "",
+            //                 "teamName": "",
+            //                 "teamScore": 0,
+            //                 "teamLogoUrl": "",
+            //                 "teamColor": "#ffffff"
+            //             }
+            //         },
+            //         {
+            //             "selectedMode": "TBA",
+            //             "map": "",
+            //             "team1Score": 0,
+            //             "team2Score": 0,
+            //             "completed": false,
+            //             "hidden": false,
+            //             "modeImage": "http://localhost:8080/files/defaults/default_map.png",
+            //             "winner": {
+            //                 "teamNumber": "",
+            //                 "teamName": "",
+            //                 "teamScore": 0,
+            //                 "teamLogoUrl": "",
+            //                 "teamColor": "#ffffff"
+            //             }
+            //         },
+            //         {
+            //             "selectedMode": "TBA",
+            //             "map": "",
+            //             "team1Score": 0,
+            //             "team2Score": 0,
+            //             "completed": false,
+            //             "hidden": false,
+            //             "modeImage": "http://localhost:8080/files/defaults/default_map.png",
+            //             "winner": {
+            //                 "teamNumber": "",
+            //                 "teamName": "",
+            //                 "teamScore": 0,
+            //                 "teamLogoUrl": "",
+            //                 "teamColor": "#ffffff"
+            //             }
+            //         },
+            //         {
+            //             "selectedMode": "TBA",
+            //             "map": "",
+            //             "team1Score": 0,
+            //             "team2Score": 0,
+            //             "completed": false,
+            //             "hidden": false,
+            //             "modeImage": "http://localhost:8080/files/defaults/default_map.png",
+            //             "winner": {
+            //                 "teamNumber": "",
+            //                 "teamName": "",
+            //                 "teamScore": 0,
+            //                 "teamLogoUrl": "",
+            //                 "teamColor": "#ffffff"
+            //             }
+            //         },
+            //         {
+            //             "selectedMode": "TBA",
+            //             "map": "",
+            //             "team1Score": 0,
+            //             "team2Score": 0,
+            //             "completed": false,
+            //             "hidden": false,
+            //             "modeImage": "http://localhost:8080/files/defaults/default_map.png",
+            //             "winner": {
+            //                 "teamNumber": "",
+            //                 "teamName": "",
+            //                 "teamScore": 0,
+            //                 "teamLogoUrl": "",
+            //                 "teamColor": "#ffffff"
+            //             }
+            //         },
+            //         {
+            //             "selectedMode": "TBA",
+            //             "map": "",
+            //             "team1Score": 0,
+            //             "team2Score": 0,
+            //             "completed": false,
+            //             "hidden": false,
+            //             "modeImage": "http://localhost:8080/files/defaults/default_map.png",
+            //             "winner": {
+            //                 "teamNumber": "",
+            //                 "teamName": "",
+            //                 "teamScore": 0,
+            //                 "teamLogoUrl": "",
+            //                 "teamColor": "#ffffff"
+            //             }
+            //         },
+            //         {
+            //             "selectedMode": "TBA",
+            //             "map": "",
+            //             "team1Score": 0,
+            //             "team2Score": 0,
+            //             "completed": false,
+            //             "hidden": false,
+            //             "modeImage": "http://localhost:8080/files/defaults/default_map.png",
+            //             "winner": {
+            //                 "teamNumber": "",
+            //                 "teamName": "",
+            //                 "teamScore": 0,
+            //                 "teamLogoUrl": "",
+            //                 "teamColor": "#ffffff"
+            //             }
+            //         },
+            //         {
+            //             "selectedMode": "TBA",
+            //             "map": "",
+            //             "team1Score": 0,
+            //             "team2Score": 0,
+            //             "completed": false,
+            //             "hidden": false,
+            //             "modeImage": "http://localhost:8080/files/defaults/default_map.png",
+            //             "winner": {
+            //                 "teamNumber": "",
+            //                 "teamName": "",
+            //                 "teamScore": 0,
+            //                 "teamLogoUrl": "",
+            //                 "teamColor": "#ffffff"
+            //             }
+            //         }
+            //     ]
+            // }
+
+
+
+
+
+            function updateMaps() {
+                const mapsContainer = document.querySelector('.maps-container');
+
+
+                // loop thru each map-item and set if selected, and set map-name class
+                const mapDataArray = MAPDATA.mapData;
+                console.log(mapDataArray);
+                mapDataArray.forEach((map, index) => {
+
+                    const mapItem = mapsContainer.querySelectorAll('.map-item')[index];
+                    const mapImageElement = mapItem.querySelector('.map-img');
+
+
+                    // Hide 'hidden/missing' maps
+                    // - should mayb use map.hidden as a flag but we hide it before sending it over which is maybe not a good thing??
+                    if (index < MAPDATA.totalMaps) {
+                        mapItem.classList.remove('hidden');
+                    } else {
+                        mapItem.classList.add('hidden');
+                    }
+
+
+                    // Set Map Image
+                    if (map.mapImage) {
+                        mapImageElement.src = map.mapImage;
+                    }
+
+
+                    // Check & Set Map Winner
+                    if (map.completed && map.winner && map.winner.teamLogoUrl) {
+                        const winnerLogoElement = mapItem.querySelector('.map-winner-logo');
+                        winnerLogoElement.src = map.winner.teamLogoUrl;
+                        winnerLogoElement.classList.remove('hidden');
+                        mapImageElement.classList.add('isWinner');
+                    } else {
+                        const winnerLogoElement = mapItem.querySelector('.map-winner-logo');
+                        winnerLogoElement.classList.add('hidden');
+                        mapImageElement.classList.remove('isWinner');
+                    }
+
+
+                    console.log("Selected Map:", MAPDATA.selectedMap.map, "Current Map:", map.selectedMap);
+
+                    // if (MAPDATA.selectedMap && map.selectedMap === MAPDATA.selectedMap.map) {
+                    //     console.log("It's a match!");
+                    //     mapItem.classList.add('selected');
+                    // } else {
+                    //     mapItem.classList.remove('selected');
+                    // }
+                });
+            }
+
+
+            updateMaps();
+
+
+
+
+            function updateSponsors() {
+                // update 'sponsors' section
+                const sponsor1 = document.getElementById('sponsor-1');
+                const sponsor2 = document.getElementById('sponsor-2');
+
+                const sponsorObj = {
+                    sponsor1: INPUTS.file.SPONSOR_1.value ? INPUTS.file.SPONSOR_1.value : INPUTS.file.BGG_L1.value,
+                    sponsor2: INPUTS.file.SPONSOR_2.value ? INPUTS.file.SPONSOR_2.value : INPUTS.file.BGG_L2.value,
+                }
+                if (sponsorObj.sponsor1) {
+                    sponsor1.src = sponsorObj.sponsor1;
+                }
+                if (sponsorObj.sponsor2) {
+                    sponsor2.src = sponsorObj.sponsor2;
+                }
+            }
+            updateSponsors();
+
 
 
         }
@@ -335,14 +599,14 @@
 
         <!-- Maps section -->
         <div class="maps-container">
-            <div class="map-item selected">
-                <img class="map-img isWinner"
-                    src="https://static.wikia.nocookie.net/rainbowsix/images/7/79/Bartlett_U.png" alt="Map 1" />
+            <div class="map-item ">
+                <img class="map-img " src="https://static.wikia.nocookie.net/rainbowsix/images/7/79/Bartlett_U.png"
+                    alt="Map 1" />
                 <img class="map-winner-logo" src="https://esportsdash.com/icon.png" alt="Winner Logo" />
                 <div class="map-name">Map 1</div>
             </div>
 
-            <div class="map-item">
+            <div class="map-item selected">
                 <img class="map-img" src="https://static.wikia.nocookie.net/rainbowsix/images/7/79/Bartlett_U.png"
                     alt="Map 2" />
                 <img class="map-winner-logo hidden" src="https://placehold.co/40x40" alt="Winner Logo" />
@@ -350,16 +614,21 @@
             </div>
 
             <div class="map-item">
-                <img class="map-img" src="https://static.wikia.nocookie.net/rainbowsix/images/7/79/Bartlett_U.png"
-                    alt="Map 3" />
+                <img class="map-img" src="" alt="Map 3" />
                 <img class="map-winner-logo hidden" src="https://placehold.co/40x40" alt="Winner Logo" />
                 <div class="map-name">Map 3</div>
             </div>
 
-            <div class="map-item hidden">
-                <img class="map-img" src="https://placehold.co/250x80" alt="Map 4" />
+            <div class="map-item">
+                <img class="map-img" src="" alt="Map 4" />
                 <img class="map-winner-logo hidden" src="https://placehold.co/40x40" alt="Winner Logo" />
                 <div class="map-name">Map 4</div>
+            </div>
+
+            <div class="map-item">
+                <img class="map-img" src="" alt="Map 5" />
+                <img class="map-winner-logo hidden" src="https://placehold.co/40x40" alt="Winner Logo" />
+                <div class="map-name">Map 5</div>
             </div>
         </div>
     </div>
