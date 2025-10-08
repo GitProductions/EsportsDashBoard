@@ -21,7 +21,7 @@
                 @apply grid grid-cols-[0.8fr_0.4fr_1fr_0.4fr_0.8fr] items-center;
                 @apply bg-black/95 shadow-[0_4px_16px_rgba(0,0,0,0.4)];
                 top: var(--top-pos);
-                height: var(--baseHeight); /* Ensure the scoreboard height is set */
+                height: var(--baseHeight);
              
                 transform: translate(-50%, -100px); /* Start off-screen above */
                 opacity: 0; /* Start invisible */
@@ -57,9 +57,11 @@
                 max-width: 250px;
             }
 
+
+
             /* Team Info */
             .team-info {
-                @apply relative h-full flex items-center justify-between gap-2.5 bg-transparent z-[2];
+                @apply relative h-full flex items-center justify-center gap-2.5 bg-transparent z-[2];
                 height: var(--baseHeight); 
             }
 
@@ -84,7 +86,7 @@
             }
 
             .team-score {
-                @apply px-[18px] flex items-center gap-1 relative z-10;
+                @apply px-[10px] flex items-center gap-1 relative z-10;
             }
 
 
@@ -140,6 +142,8 @@
                 @apply overflow-hidden z-0 border-l-[2px] border-black;
                 
                 height: var(--baseHeight); 
+                transition: background-color 1.5s ease-in-out;
+
             }
 
             .map-item::before {
@@ -155,6 +159,11 @@
                 z-index: 15;
             }
 
+            .map-item.selected .map-name {
+                @apply bg-[#ffd700] text-black;
+                transition: background-color 1.5s ease-in-out;
+            }
+
 
 
             .map-img {
@@ -162,17 +171,13 @@
             }
 
             .map-img.isWinner {
-                filter: grayscale(50%) blur(2px);
+                filter: grayscale(75%) blur(2px);
                 @apply transition-[filter] duration-[1500ms];
                 
             }
 
             @keyframes translateWinnerLogo {
                 0% {
-                    transform: translate(-450%, -50%);
-                }
-
-                50% {
                     transform: translate(-450%, -50%);
                 }
                 100% {
@@ -190,22 +195,15 @@
             .map-name {
                 @apply absolute z-20 left-1/2 top-[0px] -translate-x-1/2 ;
                 @apply bg-[rgba(58,58,58,0.8)];
-                @apply text-white text-xs px-2 ;
+                @apply text-white text-[10px] uppercase px-2 ;
                 @apply whitespace-nowrap ;
                 @apply w-full text-center
-                /* width: 100%; */
-                /* @apply whitespace-nowrap shadow-[0_2px_6px_#000]; */
             }
             
 
             /* .map-name.selected {
-                @apply bg-[#ffd700] text-black font-bold;
+                @apply bg-[#ffd700] text-pink-400 font-bold;
             } */
-
-
-
-
-
 
 
             .event-title-img {
@@ -338,8 +336,7 @@
 
 
             function updateTitles() {
-                const eventTitleMain = document.querySelector('.event-title-main');
-                const eventTitleSub = document.querySelector('.event-title-sub');
+                // const eventTitleSub = document.getElementById('event-title-sub');
 
                 const titleImage = document.getElementById('event-title-img');
                 const titleText = document.getElementById('event-title-text');
@@ -765,8 +762,8 @@
 
         function toggleLogoTitle() {
             useLogoTitle = !useLogoTitle;
-     
         }
+
     </script>
 </body>
 
