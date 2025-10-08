@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Russo+One&display=swap" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Orbitron&display=swap" />
 
+    
     <style type="text/tailwindcss">
         @layer components {
 
@@ -94,12 +95,12 @@
             .scoremarker {
                 @apply w-[15px] h-[15px] inline-block mx-[3px] rounded-full align-middle;
                 @apply bg-[#1111115e] outline outline-2 outline-[#5e5e5e] outline-offset-2;
-                @apply transition-all duration-200;
+                @apply transition-all duration-1000;
             }
 
-            .scoremarker.active {
+            /* .scoremarker.active {
                 @apply bg-[#ffd700] outline-[green];
-            }
+            } */
 
 
             
@@ -224,6 +225,7 @@
             --baseHeight: 58px;
             --logoSize: 50px;
             --scaleOverlay: 1.0;
+            
 
 
             --skewAngle: 0deg;
@@ -307,10 +309,10 @@
                 } else {
                     for (let i = 0; i < team.teamScore; i++) {
                         // default active colors
-                        // markers[i].style.backgroundColor = color4;
-                        // markers[i].style.outlineColor = color2;
-                        markers[i].style.backgroundColor = '#ffd700';
-                        markers[i].style.outlineColor = '#5e5e5e';
+                        markers[i].style.backgroundColor = color4;
+                        markers[i].style.outlineColor = color2;
+                        // markers[i].style.backgroundColor = '#ffd700';
+                        // markers[i].style.outlineColor = '#5e5e5e';
                     }
                 }
             }
@@ -648,7 +650,7 @@
             </div>
 
             <div class="team-score">
-                <div class="scoremarker active"></div>
+                <div class="scoremarker"></div>
                 <div class="scoremarker"></div>
                 <div class="scoremarker"></div>
                 <div class="scoremarker"></div>
