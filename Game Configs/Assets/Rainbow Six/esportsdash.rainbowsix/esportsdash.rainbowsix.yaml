@@ -1,6 +1,6 @@
 id: esportsdash.rainbowsix
 game: RainbowSix
-version: "1.1"
+version: "1.2"
 author: EsportsDash
 gamelogo: Rainbow-Six-Symbol-700x394
 maps:
@@ -70,8 +70,8 @@ modes:
   - name: None
     file: Rainbow-Six-Symbol-700x394
 roles:
-  - name: 
-    file: 
+  - name: ATK
+    file: attacker
     heroes:
       - name: Ace
         file: Ace
@@ -151,3 +151,89 @@ roles:
         file: Zero
       - name: Zofia
         file: Zofia_(Siege)
+
+  - name: DEF
+    file: defender
+    heroes:
+      - name: Alibi
+        file: Alibi_(Siege)
+      - name: Aruni
+        file: Aruni
+      - name: Azami
+        file: Azami
+      - name: Bandit
+        file: Bandit
+      - name: Castle
+        file: Castle
+      - name: Caveira
+        file: Caveira
+      - name: Clash
+        file: Clash
+      - name: Denari
+        file: Denari
+      - name: Doc
+        file: Doc_(Siege)
+      - name: Echo
+        file: Echo_(Siege)
+      - name: Ela
+        file: Ela_(Siege)
+      - name: Fenrir
+        file: Fenrir
+      - name: Frost
+        file: Frost
+      - name: Goyo
+        file: Goyo
+      - name: Jäger
+        file: Jäger_(Siege)
+      - name: Kaid
+        file: Kaid
+      - name: Kapkan
+        file: Kapkan
+      - name: Lesion
+        file: Lesion
+      - name: Maestro
+        file: Maestro
+      - name: Melusi
+        file: Melusi
+      - name: Mira
+        file: Mira_(Siege)
+      - name: Mozzie
+        file: Mozzie
+      - name: Mute
+        file: Mute
+      - name: Oryx
+        file: Oryx
+      # - name: Protector
+      #   file: Protector
+      - name: Pulse
+        file: Pulse_(Siege)
+      - name: Recruit
+        file: Recruit
+      - name: Rook
+        file: Rook_(Siege)
+      # - name: Sentry
+      #   file: Sentry
+      - name: Sentry
+        file: Sentry_(Recruit)
+      - name: Skopós
+        file: Skopós
+      - name: Smoke
+        file: Smoke_(Siege)
+      - name: Solis
+        file: Solis
+      - name: Tachanka
+        file: Tachanka_(Siege)
+      - name: Thorn
+        file: Thorn
+      - name: Thunderbird
+        file: Thunderbird
+      # - name: Trapper
+      #   file: Trapper
+      - name: Tubarão
+        file: Tubarão
+      - name: Valkyrie
+        file: Valkyrie
+      - name: Vigil
+        file: Vigil_(Siege)
+      - name: Wamai
+        file: Wamai
