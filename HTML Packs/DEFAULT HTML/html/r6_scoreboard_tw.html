@@ -137,19 +137,21 @@
             .map-item {
                 @apply relative flex-1 flex items-center justify-center;
                 @apply min-w-0 min-h-0 m-0 p-0 w-full;
-                @apply overflow-hidden z-0 border-l-[3px] border-white;
+                /* @apply overflow-hidden z-0 border-l-[3px] border-white; */
+                
                 height: var(--baseHeight); 
             }
 
             .map-item::before {
                 content: "";
                 @apply absolute inset-0 z-0 pointer-events-none;
+                
                 transform: skew(var(--skewAngleRight));
             }
 
 
             .map-item.selected::before {
-                @apply border-b-[3px] border-[#ffd700];
+                @apply border-b-[2px] border-[#ffd700];
                 z-index: 15;
             }
 
@@ -170,10 +172,12 @@
             }
 
             .map-name {
-                @apply absolute z-20 left-1/2 bottom-[4px] -translate-x-1/2 ;
+                @apply absolute z-20 left-1/2 top-[0px] -translate-x-1/2 ;
                 @apply bg-[rgba(58,58,58,0.8)];
                 @apply text-white text-xs px-2 ;
-                @apply whitespace-nowrap 
+                @apply whitespace-nowrap ;
+                @apply w-full text-center
+                /* width: 100%; */
                 /* @apply whitespace-nowrap shadow-[0_2px_6px_#000]; */
             }
             
@@ -317,7 +321,7 @@
                     titleText.classList.remove('hidden');
                     titleImage.classList.add('hidden');
 
-                    titleText.textContent = INPUTS.text.EVENT_NAME.value;
+                    titleText.textContent = INPUTS.text.EVENT_TITLE.value;
                 }
             }
             updateTitles();
@@ -508,6 +512,12 @@
                 mapDataArray.forEach((map, index) => {
 
                     const mapItem = mapsContainer.querySelectorAll('.map-item')[index];
+                    if (!mapItem) return;
+
+                    // setting map names
+                    // const mapNameElement = mapItem.querySelector('.map-name');
+                    // mapNameElement.textContent = map.map ? map.map : `${map.selectedMap}`;
+
                     const mapImageElement = mapItem.querySelector('.map-img');
 
 
@@ -538,15 +548,12 @@
                         mapImageElement.classList.remove('isWinner');
                     }
 
-
-                    console.log("Selected Map:", MAPDATA.selectedMap.map, "Current Map:", map.selectedMap);
-
-                    // if (MAPDATA.selectedMap && map.selectedMap === MAPDATA.selectedMap.map) {
-                    //     console.log("It's a match!");
-                    //     mapItem.classList.add('selected');
-                    // } else {
-                    //     mapItem.classList.remove('selected');
-                    // }
+                    // highlight the current live map
+                    if (MAPDATA.selectedMap && map.selectedMap === MAPDATA.selectedMap.map) {
+                        mapItem.classList.add('selected');
+                    } else {
+                        mapItem.classList.remove('selected');
+                    }
                 });
             }
             updateMaps();
@@ -656,7 +663,7 @@
                 <div class="map-name">Map 1</div>
             </div>
 
-            <div class="map-item selected">
+            <div class="map-item">
                 <img class="map-img" src="https://static.wikia.nocookie.net/rainbowsix/images/7/79/Bartlett_U.png"
                     alt="Map 2" />
                 <img class="map-winner-logo hidden" src="https://placehold.co/40x40" alt="Winner Logo" />
