@@ -6,7 +6,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Russo+One&display=swap" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Orbitron&display=swap" />
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" /> -->
 
     <style type="text/tailwindcss">
         @layer components {
@@ -23,9 +22,9 @@
                 top: var(--top-pos);
                 height: var(--baseHeight);
              
-                transform: translate(-50%, -100px); /* Start off-screen above */
-                opacity: 0; /* Start invisible */
-                transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out; /* Smooth slide and fade */
+                transform: translate(-50%, -100px); 
+                opacity: 0;
+                transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out; 
             }
 
             /* Slide In Top */
@@ -138,7 +137,6 @@
 
             .map-item {
                 @apply relative flex-1 flex items-center justify-center;
-                /* @apply min-w-0 min-h-0 m-0 p-0 w-full; */
                 @apply overflow-hidden z-0 border-l-[2px] border-black;
                 
                 height: var(--baseHeight); 
@@ -201,16 +199,7 @@
             }
             
 
-            /* .map-name.selected {
-                @apply bg-[#ffd700] text-pink-400 font-bold;
-            } */
-
-
             .event-title-img {
-                /* @apply hidden; */
-                /* @apply  max-h-[var(--baseHeight)] max-w-[200px] object-contain; */
-
-                /* style="height: 0.8em; vertical-align: middle; margin-right: 8px;" */
                 width: 270px;
                 height: calc(var(--baseHeight) - 10px);
                 object-fit: contain;
@@ -539,56 +528,51 @@
             function updateMaps() {
                 const mapsContainer = document.querySelector('.maps-container');
 
-
-                // loop thru each map-item and set if selected, and set map-name class
+                // Loop through each map-item and set if selected, and set map-name class
                 const mapDataArray = MAPDATA.mapData;
                 console.log(mapDataArray);
-                mapDataArray.forEach((map, index) => {
 
-                    const mapItem = mapsContainer.querySelectorAll('.map-item')[index -1];
+                mapDataArray.forEach((map, index) => {
+                    const mapItem = mapsContainer.querySelectorAll('.map-item')[index];
                     if (!mapItem) return;
 
-                    // setting map names
-                    // const mapNameElement = mapItem.querySelector('.map-name');
-                    // mapNameElement.textContent = map.map ? map.map : `${map.selectedMap}`;
-
-                    const mapImageElement = mapItem.querySelector('.map-img');
-
-
                     // Hide 'hidden/missing' maps
-                    // - should mayb use map.hidden as a flag but we hide it before sending it over which is maybe not a good thing??
-                    if (index - 1  < MAPDATA.totalMaps) {
-                        mapItem.classList.remove('hidden');
+                    const mapImageElement = mapItem.querySelector('.map-img');
+                    if (index < MAPDATA.totalMaps) {
+                        mapItem.classList.remove('hidden'); // Show the map
                     } else {
-                        mapItem.classList.add('hidden');
+                        mapItem.classList.add('hidden'); // Hide the map
                     }
-
 
                     // Set Map Image
                     if (map.mapImage) {
                         mapImageElement.src = map.mapImage;
                     }
 
-
                     // Check & Set Map Winner
+                    const winnerLogoElement = mapItem.querySelector('.map-winner-logo');
                     if (map.completed && map.winner && map.winner.teamLogoUrl) {
-                        const winnerLogoElement = mapItem.querySelector('.map-winner-logo');
                         winnerLogoElement.src = map.winner.teamLogoUrl;
                         winnerLogoElement.classList.remove('hidden');
                         mapImageElement.classList.add('isWinner');
                     } else {
-                        const winnerLogoElement = mapItem.querySelector('.map-winner-logo');
                         winnerLogoElement.classList.add('hidden');
                         mapImageElement.classList.remove('isWinner');
                     }
 
-                    // highlight the current live map
+                    // Highlight the current live map
                     if (MAPDATA.selectedMap && map.selectedMap === MAPDATA.selectedMap.map) {
                         mapItem.classList.add('selected');
                     } else {
                         mapItem.classList.remove('selected');
                     }
                 });
+
+                // Hide any extra map items beyond the length of mapDataArray
+                const extraMapItems = mapsContainer.querySelectorAll('.map-item');
+                for (let i = mapDataArray.length; i < extraMapItems.length; i++) {
+                    extraMapItems[i].classList.add('hidden');
+                }
             }
             updateMaps();
 
@@ -629,17 +613,12 @@
                 useLogoTitle = true;
             }
 
-
             await fetchData()
-
-
 
             // show scoreboard only when everything is loaded
 
             document.querySelector('#scoreboard').classList.add('loaded');
             document.body.classList.add('loaded');
-
-
         });
 
 
@@ -706,15 +685,13 @@
         <!-- Maps section -->
         <div class="maps-container">
             <div class="map-item ">
-                <img class="map-img " src="https://static.wikia.nocookie.net/rainbowsix/images/7/79/Bartlett_U.png"
-                    alt="Map 1" />
-                <img class="map-winner-logo" src="https://esportsdash.com/icon.png" alt="Winner Logo" />
+                <img class="map-img " src="" alt="Map 1" />
+                <img class="map-winner-logo hidden" src="https://esportsdash.com/icon.png" alt="Winner Logo" />
                 <div class="map-name">Map 1</div>
             </div>
 
             <div class="map-item">
-                <img class="map-img" src="https://static.wikia.nocookie.net/rainbowsix/images/7/79/Bartlett_U.png"
-                    alt="Map 2" />
+                <img class="map-img" src="" alt="Map 2" />
                 <img class="map-winner-logo hidden" src="https://placehold.co/40x40" alt="Winner Logo" />
                 <div class="map-name">Map 2</div>
             </div>
@@ -735,6 +712,12 @@
                 <img class="map-img" src="" alt="Map 5" />
                 <img class="map-winner-logo hidden" src="https://placehold.co/40x40" alt="Winner Logo" />
                 <div class="map-name">Map 5</div>
+            </div>
+
+            <div class="map-item">
+                <img class="map-img" src="" alt="Map 6" />
+                <img class="map-winner-logo hidden" src="https://placehold.co/40x40" alt="Winner Logo" />
+                <div class="map-name">Map 6</div>
             </div>
         </div>
     </div>
