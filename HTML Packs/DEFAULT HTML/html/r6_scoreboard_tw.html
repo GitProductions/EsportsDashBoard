@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Russo+One&display=swap" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Orbitron&display=swap" />
 
-    
+
     <style type="text/tailwindcss">
         @layer components {
 
@@ -61,13 +61,13 @@
 
             /* Team Info */
             .team-info {
-                @apply relative h-full flex items-center justify-center gap-2.5 bg-transparent z-[2];
+                @apply relative h-full flex items-center justify-center gap-2.5 bg-white  z-[2];
                 height: var(--baseHeight); 
             }
 
             .team-info::before {
                 content: "";
-                @apply absolute inset-0 bg-white z-0;
+                @apply absolute inset-0 z-0;
                 transform: skew(var(--skewAngle));
             }
 
@@ -231,7 +231,10 @@
             --skewAngle: 0deg;
             --skewAngleRight: 0deg;
 
-            --useLogoTitle: true;
+
+  
+
+            /* --useLogoTitle: true; */
         }
 
         body {
@@ -249,6 +252,13 @@
 
         let useTeamColor_Markers = false; // if true, scoremarkers will use team color if set, else use default gold color
         let useLogoTitle = false; // if true, event title will use logo if set, else use text title
+
+        // let BRAND_COLORS = {
+        //     color1: '#3f3f3f',
+        //     color2: '#5e5e5e',
+        //     color3: '#7f7f7f',
+        //     color4: '#ffd700'
+        // }
 
         const fetchData = async () => {
             let fullJson = await fetch(`http://localhost:8080/getFullJson`);
@@ -614,6 +624,7 @@
                 const useLogoTitleParam = urlParams.has('useLogoTitle')
                 useLogoTitle = true;
             }
+
 
             await fetchData()
 
