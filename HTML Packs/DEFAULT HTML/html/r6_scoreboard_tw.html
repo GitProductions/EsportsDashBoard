@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Scoreboard Overlay</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Russo+One&display=swap" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Orbitron&display=swap" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" /> -->
+
     <style type="text/tailwindcss">
         @layer components {
             /* Scoreboard Base */
@@ -158,7 +160,7 @@
 
 
 
-            
+
             /* Control Panel */
             .control-panel {
                 @apply fixed bottom-5 right-5 bg-black/80 p-2.5 rounded text-white;
@@ -177,7 +179,7 @@
             --logoSize: 50px;
             --scaleOverlay: 1.0;
 
-            
+
             --skewAngle: 0deg;
             --skewAngleRight: 0deg;
         }
@@ -189,6 +191,98 @@
             margin: 0;
         }
     </style>
+
+
+    <script>
+        const fetchData = async () => {
+            let fullJson = await fetch(`http://localhost:8080/getFullJson`);
+            fullJson = await fullJson.json();
+
+            // assigning main variables
+            let INPUTS = fullJson.general
+            let COLORS = fullJson.general.color
+            let TEAMDATA = fullJson.teams
+            let MAPDATA = fullJson.maps
+
+            // setting the base colors
+            let color1 = COLORS.BGG_C1.value;
+            let color2 = COLORS.BGG_C2.value;
+            let color3 = COLORS.BGG_C3.value;
+            let color4 = COLORS.BGG_C4.value;
+
+            console.log(fullJson);
+
+            
+            let team1Logo = TEAMDATA.team1.teamLogoUrl;
+            let team2Logo = TEAMDATA.team2.teamLogoUrl;
+        
+            function updateLogos() {
+                const team1LogoElement = document.getElementById('team-1-logo');
+                const team2LogoElement = document.getElementById('team-2-logo');
+
+                if (team1Logo) {
+                    team1LogoElement.src = team1Logo;
+                }
+
+                if (team2Logo) {
+                    team2LogoElement.src = team2Logo;
+                }
+            }
+            updateLogos();
+
+            // Updating Team Scores
+            function updateScore(team, teamContainer) {
+                const markers = teamContainer.querySelectorAll('.scoremarker');
+
+                // Clear all markers
+                markers.forEach(marker => marker.classList.remove('active'));
+
+                // Activate markers based on team score
+                for (let i = 0; i < team.teamScore; i++) {
+                    markers[i].classList.add('active');
+                }
+            }
+
+            // Update scores for each team
+            const team1Container = document.getElementById('team-1-info');
+            const team2Container = document.getElementById('team-2-info');
+            updateScore(TEAMDATA.team1, team1Container);
+            updateScore(TEAMDATA.team2, team2Container);
+
+
+            function updateTitles() {
+                const eventTitleMain = document.querySelector('.event-title-main');
+                const eventTitleSub = document.querySelector('.event-title-sub');
+
+                if (INPUTS.text.EVENT_NAME) {
+                    eventTitleMain.textContent = INPUTS.text.EVENT_NAME.value;
+                } else {
+                    eventTitleMain.textContent = "";
+                }
+
+                if (INPUTS.text.BGG_TAGLINE) {
+                    eventTitleSub.textContent = INPUTS.text.BGG_TAGLINE.value;
+                } else {
+                    eventTitleSub.textContent = "";
+                }
+            }
+
+            updateTitles();
+
+
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchData()
+        });
+
+
+
+        // Polling every 3 seconds
+        setInterval(() => {
+            fetchData()
+        }, 3000);
+    </script>
 </head>
 
 <body>
@@ -197,17 +291,20 @@
         <!-- Sponsor Section -->
         <div id="sponsor-section" class="sponsor-section">
             <img id='sponsor-1' class="sponsor-img" src="EsportsDashx1000.png" alt="Sponsor 1" />
-            <img id='sponsor-2' class="sponsor-img" src="https://broadcast.gg/wp-content/uploads/2019/04/BGG-2.0-Header-MaxArtboard-1-1.png" alt="Sponsor 2" />
+            <img id='sponsor-2' class="sponsor-img"
+                src="https://broadcast.gg/wp-content/uploads/2019/04/BGG-2.0-Header-MaxArtboard-1-1.png"
+                alt="Sponsor 2" />
         </div>
 
         <!-- Team Left Section -->
-        <div class="team-info">
+        <div id="team-1-info" class="team-info">
             <div class="team-logo-container">
-                <img class="team-logo-img" src="https://esportsdash.com/icon.png" alt="Team 1 Logo" />
+                <img id="team-1-logo" class="team-logo-img" src="https://esportsdash.com/icon.png" alt="Team 1 Logo" />
             </div>
+
             <div class="team-score">
                 <div class="scoremarker active"></div>
-                <div class="scoremarker active"></div>
+                <div class="scoremarker"></div>
                 <div class="scoremarker"></div>
                 <div class="scoremarker"></div>
                 <div class="scoremarker"></div>
@@ -217,13 +314,13 @@
         <!-- Event Title Section -->
         <div class="event-title">
             <div class="event-title-container">
-                <p class="event-title-main">Summer Bash - Finals</p>
-                <p class="event-title-sub">Brought to you by EsportsDash</p>
+                <p id="event-title-main" class="event-title-main">Summer Bash - Finals</p>
+                <p id="event-title-sub" class="event-title-sub">Brought to you by EsportsDash</p>
             </div>
         </div>
 
         <!-- Team Right Section -->
-        <div class="team-info team-right">
+        <div id="team-2-info" class="team-info team-right">
             <div class="team-score">
                 <div class="scoremarker active"></div>
                 <div class="scoremarker"></div>
@@ -232,7 +329,7 @@
                 <div class="scoremarker"></div>
             </div>
             <div class="team-logo-container">
-                <img class="team-logo-img" src="https://esportsdash.com/icon.png" alt="Team 2 Logo" />
+                <img id="team-2-logo" class="team-logo-img" src="https://esportsdash.com/icon.png" alt="Team 2 Logo" />
             </div>
         </div>
 
@@ -246,15 +343,15 @@
             </div>
 
             <div class="map-item">
-                <img class="map-img" 
-                    src="https://static.wikia.nocookie.net/rainbowsix/images/7/79/Bartlett_U.png" alt="Map 2" />
+                <img class="map-img" src="https://static.wikia.nocookie.net/rainbowsix/images/7/79/Bartlett_U.png"
+                    alt="Map 2" />
                 <img class="map-winner-logo hidden" src="https://placehold.co/40x40" alt="Winner Logo" />
                 <div class="map-name">Map 2</div>
             </div>
 
             <div class="map-item">
-                <img class="map-img" 
-                    src="https://static.wikia.nocookie.net/rainbowsix/images/7/79/Bartlett_U.png" alt="Map 3" />
+                <img class="map-img" src="https://static.wikia.nocookie.net/rainbowsix/images/7/79/Bartlett_U.png"
+                    alt="Map 3" />
                 <img class="map-winner-logo hidden" src="https://placehold.co/40x40" alt="Winner Logo" />
                 <div class="map-name">Map 3</div>
             </div>
@@ -287,4 +384,5 @@
         }
     </script>
 </body>
+
 </html>
