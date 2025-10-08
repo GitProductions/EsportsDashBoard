@@ -29,9 +29,9 @@ Example:
 
 <config>
   <id>esportsdash.overwatch</id>
-  <version>2.3</version>
+  <version>2.4</version>
   <name>Overwatch</name>
-  <description>Season 17</description>
+  <description>Season 18</description>
   <game>Overwatch</game>
   <author>EsportsDash</author>
 
@@ -70,7 +70,7 @@ Example:
     <map name="Suravasa" file="Suravasa" />
     <map name="Temple of Anubis" file="Temple_of_Anubis" />
     <map name="Throne of Anubis" file="Throne_of_Anubis" />
-    <map name="Toronto" file="Toronto" />
+    <map name="New Queen Street" file="New_Queen_Street" />
     <map name="Volskaya Industries" file="Volskaya_Industries" />
     <map name="Watchpoint Gibraltar" file="Watchpoint-_Gibraltar" />
   </maps>
@@ -149,7 +149,7 @@ Example:
       <hero name="LifeWeaver" file="LifeWeaver"  />
       <hero name="Mercy" file="Mercy"  />
       <hero name="Moira" file="Moira"  />
-        <hero name="Wuyang" file="Wuyang"  />
+      <hero name="Wuyang" file="Wuyang"  />
 
       <hero name="Zenyatta" file="Zenyatta"  />
       <!-- <hero name="Aqua" file="Aqua"  /> -->

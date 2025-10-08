@@ -60,6 +60,16 @@ export const configurations = {
                 description: "Season 17",
                 folderPath: "Game Configs/Overwatch",
                 fileName: "esportsdash.overwatch_v2.3.bgg"
+            },
+            {
+                id: "esportsdash.overwatch",
+                name: "Overwatch",
+                author: "EsportsDash",
+                version: "2.4",
+                image: "Game Configs/Overwatch/Overwatch.webp",
+                description: "Season 18",
+                folderPath: "Game Configs/Overwatch",
+                fileName: "esportsdash.overwatch_v2.4.bgg"
             }
         ],
 
