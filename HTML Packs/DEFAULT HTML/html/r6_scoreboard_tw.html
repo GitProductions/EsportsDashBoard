@@ -10,6 +10,11 @@
 
     <style type="text/tailwindcss">
         @layer components {
+
+            body {
+                overflow: hidden
+            }
+            
             /* Scoreboard Base */
             .scoreboard {
                 @apply absolute left-1/2 -translate-x-1/2 w-screen;
@@ -17,7 +22,16 @@
                 @apply bg-black/95 shadow-[0_4px_16px_rgba(0,0,0,0.4)];
                 top: var(--top-pos);
                 height: var(--baseHeight); /* Ensure the scoreboard height is set */
-                transform: translateX(-50%) scale(var(--scaleOverlay));
+             
+                transform: translate(-50%, -100px); /* Start off-screen above */
+                opacity: 0; /* Start invisible */
+                transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out; /* Smooth slide and fade */
+            }
+
+            /* Slide In Top */
+            .scoreboard.loaded {
+                transform: translate(-50%, 0);
+                opacity: 1; 
             }
 
             /* Sponsor Section */
@@ -91,13 +105,14 @@
             /* Event Title */
             .event-title {
                 @apply flex items-center justify-center;
-                @apply text-white uppercase text-xl tracking-[2px];
                 @apply bg-[rgb(63,63,63)];
                 height: var(--baseHeight); 
             }
 
             .event-title-container {
+                @apply text-white uppercase text-xl tracking-[2px];
                 @apply flex flex-col items-center justify-center text-center;
+                line-height: 1;
             }
 
             /* .event-title-main {
@@ -105,7 +120,7 @@
             } */
 
             .event-title-sub {
-                @apply text-[0.3em];
+                @apply text-[0.35em] align-bottom tracking-[3px];
                 font-family: Arial, sans-serif;
             }
 
@@ -173,6 +188,16 @@
 
 
 
+            .event-title-img {
+                /* @apply hidden; */
+                /* @apply  max-h-[var(--baseHeight)] max-w-[200px] object-contain; */
+
+                /* style="height: 0.8em; vertical-align: middle; margin-right: 8px;" */
+                width: 270px;
+                height: calc(var(--baseHeight) - 10px);
+                object-fit: contain;
+            }
+
 
 
             /* Control Panel */
@@ -196,6 +221,8 @@
 
             --skewAngle: 0deg;
             --skewAngleRight: 0deg;
+
+            --useLogoTitle: true;
         }
 
         body {
@@ -269,17 +296,29 @@
                 const eventTitleMain = document.querySelector('.event-title-main');
                 const eventTitleSub = document.querySelector('.event-title-sub');
 
-                if (INPUTS.text.EVENT_NAME) {
-                    eventTitleMain.textContent = INPUTS.text.EVENT_NAME.value;
-                } else {
-                    eventTitleMain.textContent = "";
-                }
+                // Check if root is useLogoTitle
+                const rootStyles = getComputedStyle(document.documentElement);
+                const useLogoTitle = rootStyles.getPropertyValue('--useLogoTitle').trim(); // Retrieve and trim the value
 
-                // if (INPUTS.text.BGG_TAGLINE) {
-                //     eventTitleSub.textContent = INPUTS.text.BGG_TAGLINE.value;
-                // } else {
-                //     eventTitleSub.textContent = "";
-                // }
+                const titleImage = document.getElementById('event-title-img');
+                const titleText = document.getElementById('event-title-text');
+
+                if (useLogoTitle === 'true') {
+                    // If true, set main title to logo image
+                    if (INPUTS.file.EVENT_LOGO && INPUTS.file.EVENT_LOGO.value) {
+                        // Hide the text and show the image
+                        titleText.classList.add('hidden');
+                        titleImage.classList.remove('hidden');
+
+                        titleImage.src = INPUTS.file.EVENT_LOGO.value;
+                    }
+                } else {
+                    // Show the text and hide the image
+                    titleText.classList.remove('hidden');
+                    titleImage.classList.add('hidden');
+
+                    titleText.textContent = INPUTS.text.EVENT_NAME.value;
+                }
             }
             updateTitles();
 
@@ -510,8 +549,6 @@
                     // }
                 });
             }
-
-
             updateMaps();
 
 
@@ -539,8 +576,14 @@
 
         }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            fetchData()
+        document.addEventListener('DOMContentLoaded', async () => {
+            // 
+            await fetchData()
+
+            // show scoreboard only when everything is loaded
+
+            document.querySelector('#scoreboard').classList.add('loaded');
+            document.body.classList.add('loaded');
         });
 
 
@@ -581,7 +624,11 @@
         <!-- Event Title Section -->
         <div class="event-title">
             <div class="event-title-container">
-                <p id="event-title-main" class="event-title-main">Summer Bash - Finals</p>
+                <div id="event-title-main" class="event-title-main">
+                    <img id='event-title-img' class="event-title-img hidden" src="https://esportsdash.com/icon.png"
+                        alt="Event Logo" />
+                    <p id="event-title-text">Summer Bash - Finals</p>
+                </div>
                 <p id="event-title-sub" class="event-title-sub">Powered by EsportsDash</p>
             </div>
         </div>
@@ -640,6 +687,8 @@
     <div id="control-panel" class="control-panel">
         <button onclick="toggleSponsor()" class="control-btn">Toggle Sponsor</button>
         <button onclick="toggleEventDesc()" class="control-btn">Toggle Event Description</button>
+
+        <button onclick="useLogoTitle()" class="control-btn">Use Logo Title</button>
     </div>
 
     <script>
@@ -653,6 +702,20 @@
             if (eventDescSection) {
                 eventDescSection.classList.toggle('hidden');
             }
+        }
+
+        function useLogoTitle() {
+            const rootStyles = getComputedStyle(document.documentElement);
+            const useLogoTitle = rootStyles.getPropertyValue('--useLogoTitle').trim();
+
+            if (useLogoTitle === 'true') {
+                document.documentElement.style.setProperty('--useLogoTitle', 'false');
+            } else {
+                document.documentElement.style.setProperty('--useLogoTitle', 'true');
+            }
+
+            // Re-fetch data to update titles
+            fetchData();
         }
     </script>
 </body>
