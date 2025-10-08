@@ -86,10 +86,13 @@
                 @apply bg-[#ffd700] outline-[#ffd700];
             }
 
+
+            
             /* Event Title */
             .event-title {
-                @apply flex items-center justify-center -mx-5 h-full;
-                @apply text-white bg-[rgb(63,63,63)] text-2xl uppercase tracking-[2px];
+                @apply flex items-center justify-center;
+                @apply text-white uppercase text-xl tracking-[2px];
+                @apply bg-[rgb(63,63,63)];
                 height: var(--baseHeight); 
             }
 
@@ -97,12 +100,12 @@
                 @apply flex flex-col items-center justify-center text-center;
             }
 
-            .event-title-main {
+            /* .event-title-main {
                 @apply m-0 p-0;
-            }
+            } */
 
             .event-title-sub {
-                @apply m-0 p-0 text-[0.3em];
+                @apply text-[0.3em];
                 font-family: Arial, sans-serif;
             }
 
@@ -272,11 +275,11 @@
                     eventTitleMain.textContent = "";
                 }
 
-                if (INPUTS.text.BGG_TAGLINE) {
-                    eventTitleSub.textContent = INPUTS.text.BGG_TAGLINE.value;
-                } else {
-                    eventTitleSub.textContent = "";
-                }
+                // if (INPUTS.text.BGG_TAGLINE) {
+                //     eventTitleSub.textContent = INPUTS.text.BGG_TAGLINE.value;
+                // } else {
+                //     eventTitleSub.textContent = "";
+                // }
             }
             updateTitles();
 
@@ -579,7 +582,7 @@
         <div class="event-title">
             <div class="event-title-container">
                 <p id="event-title-main" class="event-title-main">Summer Bash - Finals</p>
-                <p id="event-title-sub" class="event-title-sub">Brought to you by EsportsDash</p>
+                <p id="event-title-sub" class="event-title-sub">Powered by EsportsDash</p>
             </div>
         </div>
 
