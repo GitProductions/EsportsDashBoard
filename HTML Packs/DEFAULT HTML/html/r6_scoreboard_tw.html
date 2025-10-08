@@ -43,7 +43,8 @@
 
             .sponsor-section::before {
                 content: "";
-                @apply absolute inset-0 bg-white border-r-[3px] border-[#0c0c0c] z-0;
+                @apply absolute inset-0 border-r-[3px] border-[#0c0c0c] z-0;
+                background-color: var(--sponsor-bg-color);
                 transform: skew(var(--skewAngle));
             }
 
@@ -61,7 +62,8 @@
 
             /* Team Info */
             .team-info {
-                @apply relative h-full flex items-center justify-center gap-2.5 bg-white  z-[2];
+                @apply relative h-full flex items-center justify-center gap-2.5  z-[2];
+                background-color: var(--team-bg-color);
                 height: var(--baseHeight); 
             }
 
@@ -107,7 +109,7 @@
             /* Event Title */
             .event-title {
                 @apply flex items-center justify-center;
-                @apply bg-[rgb(63,63,63)];
+                background-color: var(--center-bg-color);
                 height: var(--baseHeight); 
             }
 
@@ -154,12 +156,15 @@
 
 
             .map-item.selected::before {
-                @apply border-b-[2px] border-[#ffd700];
+                @apply border-b-[2px];
+                border-color: var(--map-active-color);
                 z-index: 15;
             }
 
             .map-item.selected .map-name {
-                @apply bg-[#ffd700] text-black;
+                /* @apply bg-[#ffd700] text-black; */
+                background-color: var(--map-active-color);
+                color: var(--map-text-active-color);
                 transition: background-color 1.5s ease-in-out;
             }
 
@@ -225,14 +230,17 @@
             --baseHeight: 58px;
             --logoSize: 50px;
             --scaleOverlay: 1.0;
-            
-
 
             --skewAngle: 0deg;
             --skewAngleRight: 0deg;
 
+            /* Dynamic color for sponsor background */
+            --sponsor-bg-color: #ffffff;
+            --team-bg-color: #ffffff;
+            --center-bg-color: #3f3f3f;
 
-  
+            --map-active-color: #ffd700;
+            --map-text-active-color: #000000;
 
             /* --useLogoTitle: true; */
         }
@@ -250,7 +258,7 @@
 
         // check url params
 
-        let useTeamColor_Markers = false; // if true, scoremarkers will use team color if set, else use default gold color
+        let useTeamColor_Markers = true; // if true, scoremarkers will use team color if set, else use default gold color
         let useLogoTitle = false; // if true, event title will use logo if set, else use text title
 
         // let BRAND_COLORS = {
@@ -275,6 +283,17 @@
             let color2 = COLORS.BGG_C2.value;
             let color3 = COLORS.BGG_C3.value;
             let color4 = COLORS.BGG_C4.value;
+            let color5 = COLORS.BGG_C5.value;
+
+            // Update CSS custom properties with dynamic colors
+            document.documentElement.style.setProperty('--sponsor-bg-color', color1);
+            document.documentElement.style.setProperty('--team-bg-color', color1);
+
+            document.documentElement.style.setProperty('--center-bg-color', color3);
+
+
+            // document.documentElement.style.setProperty('--map-active-color', color3);
+            // document.documentElement.style.setProperty('--map-text-active-color', color1);
 
             console.log(fullJson);
 
