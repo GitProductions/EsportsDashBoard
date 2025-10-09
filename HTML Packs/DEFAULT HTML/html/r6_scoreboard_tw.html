@@ -5,6 +5,7 @@
     <title>Overlay | esportsdash.com</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Russo+One&display=swap" />
+    <script src="https://cdn.socket.io/4.0.1/socket.io.min.js"></script>
 
     <style type="text/tailwindcss">
         @layer components {
@@ -235,24 +236,25 @@
             --skewAngle: 0deg;
             --skewAngleRight: 0deg;
 
-            /* Dynamic color for sponsor background */
+            /* if sponsor icon is white, maybe we should by default add an outline/shadow to items? */
             --sponsor-bg-color: #ffffff;
+
             --team-bg-color: #ffffff;
-            --team-text-color: black;
+            --team-text-color: #131313;
 
 
             --center-bg-color: #ffffff;
             --center-text-color: #131313;
 
             --map-active-color: #ffd700;
-            --map-text-active-color: #000000;
+            --map-text-active-color: #131313;
 
         }
 
         body {
             font-family: 'Russo One', 'Orbitron', 'Rajdhani-Regular', sans-serif;
             /* background-image: url('../GameImages/overwatch-sample.png'); */
-            /* background-image: url('../GameImages/r6-sample-preview.jpg'); */
+            background-image: url('../GameImages/r6-sample-preview.jpg');
             background-size: cover;
             margin: 0;
         }
@@ -262,13 +264,10 @@
     <script>
         let useTeamColor_Markers = false; // if true, scoremarkers will use team color if set, else use default gold color
         let useLogoTitle = false; // if true, event title will use logo if set, else use text title
-
-        // let BRAND_COLORS = {
-        //     color1: '#3f3f3f',
-        //     color2: '#5e5e5e',
-        //     color3: '#7f7f7f',
-        //     color4: '#ffd700'
-        // }
+        let isServerAvailable = false;
+        let manualFetchInterval = null;
+        let retryCount = 0;
+        const maxRetries = 5;
 
         // Update CSS custom properties with dynamic colors
         function brightenHexColor(hex, percent) {
@@ -289,195 +288,210 @@
         }
 
         const fetchData = async () => {
-            let fullJson = await fetch(`http://localhost:8080/getFullJson`);
-            fullJson = await fullJson.json();
-
-            // assigning main variables
-            let INPUTS = fullJson.general
-            let COLORS = fullJson.general.color
-            let TEAMDATA = fullJson.teams
-            let MAPDATA = fullJson.maps
-
-            // setting the base colors
-            let color1 = COLORS.BGG_C1.value;
-            let color2 = COLORS.BGG_C2.value;
-            let color3 = COLORS.BGG_C3.value;
-            let color4 = COLORS.BGG_C4.value;
-            let color5 = COLORS.BGG_C5.value;
-
-
-
-
-            document.documentElement.style.setProperty('--sponsor-bg-color', brightenHexColor(color4, 50));
-
-            document.documentElement.style.setProperty('--team-bg-color', color1);
-
-            // document.documentElement.style.setProperty('--center-bg-color', 'linear-gradient(90deg, ' + color1 + ' 0%, ' + brightenHexColor(color3, 30) + ' 50% , ' + color1 + ' 100%)');
-            document.documentElement.style.setProperty('--center-bg-color', 'linear-gradient(90deg, ' + color1 + ' 0%, ' + color1 + ' 100%)');
-
-            document.documentElement.style.setProperty('--center-text-color', color2)
-
-
-            // document.documentElement.style.setProperty('--map-active-color', color3);
-            // document.documentElement.style.setProperty('--map-text-active-color', color1);
-
-            // console.log(fullJson);
-
-
-            let team1Logo = TEAMDATA.team1.teamLogoUrl;
-            let team2Logo = TEAMDATA.team2.teamLogoUrl;
-
-            function updateLogos() {
-                const team1LogoElement = document.getElementById('team-1-logo');
-                const team2LogoElement = document.getElementById('team-2-logo');
-
-                if (team1Logo) {
-                    team1LogoElement.src = team1Logo;
+            try {
+                let fullJson = await fetch(`http://localhost:8080/getFullJson`);
+                if (!fullJson.ok) {
+                    throw new Error(`HTTP error! status: ${fullJson.status}`);
                 }
+                fullJson = await fullJson.json();
+                
+                // Server is available if we reach here
+                isServerAvailable = true;
+                retryCount = 0;
 
-                if (team2Logo) {
-                    team2LogoElement.src = team2Logo;
-                }
-            }
-            updateLogos();
+                // assigning main variables
+                let INPUTS = fullJson.general
+                let COLORS = fullJson.general.color
+                let TEAMDATA = fullJson.teams
+                let MAPDATA = fullJson.maps
+
+                // setting the base colors
+                let color1 = COLORS.BGG_C1.value;
+                let color2 = COLORS.BGG_C2.value;
+                let color3 = COLORS.BGG_C3.value;
+                let color4 = COLORS.BGG_C4.value;
+                let color5 = COLORS.BGG_C5.value;
 
 
 
-            function updateScore(team, teamContainer) {
-                const markers = teamContainer.querySelectorAll('.scoremarker');
-                const teamColor = team.teamColor || '#ffd700'; // Fallback color
 
-                // Reset all markers
-                markers.forEach(marker => {
-                    marker.style.backgroundColor = '#1111115e'; // Default inactive background
-                    marker.style.outlineColor = '#5e5e5e'; // Default inactive outline
-                });
+                document.documentElement.style.setProperty('--sponsor-bg-color', brightenHexColor(color4, 50));
+
+                document.documentElement.style.setProperty('--team-bg-color', color1);
+
+                // document.documentElement.style.setProperty('--center-bg-color', 'linear-gradient(90deg, ' + color1 + ' 0%, ' + brightenHexColor(color3, 30) + ' 50% , ' + color1 + ' 100%)');
+                document.documentElement.style.setProperty('--center-bg-color', 'linear-gradient(90deg, ' + color1 + ' 0%, ' + color1 + ' 100%)');
+
+                document.documentElement.style.setProperty('--center-text-color', color2)
 
 
+                // document.documentElement.style.setProperty('--map-active-color', color3);
+                // document.documentElement.style.setProperty('--map-text-active-color', color1);
 
-                // Set active markers with team color
-                if (useTeamColor_Markers) {
-                    for (let i = 0; i < team.teamScore; i++) {
-                        markers[i].style.backgroundColor = teamColor;
-                        markers[i].style.outlineColor = brightenHexColor(teamColor, 50);
+                // console.log(fullJson);
+
+
+                let team1Logo = TEAMDATA.team1.teamLogoUrl;
+                let team2Logo = TEAMDATA.team2.teamLogoUrl;
+
+                function updateLogos() {
+                    const team1LogoElement = document.getElementById('team-1-logo');
+                    const team2LogoElement = document.getElementById('team-2-logo');
+
+                    if (team1Logo) {
+                        team1LogoElement.src = team1Logo;
                     }
-                } else {
-                    for (let i = 0; i < team.teamScore; i++) {
-                        // default active colors
-                        markers[i].style.backgroundColor = color3;
-                        markers[i].style.outlineColor = brightenHexColor(color3, 35);
+
+                    if (team2Logo) {
+                        team2LogoElement.src = team2Logo;
                     }
                 }
-            }
-
-            // Update scores for each team
-            const team1Container = document.getElementById('team-1-info');
-            const team2Container = document.getElementById('team-2-info');
-            updateScore(TEAMDATA.team1, team1Container);
-            updateScore(TEAMDATA.team2, team2Container);
+                updateLogos();
 
 
 
+                function updateScore(team, teamContainer) {
+                    const markers = teamContainer.querySelectorAll('.scoremarker');
+                    const teamColor = team.teamColor || '#ffd700'; // Fallback color
 
-            function updateTitles() {
-                // const eventTitleSub = document.getElementById('event-title-sub');
-
-                const titleImage = document.getElementById('event-title-img');
-                const titleText = document.getElementById('event-title-text');
-
-                if (useLogoTitle === true) {
-                    // If true, set main title to logo image
-                    if (INPUTS.file.EVENT_LOGO && INPUTS.file.EVENT_LOGO.value) {
-                        // Hide the text and show the image
-                        titleText.classList.add('hidden');
-                        titleImage.classList.remove('hidden');
-
-                        titleImage.src = INPUTS.file.EVENT_LOGO.value;
-                    }
-                } else {
-                    // Show the text and hide the image
-                    titleText.classList.remove('hidden');
-                    titleImage.classList.add('hidden');
-
-                    titleText.textContent = INPUTS.text.EVENT_TITLE.value;
-                }
-            }
-            updateTitles();
+                    // Reset all markers
+                    markers.forEach(marker => {
+                        marker.style.backgroundColor = '#1111115e'; // Default inactive background
+                        marker.style.outlineColor = '#5e5e5e'; // Default inactive outline
+                    });
 
 
-            function updateMaps() {
-                const mapsContainer = document.querySelector('.maps-container');
 
-                // Loop through each map-item and set if selected, and set map-name class
-                const mapDataArray = MAPDATA.mapData;
-                mapDataArray.forEach((map, index) => {
-                    const mapItem = mapsContainer.querySelectorAll('.map-item')[index];
-                    if (!mapItem) return;
-
-                    // Hide 'hidden/missing' maps
-                    const mapImageElement = mapItem.querySelector('.map-img');
-                    if (index < MAPDATA.totalMaps) {
-                        mapItem.classList.remove('hidden'); // Show the map
+                    // Set active markers with team color
+                    if (useTeamColor_Markers) {
+                        for (let i = 0; i < team.teamScore; i++) {
+                            markers[i].style.backgroundColor = teamColor;
+                            markers[i].style.outlineColor = brightenHexColor(teamColor, 50);
+                        }
                     } else {
-                        mapItem.classList.add('hidden'); // Hide the map
+                        for (let i = 0; i < team.teamScore; i++) {
+                            // default active colors
+                            markers[i].style.backgroundColor = color3;
+                            markers[i].style.outlineColor = brightenHexColor(color3, 35);
+                        }
                     }
+                }
 
-                    // Set Map Image
-                    if (map.mapImage) {
-                        mapImageElement.src = map.mapImage;
-                    }
+                // Update scores for each team
+                const team1Container = document.getElementById('team-1-info');
+                const team2Container = document.getElementById('team-2-info');
+                updateScore(TEAMDATA.team1, team1Container);
+                updateScore(TEAMDATA.team2, team2Container);
 
-                    // Check & Set Map Winner
-                    const winnerLogoElement = mapItem.querySelector('.map-winner-logo');
-                    if (map.completed && map.winner && map.winner.teamLogoUrl) {
-                        winnerLogoElement.src = map.winner.teamLogoUrl;
-                        winnerLogoElement.classList.remove('hidden');
-                        mapImageElement.classList.add('isWinner');
+
+
+
+                function updateTitles() {
+                    // const eventTitleSub = document.getElementById('event-title-sub');
+
+                    const titleImage = document.getElementById('event-title-img');
+                    const titleText = document.getElementById('event-title-text');
+
+                    if (useLogoTitle === true) {
+                        // If true, set main title to logo image
+                        if (INPUTS.file.EVENT_LOGO && INPUTS.file.EVENT_LOGO.value) {
+                            // Hide the text and show the image
+                            titleText.classList.add('hidden');
+                            titleImage.classList.remove('hidden');
+
+                            titleImage.src = INPUTS.file.EVENT_LOGO.value;
+                        }
                     } else {
-                        winnerLogoElement.classList.add('hidden');
-                        mapImageElement.classList.remove('isWinner');
-                    }
+                        // Show the text and hide the image
+                        titleText.classList.remove('hidden');
+                        titleImage.classList.add('hidden');
 
-                    // Highlight the current live map
-                    if (MAPDATA.selectedMap && map.selectedMap === MAPDATA.selectedMap.map) {
-                        mapItem.classList.add('selected');
-                    } else {
-                        mapItem.classList.remove('selected');
+                        titleText.textContent = INPUTS.text.EVENT_TITLE.value;
                     }
-                });
+                }
+                updateTitles();
 
-                // Hide any extra map items beyond the length of mapDataArray
-                const extraMapItems = mapsContainer.querySelectorAll('.map-item');
-                for (let i = mapDataArray.length; i < extraMapItems.length; i++) {
-                    extraMapItems[i].classList.add('hidden');
+
+                function updateMaps() {
+                    const mapsContainer = document.querySelector('.maps-container');
+
+                    // Loop through each map-item and set if selected, and set map-name class
+                    const mapDataArray = MAPDATA.mapData;
+                    mapDataArray.forEach((map, index) => {
+                        const mapItem = mapsContainer.querySelectorAll('.map-item')[index];
+                        if (!mapItem) return;
+
+                        // Hide 'hidden/missing' maps
+                        const mapImageElement = mapItem.querySelector('.map-img');
+                        if (index < MAPDATA.totalMaps) {
+                            mapItem.classList.remove('hidden'); // Show the map
+                        } else {
+                            mapItem.classList.add('hidden'); // Hide the map
+                        }
+
+                        // Set Map Image
+                        if (map.mapImage) {
+                            mapImageElement.src = map.mapImage;
+                        }
+
+                        // Check & Set Map Winner
+                        const winnerLogoElement = mapItem.querySelector('.map-winner-logo');
+                        if (map.completed && map.winner && map.winner.teamLogoUrl) {
+                            winnerLogoElement.src = map.winner.teamLogoUrl;
+                            winnerLogoElement.classList.remove('hidden');
+                            mapImageElement.classList.add('isWinner');
+                        } else {
+                            winnerLogoElement.classList.add('hidden');
+                            mapImageElement.classList.remove('isWinner');
+                        }
+
+                        // Highlight the current live map
+                        if (MAPDATA.selectedMap && map.selectedMap === MAPDATA.selectedMap.map) {
+                            mapItem.classList.add('selected');
+                        } else {
+                            mapItem.classList.remove('selected');
+                        }
+                    });
+
+                    // Hide any extra map items beyond the length of mapDataArray
+                    const extraMapItems = mapsContainer.querySelectorAll('.map-item');
+                    for (let i = mapDataArray.length; i < extraMapItems.length; i++) {
+                        extraMapItems[i].classList.add('hidden');
+                    }
+                }
+                updateMaps();
+
+
+
+
+                function updateSponsors() {
+                    // update 'sponsors' section
+                    const sponsor1 = document.getElementById('sponsor-1');
+                    const sponsor2 = document.getElementById('sponsor-2');
+
+                    const sponsorObj = {
+                        sponsor1: INPUTS.file.SPONSOR_1.value ? INPUTS.file.SPONSOR_1.value : INPUTS.file.BGG_L1.value,
+                        sponsor2: INPUTS.file.SPONSOR_2.value ? INPUTS.file.SPONSOR_2.value : INPUTS.file.BGG_L2.value,
+                    }
+                    if (sponsorObj.sponsor1) {
+                        sponsor1.src = sponsorObj.sponsor1;
+                    }
+                    if (sponsorObj.sponsor2) {
+                        sponsor2.src = sponsorObj.sponsor2;
+                    }
+                }
+
+                updateSponsors();
+            } catch (error) {
+                console.warn('Failed to fetch data:', error.message);
+                isServerAvailable = false;
+                
+                // If scoreboard hasn't loaded yet, show it anyway with default data
+                if (!document.querySelector('#scoreboard').classList.contains('loaded')) {
+                    document.querySelector('#scoreboard').classList.add('loaded');
                 }
             }
-            updateMaps();
-
-
-
-
-            function updateSponsors() {
-                // update 'sponsors' section
-                const sponsor1 = document.getElementById('sponsor-1');
-                const sponsor2 = document.getElementById('sponsor-2');
-
-                const sponsorObj = {
-                    sponsor1: INPUTS.file.SPONSOR_1.value ? INPUTS.file.SPONSOR_1.value : INPUTS.file.BGG_L1.value,
-                    sponsor2: INPUTS.file.SPONSOR_2.value ? INPUTS.file.SPONSOR_2.value : INPUTS.file.BGG_L2.value,
-                }
-                if (sponsorObj.sponsor1) {
-                    sponsor1.src = sponsorObj.sponsor1;
-                }
-                if (sponsorObj.sponsor2) {
-                    sponsor2.src = sponsorObj.sponsor2;
-                }
-            }
-
-            updateSponsors();
         }
-
-
 
         document.addEventListener('DOMContentLoaded', async () => {
             // Check URL parameters for team color usage
@@ -491,20 +505,129 @@
                 useLogoTitle = true;
             }
 
-            await fetchData()
-
-            // show scoreboard only when everything is loaded
-
-            document.querySelector('#scoreboard').classList.add('loaded');
-            document.body.classList.add('loaded');
+            // Try to connect to socket first
+            await attemptSocketConnection();
+            
+            // If socket fails, start manual fetch immediately
+            if (!isServerAvailable) {
+                console.log('Server unavailable, starting manual fetch mode');
+                startManualFetch();
+            }
         });
 
+        async function attemptSocketConnection() {
+            return new Promise((resolve) => {
+                const socket = io('http://localhost:8080', {
+                    timeout: 5000,
+                    forceNew: true,
+                    autoConnect: true
+                });
+
+                const connectionTimeout = setTimeout(() => {
+                    console.log('Socket connection timeout');
+                    socket.disconnect();
+                    resolve(false);
+                }, 5000);
+
+                socket.on("connect", async () => {
+                    console.log('Socket connected');
+                    clearTimeout(connectionTimeout);
+                    isServerAvailable = true;
+                    
+                    // Clear any existing manual fetch interval
+                    if (manualFetchInterval) {
+                        clearInterval(manualFetchInterval);
+                        manualFetchInterval = null;
+                    }
+
+                    await fetchData();
+                    document.querySelector('#scoreboard').classList.add('loaded');
+                    
+                    setupSocketEvents(socket);
+                    resolve(true);
+                });
+
+                socket.on("connect_error", (error) => {
+                    // console.log('Socket connection error:', error.message);
+                    clearTimeout(connectionTimeout);
+                    isServerAvailable = false;
+                    resolve(false);
+                });
+
+                socket.on("disconnect", (reason) => {
+                    console.log('Socket disconnected:', reason);
+                    isServerAvailable = false;
+                    
+                    // Start manual fetch as fallback
+                    if (reason !== 'io client disconnect') {
+                        startManualFetch();
+                    }
+                });
+            });
+        }
+
+        function setupSocketEvents(socket) {
+            socket.emit('joinRoom', {
+                room: 'matchData',
+                source: 'esportsdash-r6'
+            });
+
+            socket.on("updateMatchData", (data) => {
+                fetchData();
+            });
+        }
+
+        function startManualFetch() {
+            // Don't start multiple intervals
+            if (manualFetchInterval) {
+                return;
+            }
+
+            // Initial fetch attempt
+            fetchData();
+
+            // Calculate retry delay with exponential backoff
+            const getRetryDelay = () => {
+                const baseDelay = 3000; // 3 seconds
+                const maxDelay = 30000; // 30 seconds
+                const delay = Math.min(baseDelay * Math.pow(2, retryCount), maxDelay);
+                return delay;
+            };
+
+            manualFetchInterval = setInterval(async () => {
+                if (isServerAvailable) {
+                    // If server is back, try to reconnect socket
+                    console.log('Server seems available, attempting socket reconnection...');
+                    clearInterval(manualFetchInterval);
+                    manualFetchInterval = null;
+                    
+                    const connected = await attemptSocketConnection();
+                    if (!connected) {
+                        // If socket still fails, continue manual fetch
+                        startManualFetch();
+                    }
+                } else {
+                    // Try to fetch data
+                    await fetchData();
+                    
+                    if (!isServerAvailable) {
+                        retryCount = Math.min(retryCount + 1, maxRetries);
+                        
+                        // Restart interval with new delay
+                        clearInterval(manualFetchInterval);
+                        manualFetchInterval = null;
+                        
+                        setTimeout(() => {
+                            if (!isServerAvailable) {
+                                startManualFetch();
+                            }
+                        }, getRetryDelay());
+                    }
+                }
+            }, getRetryDelay());
+        }
 
 
-        // Polling every 3 seconds
-        setInterval(() => {
-            fetchData()
-        }, 3000);
     </script>
 </head>
 
@@ -608,7 +731,7 @@
         <button onclick="toggleLogoTitle()" class="control-btn">Use Logo Title</button>
     </div> -->
 
-    <script>
+    <!-- <script>
         function toggleSponsor() {
             const sponsorSection = document.getElementById('sponsor-section');
             sponsorSection.classList.toggle('hidden');
@@ -625,7 +748,7 @@
             useLogoTitle = !useLogoTitle;
         }
 
-    </script>
+    </script> -->
 </body>
 
 </html>
