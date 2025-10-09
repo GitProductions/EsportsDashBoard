@@ -109,24 +109,21 @@
             /* Event Title */
             .event-title {
                 @apply flex items-center justify-center;
-                background-color: var(--center-bg-color);
+                background-image: var(--center-bg-color);
                 height: var(--baseHeight); 
             }
 
             .event-title-container {
                 @apply uppercase text-xl tracking-[2px];
                 @apply flex flex-col items-center justify-center text-center;
-                color: var(--center-text-color, white);
-                
-                /* background-color: rgb(223, 215, 215); */
-                height: calc(var(--baseHeight));
-
                 line-height: 1;
+
+                -webkit-text-stroke: 0.5px black;
+                color: var(--center-text-color, white);
+                height: calc(var(--baseHeight));
             }
 
-            /* .event-title-main {
-                @apply m-0 p-0;
-            } */
+   
 
             .event-title-sub {
                 @apply text-[0.4em] align-bottom tracking-[3px];
@@ -167,7 +164,6 @@
             }
 
             .map-item.selected .map-name {
-                /* @apply bg-[#ffd700] text-black; */
                 background-color: var(--map-active-color);
                 color: var(--map-text-active-color);
                 transition: background-color 1.5s ease-in-out;
@@ -251,7 +247,6 @@
             --map-active-color: #ffd700;
             --map-text-active-color: #000000;
 
-            /* --useLogoTitle: true; */
         }
 
         body {
@@ -264,9 +259,6 @@
 
 
     <script>
-
-        // check url params
-
         let useTeamColor_Markers = false; // if true, scoremarkers will use team color if set, else use default gold color
         let useLogoTitle = false; // if true, event title will use logo if set, else use text title
 
@@ -276,6 +268,24 @@
         //     color3: '#7f7f7f',
         //     color4: '#ffd700'
         // }
+
+        // Update CSS custom properties with dynamic colors
+        function brightenHexColor(hex, percent) {
+            hex = hex.replace('#', '');
+
+            // Parse RGB values
+            const r = parseInt(hex.substr(0, 2), 16);
+            const g = parseInt(hex.substr(2, 2), 16);
+            const b = parseInt(hex.substr(4, 2), 16);
+
+            // Brighten each component
+            const newR = Math.min(255, Math.round(r + (255 - r) * (percent / 100)));
+            const newG = Math.min(255, Math.round(g + (255 - g) * (percent / 100)));
+            const newB = Math.min(255, Math.round(b + (255 - b) * (percent / 100)));
+
+            // Convert back to hex
+            return `#${newR.toString(16).padStart(2, '0')}${newG.toString(16).padStart(2, '0')}${newB.toString(16).padStart(2, '0')}`;
+        }
 
         const fetchData = async () => {
             let fullJson = await fetch(`http://localhost:8080/getFullJson`);
@@ -294,30 +304,15 @@
             let color4 = COLORS.BGG_C4.value;
             let color5 = COLORS.BGG_C5.value;
 
-            // Update CSS custom properties with dynamic colors
-            function brightenHexColor(hex, percent) {
-                hex = hex.replace('#', '');
-                
-                // Parse RGB values
-                const r = parseInt(hex.substr(0, 2), 16);
-                const g = parseInt(hex.substr(2, 2), 16);
-                const b = parseInt(hex.substr(4, 2), 16);
 
-                // Brighten each component
-                const newR = Math.min(255, Math.round(r + (255 - r) * (percent / 100)));
-                const newG = Math.min(255, Math.round(g + (255 - g) * (percent / 100)));
-                const newB = Math.min(255, Math.round(b + (255 - b) * (percent / 100)));
-
-                // Convert back to hex
-                return `#${newR.toString(16).padStart(2, '0')}${newG.toString(16).padStart(2, '0')}${newB.toString(16).padStart(2, '0')}`;
-            }
 
 
             document.documentElement.style.setProperty('--sponsor-bg-color', brightenHexColor(color4, 50));
-            
+
             document.documentElement.style.setProperty('--team-bg-color', color1);
 
-            document.documentElement.style.setProperty('--center-bg-color', color1);
+            // document.documentElement.style.setProperty('--center-bg-color', 'linear-gradient(90deg, ' + color1 + ' 0%, ' + brightenHexColor(color3, 30) + ' 50% , ' + color1 + ' 100%)');
+            document.documentElement.style.setProperty('--center-bg-color', 'linear-gradient(90deg, ' + color1 + ' 0%, ' + color1 + ' 100%)');
 
             document.documentElement.style.setProperty('--center-text-color', color2)
 
@@ -409,181 +404,6 @@
             updateTitles();
 
 
-
-
-
-
-            //             {
-            //     "totalMaps": 9,
-            //     "selectedMap": {
-            //         "map": "",
-            //         "selectedMode": "TBA",
-            //         "team1Score": 0,
-            //         "team2Score": 0,
-            //         "modeImage": "http://localhost:8080/files/defaults/default_map.png"
-            //     },
-            //     "upNext": {
-            //         "selectedMap": null,
-            //         "mapImage": null,
-            //         "mode": "TBA",
-            //         "modeImage": "http://localhost:8080/files/defaults/default_map.png",
-            //         "team1Score": 0,
-            //         "team2Score": 0,
-            //         "completed": false,
-            //         "hidden": false
-            //     },
-            //     "mapData": [
-            //         {
-            //             "selectedMode": "TBA",
-            //             "map": "",
-            //             "team1Score": 0,
-            //             "team2Score": 0,
-            //             "completed": false,
-            //             "hidden": false,
-            //             "modeImage": "http://localhost:8080/files/defaults/default_map.png",
-            //             "winner": {
-            //                 "teamNumber": "",
-            //                 "teamName": "",
-            //                 "teamScore": 0,
-            //                 "teamLogoUrl": "",
-            //                 "teamColor": "#ffffff"
-            //             }
-            //         },
-            //         {
-            //             "selectedMode": "TBA",
-            //             "map": "",
-            //             "team1Score": 0,
-            //             "team2Score": 0,
-            //             "completed": false,
-            //             "hidden": false,
-            //             "modeImage": "http://localhost:8080/files/defaults/default_map.png",
-            //             "winner": {
-            //                 "teamNumber": "",
-            //                 "teamName": "",
-            //                 "teamScore": 0,
-            //                 "teamLogoUrl": "",
-            //                 "teamColor": "#ffffff"
-            //             }
-            //         },
-            //         {
-            //             "selectedMode": "TBA",
-            //             "map": "",
-            //             "team1Score": 0,
-            //             "team2Score": 0,
-            //             "completed": false,
-            //             "hidden": false,
-            //             "modeImage": "http://localhost:8080/files/defaults/default_map.png",
-            //             "winner": {
-            //                 "teamNumber": "",
-            //                 "teamName": "",
-            //                 "teamScore": 0,
-            //                 "teamLogoUrl": "",
-            //                 "teamColor": "#ffffff"
-            //             }
-            //         },
-            //         {
-            //             "selectedMode": "TBA",
-            //             "map": "",
-            //             "team1Score": 0,
-            //             "team2Score": 0,
-            //             "completed": false,
-            //             "hidden": false,
-            //             "modeImage": "http://localhost:8080/files/defaults/default_map.png",
-            //             "winner": {
-            //                 "teamNumber": "",
-            //                 "teamName": "",
-            //                 "teamScore": 0,
-            //                 "teamLogoUrl": "",
-            //                 "teamColor": "#ffffff"
-            //             }
-            //         },
-            //         {
-            //             "selectedMode": "TBA",
-            //             "map": "",
-            //             "team1Score": 0,
-            //             "team2Score": 0,
-            //             "completed": false,
-            //             "hidden": false,
-            //             "modeImage": "http://localhost:8080/files/defaults/default_map.png",
-            //             "winner": {
-            //                 "teamNumber": "",
-            //                 "teamName": "",
-            //                 "teamScore": 0,
-            //                 "teamLogoUrl": "",
-            //                 "teamColor": "#ffffff"
-            //             }
-            //         },
-            //         {
-            //             "selectedMode": "TBA",
-            //             "map": "",
-            //             "team1Score": 0,
-            //             "team2Score": 0,
-            //             "completed": false,
-            //             "hidden": false,
-            //             "modeImage": "http://localhost:8080/files/defaults/default_map.png",
-            //             "winner": {
-            //                 "teamNumber": "",
-            //                 "teamName": "",
-            //                 "teamScore": 0,
-            //                 "teamLogoUrl": "",
-            //                 "teamColor": "#ffffff"
-            //             }
-            //         },
-            //         {
-            //             "selectedMode": "TBA",
-            //             "map": "",
-            //             "team1Score": 0,
-            //             "team2Score": 0,
-            //             "completed": false,
-            //             "hidden": false,
-            //             "modeImage": "http://localhost:8080/files/defaults/default_map.png",
-            //             "winner": {
-            //                 "teamNumber": "",
-            //                 "teamName": "",
-            //                 "teamScore": 0,
-            //                 "teamLogoUrl": "",
-            //                 "teamColor": "#ffffff"
-            //             }
-            //         },
-            //         {
-            //             "selectedMode": "TBA",
-            //             "map": "",
-            //             "team1Score": 0,
-            //             "team2Score": 0,
-            //             "completed": false,
-            //             "hidden": false,
-            //             "modeImage": "http://localhost:8080/files/defaults/default_map.png",
-            //             "winner": {
-            //                 "teamNumber": "",
-            //                 "teamName": "",
-            //                 "teamScore": 0,
-            //                 "teamLogoUrl": "",
-            //                 "teamColor": "#ffffff"
-            //             }
-            //         },
-            //         {
-            //             "selectedMode": "TBA",
-            //             "map": "",
-            //             "team1Score": 0,
-            //             "team2Score": 0,
-            //             "completed": false,
-            //             "hidden": false,
-            //             "modeImage": "http://localhost:8080/files/defaults/default_map.png",
-            //             "winner": {
-            //                 "teamNumber": "",
-            //                 "teamName": "",
-            //                 "teamScore": 0,
-            //                 "teamLogoUrl": "",
-            //                 "teamColor": "#ffffff"
-            //             }
-            //         }
-            //     ]
-            // }
-
-
-
-
-
             function updateMaps() {
                 const mapsContainer = document.querySelector('.maps-container');
 
@@ -654,12 +474,12 @@
                     sponsor2.src = sponsorObj.sponsor2;
                 }
             }
+
             updateSponsors();
-
-
-
         }
 
+
+        
         document.addEventListener('DOMContentLoaded', async () => {
             // Check URL parameters for team color usage
             const urlParams = new URLSearchParams(window.location.search);
@@ -671,7 +491,6 @@
                 const useLogoTitleParam = urlParams.has('useLogoTitle')
                 useLogoTitle = true;
             }
-
 
             await fetchData()
 
