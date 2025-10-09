@@ -252,7 +252,7 @@
         body {
             font-family: 'Russo One', 'Orbitron', 'Rajdhani-Regular', sans-serif;
             /* background-image: url('../GameImages/overwatch-sample.png'); */
-            background-image: url('../GameImages/r6-sample-preview.jpg');
+            /* background-image: url('../GameImages/r6-sample-preview.jpg'); */
             background-size: cover;
             margin: 0;
         }
@@ -410,8 +410,6 @@
 
                 // Loop through each map-item and set if selected, and set map-name class
                 const mapDataArray = MAPDATA.mapData;
-                console.log(mapDataArray);
-
                 mapDataArray.forEach((map, index) => {
                     const mapItem = mapsContainer.querySelectorAll('.map-item')[index];
                     if (!mapItem) return;
@@ -603,12 +601,12 @@
     </div>
 
     <!-- Control panel for toggling sections -->
-    <div id="control-panel" class="control-panel">
+    <!-- <div id="control-panel" class="control-panel">
         <button onclick="toggleSponsor()" class="control-btn">Toggle Sponsor</button>
         <button onclick="toggleEventDesc()" class="control-btn">Toggle Event Description</button>
 
         <button onclick="toggleLogoTitle()" class="control-btn">Use Logo Title</button>
-    </div>
+    </div> -->
 
     <script>
         function toggleSponsor() {
