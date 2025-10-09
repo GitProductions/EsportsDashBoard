@@ -114,8 +114,9 @@
             }
 
             .event-title-container {
-                @apply text-white uppercase text-xl tracking-[2px];
+                @apply uppercase text-xl tracking-[2px];
                 @apply flex flex-col items-center justify-center text-center;
+                color: var(--center-text-color, white);
                 line-height: 1;
             }
 
@@ -237,7 +238,11 @@
             /* Dynamic color for sponsor background */
             --sponsor-bg-color: #ffffff;
             --team-bg-color: #ffffff;
+            --team-text-color: black;
+
+
             --center-bg-color: #3f3f3f;
+            --center-text-color: white;
 
             --map-active-color: #ffd700;
             --map-text-active-color: #000000;
@@ -286,10 +291,31 @@
             let color5 = COLORS.BGG_C5.value;
 
             // Update CSS custom properties with dynamic colors
-            document.documentElement.style.setProperty('--sponsor-bg-color', color1);
+            function brightenHexColor(hex, percent) {
+                hex = hex.replace('#', '');
+                
+                // Parse RGB values
+                const r = parseInt(hex.substr(0, 2), 16);
+                const g = parseInt(hex.substr(2, 2), 16);
+                const b = parseInt(hex.substr(4, 2), 16);
+
+                // Brighten each component
+                const newR = Math.min(255, Math.round(r + (255 - r) * (percent / 100)));
+                const newG = Math.min(255, Math.round(g + (255 - g) * (percent / 100)));
+                const newB = Math.min(255, Math.round(b + (255 - b) * (percent / 100)));
+
+                // Convert back to hex
+                return `#${newR.toString(16).padStart(2, '0')}${newG.toString(16).padStart(2, '0')}${newB.toString(16).padStart(2, '0')}`;
+            }
+
+
+            document.documentElement.style.setProperty('--sponsor-bg-color', brightenHexColor(color4, 50));
+            
             document.documentElement.style.setProperty('--team-bg-color', color1);
 
-            document.documentElement.style.setProperty('--center-bg-color', color3);
+            document.documentElement.style.setProperty('--center-bg-color', color1);
+
+            document.documentElement.style.setProperty('--center-text-color', color2)
 
 
             // document.documentElement.style.setProperty('--map-active-color', color3);
