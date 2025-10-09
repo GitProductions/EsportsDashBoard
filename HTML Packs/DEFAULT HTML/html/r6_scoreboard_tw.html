@@ -95,8 +95,8 @@
 
             /* Score Markers */
             .scoremarker {
-                @apply w-[15px] h-[15px] inline-block mx-[3px] rounded-full align-middle;
-                @apply bg-[#1111115e] outline outline-2 outline-[#5e5e5e] outline-offset-2;
+                @apply w-[15px] h-[15px] inline-block mx-[3px] rounded-sm align-middle;
+                @apply bg-[#1111115e] outline outline-2 outline-[#5e5e5e] outline-offset-1;
                 @apply transition-all duration-1000;
             }
 
@@ -263,7 +263,7 @@
 
         // check url params
 
-        let useTeamColor_Markers = true; // if true, scoremarkers will use team color if set, else use default gold color
+        let useTeamColor_Markers = false; // if true, scoremarkers will use team color if set, else use default gold color
         let useLogoTitle = false; // if true, event title will use logo if set, else use text title
 
         // let BRAND_COLORS = {
@@ -321,7 +321,7 @@
             // document.documentElement.style.setProperty('--map-active-color', color3);
             // document.documentElement.style.setProperty('--map-text-active-color', color1);
 
-            console.log(fullJson);
+            // console.log(fullJson);
 
 
             let team1Logo = TEAMDATA.team1.teamLogoUrl;
@@ -359,15 +359,13 @@
                 if (useTeamColor_Markers) {
                     for (let i = 0; i < team.teamScore; i++) {
                         markers[i].style.backgroundColor = teamColor;
-                        markers[i].style.outlineColor = teamColor;
+                        markers[i].style.outlineColor = brightenHexColor(teamColor, 50);
                     }
                 } else {
                     for (let i = 0; i < team.teamScore; i++) {
                         // default active colors
-                        markers[i].style.backgroundColor = color4;
-                        markers[i].style.outlineColor = color2;
-                        // markers[i].style.backgroundColor = '#ffd700';
-                        // markers[i].style.outlineColor = '#5e5e5e';
+                        markers[i].style.backgroundColor = color3;
+                        markers[i].style.outlineColor = brightenHexColor(color3, 35);
                     }
                 }
             }
