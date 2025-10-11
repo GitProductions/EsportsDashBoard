@@ -254,6 +254,16 @@ export const configurations = {
                 description: "Season 3.5",
                 folderPath: "Game Configs/Marvel Rivals",
                 fileName: "esportsdash.marvelrivals_v3.7.bgg"
+            },
+            {
+                id: "esportsdash.marvelrivals",
+                name: "Marvel Rivals",
+                author: "EsportsDash",
+                version: "4.5",
+                image: "Game Configs/Marvel Rivals/Marvel Rivals.webp",
+                description: "Season 4.5",
+                folderPath: "Game Configs/Marvel Rivals",
+                fileName: "esportsdash.marvelrivals_v4.5.bgg"
             }
         ],
 

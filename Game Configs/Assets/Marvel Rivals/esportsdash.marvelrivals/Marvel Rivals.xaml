@@ -1,8 +1,8 @@
 <config>
   <id>esportsdash.marvelrivals</id>
-  <version>3.7</version>
+  <version>4.5</version>
   <name>Marvel Rivals</name>
-  <description>Season 3.5</description>
+  <description>Season 4.5</description>
   <game>Marvel Rivals</game>
   <author>EsportsDash</author>
   <gamelogo>Marvel Rivals</gamelogo>
@@ -38,6 +38,8 @@ Krakoa -->
     <map name="Celestial Husk" file="Klyntar_Husk" />
     <map name="Klyntar" file="Klyntar" />
     <map name="Krakoa" file="Krakoa" />
+    
+    <map name="K'un-Lun" file="Kun-Lun" />
     <map name="Midtown" file="Midtown" />
     <map name="Royal Palace" file="Royal_Palace" />
     <map name="Shin Shibuya" file="Shin-Shibuya" />
@@ -81,7 +83,7 @@ Krakoa -->
       <hero name="Blade" file="Blade_Hero_Portrait" />
 
       <!-- DareDevil comes in October -->
-      <!-- <hero name="Daredevil" file="Daredevil_Hero_Portrait" /> -->
+      <hero name="Daredevil" file="Daredevil_Hero_Portrait" />
       <hero name="Hawkeye" file="Hawkeye_Hero_Portrait" />
       <hero name="Hela" file="Hela_Hero_Portrait" />
       <hero name="Human Torch" file="Human_Torch_Hero_Portrait" />
