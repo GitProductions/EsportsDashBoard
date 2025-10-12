@@ -1,44 +1,11 @@
 // const configurations = {
 export const configurations = {
+
+
     "Overwatch": {
-
-        starterPack: [
-            {
-                name: "Overwatch Starter Pack",
-                author: "EsportsDash",
-                version: "1.6",
-                image: "Game Configs/Overwatch/Overwatch.webp",
-                description: "Starter Pack includes Game Config, HTML Files & OBS Scene Collection",
-                folderPath: "Starter Packs",
-                fileName: "Overwatch_Starter_v1.6.bggstarter"
-            },
-            {
-                name: "Overwatch Starter Pack",
-                author: "EsportsDash",
-                version: "1.7",
-                image: "Game Configs/Overwatch/Overwatch.webp",
-                description: "Starter Pack includes Game Config, HTML Files & OBS Scene Collection",
-                folderPath: "Starter Packs",
-                fileName: "Overwatch_Starter_v1.7.bggstarter"
-            }
-        ],
-
-
-        htmlPack: [
-
-            {
-                name: "Broadcast GG Overwatch HTML Pack",
-                author: "Broadcast GG",
-                version: "1.6",
-                image: "Game Configs/Overwatch/Overwatch.webp",
-                description: "Description of HTML pack 1",
-                folderPath: "HTML Packs/Overwatch-BGG",
-                fileName: "Overwatch-BGG-HTML-PACK.zip"
-            }
-
-        ],
-
-
+        starterPack: [],
+        htmlPack: [],
+        overlayPack: [],
 
         gameConfigs: [
             {
@@ -72,52 +39,13 @@ export const configurations = {
                 fileName: "esportsdash.overwatch_v2.4.bgg"
             }
         ],
-
-
-        overlayPack: [
-            {
-                id: "esportsdash.default",
-                name: "Default HTML Pack",
-                author: "Broadcast GG",
-                version: "1.2",
-                image: "Game Configs/Overwatch/Overwatch.webp",
-                description: "This is the legacy HTML pack for BroadcastGG.",
-                folderPath: "HTML Packs/Overwatch-BGG",
-                fileName: "esportsdash-default.esportsDashOverlay"
-            }
-        ],
     },
 
 
-
     "Valorant": {
-        starterPack:
-            [
-                {
-                    name: "Valorant Starter Pack",
-                    author: "EsportsDash",
-                    version: "1.4",
-                    image: "Game Configs/Valorant/Valorant.webp",
-                    description: "Starter Pack includes Game Config, HTML Files & OBS Scene Collection",
-                    folderPath: "Starter Packs",
-                    fileName: "Valorant_Starter_v1.4.bggstarter"
-                }
-            ],
-
-
-        htmlPack:
-            [
-                {
-                    name: "Broadcast GG Valorant HTML Pack",
-                    author: "Broadcast GG",
-                    version: "1.3",
-                    image: "Game Configs/Valorant/Valorant.webp",
-                    description: "Description of HTML pack 2",
-                    folderPath: "HTML Packs/Valorant",
-                    fileName: "Valorant-BGG-HTML-PACK.zip"
-                }
-            ],
-
+        starterPack: [],
+        overlayPack: [],
+        htmlPack: [],
 
         gameConfigs: [
             {
@@ -177,74 +105,12 @@ export const configurations = {
     },
 
 
-
     "Marvel Rivals": {
-
-        starterPack: [
-            // {
-            //     name: "BGG Marvel Rivals Starter Pack",
-            //     author: "EsportsDash",
-            //     version: "1.1",
-            //     image: "Game Configs/Marvel Rivals/Marvel Rivals.webp",
-            //     description: "Starter Pack includes Game Config, HTML Files & OBS Scene Collection",
-            //     folderPath: "Starter Packs",
-            //     fileName: "MarvelRivals_Starter_v1.1.bggstarter"
-            // },
-            {
-                name: "BGG Marvel Rivals Starter Pack",
-                author: "EsportsDash",
-                version: "1.2",
-                image: "Game Configs/Marvel Rivals/Marvel Rivals.webp",
-                description: "Starter Pack includes Game Config, HTML Files & OBS Scene Collection",
-                folderPath: "Starter Packs",
-                fileName: "MarvelRivals_Starter_v1.2.bggstarter"
-            },
-            {
-                name: "BGG Marvel Rivals Starter Pack",
-                author: "EsportsDash",
-                version: "1.3",
-                image: "Game Configs/Marvel Rivals/Marvel Rivals.webp",
-                description: "Starter Pack includes Game Config, HTML Files & OBS Scene Collection",
-                folderPath: "Starter Packs",
-                fileName: "MarvelRivals_Starter_v1.3.bggstarter"
-            }
-        ],
-
-
-        htmlPack: [
-            {
-                name: "Broadcast GG Marvel Rivals HTML Pack",
-                author: "Broadcast GG",
-                version: "1.3",
-                image: "Game Configs/Marvel Rivals/Marvel Rivals.webp",
-                description: "Description of HTML pack 3",
-                folderPath: "HTML Packs/Marvel-BGG",
-                fileName: "MarvelRivals-BGG-HTML-PACK.zip"
-            }
-        ],
-
+        starterPack: [],
+        overlayPack: [],
+        htmlPack: [],
 
         gameConfigs: [
-            // {
-            //     id: "esportsdash.marvelrivals",
-            //     name: "Marvel Rivals",
-            //     author: "EsportsDash",
-            //     version: "2.0",
-            //     image: "Game Configs/Marvel Rivals/Marvel Rivals.webp",
-            //     description: "Season 2",
-            //     folderPath: "Game Configs/Marvel Rivals",
-            //     fileName: "esportsdash.marvelrivals_v2.0.bgg"
-            // },
-            {
-                id: "esportsdash.marvelrivals",
-                name: "Marvel Rivals",
-                author: "EsportsDash",
-                version: "2.5",
-                image: "Game Configs/Marvel Rivals/Marvel Rivals.webp",
-                description: "Season 2.5",
-                folderPath: "Game Configs/Marvel Rivals",
-                fileName: "esportsdash.marvelrivals_v2.5.bgg"
-            },
             {
                 id: "esportsdash.marvelrivals",
                 name: "Marvel Rivals",
@@ -266,31 +132,14 @@ export const configurations = {
                 fileName: "esportsdash.marvelrivals_v4.5.bgg"
             }
         ],
-
-
-
-        overlayPack: [
-            // {
-            //     id: "esportsdash.default",
-            //     name: "Default HTML Pack",
-            //     author: "Broadcast GG",
-            //     version: "1.3",
-            //     image: "Game Configs/Overwatch/Overwatch.webp",
-            //     description: "This is the legacy HTML pack for BroadcastGG.",
-            //     folderPath: "HTML Packs/Overwatch-BGG",
-            //     fileName: "esportsdash-default.esportsDashOverlay"
-            // }
-        ],
     },
 
+
     "Call of Duty": {
-
         starterPack: [],
-
-
         htmlPack: [],
-
-
+        overlayPack: [],
+        
         gameConfigs: [
             {
                 id: "esportsdash.callofduty",
@@ -303,17 +152,14 @@ export const configurations = {
                 fileName: "esportsdash.callofduty_v1.2.bgg"
             }
         ],
-
-
-
-        overlayPack: [],
     },
 
-    "Rocket League": {
 
+    "Rocket League": {
         starterPack: [],
         htmlPack: [],
         overlayPack: [],
+
         gameConfigs: [
             {
                 id: "esportsdash.rocketleague",
@@ -328,11 +174,12 @@ export const configurations = {
         ],
     },
 
-    "League of Legends": {
 
+    "League of Legends": {
         starterPack: [],
         htmlPack: [],
         overlayPack: [],
+
         gameConfigs: [
             {
                 id: "esportsdash.leagueoflegends",
