@@ -13,6 +13,8 @@ const overlayParams = {
             middleTopPosition: "8px",
             "skew-angle-positive": "0deg",
             "skew-angle-negative": "0deg",
+
+             middleAnimationTime: "1s",
         }
     },
 
@@ -246,6 +248,24 @@ const overlayParams = {
             teamRightClipPath: "polygon(100% 0, 100% 100%, 0 100%, 10% 0)",
             teamLeftClipPath: "polygon(0 0, 0 100%, 100% 100%, 90% 0)"
         }
-    }
+    },
+
+    "RainbowSix": {
+        style1: {
+            teamBoxWidth: "650px",
+            teamBoxHeight: "53px",
+            teamTopPosition: "0px",
+            teamSideOffset: "0px",
+            middleTopPosition: "0px",
+            middleWidth: "100%",
+            middleHeight: "53px",
+            middleAnimationTime: "1.5s",
+
+            "skew-angle-positive": "10deg",
+            "skew-angle-negative": "-10deg",
+            // teamLeftTextNameAlign: "center",
+            // teamRightTextNameAlign: "center"
+        }
+    },
 }
 

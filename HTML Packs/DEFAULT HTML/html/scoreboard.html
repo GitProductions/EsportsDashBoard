@@ -37,6 +37,7 @@ Available Styles:
       /* background-image: url('../GameImages/cod-example.webp'); */
       /* background-image: url('../GameImages/valorant-preview.png'); */
       /* background-image: url('../GameImages/marvel-nondom-preview.png'); */
+      /* background-image: url('../GameImages/r6.png'); */
       background-size: cover;
       background-repeat: no-repeat;
     }
@@ -83,6 +84,7 @@ Available Styles:
       --middleWidth: 250px;
       --middleHeight: 35px;
       --middleTextSize: 1.5em;
+      --middleAnimationTime: 1s;
 
       /* skewing */
       --skew-angle-positive: 0deg;
@@ -423,7 +425,7 @@ Available Styles:
 
       0%,
       50% {
-        top: -46px;
+        top: -300px;
       }
 
       100% {
@@ -643,7 +645,7 @@ Available Styles:
         document.querySelector('.center-logos').style.display = 'none';
 
         // Resetting animations back to 'default'
-        document.querySelector('.center').style.animation = 'topmove 1s';
+        document.querySelector('.center').style.animation = `topmove var(--middleAnimationTime)`;
         document.querySelector('.left.team.team1').style.animation = 'leftmove 1s';
         document.querySelector('.right.team.team2').style.animation = 'rightmove 1s';
 
