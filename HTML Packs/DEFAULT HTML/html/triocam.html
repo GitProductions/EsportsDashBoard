@@ -3,136 +3,8 @@
 <!-- removed team color beside logo as it was slanted and looked very out of place -->
 
 <head>
+   <link rel="stylesheet" type="text/css" href="styles.css">
   <style>
-    @font-face {
-      font-family: 'Rajdhani';
-      src: url("fonts/Rajdhani/Rajdhani-Bold.ttf") format('TrueType');
-      font-weight: bold;
-    }
-
-    @font-face {
-      font-family: 'Rajdhani';
-      src: url("fonts/Rajdhani/Rajdhani-Regular.ttf") format('TrueType');
-      font-weight: normal;
-    }
-
-    @font-face {
-      font-family: 'FontAwesome';
-      src: url("fonts/Font Awesome/Font Awesome 6 Brands-Regular-400.otf") format('OpenType');
-    }
-
-    @keyframes staffanimate {
-      0% {
-        clip-path: polygon(0% -100%, 0 -100%, 0% 200%, 0% 200%);
-        transform: translateX(50%);
-      }
-
-      100% {
-        clip-path: polygon(0% -100%, 100% -100%, 100% 200%, 0% 200%);
-        transform: translateX(0%);
-      }
-    }
-
-    @keyframes curtainanimate-r {
-      0% {
-        clip-path: polygon(0% -100%, 100% -100%, 100% 200%, 0% 200%);
-      }
-
-      100% {
-        clip-path: polygon(100% -100%, 100% -100%, 100% 200%, 100% 200%);
-      }
-    }
-
-    @keyframes curtainanimate-l {
-      0% {
-        clip-path: polygon(0% -100%, 100% -100%, 100% 200%, 0% 200%);
-      }
-
-      100% {
-        clip-path: polygon(0% -100%, 0 -100%, 0% 200%, 0% 200%);
-      }
-    }
-
-    @keyframes slideright {
-      0% {
-        transform: translateX(-100%);
-      }
-
-      100% {
-        transform: translateX(0px);
-      }
-    }
-
-    @keyframes slideleft {
-      0% {
-        transform: translateX(100%);
-      }
-
-      100% {
-        transform: translateX(0px);
-      }
-    }
-
-    @keyframes teamslideright {
-      0% {
-        clip-path: polygon(100% 0%, 100% 0%, 100% 100%, 100% 100%);
-        transform: translateX(-100%);
-      }
-
-      100% {
-        clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
-        transform: translateX(0px);
-      }
-    }
-
-    @keyframes teamslideleft {
-      0% {
-        clip-path: polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%);
-        transform: translateX(100%);
-      }
-
-      100% {
-        clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
-        transform: translateX(0px);
-      }
-    }
-
-    body {
-      -webkit-animation-timing-function: cubic-bezier(0, 0, 0, 1);
-      width: 1920px;
-      height: 1080px;
-      margin: 0px auto;
-      overflow: hidden;
-      background-color: rgba(0, 0, 0, 0);
-    }
-
-    .camerabox {
-      display: flex;
-      flex-direction: column;
-      border-style: solid;
-      border-width: 0px 6px 0px 6px;
-      border-color: #8cba11;
-      margin: 20px;
-    }
-
-    .staffiso,
-    .curtain {
-      background-color: #8cba11;
-    }
-
-    .curtain {
-      flex: 1 1 0;
-      height: 100%;
-      background-color: #8cba11;
-    }
-
-    .curtainl {
-      animation: curtainanimate-l 0.5s;
-    }
-
-    .curtainr {
-      animation: curtainanimate-r 0.5s;
-    }
 
     .curtainl,
     .curtainr {
@@ -150,10 +22,9 @@
     .wrapper {
       position: absolute;
       left: 0px;
-      /* top: 100px; */
-      top: 175px;
+      top: 175px;  /* over-riding the default in styles */
       display: flex;
-      flex-direction: column;
+      flex-direction: column; /* over-riding the default in styles */
       align-items: center;
       justify-content: center;
       text-align: center;
@@ -169,264 +40,6 @@
       text-align: center;
     }
 
-    .staff {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      animation: staffanimate 0.5s;
-      animation-fill-mode: backwards;
-      animation-delay: 10s;
-    }
-
-    .staffname {
-      font-family: 'Rajdhani';
-      font-weight: bold;
-      text-transform: uppercase;
-      font-size: 2.5em;
-      position: relative;
-      bottom: 0.02em;
-    }
-
-/* !! NEEDS TO BE ADJUSTED WHEN NEW SOCIAL PLATFORMS ARE ADDED*/
-.socials, .twitter, .twitch, .youtube, .bluesky, .facebook, .instagram, .x-twitter, .tiktok, .discord, .tumblr, .meta {
-      font-family: 'Rajdhani';
-      font-weight: normal;
-      text-transform: none;
-      font-size: 2em;
-      position: relative;
-    }
-
-    .socials:before {
-      font-family: 'FontAwesome';
-      content: "\f099"
-        /* twitter logo */
-        /* content:"\f1e8" twitch logo*/
-    }
-
-    .twitter:before {
-      font-family: 'FontAwesome';
-      content: "\f099"
-        /* twitter logo */
-        /* content:"\f1e8" twitch logo*/
-    }
-
-    .twitch:before {
-      font-family: 'FontAwesome';
-      content: "\f1e8"
-        /* twitter logo */
-        /* content:"\f1e8" twitch logo*/
-    }
-
-    .youtube:before {
-      font-family: 'FontAwesome';
-      content: "\f167"
-        /* twitter logo */
-        /* content:"\f1e8" twitch logo*/
-    }
-
-    .bluesky:before {
-      font-family: 'FontAwesome';
-      content: "\e671"
-        /* twitter logo */
-        /* content:"\f1e8" twitch logo*/
-    }
-
-    .facebook:before {
-      font-family: 'FontAwesome';
-      content: "\f39e"
-        /* twitter logo */
-        /* content:"\f1e8" twitch logo*/
-    }
-
-    .instagram:before {
-      font-family: 'FontAwesome';
-      content: "\f16d"
-        /* twitter logo */
-        /* content:"\f1e8" twitch logo*/
-    }
-
-    .x-twitter:before {
-      font-family: 'FontAwesome';
-      content: "\e61b"
-        /* twitter logo */
-        /* content:"\f1e8" twitch logo*/
-    }
-
-    .tiktok:before {
-      font-family: 'FontAwesome';
-      content: "\e07b"
-        /* twitter logo */
-        /* content:"\f1e8" twitch logo*/
-    }
-
-    .discord:before {
-      font-family: 'FontAwesome';
-      content: "\f392"
-        /* twitter logo */
-        /* content:"\f1e8" twitch logo*/
-    }
-
-    .tumblr:before {
-      font-family: 'FontAwesome';
-      content: "\f173"
-        /* twitter logo */
-        /* content:"\f1e8" twitch logo*/
-    }
-
-    .meta:before {
-      font-family: 'FontAwesome';
-      content: "\e49b"
-        /* twitter logo */
-        /* content:"\f1e8" twitch logo*/
-    }
-
-    .scoreboardwrapper {
-      position: absolute;
-      left: 0px;
-      /* top: 100px; */
-      top: 40px;
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      width: 1920px;
-      height: 100px;
-      transform: skewX(-15deg);
-    }
-
-    .scoreboard {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      width: 1620px;
-      height: 100px;
-    }
-
-    .scoreboard .vs {
-      flex: 0 0 0;
-      background-color: #8cba11;
-      height: 100px;
-      min-width: 150px;
-      max-width: 150px;
-    }
-
-    .scoreboard .vs span {
-      font-family: 'Rajdhani';
-      font-weight: bold;
-      text-transform: uppercase;
-      font-size: 5em;
-      position: relative;
-      bottom: 0.02em;
-    }
-
-    .team {
-      flex: 1 1 0;
-      height: 100px;
-      background-color: #000000;
-
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-
-      border-style: solid;
-      border-color: #8cba11;
-    }
-
-    .team1 {
-      border-width: 0px 0px 0px 6px;
-      animation: teamslideleft 0.5s;
-      animation-delay: 1s;
-      animation-fill-mode: backwards;
-    }
-
-    .team2 {
-      border-width: 0px 6px 0px 0px;
-      animation: teamslideright 0.5s;
-      animation-delay: 1s;
-      animation-fill-mode: backwards;
-    }
-
-    .teamname {
-      flex: 5 1 0;
-      font-family: 'Rajdhani';
-      font-weight: normal;
-      text-transform: uppercase;
-      font-size: 3em;
-      position: relative;
-      bottom: 0.02em;
-    }
-
-    .teamscore {
-      font-family: 'Rajdhani';
-      font-weight: bold;
-      text-transform: uppercase;
-      font-size: 5em;
-      position: relative;
-      bottom: 0.02em;
-    }
-
-    .scorebox {
-      flex: 1 1 0;
-      top: 0px;
-      height: 100px;
-      max-width: 105px;
-    }
-
-    img {
-      height: 80px;
-      width: 80px;
-      max-height: 80px;
-      max-width: 80px;
-      margin: 10px;
-      object-fit: contain;
-      overflow: hidden;
-      transform: skewX(15deg);
-    }
-
-    .footer {
-      position: fixed;
-      left: 0px;
-      top: 950px;
-      width: 1870px;
-      clip-path: polygon(0% 0, 100% 0%, 100% 100%, 0% 100%);
-      display: flex;
-      /* YEAH THIS IS HUGE */
-      flex-direction: row;
-      align-items: center;
-      /* YEAH THIS IS HUGE */
-      justify-content: center;
-      /* YEAH THIS IS HUGE */
-      padding: 25px;
-    }
-
-    .tournament {
-      flex: 1 1 0;
-      height: 80px;
-      background-position: left;
-      background-size: contain;
-      background-repeat: no-repeat;
-      animation: slideright 1s;
-      animation-fill-mode: backwards;
-      animation-delay: 1s;
-    }
-
-    .channel {
-      flex: 1 1 0;
-      height: 80px;
-      background-position: right;
-      background-size: contain;
-      background-repeat: no-repeat;
-      animation: slideleft 1s;
-      animation-fill-mode: backwards;
-      animation-delay: 1s;
-    }
   </style>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -435,27 +48,26 @@
       //Set to 1 for video functions, 0 to disable
       let blankimage = "iVBORw0KGgoAAAANSUhEUgAAAHAAAABkCAYAAABep7TGAAAABGdBTUEAALGPC/xhBQAAAEJJREFUeF7twQENAAAAwqD3T+1mDiAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAuBqvZAABFEy6BwAAAABJRU5ErkJggg=="
       
-      let teamJson = await fetch(`http://localhost:8080/getValue?path=teams`);
-      let teamsData = await teamJson.json();
+      let fullJson = await fetch(`http://localhost:8080/getfullJson`);
+      if (!fullJson.ok) {
+        throw new Error('Network response was not ok');
+      }
+      fullJson = await fullJson.json();
 
-      // Fetching General Input Data and then seperating into different variables
-      let inputData = await fetch(`http://localhost:8080/getValue?path=general`);
-      if (!inputData.ok) {
-            throw new Error('Network response was not ok');
-        }
-      let inputJson = await inputData.json();
+      let teamsData = fullJson.teams;
+      let inputData = fullJson.general;
 
-      let themeColors = inputJson.color;
-      let themeLogos = inputJson.file;
-      let caster1 = inputJson.text.Caster1.value;
-      let caster1handle = inputJson.text.Caster1_Social.value;
-      let caster1platform = inputJson.list.Caster1_Platform.value;
-      let caster2 = inputJson.text.Caster2.value;
-      let caster2handle = inputJson.text.Caster2_Social.value;
-      let caster2platform = inputJson.list.Caster2_Platform.value;
-      let host = inputJson.text.Host.value;
-      let hostHandle = inputJson.text.Host_Social.value;
-      let hostPlatform = inputJson.list.Host_Plaform.value;
+      let themeColors = inputData.color;
+      let themeLogos = inputData.file;
+      let caster1 = inputData.text.Caster1.value;
+      let caster1handle = inputData.text.Caster1_Social.value;
+      let caster1platform = inputData.list.Caster1_Platform.value;
+      let caster2 = inputData.text.Caster2.value;
+      let caster2handle = inputData.text.Caster2_Social.value;
+      let caster2platform = inputData.list.Caster2_Platform.value;
+      let host = inputData.text.Host.value;
+      let hostHandle = inputData.text.Host_Social.value;
+      let hostPlatform = inputData.list.Host_Platform.value;
       
       //Get constant theme data
       let primaryColor = themeColors.BGG_C1.value
@@ -548,7 +160,7 @@
         if (team[0].score == 0 && team[1].score == 0) {
           $('.scorebox').css("display", "none");
         } else {
-          $('.scorebox').css("display", "block");
+          $('.scorebox').css("display", "flex");
         }
       }
 
@@ -559,10 +171,10 @@
         try {
           // Set the background images dynamically
           if (themeLogos.BGG_L1 && themeLogos.BGG_L1.value) {
-            document.querySelector(".tournament.image1").style.backgroundImage = `url(/${themeLogos.BGG_L1.value})`;
+            document.querySelector(".tournament.image1").style.backgroundImage = `url(${themeLogos.BGG_L1.value})`;
           }
           if (themeLogos.BGG_L2 && themeLogos.BGG_L2.value) {
-            document.querySelector(".channel.image2").style.backgroundImage = `url(/${themeLogos.BGG_L2.value})`;
+            document.querySelector(".channel.image2").style.backgroundImage = `url(${themeLogos.BGG_L2.value})`;
           }
         } catch (error) {
           console.error('Failed to fetch or set background images:', error);
