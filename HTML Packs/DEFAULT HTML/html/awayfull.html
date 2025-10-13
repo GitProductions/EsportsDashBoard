@@ -363,9 +363,11 @@
       font-family: 'Rajdhani';
       font-weight: bold;
       text-transform: uppercase;
-      font-size: 5em;
-      position: relative;
-      bottom: 0.02em;
+      /* font-size: 2em; */
+      /* clamp font size at 4em */
+      font-size: clamp(2em, 8vw, 4em);
+      /* position: relative; */
+      /* bottom: 0.02em; */
     }
 
     @keyframes scoreReveal {
@@ -386,10 +388,16 @@
     }
 
     .scorebox {
-      flex: 1 1 0;
+      /* flex: 1 1 0; */
+      display: flex;
+      justify-content: center;
+      align-items: center;
       top: 0px;
       height: 100px;
-      max-width: 105px;
+      width:100%;
+      max-width: 100px;
+
+      padding: 0px 15px 0px 15px;
       /* animation: scoreReveal 0.3s ease-out; */
       /* transform-origin: center; */
     }
@@ -813,7 +821,7 @@
 
           // Show or hide scorebox based on whether scores are available
           const hasScores = team1?.score > 0 || team2?.score > 0;
-          $(`${matchSelector} .scorebox`).css("display", hasScores ? "block" : "none");
+          $(`${matchSelector} .scorebox`).css("display", hasScores ? "flex" : "none");
 
           // Handle match completion and styling
           if (isMatchComplete) {
