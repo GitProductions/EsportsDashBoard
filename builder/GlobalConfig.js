@@ -193,6 +193,25 @@ export const configurations = {
             }
         ],
     },
+
+    "Rainbow Six": {
+        starterPack: [],
+        htmlPack: [],
+        overlayPack: [],
+
+        gameConfigs: [
+            {
+                id: "esportsdash.rainbowsix",
+                name: "Rainbow Six",
+                author: "EsportsDash",
+                version: "1.2",
+                image: "Game Configs/Rainbow Six/Rainbow Six.webp",
+                description: "Year 10, Season 3",
+                folderPath: "Game Configs/Rainbow Six",
+                fileName: "esportsdash.rainbowsix_v1.2.bgg"
+            }
+        ],
+    }
 }
 
 
