@@ -6,7 +6,7 @@
       --matchWidth: 500px;
       --teamBoxHeight: 70px;
       --logoSize: 60px;
-      --teamScoreWidth: 70px;
+      --teamScoreWidth: 100px;
       --teamScoreText: 1.5em;
     }
 
@@ -207,15 +207,18 @@
 
     .teamscore {
       height: inherit;
-      /* width: 60px; */
       width: var(--teamScoreWidth);
       margin-left: auto;
-      padding: 0;
+      /* padding: 0 var(--teamScorePadding); */
+      /* box-sizing: border-box; */
       font-size: var(--teamScoreText);
       font-weight: bold;
       display: flex;
       align-items: center;
       justify-content: center;
+      /* white-space: nowrap; */
+      /* overflow: hidden; */
+      /* background-clip: padding-box; */
     }
 
 
@@ -435,6 +438,8 @@
         $('.' + node + ' .team2').css("animation-delay", animate2 + "s");
         $('.' + node + ' .matchinfo').css("animation-delay", animate3 + "s");
       }
+
+
 
       async function setDynamicBackgroundImages() {
         try {
