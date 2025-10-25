@@ -25,8 +25,8 @@ const overlayParams = {
             //   --skew-angle-positive: 15deg;
             //   --skew-angle-negative: -15deg;
 
-            teamBoxWidth: "510px",
-            teamTopPosition: "31px",
+            teamBoxWidth: "470px",
+            teamTopPosition: "30px",
             teamSideOffset: "15px",
             teamBoxHeight: "50px",
             middleTopPosition: "3px",
