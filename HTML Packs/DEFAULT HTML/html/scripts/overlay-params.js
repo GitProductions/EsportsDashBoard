@@ -267,5 +267,32 @@ const overlayParams = {
             // teamRightTextNameAlign: "center"
         }
     },
+
+     "CounterStrike2": {
+        style1: {
+            teamBoxWidth: "400px",
+            teamBoxHeight: "55px",
+            teamTopPosition: "75px",
+            teamSideOffset: "-430px",
+            teamLeftBorderLeft: "7px solid #27AAE1",
+            teamLeftBorderRight: "0px solid #ffffff",
+
+            teamRightBorderLeft: "0px solid #ffffff",
+            teamRightBorderRight: "7px solid #C80013",
+
+            // teamLeftTextNameAlign: "center",
+            // teamRightTextNameAlign: "center",
+
+            middleTopPosition: "95px",
+            middleWidth: "250px",
+            // middleHeight: "53px",
+            // middleAnimationTime: "1.5s",
+
+            // "skew-angle-positive": "10deg",
+            // "skew-angle-negative": "-10deg",
+            // teamLeftTextNameAlign: "center",
+            // teamRightTextNameAlign: "center"
+        }
+    },
 }
 
