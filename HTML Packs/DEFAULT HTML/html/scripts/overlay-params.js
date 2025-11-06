@@ -270,28 +270,21 @@ const overlayParams = {
 
     "CounterStrike2": {
         style1: {
-            teamBoxWidth: "400px",
+            teamBoxWidth: "420px",
             teamBoxHeight: "55px",
             teamTopPosition: "75px",
-            teamSideOffset: "-430px",
+
+            teamSideOffset: "-410px",
+
             teamLeftBorderLeft: "7px solid #27AAE1",
             teamLeftBorderRight: "0px solid #ffffff",
 
             teamRightBorderLeft: "0px solid #ffffff",
             teamRightBorderRight: "7px solid #C80013",
 
-            // teamLeftTextNameAlign: "center",
-            // teamRightTextNameAlign: "center",
-
-            middleTopPosition: "95px",
-            middleWidth: "250px",
-            // middleHeight: "53px",
+            middleTopPosition: "145px",
+            middleWidth: "230px",
             middleAnimationTime: "2.5s",
-
-            // "skew-angle-positive": "-10deg",
-            // "skew-angle-negative": "10deg",
-            // teamLeftTextNameAlign: "center",
-            // teamRightTextNameAlign: "center"
         },
         style2: {
             teamBoxWidth: "320px",
@@ -310,21 +303,22 @@ const overlayParams = {
             middleWidth: "250px",
             middleAnimationTime: "2.5s",
         },
+
         style3: {
-            teamBoxWidth: "420px",
+            teamBoxWidth: "400px",
             teamBoxHeight: "55px",
             teamTopPosition: "75px",
-
-            teamSideOffset: "-410px",
-
+            teamSideOffset: "-430px",
             teamLeftBorderLeft: "7px solid #27AAE1",
             teamLeftBorderRight: "0px solid #ffffff",
 
             teamRightBorderLeft: "0px solid #ffffff",
             teamRightBorderRight: "7px solid #C80013",
 
-            middleTopPosition: "145px",
-            middleWidth: "230px",
+
+
+            middleTopPosition: "95px",
+            middleWidth: "250px",
             middleAnimationTime: "2.5s",
         },
     },
