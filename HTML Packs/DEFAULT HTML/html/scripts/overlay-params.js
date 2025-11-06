@@ -286,10 +286,10 @@ const overlayParams = {
             middleTopPosition: "95px",
             middleWidth: "250px",
             // middleHeight: "53px",
-            // middleAnimationTime: "1.5s",
+            middleAnimationTime: "2.5s",
 
-            // "skew-angle-positive": "10deg",
-            // "skew-angle-negative": "-10deg",
+            // "skew-angle-positive": "-10deg",
+            // "skew-angle-negative": "10deg",
             // teamLeftTextNameAlign: "center",
             // teamRightTextNameAlign: "center"
         }
