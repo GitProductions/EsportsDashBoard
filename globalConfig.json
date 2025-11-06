@@ -145,6 +145,18 @@
         "folderPath": "Game Configs/Rainbow Six",
         "fileName": "esportsdash.rainbowsix_v1.2.bgg"
       }
+    ],
+    "CounterStrike2": [
+      {
+        "id": "esportsdash.cs2",
+        "name": "CounterStrike 2",
+        "author": "EsportsDash",
+        "version": "1.0",
+        "image": "Game Configs/Counter Strike/CounterStrike2.webp",
+        "description": "Counter Strike 2",
+        "folderPath": "Game Configs/Counter Strike",
+        "fileName": "esportsdash.cs2_v1.0.bgg"
+      }
     ]
   },
   "Overlay Packs": {
@@ -152,7 +164,7 @@
       "id": "esportsdash.default",
       "name": "Default HTML Pack",
       "author": "Broadcast GG",
-      "version": "2.7",
+      "version": "2.8",
       "image": "Game Configs/Overwatch/Overwatch.webp",
       "description": "HTML Pack created by Broadcast GG",
       "folderPath": "HTML Packs/DEFAULT HTML",

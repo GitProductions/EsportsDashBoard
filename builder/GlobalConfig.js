@@ -139,7 +139,7 @@ export const configurations = {
         starterPack: [],
         htmlPack: [],
         overlayPack: [],
-        
+
         gameConfigs: [
             {
                 id: "esportsdash.callofduty",
@@ -209,6 +209,25 @@ export const configurations = {
                 description: "Year 10, Season 3",
                 folderPath: "Game Configs/Rainbow Six",
                 fileName: "esportsdash.rainbowsix_v1.2.bgg"
+            }
+        ],
+    },
+
+    "CounterStrike2": {
+        starterPack: [],
+        htmlPack: [],
+        overlayPack: [],
+
+        gameConfigs: [
+            {
+                id: "esportsdash.cs2",
+                name: "CounterStrike 2",
+                author: "EsportsDash",
+                version: "1.0",
+                image: "Game Configs/Counter Strike/CounterStrike2.webp",
+                description: "Counter Strike 2",
+                folderPath: "Game Configs/Counter Strike",
+                fileName: "esportsdash.cs2_v1.0.bgg"
             }
         ],
     }
