@@ -14,7 +14,7 @@ const overlayParams = {
             "skew-angle-positive": "0deg",
             "skew-angle-negative": "0deg",
 
-             middleAnimationTime: "1s",
+            middleAnimationTime: "1s",
         }
     },
 
@@ -268,7 +268,7 @@ const overlayParams = {
         }
     },
 
-     "CounterStrike2": {
+    "CounterStrike2": {
         style1: {
             teamBoxWidth: "400px",
             teamBoxHeight: "55px",
@@ -292,7 +292,41 @@ const overlayParams = {
             // "skew-angle-negative": "10deg",
             // teamLeftTextNameAlign: "center",
             // teamRightTextNameAlign: "center"
-        }
+        },
+        style2: {
+            teamBoxWidth: "320px",
+            teamBoxHeight: "55px",
+            teamTopPosition: "75px",
+
+            teamSideOffset: "-360px",
+
+            teamLeftBorderLeft: "7px solid #27AAE1",
+            teamLeftBorderRight: "0px solid #ffffff",
+
+            teamRightBorderLeft: "0px solid #ffffff",
+            teamRightBorderRight: "7px solid #C80013",
+
+            middleTopPosition: "95px",
+            middleWidth: "250px",
+            middleAnimationTime: "2.5s",
+        },
+        style3: {
+            teamBoxWidth: "420px",
+            teamBoxHeight: "55px",
+            teamTopPosition: "75px",
+
+            teamSideOffset: "-410px",
+
+            teamLeftBorderLeft: "7px solid #27AAE1",
+            teamLeftBorderRight: "0px solid #ffffff",
+
+            teamRightBorderLeft: "0px solid #ffffff",
+            teamRightBorderRight: "7px solid #C80013",
+
+            middleTopPosition: "145px",
+            middleWidth: "230px",
+            middleAnimationTime: "2.5s",
+        },
     },
 }
 
