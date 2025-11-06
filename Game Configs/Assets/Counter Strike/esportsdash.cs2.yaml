@@ -1,0 +1,52 @@
+id: esportsdash.cs2
+game: CounterStrike2
+version: "1.0"
+author: EsportsDash
+gamelogo: CounterStrike_2
+maps:
+  - name: Mirage
+    file: Mirage
+  - name: Nuke
+    file: Nuke
+  - name: Overpass
+    file: Overpass
+  - name: Train
+    file: Train
+  - name: Vertigo
+    file: Vertigo
+  - name: Ancient
+    file: Ancient
+  - name: Anubis
+    file: Anubis
+  - name: Dust II
+    file: Dust
+  - name: Inferno
+    file: Inferno
+  - name: TBD
+    file: TBA
+modes:
+  - name: Bombdefusal
+    file: Bombdefusal
+roles:
+  - name: Terrorists
+    file: terrorists
+    heroes:
+      - name: Enforcer
+        file: t_pc_enforcer
+      - name: Soldier
+        file: t_pc_soldier
+      - name: Trapper
+        file: t_Guerrilla_warfare_trapper_aggressor
+  - name: Counter Terrorists
+    file: counter-terrorists
+    heroes:
+      - name: Ava
+        file: ct_fbi_ava
+      - name: Hrt
+        file: ct_fbi_hrt
+      - name: Operator
+        file: ct_fbi-operator
+      - name: " Officer"
+        file: ct_sas
+      - name: Varianth
+        file: ct_swat_varianth
