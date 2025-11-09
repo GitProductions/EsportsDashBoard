@@ -489,6 +489,10 @@
     function lightOrDark(color) {
 
       // Check the format of the color, HEX or RGB?
+      if (!color) {
+        return '#ffffff';
+      }
+      
       if (color.match(/^rgb/)) {
 
         // If HEX --> store the red, green, blue values in separate variables
