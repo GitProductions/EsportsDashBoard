@@ -106,6 +106,16 @@
         "description": "Season 4.5",
         "folderPath": "Game Configs/Marvel Rivals",
         "fileName": "esportsdash.marvelrivals_v4.5.bgg"
+      },
+      {
+        "id": "esportsdash.marvelrivals",
+        "name": "Marvel Rivals",
+        "author": "EsportsDash",
+        "version": "5.0",
+        "image": "Game Configs/Marvel Rivals/Marvel Rivals.webp",
+        "description": "Season 5",
+        "folderPath": "Game Configs/Marvel Rivals",
+        "fileName": "esportsdash.marvelrivals_v5.0.bgg"
       }
     ],
     "Call of Duty": [

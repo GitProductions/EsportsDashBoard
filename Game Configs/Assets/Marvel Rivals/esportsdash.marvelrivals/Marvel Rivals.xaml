@@ -1,8 +1,8 @@
 <config>
   <id>esportsdash.marvelrivals</id>
-  <version>4.5</version>
+  <version>5.0</version>
   <name>Marvel Rivals</name>
-  <description>Season 4.5</description>
+  <description>Season 5</description>
   <game>Marvel Rivals</game>
   <author>EsportsDash</author>
   <gamelogo>Marvel Rivals</gamelogo>
@@ -32,9 +32,9 @@ Krakoa -->
     <map name="Arrako" file="Arrako" />
     <map name="Birnin t challa" file="Birnin-t-challa" />
     <map name="Central Park" file="Central_Park" />
+    <!-- <map name="Grand Garden" file="Grand_Garden" /> -->
     <map name="Hall of Djalia" file="Djalia_Hall" />
     <map name="Hells Heaven" file="Hells_Heaven" />
-    <!-- Klyntar Husk - Celestial husk -->
     <map name="Celestial Husk" file="Klyntar_Husk" />
     <map name="Klyntar" file="Klyntar" />
     <map name="Krakoa" file="Krakoa" />
@@ -45,6 +45,7 @@ Krakoa -->
     <map name="Shin Shibuya" file="Shin-Shibuya" />
     <map name="Spider Islands" file="Spider-Islands" />
     <map name="Symbiotic Surface" file="Symbiotic_Surface" />
+    <map name="Times Square" file="Times_Square" />
     <map name="Throne of Knull" file="Throne_of_Knull" />
     <map name="Yggdrasill Path" file="Yggdrasill_Path" />
   </maps>
@@ -108,12 +109,14 @@ Krakoa -->
     <Strategist>
       <hero name="Adam Warlock" file="Adam_Warlock_Hero_Portrait" />
       <hero name="Cloak & Dagger" file="Cloak_Dagger_Hero_Portrait" />
+      <hero name="Gambit" file="Gambit_Hero_Portrait" />
       <hero name="Invisible Woman" file="InvisibleWoman_Hero_Portrait" />
       <hero name="Jeff the Land Shark" file="Jeff_the_Land_Shark_Hero_Portrait" />
       <hero name="Loki" file="Loki_Hero_Portrait" />
       <hero name="Luna Snow" file="Luna_Snow_Hero_Portrait" />
       <hero name="Mantis" file="Mantis_Hero_Portrait" />
       <hero name="Rocket Raccoon" file="Rocket_Raccoon_Hero_Portrait" />
+      <!-- <hero name="Rogue" file="Rogue_Hero_Portrait" /> -->
       <hero name="Ultron" file="Ultron_Hero_Portrait" />
     </Strategist>
 
