@@ -37,6 +37,16 @@ export const configurations = {
                 description: "Season 18",
                 folderPath: "Game Configs/Overwatch",
                 fileName: "esportsdash.overwatch_v2.4.bgg"
+            },
+                       {
+                id: "esportsdash.overwatch",
+                name: "Overwatch",
+                author: "EsportsDash",
+                version: "2.5",
+                image: "Game Configs/Overwatch/Overwatch.webp",
+                description: "Season 18",
+                folderPath: "Game Configs/Overwatch",
+                fileName: "esportsdash.overwatch_v2.5.bgg"
             }
         ],
     },
@@ -228,6 +238,16 @@ export const configurations = {
                 description: "Counter Strike 2",
                 folderPath: "Game Configs/Counter Strike",
                 fileName: "esportsdash.cs2_v1.0.bgg"
+            },
+            {
+                id: "esportsdash.cs2",
+                name: "CounterStrike 2",
+                author: "EsportsDash",
+                version: "1.1",
+                image: "Game Configs/Counter Strike/CounterStrike2.webp",
+                description: "Counter Strike 2",
+                folderPath: "Game Configs/Counter Strike",
+                fileName: "esportsdash.cs2_v1.1.bgg"
             }
         ],
     }
