@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+
+<!-- removed team color beside logo as it was slanted and looked very out of place -->
+
+<head>
+   <link rel="stylesheet" type="text/css" href="styles.css">
+  <style>
+
+    .curtainl,
+    .curtainr {
+      animation-fill-mode: forwards;
+      animation-delay: 10s;
+    }
+
+    .camerahole {
+      display: flex;
+      flex-direction: row;
+      width: 640px;
+      height: 360px;
+    }
+
+    .wrapper {
+      position: absolute;
+      left: 0px;
+      top: 175px;  /* over-riding the default in styles */
+      display: flex;
+      flex-direction: column; /* over-riding the default in styles */
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      width: 1920px;
+      height: 880px;
+    }
+
+    .row {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+  </style>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script>
+    async function interval() {
+      //Set to 1 for video functions, 0 to disable
+      let blankimage = "iVBORw0KGgoAAAANSUhEUgAAAHAAAABkCAYAAABep7TGAAAABGdBTUEAALGPC/xhBQAAAEJJREFUeF7twQENAAAAwqD3T+1mDiAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAuBqvZAABFEy6BwAAAABJRU5ErkJggg=="
+      
+      let fullJson = await fetch(`http://localhost:8080/getfullJson`);
+      if (!fullJson.ok) {
+        throw new Error('Network response was not ok');
+      }
+      fullJson = await fullJson.json();
+
+      let teamsData = fullJson.teams;
+      let inputData = fullJson.general;
+
+      let themeColors = inputData.color;
+      let themeLogos = inputData.file;
+      let caster1 = inputData.text.Caster1.value;
+      let caster1handle = inputData.text.Caster1_Social.value;
+      let caster1platform = inputData.list.Caster1_Platform.value;
+      let caster2 = inputData.text.Caster2.value;
+      let caster2handle = inputData.text.Caster2_Social.value;
+      let caster2platform = inputData.list.Caster2_Platform.value;
+      let host = inputData.text.Host.value;
+      let hostHandle = inputData.text.Host_Social.value;
+      let hostPlatform = inputData.list.Host_Platform.value;
+      
+      //Get constant theme data
+      let primaryColor = themeColors.BGG_C1.value
+      let secondaryColor = themeColors.BGG_C2.value;
+      let tertiaryColor = themeColors.BGG_C3.value;
+      let quaternaryColor = themeColors.BGG_C4.value;
+      let quinaryColor = themeColors.BGG_C5.value;
+
+      $('body').css("border-color", (tertiaryColor));
+      $('.camerabox').css("border-color", (tertiaryColor));
+      $('.staffname, .team').css("color", secondaryColor);
+      $('.socials, .teamscore').css("color", tertiaryColor);
+      $('.staff, .team').css("background-color", primaryColor);
+      $('.curtain, .staffiso').css("background-color", tertiaryColor);
+      $('.vs').css("background-color", tertiaryColor);
+      $('.vs').css("color", primaryColor);
+      $('.scorebox').css("background-color", quaternaryColor);
+      //$('.camerahole').css("background-color", (colortheme3txt));
+
+      $(`.socials`).css("color", secondaryColor);
+      async function updateStaffDetails(staffId, casterName, animationDelay, socialPlatform, socialHandle) {
+        try {
+          $('.curtain' + staffId).css("animation-delay", animationDelay + "s");
+          $('.' + staffId).css("animation-delay", (animationDelay - 0.15) + "s");
+
+          if (socialPlatform && socialHandle) {
+            $(`.${staffId} .socials`).html("&nbsp;" + socialHandle);
+            $(`.${staffId} .socials`).css("display", "block");
+
+            // Remove old platform classes before adding the new one
+            $(`.${staffId} .socials`).removeClass().addClass(`socials ${socialPlatform}`);
+
+            $(`.${staffId} .staffname`).html(casterName + "&nbsp;");
+          } else {
+            $(`.${staffId} .socials`).css("display", "none");
+            $(`.${staffId} .staffname`).html(casterName);
+          }
+
+        } catch (error) {
+          console.error('Error fetching ' + staffId + ' details:', error);
+        }
+      }
+
+      updateStaffDetails('caster1', caster1, 1.15, caster1platform, caster1handle, 1);
+      updateStaffDetails('caster2', caster2, 1.25, caster2platform, caster2handle, 2);
+      updateStaffDetails('host', host, 1.35, hostPlatform, hostHandle);
+
+      class team { }
+      async function updateTeamDetails(teamIndex, teamData) {
+        let teamcls = new team();
+        teamcls.name = teamData.teamName;
+        teamcls.color = teamData.teamColor;
+        teamcls.score = teamData.teamScore;
+
+        // server sends us a local url like `/uploads/teamLogos/TheTeamLogo.png` for example and we just use that
+        teamcls.logo = teamData.teamLogoUrl;
+        team[teamIndex] = teamcls;
+
+        if (team[teamIndex].logo != "iVBORw0KGgoAAAANSUhEUgAAAHAAAABkCAYAAABep7TGAAAABGdBTUEAALGPC/xhBQAAAEJJREFUeF7twQENAAAAwqD3T+1mDiAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAuBqvZAABFEy6BwAAAABJRU5ErkJggg==") {
+          $('.teamlogo' + (teamIndex + 1)).css("display", "inherit");
+        } else {
+          $('.teamlogo' + (teamIndex + 1)).css("display", "none");
+        }
+
+        $(".teamlogo" + (teamIndex + 1)).attr("src", team[teamIndex].logo);
+        // $('.team' + (teamIndex + 1)).css("border-color", team[teamIndex].color);
+        $('.team' + (teamIndex + 1)).css("border-color", 'transparent');
+
+        // hide the border if the logo is not present
+
+
+        // List of words to Un-bold.. 
+        let regex = "";
+        [
+          "gaming", "team", "e-?sports", "house", "academy", "uni(versity)?", "state", "tech", "and", "the", "of", "eu",
+        ].forEach((value) => {
+          regex += "|(" + value + ")";
+        });
+
+        regex = "\\b(" + regex.substring(1) + ")\\b";
+
+        let teamformatted = "<b>" + team[teamIndex].name.replace(
+          new RegExp(regex, "gi"), "</b>$1<b>")
+          .replace(/&/gi, "</b>&<b>") + "</b>";
+        $('.teamname' + (teamIndex + 1)).html(teamformatted);
+        $('.teamscore' + (teamIndex + 1)).text(team[teamIndex].score);
+
+
+        // Display or hide the scorebox based on the scores
+        if (team[0].score == 0 && team[1].score == 0) {
+          $('.scorebox').css("display", "none");
+        } else {
+          $('.scorebox').css("display", "flex");
+        }
+      }
+
+      updateTeamDetails(0, teamsData.team1);
+      updateTeamDetails(1, teamsData.team2); 
+    
+      async function setDynamicBackgroundImages() {
+        try {
+          // Set the background images dynamically
+          if (themeLogos.BGG_L1 && themeLogos.BGG_L1.value) {
+            document.querySelector(".tournament.image1").style.backgroundImage = `url(${themeLogos.BGG_L1.value})`;
+          }
+          if (themeLogos.BGG_L2 && themeLogos.BGG_L2.value) {
+            document.querySelector(".channel.image2").style.backgroundImage = `url(${themeLogos.BGG_L2.value})`;
+          }
+        } catch (error) {
+          console.error('Failed to fetch or set background images:', error);
+        }
+      }
+      setDynamicBackgroundImages();
+
+    }
+
+    $(() => {
+      interval();
+      setInterval(interval, 3000);
+    });
+  </script>
+
+</head>
+
+<body>
+
+  <div class="scoreboardwrapper">
+    <div class="scoreboard">
+      <div class="team team1">
+        <img class="teamlogo teamlogo1"></img>
+        <span class="teamname teamname1"></span>
+        <div class="scorebox">
+          <span class="teamscore teamscore1"></span>
+        </div>
+      </div>
+      <div class="vs"><span>VS</span></div>
+      <div class="team team2">
+        <div class="scorebox">
+          <span class="teamscore teamscore2"></span>
+        </div>
+        <span class="teamname teamname2"></span>
+        <img class="teamlogo teamlogo2"></img>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrapper">
+    <div class="toprow row">
+      <div class="camerabox boxhost">
+        <div class="camerahole holehost">
+          <div class="curtain curtainl curtainhost"></div>
+          <div class="curtain curtainr curtainhost"></div>
+        </div>
+        <div class="staffiso">
+          <div class="staff caster1">
+            <span class="staffname"></span>
+            <span class="socials"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="bottomrow row">
+      <div class="camerabox boxcaster1">
+        <div class="camerahole holecaster1">
+          <div class="curtain curtainl curtaincaster1"></div>
+          <div class="curtain curtainr curtaincaster1"></div>
+        </div>
+        <div class="staffiso">
+          <div class="staff caster2">
+            <span class="staffname"></span>
+            <span class="socials"></span>
+          </div>
+        </div>
+      </div>
+      <div class="camerabox boxcaster2">
+        <div class="camerahole holecaster2">
+          <div class="curtain curtainl curtaincaster2"></div>
+          <div class="curtain curtainr curtaincaster2"></div>
+        </div>
+        <div class="staffiso">
+          <div class="staff host">
+            <span class="staffname"></span>
+            <span class="socials"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="tournament image1"></div>
+    <div class="channel image2"></div>
+  </div>
+</body>

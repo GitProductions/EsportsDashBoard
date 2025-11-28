@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+
+<head>
+  <style>
+    :root {
+      --matchWidth: 500px;
+      --teamBoxHeight: 70px;
+      --logoSize: 60px;
+      --teamScoreWidth: 70px;
+      --teamScoreText: 1.5em;
+      --calculatedScoreSize: 1.5em;
+    }
+
+    @font-face {
+      font-family: 'Rajdhani';
+      src: url("fonts/Rajdhani/Rajdhani-Bold.ttf") format('TrueType');
+      font-weight: bold;
+    }
+
+    @font-face {
+      font-family: 'Rajdhani';
+      src: url("fonts/Rajdhani/Rajdhani-Regular.ttf") format('TrueType');
+      font-weight: normal;
+    }
+
+
+    @font-face {
+      font-family: 'FontAwesome';
+      src: url("fonts/Font Awesome/Font Awesome 5 Brands-Regular-400.otf") format('OpenType');
+    }
+
+    @keyframes teamanimate {
+      0% {
+        clip-path: polygon(0% 0, 0 0%, 0% 100%, 0% 100%);
+        transform: translateX(50%);
+      }
+
+      100% {
+        clip-path: polygon(0% 0, 100% 0%, 100% 100%, 0% 100%);
+        transform: translateX(0%);
+      }
+    }
+
+    @keyframes headeranimate {
+      0% {
+        transform: translateX(1200px);
+      }
+
+      100% {
+        transform: translateX(0%);
+      }
+    }
+
+    @keyframes slideright {
+      0% {
+        transform: translateX(-100%);
+      }
+
+      100% {
+        transform: translateX(0px);
+      }
+    }
+
+    @keyframes slideleft {
+      0% {
+        transform: translateX(100%);
+      }
+
+      100% {
+        transform: translateX(0px);
+      }
+    }
+
+    body {
+
+      width: 1920px;
+      height: 1080px;
+      margin: 0px auto;
+      overflow: hidden;
+      background-color: rgba(0, 0, 0, 0);
+
+      color: white;
+      border-color: #8cba11;
+      font-family: 'Rajdhani';
+      text-transform: uppercase;
+
+    }
+
+    .header {
+      position: absolute;
+      right: 0px;
+      top: 0px;
+      padding: 50px;
+      display: flex;
+      flex-direction: column;
+      align-items: right;
+      justify-content: right;
+      text-align: right;
+      font-size: 3em;
+    }
+
+    .info {
+      flex: 1 1 100%;
+      animation: headeranimate 0.5s;
+      animation-fill-mode: backwards;
+      animation-delay: 1s;
+    }
+
+    .title {
+      flex: 1 1 100%;
+      font-size: 2.5em;
+      font-weight: bold;
+      position: relative;
+      top: -37px;
+      right: -6px;
+      animation: headeranimate 0.5s;
+      animation-fill-mode: backwards;
+      animation-delay: 1.2s;
+    }
+
+    .wrapper {
+      position: absolute;
+      left: 0px;
+      top: 170px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      width: 1920px;
+      height: 680px;
+      font-size: 2em;
+      /* transform: skewX(-15deg); */
+    }
+
+    .group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      height: 100%;
+    }
+
+    .match {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      /* width: 500px; */
+      width: var(--matchWidth);
+      /* min-width: 500px; */
+      /* max-width: 500px; */
+      box-sizing: border-box;
+      margin: 0px 20px 0px 20px;
+    }
+
+    .team {
+      max-width: var(--matchWidth);
+      height: var(--teamBoxHeight);
+      /* width: 500px; */
+      /* min-width: 500px; */
+      /* max-width: 500px; */
+      /* height: 70px; */
+      /* min-height: 70px; */
+      display: flex;
+      align-items: center;
+      /* justify-content: flex-start; */
+      /* text-align: left; */
+      margin: 5px 0px 5px 0px;
+      /* padding: 0px 0px 0px 50px; */
+      background-color: black;
+      border-width: 0px 0px 0px 6px;
+      border-color: #8cba11;
+      border-style: solid;
+      box-sizing: border-box;
+      animation: teamanimate 0.3s;
+      animation-fill-mode: backwards;
+      animation-delay: 10s;
+    }
+
+    .teamlogo {
+      /* height: 60px;
+      width: 60px; */
+      height: var(--logoSize);
+      width: var(--logoSize);
+      object-fit: contain;
+    }
+
+    .teamname {
+      width: 350px;
+      /* min-width: 350px;
+      max-width: 350px; */
+      /* font-family: 'Rajdhani'; */
+      /* padding: 3px 0px 3px 0px; */
+      /* white-space: nowrap; */
+      line-height: 0.9em;
+      text-wrap: wrap;
+      font-size: 0.9em;
+      text-align:center;
+    }
+
+    .teamscore {
+      height:100%;
+      /* width: 60px; */
+      width: var(--teamScoreWidth);
+      /* margin-left: auto;  */
+      /* padding: 0; */
+      font-size: var(--calculatedScoreSize);
+      font-weight: bold;
+      display: flex; 
+      align-items: center; 
+      justify-content: center;  
+    }
+
+    .dummy {
+      visibility: hidden;
+    }
+
+    .half {
+      zoom: 50%;
+    }
+
+    .matchinfo {
+      -webkit-animation-timing-function: cubic-bezier(0, 0, 0, 1);
+      animation: teamanimate 0.3s;
+      animation-fill-mode: backwards;
+      animation-delay: 10s;
+      font-weight: bold;
+      position: relative;
+      top: 0.1em;
+    }
+
+    img {
+      height: 60px;
+      width: 60px;
+      min-height: 60px;
+      min-width: 60px;
+      object-fit: contain;
+      overflow: hidden;
+      /* transform: skewX(15deg); */
+    }
+
+    .footer {
+      position: fixed;
+      left: 0px;
+      top: 950px;
+      width: 1870px;
+      clip-path: polygon(0% 0, 100% 0%, 100% 100%, 0% 100%);
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      padding: 25px;
+    }
+
+    .tournament {
+      flex: 1 1 0;
+      height: 80px;
+      background-position: left;
+      background-size: contain;
+      background-repeat: no-repeat;
+      animation: slideright 1s;
+      animation-fill-mode: backwards;
+      animation-delay: 1s;
+    }
+
+    .channel {
+      flex: 1 1 0;
+      height: 80px;
+      background-position: right;
+      background-size: contain;
+      background-repeat: no-repeat;
+      animation: slideleft 1s;
+      animation-fill-mode: backwards;
+      animation-delay: 1s;
+    }
+  </style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script>
+    function fitText(element) {
+      const maxFontSize = 50;
+      const minFontSize = 12;
+      let fontSize = maxFontSize;
+      
+      // Set initial large size to measure
+      element.style.fontSize = maxFontSize + 'px';
+      
+      // While content overflows, reduce size
+      while (element.scrollWidth > element.clientWidth && fontSize > minFontSize ) {
+        fontSize -= 1;
+        element.style.fontSize = fontSize + 'px';
+      }
+      
+      // Reset element's font size
+      element.style.fontSize = '';
+      return fontSize + 'px';
+    }
+
+    async function interval() {
+      let fullJson = await fetch(`http://localhost:8080/getFullJson`);
+      fullJson = await fullJson.json();
+
+      let bracketData = await fetch(`http://localhost:8080/api/get-bracket`);
+      bracketData = await bracketData.json();
+
+      let themeLogos = fullJson.general.file;
+
+      let themeColors = fullJson.general.color;
+      let primaryColor = themeColors.BGG_C1.value;
+      let secondaryColor = themeColors.BGG_C2.value;
+      let tertiaryColor = themeColors.BGG_C3.value;
+      let quaternaryColor = themeColors.BGG_C4.value;
+      let quinaryColor = themeColors.BGG_C5.value;
+      let senaryColor = themeColors.BGG_C6.value;
+
+      $('body').css("border-color", tertiaryColor);
+      $('.info').css("color", senaryColor);
+      $('.title, .matchinfo').css("color", quinaryColor);
+      $('.teamscore').css("background-color", quaternaryColor);
+
+      let generalmessage = fullJson.general.text.Message.value;
+      $('.info').html(generalmessage);
+
+      class Team {
+        constructor(name, logo, score) {
+          this.name = name;
+          this.logo = logo;
+          this.score = score;
+        }
+      }
+
+      var matches = [
+        "sfm1", "sfm2",
+        "wfm1",
+        "lsfm1",
+        "lfm1",
+        "gf1m1"
+      ];
+
+      var teams = [];
+
+
+      Object.values(bracketData).forEach(match => {
+        ['team1', 'team2'].forEach(teamKey => {
+          if (match[teamKey] && match[teamKey].name !== "TBA") {
+            teams.push(new Team(match[teamKey].name, match[teamKey].logo, match[teamKey].score));
+          }
+        });
+      });
+
+      // Track smallest font size needed
+      let smallestFontSize = 50;
+
+      for (let m = 0; m < matches.length; ++m) {
+        let animate1 = 1 + 0.15 * m;
+        let animate2 = 1.05 + 0.15 * m;
+        let animate3 = 1.10 + 0.15 * m;
+        let node = matches[m];
+
+        let matchData = bracketData[node];
+        let team1Name = matchData.team1.name;
+        let team2Name = matchData.team2.name;
+        let score1 = matchData.team1.score;
+        let score2 = matchData.team2.score;
+
+
+        function setVisibility() {
+          if (team1Name === "TBA" || matchData.team1.logo === "") {
+            $('.' + node + ' .logo1').css("visibility", "hidden");
+          } else {
+            $('.' + node + ' .logo1').css("visibility", "visible");
+          }
+
+          if (team2Name === "TBA" || matchData.team2.logo === "") {
+            $('.' + node + ' .logo2').css("visibility", "hidden");
+          } else {
+            $('.' + node + ' .logo2').css("visibility", "visible");
+          }
+
+          if (score1 === 0 && score2 === 0) {
+            $('.' + node + ' .score1, .' + node + ' .score2').css("visibility", "hidden");
+          } else {
+            $('.' + node + ' .score1, .' + node + ' .score2').css("visibility", "visible");
+          }
+        }
+        setVisibility();
+
+        let check = 10; //node === "wfm1" ? 10 : 0;
+        if (score1 >= check) {
+          //HOME WINS
+          
+          // $('.' + node + ' .team1').css("background-color", colortheme3txt); // changed to colortheme 1 because it was blue on black??
+          $('.' + node + ' .team1').css("background-color", tertiaryColor);
+          $('.' + node + ' .team1').css("border-color", secondaryColor);
+          $('.' + node + ' .team1').css("color", primaryColor);
+
+          $('.' + node + ' .team2').css("background-color", primaryColor);
+          $('.' + node + ' .team2').css("border-color", tertiaryColor);
+          $('.' + node + ' .team2').css("color", secondaryColor);
+
+          $('.' + node + ' .score1').css("color", tertiaryColor);
+        } else if (score2 >= check) {
+          //AWAY WINS
+
+          $('.' + node + ' .team1').css("background-color", primaryColor);
+          $('.' + node + ' .team1').css("border-color", tertiaryColor);
+          $('.' + node + ' .team1').css("color", secondaryColor);
+
+          $('.' + node + ' .team2').css("background-color", tertiaryColor);
+          $('.' + node + ' .team2').css("border-color", secondaryColor);
+          $('.' + node + ' .team2').css("color", primaryColor);
+
+          $('.' + node + ' .score2').css("color", tertiaryColor);
+        } else {
+          //OTHER
+          
+          $('.' + node + ' .team1').css("background-color", primaryColor);
+          $('.' + node + ' .team1').css("border-color", tertiaryColor);
+          $('.' + node + ' .team1').css("color", secondaryColor);
+          
+          $('.' + node + ' .team2').css("background-color", primaryColor);
+          $('.' + node + ' .team2').css("border-color", tertiaryColor);
+          $('.' + node + ' .team2').css("color", secondaryColor);
+        }
+
+        function highlightWords(teamName) {
+          let regex = "\\b(gaming|team|e-?sports|house|academy|uni(?:versity)?|state|tech|and|the|of|eu)\\b";
+          return "<b>" + teamName.replace(new RegExp(regex, "gi"), "</b>$1<b>").replace(/&/gi, "</b>&<b>") + "</b>";
+        }
+
+        team1Name = highlightWords(team1Name);
+        team2Name = highlightWords(team2Name);
+
+
+        // Update HTML elements with match information
+        $('.' + node + ' .name1').html(team1Name);
+        $('.' + node + ' .name2').html(team2Name);
+        
+        // Update scores and check sizing
+        $('.' + node + ' .score1').html(score1);
+        $('.' + node + ' .score2').html(score2);
+        
+        // Calculate required sizes
+        let score1Element = $('.' + node + ' .score1')[0];
+        let score2Element = $('.' + node + ' .score2')[0];
+        
+        if (score1Element && score2Element) {
+          // Test size needed for each score
+          let tempSize1 = parseInt(fitText(score1Element));
+          let tempSize2 = parseInt(fitText(score2Element));
+          
+          // Track smallest size needed
+          let matchSize = Math.min(tempSize1, tempSize2);
+          smallestFontSize = Math.min(smallestFontSize, matchSize);
+        }
+
+        const BLANK_LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAYAAAA6/NlyAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAALEwAACxMBAJqcGAAAAA5JREFUeJztwTEBAAAAwqD1T+1hAAAAAODHAFiQAAHuXEeWAAAAAElFTkSuQmCC";
+
+        $('.' + node + ' .logo1')
+          .on("error", function () {
+            $(this).attr("src", BLANK_LOGO);
+          })
+          .attr("src", matchData.team1.logo || BLANK_LOGO);
+
+        $('.' + node + ' .logo2')
+          .on("error", function () {
+            $(this).attr("src", BLANK_LOGO);
+          })
+          .attr("src", matchData.team2.logo || BLANK_LOGO);
+
+        // Set animation delays
+        $('.' + node + ' .team1').css("animation-delay", animate1 + "s");
+        $('.' + node + ' .team2').css("animation-delay", animate2 + "s");
+        $('.' + node + ' .matchinfo').css("animation-delay", animate3 + "s");
+      }
+
+      // After processing all matches, apply the smallest size globally
+      document.documentElement.style.setProperty('--calculatedScoreSize', smallestFontSize + 'px');
+
+      function setDynamicBackgroundImages() {
+        if (themeLogos.BGG_L2 && themeLogos.BGG_L2.value) {
+          document.querySelector(".channel.image2").style.backgroundImage = `url(/${themeLogos.BGG_L2.value})`;
+        }
+      }
+      setDynamicBackgroundImages();
+    }
+
+    $(() => {
+      interval();
+      setInterval(interval, 3000);
+    });
+  </script>
+</head>
+
+<body>
+  <div class="header">
+    <span class="info"></span>
+    <span class="title">Playoffs</span>
+  </div>
+  <div class="wrapper">
+
+    <div class="group qf">
+      <div class="match sfm1">
+        <span class="matchinfo">Semifinal 1</span>
+        <div class="team team1">
+          <img class="teamlogo logo1"></img>
+          <span class="teamname name1"></span>
+          <span class="teamscore score1"></span>
+        </div>
+        <div class="team team2">
+          <img class="teamlogo logo2"></img>
+          <span class="teamname name2"></span>
+          <span class="teamscore score2"></span>
+        </div>
+      </div>
+      <div class="match sfm2">
+        <span class="matchinfo">Semifinal 2</span>
+        <div class="team team1">
+          <img class="teamlogo logo1"></img>
+          <span class="teamname name1"></span>
+          <span class="teamscore score1"></span>
+        </div>
+        <div class="team team2">
+          <img class="teamlogo logo2"></img>
+          <span class="teamname name2"></span>
+          <span class="teamscore score2"></span>
+        </div>
+      </div>
+      <div class="match dummy half">
+        <span class="matchinfo">Dummy</span>
+        <div class="team team1">
+          <img class="teamlogo logo1"></img>
+          <span class="teamname name1"></span>
+          <span class="teamscore score1"></span>
+        </div>
+        <div class="team team2">
+          <img class="teamlogo logo2"></img>
+          <span class="teamname name2"></span>
+          <span class="teamscore score2"></span>
+        </div>
+      </div>
+      <div class="match lsfm1">
+        <span class="matchinfo">Loser's Semifinal</span>
+        <div class="team team1">
+          <img class="teamlogo logo1"></img>
+          <span class="teamname name1"></span>
+          <span class="teamscore score1"></span>
+        </div>
+        <div class="team team2">
+          <img class="teamlogo logo2"></img>
+          <span class="teamname name2"></span>
+          <span class="teamscore score2"></span>
+        </div>
+      </div>
+    </div>
+    <div class="group sf">
+      <div class="match dummy half">
+        <span class="matchinfo">Dummy</span>
+        <div class="team team1">
+          <img class="teamlogo logo1"></img>
+          <span class="teamname name1"></span>
+          <span class="teamscore score1"></span>
+        </div>
+        <div class="team team2">
+          <img class="teamlogo logo2"></img>
+          <span class="teamname name2"></span>
+          <span class="teamscore score2"></span>
+        </div>
+      </div>
+      <div class="match wfm1">
+        <span class="matchinfo">Winner's Final</span>
+        <div class="team team1">
+          <img class="teamlogo logo1"></img>
+          <span class="teamname name1"></span>
+          <span class="teamscore score1"></span>
+        </div>
+        <div class="team team2">
+          <img class="teamlogo logo2"></img>
+          <span class="teamname name2"></span>
+          <span class="teamscore score2"></span>
+        </div>
+      </div>
+      <div class="match dummy">
+        <span class="matchinfo">Dummy</span>
+        <div class="team team1">
+          <img class="teamlogo logo1"></img>
+          <span class="teamname name1"></span>
+          <span class="teamscore score1"></span>
+        </div>
+        <div class="team team2">
+          <img class="teamlogo logo2"></img>
+          <span class="teamname name2"></span>
+          <span class="teamscore score2"></span>
+        </div>
+      </div>
+      <div class="match lfm1">
+        <span class="matchinfo">Loser's Final</span>
+        <div class="team team1">
+          <img class="teamlogo logo1"></img>
+          <span class="teamname name1"></span>
+          <span class="teamscore score1"></span>
+        </div>
+        <div class="team team2">
+          <img class="teamlogo logo2"></img>
+          <span class="teamname name2"></span>
+          <span class="teamscore score2"></span>
+        </div>
+      </div>
+    </div>
+    <div class="group wf">
+      <div class="match dummy half">
+        <span class="matchinfo">Dummy</span>
+        <div class="team team1">
+          <img class="teamlogo logo1"></img>
+          <span class="teamname name1"></span>
+          <span class="teamscore score1"></span>
+        </div>
+        <div class="team team2">
+          <img class="teamlogo logo2"></img>
+          <span class="teamname name2"></span>
+          <span class="teamscore score2"></span>
+        </div>
+      </div>
+      <div class="match dummy">
+        <span class="matchinfo">Dummy</span>
+        <div class="team team1">
+          <img class="teamlogo logo1"></img>
+          <span class="teamname name1"></span>
+          <span class="teamscore score1"></span>
+        </div>
+        <div class="team team2">
+          <img class="teamlogo logo2"></img>
+          <span class="teamname name2"></span>
+          <span class="teamscore score2"></span>
+        </div>
+      </div>
+      <div class="match gf1m1">
+        <span class="matchinfo">Grand Final</span>
+        <div class="team team1">
+          <img class="teamlogo logo1"></img>
+          <span class="teamname name1"></span>
+          <span class="teamscore score1"></span>
+        </div>
+        <div class="team team2">
+          <img class="teamlogo logo2"></img>
+          <span class="teamname name2"></span>
+          <span class="teamscore score2"></span>
+        </div>
+      </div>
+      <div class="match dummy">
+        <span class="matchinfo">Dummy</span>
+        <div class="team team1">
+          <img class="teamlogo logo1"></img>
+          <span class="teamname name1"></span>
+          <span class="teamscore score1"></span>
+        </div>
+        <div class="team team2">
+          <img class="teamlogo logo2"></img>
+          <span class="teamname name2"></span>
+          <span class="teamscore score2"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <div class="tournament image1"></div>
+    <div class="channel image2"></div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+
+<!-- URL PARAMS
+showlogo: true/false
+
+// seem to have an issue with webp logos???
+team: 1/2 - setting this param replaces default logo with team logo instead 
+-->
+
+<head>
+  <style>
+    @font-face {
+      font-family: 'Rajdhani';
+      src: url("fonts/Rajdhani/Rajdhani-Bold.ttf") format('TrueType');
+      font-weight: bold;
+    }
+
+    @font-face {
+      font-family: 'Rajdhani';
+      src: url("fonts/Rajdhani/Rajdhani-Regular.ttf") format('TrueType');
+      font-weight: normal;
+    }
+
+    @keyframes leftmove {
+      from {
+        transform: translate(50%, 0%);
+        clip-path: polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%);
+      }
+
+      to {
+        transform: translate(0%, 0%);
+        clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+      }
+    }
+
+    body {
+      margin: 0px auto;
+      overflow: hidden;
+      background-color: rgba(0, 0, 0, 0);
+    }
+
+    div.replay {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Main replaytext container */
+    div.replaytext {
+      position: absolute;
+      top: 185px;
+      left: 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 3em;
+    }
+
+    /* Common styles for all divs inside replaytext */
+    div.replaytext div {
+      background-color: #000000;
+      border-style: solid;
+      border-width: 0px 0px 0px 7px;
+      border-color: #8cba11;
+      font-family: 'Rajdhani';
+      font-weight: bold;
+      padding: 5px;
+      text-transform: uppercase;
+      color: white;
+
+      animation: leftmove 1s;
+      animation-fill-mode: backwards;
+      animation-delay: 1.5s;
+      animation-timing-function: cubic-bezier(0, 0, 0, 1);
+    }
+
+    /* Logo-specific styles */
+    .replaytext div.logo {
+      width: 205px;
+      height: 145px;
+      box-sizing: border-box;
+      background-size: 60% auto;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-origin: content-box;
+      /* background-color: rgb(247, 247, 247) !important; */
+      background-color: transparent !important;
+      border-left: transparent !important;
+      padding: 10px;
+    }
+
+    /* Text span styles */
+    div.replaytext span {
+      margin: 20px;
+      position: relative;
+      top: 1px;
+      height: 100%;
+    }
+  </style>
+  <script src="scripts/jquery/jquery-3.3.1.min.js"></script>
+  <script>
+
+    let team = null;
+
+    async function analyzeParams() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const showlogo = urlParams.get('showlogo') !== 'false';
+      team = urlParams.get('team')
+
+      if (showlogo) {
+        $(".logo").css("display", "block");
+      } else {
+        $(".logo").css("display", "none");
+      }
+    }
+
+    async function interval() {
+      let fullJson = await fetch(`http://localhost:8080/getFullJson`);
+      fullJson = await fullJson.json();
+
+      // Get constant theme data
+      let themeColors = fullJson.general.color;
+      let colortheme1txt = themeColors.BGG_C1.value;
+      let colortheme2txt = themeColors.BGG_C2.value;
+      let colortheme3txt = themeColors.BGG_C3.value;
+
+      // Set theme colors
+      $('div.replaytext div').css("border-color", colortheme3txt);
+      $('div.replaytext div').css("color", colortheme2txt);
+      $('div.replaytext div').css("background-color", colortheme1txt);
+
+      // $(".logo").css("background-color", "rgb(247, 247, 247)");
+
+      // Set logo background image
+      if (team) {
+        $(".logo").css("background-image", `url(${fullJson.teams[`team${team}`].teamLogoUrl})`);
+      } else {
+        $(".logo").css("background-image", `url(${fullJson.general.file.BGG_L1.value})`);
+      }
+    }
+
+    $(() => {
+      analyzeParams();
+
+      interval();
+      setInterval(interval, 1000);
+    });
+  </script>
+</head>
+
+<body>
+  <div class="replaytext">
+    <div class="logo"></div>
+    <div><span>replay</span></div>
+  </div>
+</body>
+
+</html>

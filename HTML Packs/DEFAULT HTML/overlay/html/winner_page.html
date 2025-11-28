@@ -1,0 +1,220 @@
+<!-- 
+OPTIONS:
+Using URL Parameters
+
+You can use URL parameters to customize the transition.
+ For example, you can use the following URL to display the transition for team 1:
+http://localhost:8080/transition.html?team=team1
+
+You can use the following URL to display the transition for team 2:
+http://localhost:8080/transition.html?team=team2
+
+If you don't use any URL parameters, the transition will display the branding logo and theme colors.
+
+
+-->
+
+<head>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+	<link rel="stylesheet" href="styles.css" />
+	<style>
+		body {
+			margin: 0px auto;
+			overflow: hidden;
+		}
+
+		div {
+			-webkit-animation-timing-function: ease-out;
+		}
+
+		@-webkit-keyframes slideease {
+			0% {
+				transform: translateX(1000px) skewX(15deg);
+			}
+
+			50% {
+				transform: translateX(20px) skewX(15deg);
+			}
+
+			100% {
+				/* left: transform: translateX(0px) skewX(15deg); */
+				/* transform: translateX(0px) skewX(15deg); */
+			}
+		}
+
+		@-webkit-keyframes textslideease {
+			0% {
+				transform: translateX(1900px);
+			}
+
+			50% {
+				/* transform: translateX(540px); */
+			}
+
+			100% {
+				/* left: transform: translateX(0px) skewX(15deg); */
+				/* transform: translateX(0px) skewX(15deg); */
+			}
+		}
+
+		@keyframes stingerwipe {
+			0% {
+				clip-path: polygon(0 0, 100% 0%, 100% 100%, 0% 100%);
+				transform: translateX(0) skewX(-15deg);
+			}
+
+			100% {
+				/* clip-path: polygon(0% 0, 50% 0, 50% 100%, 0% 100%);
+				transform: translateX(-50%) skewX(-15deg); */
+			}
+		}
+
+		div.altcolor {
+			position: absolute;
+			top: 0px;
+			left: -150px;
+			width: 2220px;
+			height: 1080px;
+			vertical-align: middle;
+			/* background-color: white; */
+			animation: stingerwipe 0.35s;
+			animation-fill-mode: forwards;
+			animation-delay: 1.55s;
+			transform: skewX(-15deg);
+		}
+
+		div.winnertext {
+			position: absolute;
+			bottom: 75px;
+			width: 100%;
+
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			text-align: center;
+			vertical-align: middle;
+
+			/* text-shadow: 0px 0px 15px #000000; */
+			font-size: 5em;
+		}
+
+		div.winnertext span {
+			margin: 20px;
+			position: relative;
+			top: 1px;
+		}
+
+		div.winnertext div {
+			/* background-color: #000000; */
+			border-style: solid;
+			border-width: 0px 0px 0px 0px;
+			border-color: #8cba11;
+			font-family: 'Rajdhani';
+			font-weight: bold;
+			/* padding: 5px; */
+			text-transform: uppercase;
+			color: white;
+			/* transform: skewX(-15deg); */
+
+			animation: textslideease 1s;
+			animation-fill-mode: backwards;
+			animation-delay: 1.2s;
+			-webkit-animation-timing-function: cubic-bezier(0, 0, 0, 1);
+		}
+
+		div.winnerstinger span.logo {
+   			opacity: 0;
+   			position: absolute;
+   			width: 400px;
+   			height: 400px;
+   			/* Center both horizontally and vertically using calc and transform */
+   			left: calc(50% - 200px); /* 50% of screen width minus half the logo width */
+   			top: calc(50% - 200px); /* 50% of screen height minus half the logo height */
+   			transform: translate(0, -100px); /* adjust vertical position by shifting up 100px */
+   			background-size: contain;
+   			background-repeat: no-repeat;
+   			background-position: center;
+   			animation: slideease 1s forwards;
+   			animation-delay: 1s;
+		}
+
+
+		@-webkit-keyframes slideease {
+			0% {
+				opacity: 0;
+				transform: translateX(1000px);
+			}
+
+			100% {
+				opacity: 1;
+				transform: translateX(0);
+			}
+		}
+	</style>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script>
+		async function interval() {
+			let fullJson = await fetch(`http://localhost:8080/getFullJson`);
+			fullJson = await fullJson.json();
+
+			console.log(fullJson);
+
+			let team1Score = parseInt(fullJson.teams.team1.teamScore);
+			let team2Score = parseInt(fullJson.teams.team2.teamScore);
+
+			let themeColors = fullJson.general.color;
+			let colortheme1txt = themeColors.BGG_C1.value;
+			let colortheme2txt = themeColors.BGG_C2.value;
+			let colortheme3txt = themeColors.BGG_C3.value;
+
+			//Set theme colors
+			$('div.winnertext div').css('border-color', colortheme3txt);
+			$('div.winnertext div').css('color', colortheme2txt);
+			$('div.winnertext div').css('background-color', colortheme1txt);
+
+			let colorthemesting = themeColors.BGG_C1.value; // by default its white
+			let colorthemealt = themeColors.BGG_C3.value; // by default its the 'navy blue'
+
+			// Set theme colors
+			// $('div.stingerlogo').css('background-color', colorthemesting);
+			// $('div.altcolor').css('background-color', colorthemealt);
+
+			// Get URL parameters
+			const urlParams = new URLSearchParams(window.location.search);
+			const team = urlParams.get('team');
+
+			// Set the logo based on the team parameter
+			if (team1Score > team2Score) {
+				$('span#team1logobig').css(
+					'background-image',
+					"url('" + fullJson.teams.team1.teamLogoUrl + "')"
+				);
+				$('span#winnertext').html(`${fullJson.teams.team1.teamName} WINS!`);
+			} else if (team2Score > team1Score) {
+				$('span#team1logobig').css(
+					'background-image',
+					"url('" + fullJson.teams.team2.teamLogoUrl + "')"
+				);
+				$('span#winnertext').html(`${fullJson.teams.team2.teamName} WINS!`);
+			} else {
+				$('span.logo').css('background-image', "url('" + fullJson.general.file.BGG_L1.value + "')");
+			}
+		}
+
+		$(() => {
+			interval();
+			setInterval(interval, 10000);
+		});
+	</script>
+</head>
+
+<body>
+	<div class="altcolor"></div>
+	<div class="winnerstinger" id="team1colorstinger">
+		<span class="logo" id="team1logobig"></span>
+	</div>
+	<div class="winnertext">
+		<div><span id="winnertext">Wins!</span></div>
+	</div>
+</body>

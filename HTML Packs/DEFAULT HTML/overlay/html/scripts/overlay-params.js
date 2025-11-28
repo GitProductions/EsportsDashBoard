@@ -1,0 +1,386 @@
+
+// various 'css' params we use in overlay based on game/style chosen
+
+
+
+const overlayParams = {
+    "Default": {
+        style1: {
+            teamBoxWidth: "685px",
+            teamBoxHeight: "46px",
+            teamTopPosition: "13px",
+            teamSideOffset: "0px",
+            middleTopPosition: "8px",
+            "skew-angle-positive": "0deg",
+            "skew-angle-negative": "0deg",
+
+            middleAnimationTime: "1s",
+
+
+        }
+    },
+
+    "Marvel Rivals": {
+        style1: {
+            //   --teamBoxHeight: 50px;
+            //   --middleTopPosition: 17px;
+            //   --skew-angle-positive: 15deg;
+            //   --skew-angle-negative: -15deg;
+
+            teamBoxWidth: "470px",
+            teamTopPosition: "30px",
+            teamSideOffset: "15px",
+            teamBoxHeight: "50px",
+            middleTopPosition: "3px",
+            "skew-angle-positive": "15deg",
+            "skew-angle-negative": "-15deg",
+            teamLeftOuterPadding: "8px",
+            teamRightOuterPadding: "8px",
+            teamNameInnerPadding: "20px",
+            teamGroupTopPosition: "40px",
+            teamGroupSideOffset: "400px",
+
+        }
+    },
+
+    "Overwatch": {
+        style1: {
+            teamBoxWidth: "685px",
+            teamBoxHeight: "46px",
+            teamTopPosition: "13px",
+            teamSideOffset: "0px",
+            middleTopPosition: "8px",
+            "skew-angle-positive": "0deg",
+            "skew-angle-negative": "0deg",
+            teamGroupTopPosition: "20px",
+            teamGroupSideOffset: "685px"
+        }
+    },
+
+    "Valorant": {
+        default: {
+            middleWidth: "120px",
+            scoreSize: "2.5em",
+
+            teamBoxWidth: "430px",
+            teamBoxHeight: "40px",
+
+            teamTopPosition: "30px",
+            teamSideOffset: "-0px",
+            middleTopPosition: "95px",
+            "skew-angle-positive": "0deg",
+            "skew-angle-negative": "0deg",
+
+            teamLeftClipPath: "var(--arrowRightClipPath)",
+            teamRightClipPath: "var(--arrowLeftClipPath)",
+
+            teamLeftInnerPadding: "15px",
+            teamRightInnerPadding: "15px",
+
+            teamLeftBorderLeft: "7px solid #27AAE1",
+            teamLeftBorderRight: "0px solid #C80013",
+
+            teamRightBorderLeft: "0px solid #27AAE1",
+            teamRightBorderRight: "7px solid #C80013",
+        },
+        style1: {
+            teamLogoSize: "25px",
+            teamNameSize: "1.1em",
+            scoreSize: "1.4em",
+
+            teamBoxWidth: "400px",
+            teamBoxHeight: "20px",
+
+            teamTopPosition: "7px",
+            teamSideOffset: "-425px",
+
+            middleHeight: "25px",
+            middleWidth: "120px",
+            middleTopPosition: "95px",
+
+            "skew-angle-positive": "0deg",
+            "skew-angle-negative": "0deg",
+
+            middleTextSize: "1.1em",
+
+            teamLeftClipPath: "polygon(0 0, 93% 0, 94% 1%, 95% 2%, 100% 50%, 95% 98%, 94% 99%, 93% 100%, 0 100%, 0 98%, 0 52%, 0 50%)",
+            teamRightClipPath: "polygon(100% 0, 100% 49%, 100% 100%, 7% 100%, 6% 99%, 5% 98%, 0 50%, 5% 2%, 6% 1%, 7% 0)",
+
+            teamLeftBorderLeft: "4px solid #27AAE1",
+            teamLeftBorderRight: "0px solid #C80013",
+
+            teamRightBorderLeft: "0px solid #27AAE1",
+            teamRightBorderRight: "4px solid #C80013"
+        },
+        style2: {
+            middleWidth: "120px",
+            scoreSize: "2.0em",
+
+            teamBoxWidth: "350px",
+            teamBoxHeight: "40px",
+
+            teamTopPosition: "90px",
+            teamSideOffset: "-490px",
+
+            middleTopPosition: "95px",
+            "skew-angle-positive": "0deg",
+            "skew-angle-negative": "0deg",
+
+            teamLeftBorderLeft: "7px solid #27AAE1",
+            teamLeftBorderRight: "0px solid #C80013",
+
+            teamRightBorderLeft: "0px solid #27AAE1",
+            teamRightBorderRight: "7px solid #C80013"
+        },
+        style3: {
+            middleWidth: "120px",
+            scoreSize: "2.0em",
+
+            teamBoxWidth: "430px",
+            teamBoxHeight: "40px",
+
+            teamTopPosition: "90px",
+            teamSideOffset: "-500px",
+
+            middleHeight: "25px",
+            middleTopPosition: "98px",
+            "skew-angle-positive": "0deg",
+            "skew-angle-negative": "0deg",
+
+            teamLeftClipPath: "polygon(100% 0, 100% 49%, 100% 100%, 7% 100%, 0 50%, 7% 0)",
+            teamRightClipPath: "polygon(93% 0, 100% 50%, 93% 100%, 0 100%, 0 50%, 0 0)",
+
+            teamLeftInnerPadding: "20px",
+            teamRightInnerPadding: "20px",
+
+            teamLeftBorderLeft: "7px solid #27AAE1",
+            teamLeftBorderRight: "0px solid #C80013",
+
+            teamRightBorderLeft: "0px solid #27AAE1",
+            teamRightBorderRight: "7px solid #C80013"
+        },
+        style4: {
+            middleWidth: "120px",
+            scoreSize: "2.5em",
+
+            teamBoxWidth: "430px",
+            teamBoxHeight: "40px",
+
+            teamTopPosition: "30px",
+            teamSideOffset: "-0px",
+            middleTopPosition: "95px",
+            "skew-angle-positive": "0deg",
+            "skew-angle-negative": "0deg",
+
+            teamLeftClipPath: "var(--arrowRightClipPath)",
+            teamRightClipPath: "var(--arrowLeftClipPath)",
+
+            teamLeftInnerPadding: "15px",
+            teamRightInnerPadding: "15px",
+
+            teamLeftBorderLeft: "7px solid #27AAE1",
+            teamLeftBorderRight: "0px solid #C80013",
+
+            teamRightBorderLeft: "0px solid #27AAE1",
+            teamRightBorderRight: "7px solid #C80013",
+
+        }
+    },
+
+    "Call of Duty": {
+        style1: {
+            teamLogoSize: "0px", // this is simply making the default logo size not visible in a terrible way..
+            teamBoxWidth: "610px",
+            teamBoxHeight: "55px",
+            teamTopPosition: "13px",
+            teamSideOffset: "-43px",
+
+            scoreSize: "2.5em",
+            teamNameSize: "1.3em",
+
+
+
+            middleTopPosition: "15px",
+            middleHeight: "30px",
+            middleWidth: "475px",
+
+            "skew-angle-positive": "0deg",
+            "skew-angle-negative": "0deg",
+            teamGroupTopPosition: "20px",
+            teamGroupSideOffset: "685px",
+
+            teamRightBorderLeft: "0px solidrgba(39, 169, 225, 0)",
+            teamRightBorderRight: "0px solidrgba(200, 0, 20, 0)",
+            teamLeftBorderLeft: "0px solidrgba(39, 169, 225, 0)",
+            teamLeftBorderRight: "0px solidrgba(200, 0, 20, 0)",
+
+            teamLeftClipPath: "none",
+            teamRightClipPath: "none",
+        }
+    },
+    "League of Legends": {
+        style1: {
+            teamLogoSize: "0px",
+            teamBoxWidth: "200px",
+            teamBoxHeight: "60px",
+            teamTopPosition: "1px",
+            teamSideOffset: "-220px",
+            teamRightSideOffset: "-6px",
+            // teamLeftSideOffset: "0px",
+
+            scoreSize: "2em",
+            teamNameSize: "1.3em",
+
+            middleTopPosition: "115px",
+            middleHeight: "35px",
+            middleWidth: "200px",
+
+            "skew-angle-positive": "0deg",
+            "skew-angle-negative": "0deg",
+
+            teamGroupTopPosition: "-220px", // assuring its off screen at all times 
+            teamGroupSideOffset: "-685px", // although html should do this considering no side is set
+
+            // teamRightBorderLeft: "3px solid #27AAE1",
+            teamRightBorderRight: "3px solid #C80013",
+            teamLeftBorderLeft: "3px solid #27AAE1",
+            teamRightBorderLeft: "0px solidrgba(39, 169, 225, 0)",
+            teamLeftBorderRight: "0px solidrgba(200, 0, 20, 0)",
+
+            teamRightClipPath: "polygon(100% 0, 100% 100%, 0 100%, 10% 0)",
+            teamLeftClipPath: "polygon(0 0, 0 100%, 100% 100%, 90% 0)"
+        }
+    },
+
+    "RainbowSix": {
+        style1: {
+            teamBoxWidth: "650px",
+            teamBoxHeight: "53px",
+            teamTopPosition: "0px",
+            teamSideOffset: "0px",
+            middleTopPosition: "0px",
+            middleWidth: "100%",
+            middleHeight: "53px",
+            middleAnimationTime: "1.5s",
+
+            "skew-angle-positive": "10deg",
+            "skew-angle-negative": "-10deg",
+            // teamLeftTextNameAlign: "center",
+            // teamRightTextNameAlign: "center"
+        }
+    },
+
+    "CounterStrike2": {
+        style1: {
+            teamBoxWidth: "420px",
+            teamBoxHeight: "55px",
+            teamTopPosition: "75px",
+
+            teamSideOffset: "-410px",
+
+            teamLeftBorderLeft: "7px solid #27AAE1",
+            teamLeftBorderRight: "0px solid #ffffff",
+
+            teamRightBorderLeft: "0px solid #ffffff",
+            teamRightBorderRight: "7px solid #C80013",
+
+            middleTopPosition: "145px",
+            middleWidth: "230px",
+            middleAnimationTime: "2.5s",
+        },
+        style2: {
+            teamBoxWidth: "320px",
+            teamBoxHeight: "55px",
+            teamTopPosition: "75px",
+
+            teamSideOffset: "-360px",
+
+            teamLeftBorderLeft: "7px solid #27AAE1",
+            teamLeftBorderRight: "0px solid #ffffff",
+
+            teamRightBorderLeft: "0px solid #ffffff",
+            teamRightBorderRight: "7px solid #C80013",
+
+            middleTopPosition: "95px",
+            middleWidth: "250px",
+            middleAnimationTime: "2.5s",
+        },
+
+        style3: {
+            teamBoxWidth: "400px",
+            teamBoxHeight: "55px",
+            teamTopPosition: "75px",
+            teamSideOffset: "-430px",
+            teamLeftBorderLeft: "7px solid #27AAE1",
+            teamLeftBorderRight: "0px solid #ffffff",
+
+            teamRightBorderLeft: "0px solid #ffffff",
+            teamRightBorderRight: "7px solid #C80013",
+
+
+
+            middleTopPosition: "95px",
+            middleWidth: "250px",
+            middleAnimationTime: "2.5s",
+        },
+    },
+
+    "Rocket League": {
+        style1: {
+            teamNameSize: "1.7em",
+
+            teamTopPosition: "15px",
+            middleTopPosition: "90px",
+            middleWidth: "180px",
+        },
+        style2: {
+            teamNameSize: "1.7em",
+            teamTopPosition: "18px",
+            teamBoxWidth: "400px",
+            teamSideOffset: "-350px",
+
+            teamLogoMargin: "15px",
+
+            scoreBoxWidth: "60px",
+
+            teamLeftBorderLeft: "5px solid #27AAE1",
+            teamLeftBorderRight: "0px solid #ffffff",
+
+            teamRightBorderLeft: "0px solid #ffffff",
+            teamRightBorderRight: "5px solid #C80013",
+
+            middleTopPosition: "90px",
+            middleWidth: "180px",
+        },
+        style3: {
+            teamNameSize: "1.7em",
+            // teamTopPosition: "5px",
+
+            teamBoxHeight: "90px",
+            teamBoxWidth: "400px",
+            teamSideOffset: "-455px",
+
+            // teamLogoMargin: "15px",
+
+            scoreBoxPadding: "95px",
+            scorePadding: "0 20px",
+
+            teamLeftBorderLeft: "5px solid #27AAE1",
+            teamLeftBorderRight: "0px solid #ffffff",
+
+            teamRightBorderLeft: "0px solid #ffffff",
+            teamRightBorderRight: "5px solid #C80013",
+
+            middleTopPosition: "80px",
+            middleWidth: "300px",
+
+            // teamLeftClipPath: "polygon(50% 0%, 83% 0, 99% 0, 93% 11%, 93% 87%, 100% 100%, 22% 100%, 0 100%, 0% 35%, 0 0);",
+            teamLeftClipPath: "polygon(100% 0, 0 0, 0 47%, 0 100%, 100% 100%, 83% 80%, 83% 15%)",
+            teamRightClipPath: "polygon(0 0, 100% 0, 100% 47%, 100% 100%, 0 100%, 17% 80%, 17% 15%)",
+
+        }
+
+
+    }
+}
+
