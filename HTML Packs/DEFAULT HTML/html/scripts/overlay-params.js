@@ -15,6 +15,8 @@ const overlayParams = {
             "skew-angle-negative": "0deg",
 
             middleAnimationTime: "1s",
+
+
         }
     },
 
@@ -322,5 +324,63 @@ const overlayParams = {
             middleAnimationTime: "2.5s",
         },
     },
+
+    "Rocket League": {
+        style1: {
+            teamNameSize: "1.7em",
+
+            teamTopPosition: "15px",
+            middleTopPosition: "90px",
+            middleWidth: "180px",
+        },
+        style2: {
+            teamNameSize: "1.7em",
+            teamTopPosition: "18px",
+            teamBoxWidth: "400px",
+            teamSideOffset: "-350px",
+
+            teamLogoMargin: "15px",
+
+            scoreBoxWidth: "60px",
+
+            teamLeftBorderLeft: "5px solid #27AAE1",
+            teamLeftBorderRight: "0px solid #ffffff",
+
+            teamRightBorderLeft: "0px solid #ffffff",
+            teamRightBorderRight: "5px solid #C80013",
+
+            middleTopPosition: "90px",
+            middleWidth: "180px",
+        },
+        style3: {
+            teamNameSize: "1.7em",
+            // teamTopPosition: "5px",
+
+            teamBoxHeight: "90px",
+            teamBoxWidth: "400px",
+            teamSideOffset: "-455px",
+
+            // teamLogoMargin: "15px",
+// --scorePadding: 0 50px;
+            scoreBoxPadding: "95px",
+            scorePadding: "0 20px",
+
+            teamLeftBorderLeft: "5px solid #27AAE1",
+            teamLeftBorderRight: "0px solid #ffffff",
+
+            teamRightBorderLeft: "0px solid #ffffff",
+            teamRightBorderRight: "5px solid #C80013",
+
+            middleTopPosition: "80px",
+            middleWidth: "300px",
+
+            // teamLeftClipPath: "polygon(50% 0%, 83% 0, 99% 0, 93% 11%, 93% 87%, 100% 100%, 22% 100%, 0 100%, 0% 35%, 0 0);",
+            teamLeftClipPath: "polygon(100% 0, 0 0, 0 47%, 0 100%, 100% 100%, 83% 80%, 83% 15%)",
+            teamRightClipPath: "polygon(0 0, 100% 0, 100% 47%, 100% 100%, 0 100%, 17% 80%, 17% 15%)",
+
+        }
+
+
+    }
 }
 

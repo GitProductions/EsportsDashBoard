@@ -30,7 +30,11 @@ Available Styles:
 
 <head>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-
+ 
+ <script>
+    const testMode = false
+  </script>
+  
   <style>
     body {
       /* background-color: #C80013; */
@@ -45,7 +49,14 @@ Available Styles:
 
     :root {
       --scoreSize: 2.5em;
+
+      --scorePadding: 0 0px;
+      --scoreBoxPadding: 0px;
+
+      --scoreBoxWidth: 75px;
+
       --teamLogoSize: 45px;
+      --teamLogoMargin: 0;
       --teamNameSize: 1.3em;
       --teamNameInnerPadding: 10px;
 
@@ -228,10 +239,12 @@ Available Styles:
 
     .team1 .logo {
       transform: skew(calc(-1 * var(--skew-angle-positive)));
+      margin:  0 var(--teamLogoMargin) 0 0;
     }
 
     .team2 .logo {
       transform: skew(calc(-1 * var(--skew-angle-negative)));
+      margin:  0 0 0 var(--teamLogoMargin);
     }
 
     .team1 .teamname {
@@ -272,19 +285,24 @@ Available Styles:
       font-size: var(--scoreSize);
       font-weight: bold;
       color: white;
-      min-width: 75px;
+      min-width: var(--scoreBoxWidth);
       text-align: center;
       flex-shrink: 0;
       line-height: calc(var(--teamBoxHeight) + 3px);
+
+      padding: var(--scorePadding);
+      /* background-color: #C80013; */
     }
 
 
     .team1 .score {
       transform: skew(calc(-1 * var(--skew-angle-positive)));
+      padding-right: var(--scoreBoxPadding);
     }
 
     .team2 .score {
       transform: skew(calc(-1 * var(--skew-angle-negative)));
+      padding-left: var(--scoreBoxPadding);
     }
 
     /* Center Match Info */
@@ -621,6 +639,13 @@ Available Styles:
     async function interval() {
       let fullJson = await fetch(`http://localhost:8080/getFullJson`);
       fullJson = await fullJson.json();
+
+
+      if (testMode) {
+        console.log('current game:', fullJson.currentGame);
+        document.body.style.backgroundImage = `url('../GameImages/${fullJson.currentGame.toLowerCase().replace(/\s+/g, '_')}.png')`;
+
+      }
 
       if (!RUNNING) {
         console.log("Running Overlay...");
