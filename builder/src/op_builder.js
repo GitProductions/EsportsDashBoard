@@ -65,7 +65,7 @@ class OverlayPackBuilder {
         const zip = new JSZip();
         await addFolderToZip(zip, overlayFolderPath);
         const overlayPackData = await zip.generateAsync({ type: 'nodebuffer' });
-        const outputFilePath = path.join(__root, 'builder', 'output', 'overlays', `${overlayPack.id}.esportsDash.overlay`);
+        const outputFilePath = path.join(__root, 'builder', 'output', 'overlays', `${overlayPack.id}.esportsDashOverlay`);
         await fs.writeFile(outputFilePath, overlayPackData);
         console.log(`Overlay pack created at: ${outputFilePath}`);
     }
