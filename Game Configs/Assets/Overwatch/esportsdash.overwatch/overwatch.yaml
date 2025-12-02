@@ -1,0 +1,211 @@
+id: esportsdash.overwatch
+game: Overwatch
+version: "2.6"
+author: EsportsDash
+
+maps:
+  - name: Antartic Peninsula
+    file: Antartic_Peninsula
+  - name: Aatlis
+    file: Aatlis
+  - name: Blizzard World
+    file: Blizzard_World
+  - name: Busan
+    file: Busan
+  - name: Circuit Royale
+    file: Circuit_Royale
+  - name: Colosseo
+    file: Colosseo
+  - name: Dorado
+    file: Dorado
+  - name: Eichenwalde
+    file: Eichenwalde
+  - name: Esperança
+    file: Esperança
+  - name: Hanamura
+    file: Hanamura
+  - name: Hanaoka
+    file: Hanaoka
+  - name: Havana
+    file: Havana
+  - name: Hollywood
+    file: Hollywood
+  - name: Horizon Lunar Colony
+    file: Horizon_Lunar_Colony
+  - name: Ilios
+    file: Ilios
+  - name: Junkertown
+    file: Junkertown
+  - name: King's Row
+    file: King's_Row
+  - name: Lijiang Tower
+    file: Lijiang_Tower
+  - name: Midtown
+    file: Midtown
+  - name: Nepal
+    file: Nepal
+  - name: New Junk City
+    file: New_Junk_City
+  - name: Numbani
+    file: Numbani
+  - name: Oasis
+    file: Oasis
+  - name: Paraíso
+    file: Paraíso
+  - name: Paris
+    file: Paris
+  - name: Rialto
+    file: Rialto
+  - name: Route 66
+    file: Route_66
+  - name: Runasapi
+    file: Runasapi
+  - name: Samoa
+    file: Samoa
+  - name: Shambali
+    file: Shambali
+  - name: Suravasa
+    file: Suravasa
+  - name: Temple of Anubis
+    file: Temple_of_Anubis
+  - name: Throne of Anubis
+    file: Throne_of_Anubis
+  - name: New Queen Street
+    file: New_Queen_Street
+  - name: Volskaya Industries
+    file: Volskaya_Industries
+  - name: Watchpoint Gibraltar
+    file: Watchpoint-_Gibraltar
+
+modes:
+  - name: Assault
+    file: Assault
+  - name: Control
+    file: Control
+  - name: Escort
+    file: Escort
+  - name: Hybrid
+    file: Hybrid
+  - name: Clash
+    file: Clash
+  - name: CTF
+    file: CTF
+  - name: Elimination
+    file: Elimination
+  - name: TDM
+    file: TDM
+  - name: Deathmatch
+    file: Deathmatch
+  - name: Flashpoint
+    file: Flashpoint
+  - name: Push
+    file: Push
+  - name: Capture
+    file: Capture
+
+roles:
+  - name: Tank
+    file: Tank
+    heroes:
+      - name: Doomfist
+        file: Doomfist
+      - name: D.Va
+        file: D.Va
+      - name: Hazard
+        file: Hazard
+      - name: JunkerQueen
+        file: JunkerQueen
+      - name: Mauga
+        file: Mauga
+      - name: Orisa
+        file: Orisa
+      - name: Ramattra
+        file: Ramattra
+      - name: Reinhardt
+        file: Reinhardt
+      - name: Roadhog
+        file: Roadhog
+      - name: Sigma
+        file: Sigma
+      - name: Winston
+        file: Winston
+      - name: Wrecking Ball
+        file: Wrecking_Ball
+      - name: Zarya
+        file: Zarya
+
+  - name: DPS
+    file: DPS
+    heroes:
+      - name: Ashe
+        file: Ashe
+      - name: Bastion
+        file: Bastion
+      - name: Cassidy
+        file: Cassidy
+      - name: Echo
+        file: Echo
+      - name: Genji
+        file: Genji
+      - name: Hanzo
+        file: Hanzo
+      - name: Junkrat
+        file: Junkrat
+      - name: Mei
+        file: Mei
+      - name: Pharah
+        file: Pharah
+      - name: Reaper
+        file: Reaper
+      - name: "Soldier: 76"
+        file: Soldier-_76
+      - name: Sojourn
+        file: Sojourn
+      - name: Sombra
+        file: Sombra
+      - name: Symmetra
+        file: Symmetra
+      - name: Torbjörn
+        file: Torbjörn
+      - name: Tracer
+        file: Tracer
+      - name: Venture
+        file: Venture
+      - name: Widowmaker
+        file: Widowmaker
+      - name: Freja
+        file: Freja
+
+  - name: Support
+    file: Support
+    heroes:
+      - name: Ana
+        file: Ana
+      - name: Baptiste
+        file: Baptiste
+      - name: Brigitte
+        file: Brigitte
+      - name: Illari
+        file: Illari
+      - name: Juno
+        file: Juno
+      - name: Kiriko
+        file: Kiriko
+      - name: Lúcio
+        file: Lucio
+      - name: LifeWeaver
+        file: LifeWeaver
+      - name: Mercy
+        file: Mercy
+      - name: Moira
+        file: Moira
+      - name: Wuyang
+        file: Wuyang
+      - name: Zenyatta
+        file: Zenyatta
+      # - name: Aqua
+      #   file: Aqua
+
+  - name: Flex
+    file: Flex
+    heroes: []

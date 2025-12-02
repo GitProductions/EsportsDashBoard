@@ -1,31 +1,3 @@
-<!-- Overwatch Configuration File
-This file contains configuration data for Overwatch maps, roles, and heroes.
-Follow the instructions below to fill out each section.
-
-Sections:
-- maps: A list of available maps in the game.
-- roles: A list of available roles in the game.
-- heroes: A dictionary of heroes categorized by their primary role(s).
-
-Hero Configuration:
-Each hero entry should include:
-- name: The name of the hero.
-- file: The file-safe name of the hero (no special characters).
-- recommended_roles: A list of roles the hero is recommended for. Use '*' to indicate all roles.
-
-Example:
-<heroes>
-  <Tank>
-    <hero name="D.Va" file="DVa" recommended_ />
-  </Tank>
-  <DPS>
-    <hero name="Ashe" file="Ashe" recommended_ />
-  </DPS>
-  <Support>
-    <hero name="Ana" file="Ana" recommended_ />
-  </Support>
-</heroes>
--->
 
 <config>
   <id>esportsdash.overwatch</id>
