@@ -38,7 +38,7 @@ export const configurations = {
                 folderPath: "Game Configs/Overwatch",
                 fileName: "esportsdash.overwatch_v2.4.bgg"
             },
-                       {
+            {
                 id: "esportsdash.overwatch",
                 name: "Overwatch",
                 author: "EsportsDash",
@@ -47,6 +47,16 @@ export const configurations = {
                 description: "Season 18",
                 folderPath: "Game Configs/Overwatch",
                 fileName: "esportsdash.overwatch_v2.5.bgg"
+            },
+            {
+                id: "esportsdash.overwatch",
+                name: "Overwatch",
+                author: "EsportsDash",
+                version: "2.6",
+                image: "Game Configs/Overwatch/Overwatch.webp",
+                description: "Season 18",
+                folderPath: "Game Configs/Overwatch",
+                fileName: "esportsdash.overwatch_v2.6.bgg"
             }
         ],
     },
@@ -151,7 +161,7 @@ export const configurations = {
                 folderPath: "Game Configs/Marvel Rivals",
                 fileName: "esportsdash.marvelrivals_v4.5.bgg"
             },
-              {
+            {
                 id: "esportsdash.marvelrivals",
                 name: "Marvel Rivals",
                 author: "EsportsDash",
@@ -160,6 +170,16 @@ export const configurations = {
                 description: "Season 5",
                 folderPath: "Game Configs/Marvel Rivals",
                 fileName: "esportsdash.marvelrivals_v5.0.bgg"
+            },
+            {
+                id: "esportsdash.marvelrivals",
+                name: "Marvel Rivals",
+                author: "EsportsDash",
+                version: "5.1",
+                image: "Game Configs/Marvel Rivals/Marvel Rivals.webp",
+                description: "Season 5",
+                folderPath: "Game Configs/Marvel Rivals",
+                fileName: "esportsdash.marvelrivals_v5.1.bgg"
             }
         ],
     },
