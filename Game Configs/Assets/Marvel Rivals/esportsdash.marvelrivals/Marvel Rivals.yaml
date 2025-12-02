@@ -1,0 +1,155 @@
+id: esportsdash.marvelrivals
+game: Marvel Rivals
+version: "5.1"
+author: EsportsDash
+gamelogo: Marvel Rivals
+
+maps:
+  - name: Arrako
+    file: Arrako
+  - name: Birnin t challa
+    file: Birnin-t-challa
+  - name: Central Park
+    file: Central_Park
+  # - name: Grand Garden
+  #   file: Grand_Garden
+  - name: Hall of Djalia
+    file: Djalia_Hall
+  - name: Hells Heaven
+    file: Hells_Heaven
+  - name: Celestial Husk
+    file: Klyntar_Husk
+  - name: Klyntar
+    file: Klyntar
+  - name: Krakoa
+    file: Krakoa
+  - name: K'un-Lun
+    file: Kun-Lun
+  - name: Midtown
+    file: Midtown
+  - name: Royal Palace
+    file: Royal_Palace
+  - name: Shin Shibuya
+    file: Shin-Shibuya
+  - name: Spider Islands
+    file: Spider-Islands
+  - name: Symbiotic Surface
+    file: Symbiotic_Surface
+  - name: Times Square
+    file: Times_Square
+  - name: Throne of Knull
+    file: Throne_of_Knull
+  - name: Yggdrasill Path
+    file: Yggdrasill_Path
+
+modes:
+  - name: Convergence
+    file: Convergence
+  - name: Convoy
+    file: Convoy
+  - name: Domination
+    file: Domination
+
+roles:
+  - name: Duelist
+    file: Duelist_Icon
+    heroes:
+      - name: Black Panther
+        file: Black_Panther_Hero_Portrait
+      - name: Black Widow
+        file: Black_Widow_Hero_Portrait
+      - name: Blade
+        file: Blade_Hero_Portrait
+      # DareDevil comes in October
+      - name: Daredevil
+        file: Daredevil_Hero_Portrait
+      - name: Hawkeye
+        file: Hawkeye_Hero_Portrait
+      - name: Hela
+        file: Hela_Hero_Portrait
+      - name: Human Torch
+        file: Human_Torch_Hero_Portrait
+      - name: Iron Fist
+        file: Iron_Fist_Hero_Portrait
+      - name: Iron Man
+        file: Iron_Man_Hero_Portrait
+      - name: Magik
+        file: Magik_Hero_Portrait
+      - name: Moon Knight
+        file: Moon_Knight_Hero_Portrait
+      - name: Mr.Fantastic
+        file: Mr.Fantastic_Hero_Portrait
+      - name: Namor
+        file: Namor_Hero_Portrait
+      - name: Phoenix
+        file: Phoenix_Hero_Portrait
+      - name: Psylocke
+        file: Psylocke_Hero_Portrait
+      - name: Scarlet Witch
+        file: Scarlet_Witch_Hero_Portrait
+      - name: Spider Man
+        file: Spider-Man_Hero_Portrait
+      - name: Squirrel Girl
+        file: Squirrel_Girl_Hero_Portrait
+      - name: Star Lord
+        file: Star-Lord_Hero_Portrait
+      - name: Storm
+        file: Storm_Hero_Portrait
+      - name: The Punisher
+        file: The_Punisher_Hero_Portrait
+      - name: Winter Soldier
+        file: Winter_Soldier_Hero_Portrait
+      - name: Wolverine
+        file: Wolverine_hero_portrait
+
+  - name: Vanguard
+    file: Vanguard_Icon
+    heroes:
+      - name: Angela
+        file: Angela_Hero_Portrait
+      - name: Captain America
+        file: Captain_America_Hero_Portrait
+      - name: Doctor Strange
+        file: Doctor_Strange_Hero_Portrait
+      - name: Emma Frost
+        file: Emma_Frost_Hero_Portrait
+      - name: Groot
+        file: Groot_Hero_Portrait
+      - name: Hulk
+        file: Hulk_Hero_Portrait
+      - name: Magneto
+        file: Magneto_Hero_Portrait
+      - name: Peni Parker
+        file: Peni_Parker_Hero_Portrait
+      - name: The Thing
+        file: The_Thing_Hero_Portrait
+      - name: Thor
+        file: Thor_Hero_Portrait
+      - name: Venom
+        file: Venom_Hero_Portrait
+
+  - name: Strategist
+    file: Strategist_Icon
+    heroes:
+      - name: Adam Warlock
+        file: Adam_Warlock_Hero_Portrait
+      - name: Cloak & Dagger
+        file: Cloak_Dagger_Hero_Portrait
+      - name: Gambit
+        file: Gambit_Hero_Portrait
+      - name: Invisible Woman
+        file: InvisibleWoman_Hero_Portrait
+      - name: Jeff the Land Shark
+        file: Jeff_the_Land_Shark_Hero_Portrait
+      - name: Loki
+        file: Loki_Hero_Portrait
+      - name: Luna Snow
+        file: Luna_Snow_Hero_Portrait
+      - name: Mantis
+        file: Mantis_Hero_Portrait
+      - name: Rocket Raccoon
+        file: Rocket_Raccoon_Hero_Portrait
+      # - name: Rogue
+      #   file: Rogue_Hero_Portrait
+      - name: Ultron
+        file: Ultron_Hero_Portrait
