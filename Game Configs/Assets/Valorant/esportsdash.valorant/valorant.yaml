@@ -1,0 +1,118 @@
+id: esportsdash.valorant
+game: Valorant
+version: "2.2"
+author: EsportsDash
+gamelogo: valorant
+maps:
+  - name: Abyss
+    file: Abyss
+  - name: Ascent
+    file: Ascent
+  - name: Bind
+    file: Bind
+  - name: Breeze
+    file: Breeze
+  - name: Corrode
+    file: Corrode
+  - name: District
+    file: District
+  - name: Drift
+    file: Drift
+  - name: Fracture
+    file: Fracture
+  - name: Glitch
+    file: Glitch
+  - name: Haven
+    file: Haven
+  - name: Icebox
+    file: Icebox
+  - name: Kasbah
+    file: Kasbah
+  - name: Lotus
+    file: Lotus
+  - name: mapModes/valorant
+    file: mapModes/valorant
+  - name: mapModes/valorant2
+    file: mapModes/valorant2
+  - name: Pearl
+    file: Pearl
+  - name: Piazza
+    file: Piazza
+  - name: Split
+    file: Split
+  - name: Sunset
+    file: Sunset
+  - name: TBA
+    file: TBA
+modes:
+  - name: Standard
+    file: valorant
+  - name: Spike Rush
+    file: valorant2
+roles:
+  - name: Controller
+    file: Controller
+    heroes:
+      - name: Astra
+        file: Astra
+      - name: Brimstone
+        file: Brimstone
+      - name: Clove
+        file: Clove
+      - name: Harbor
+        file: Harbor
+      - name: Omen
+        file: Omen
+      - name: Viper
+        file: Viper
+  - name: Duelist
+    file: Duelist
+    heroes:
+      - name: Iso
+        file: Iso
+      - name: Jett
+        file: Jett
+      - name: Neon
+        file: Neon
+      - name: Phoenix
+        file: Phoenix
+      - name: Raze
+        file: Raze
+      - name: Reyna
+        file: Reyna
+      - name: Waylay
+        file: Waylay
+      - name: Yoru
+        file: Yoru
+  - name: Initiator
+    file: Initiator
+    heroes:
+      - name: Breach
+        file: Breach
+      - name: Fade
+        file: Fade
+      - name: Gekko
+        file: Gekko
+      - name: Kayo
+        file: Kayo
+      - name: Skye
+        file: Skye
+      - name: Sova
+        file: Sova
+      - name: Tejo
+        file: Tejo
+  - name: Sentinel
+    file: Sentinel
+    heroes:
+      - name: Chamber
+        file: Chamber
+      - name: Cypher
+        file: Cypher
+      - name: Deadlock
+        file: Deadlock
+      - name: KillJoy
+        file: KillJoy
+      - name: Sage
+        file: Sage
+      - name: Vyse
+        file: Vyse
