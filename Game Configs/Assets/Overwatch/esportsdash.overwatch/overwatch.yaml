@@ -1,6 +1,6 @@
 id: esportsdash.overwatch
 game: Overwatch
-version: "2.6"
+version: "2.8"
 author: EsportsDash
 
 maps:
@@ -169,6 +169,8 @@ roles:
         file: Torbjörn
       - name: Tracer
         file: Tracer
+      - name: Vendetta
+        file: Vendetta
       - name: Venture
         file: Venture
       - name: Widowmaker
