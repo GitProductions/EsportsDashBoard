@@ -51,6 +51,8 @@ const overlayParams = {
             teamSideOffset: "0px",
             middleTopPosition: "3px",
             middleHeight: "25px",
+            middleTextSize: "1.4em",
+            // --middleTextSize
             "skew-angle-positive": "0deg",
             "skew-angle-negative": "0deg",
             teamGroupTopPosition: "20px",
