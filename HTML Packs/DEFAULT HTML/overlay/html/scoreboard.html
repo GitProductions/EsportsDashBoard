@@ -615,7 +615,7 @@ Available Styles:
         applyStyleVariables(gameParams.default || gameParams.style1);
       }
 
-      // Add classes for the game in both original-case and lowercase
+      // Add classes for the game in both original-case and lowercase to make sure backwards compatibility
       const baseClassName = currentGame.replace(/\s+/g, '');
       const gameClassName = baseClassName + 'Positions';              // e.g. OverwatchPositions
       const gameClassNameLower = baseClassName.toLowerCase() + 'Positions'; // e.g. overwatchPositions
