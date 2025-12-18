@@ -566,7 +566,7 @@ Available Styles:
       // Get all available games from overlayParams
       Object.keys(overlayParams).forEach(game => {
         // Convert game name to class name format (e.g. "Marvel Rivals" -> "marvelRivals")
-        const baseClassName = game.replace(/\s+/g, '');
+        const baseClassName = game.replace(/\s+/g, '').toLowerCase();
         // Remove any existing class with this game's name
         document.body.classList.remove(
           baseClassName + 'Positions',
@@ -615,9 +615,11 @@ Available Styles:
         applyStyleVariables(gameParams.default || gameParams.style1);
       }
 
-      // Add class for the game
-      const gameClassName = currentGame.replace(/\s+/g, '') + 'Positions';
-      document.body.classList.add(gameClassName);
+      // Add classes for the game in both original-case and lowercase
+      const baseClassName = currentGame.replace(/\s+/g, '');
+      const gameClassName = baseClassName + 'Positions';              // e.g. OverwatchPositions
+      const gameClassNameLower = baseClassName.toLowerCase() + 'Positions'; // e.g. overwatchPositions
+      document.body.classList.add(gameClassName, gameClassNameLower);
     }
 
     const applyInitialStyle = (currentGame) => {
