@@ -1,0 +1,47 @@
+id: esportsdash.vanguard
+game: Vanguard
+version: "1.0"
+author: EsportsDash
+gamelogo: CallofDuty_VanGuard
+maps:
+  - name: Gavutu
+    file: Gavutu
+  - name: Tuscan
+    file: Tuscan
+  - name: Berlin
+    file: Berlin
+  - name: Bocage
+    file: Bocage
+  - name: Demyansk
+    file: Demyansk
+  - name: Desert Siege
+    file: Desert_Siege
+modes:
+  - name: Control
+    file: Control
+  - name: SnD
+    file: SnD
+  - name: Hardpoint
+    file: Hardpoint
+roles:
+  - name: SLAYER
+    file: SLAYER
+  - name: SMG
+    file: SMG
+  - name: SUPPORT
+    file: SUPPORT
+  - name: ANCHOR
+    file: ANCHOR
+  - name: AR
+    file: AR
+  - name: FLEX
+    file: FLEX
+    heroes:
+      - name: Competitor Away Select BO6
+        file: Competitor_Away_Select_BO6
+      - name: Competitor Home Select BO6
+        file: Competitor_Home_Select_BO6
+  - name: HYBRID
+    file: HYBRID
+  - name: OBJECTIVE
+    file: OBJECTIVE
