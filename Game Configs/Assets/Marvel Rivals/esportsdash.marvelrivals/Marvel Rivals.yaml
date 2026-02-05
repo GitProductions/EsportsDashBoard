@@ -1,12 +1,12 @@
 id: esportsdash.marvelrivals
 game: Marvel Rivals
-version: "5.1"
+version: "6.0"
 author: EsportsDash
 gamelogo: Marvel Rivals
 
 maps:
-  - name: Arrako
-    file: Arrako
+  - name: Arakko
+    file: Arakko
   - name: Birnin t challa
     file: Birnin-t-challa
   - name: Central Park
@@ -23,8 +23,10 @@ maps:
     file: Klyntar
   - name: Krakoa
     file: Krakoa
-  - name: K'un-Lun
-    file: Kun-Lun
+  - name: Heart of Heaven    
+    file: Heart_of_Heaven
+  - name: Museum of Contemplation
+    file: Museum_of_Contemplation
   - name: Midtown
     file: Midtown
   - name: Royal Palace
@@ -60,9 +62,10 @@ roles:
         file: Black_Widow_Hero_Portrait
       - name: Blade
         file: Blade_Hero_Portrait
-      # DareDevil comes in October
       - name: Daredevil
         file: Daredevil_Hero_Portrait
+      - name: Deadpool
+        file: Deadpool_Hero_Portrait
       - name: Hawkeye
         file: Hawkeye_Hero_Portrait
       - name: Hela
@@ -85,6 +88,7 @@ roles:
         file: Phoenix_Hero_Portrait
       - name: Psylocke
         file: Psylocke_Hero_Portrait
+
       - name: Scarlet Witch
         file: Scarlet_Witch_Hero_Portrait
       - name: Spider Man
@@ -109,6 +113,8 @@ roles:
         file: Angela_Hero_Portrait
       - name: Captain America
         file: Captain_America_Hero_Portrait
+      - name: Deadpool
+        file: Deadpool_Hero_Portrait
       - name: Doctor Strange
         file: Doctor_Strange_Hero_Portrait
       - name: Emma Frost
@@ -121,6 +127,8 @@ roles:
         file: Magneto_Hero_Portrait
       - name: Peni Parker
         file: Peni_Parker_Hero_Portrait
+      - name: Rogue
+        file: Rogue_Hero_Portrait
       - name: The Thing
         file: The_Thing_Hero_Portrait
       - name: Thor
@@ -135,6 +143,8 @@ roles:
         file: Adam_Warlock_Hero_Portrait
       - name: Cloak & Dagger
         file: Cloak_Dagger_Hero_Portrait
+      - name: Deadpool
+        file: Deadpool_Hero_Portrait
       - name: Gambit
         file: Gambit_Hero_Portrait
       - name: Invisible Woman
@@ -149,7 +159,5 @@ roles:
         file: Mantis_Hero_Portrait
       - name: Rocket Raccoon
         file: Rocket_Raccoon_Hero_Portrait
-      # - name: Rogue
-      #   file: Rogue_Hero_Portrait
       - name: Ultron
         file: Ultron_Hero_Portrait
