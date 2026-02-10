@@ -62,6 +62,16 @@
         "description": "Season 20",
         "folderPath": "Game Configs/Overwatch",
         "fileName": "esportsdash.overwatch_v2.8.bgg"
+      },
+      {
+        "id": "esportsdash.overwatch",
+        "name": "Overwatch",
+        "author": "EsportsDash",
+        "version": "3.0",
+        "image": "Game Configs/Overwatch/Overwatch.webp",
+        "description": "Season 21",
+        "folderPath": "Game Configs/Overwatch",
+        "fileName": "esportsdash.overwatch_v3.0.bgg"
       }
     ],
     "Valorant": [

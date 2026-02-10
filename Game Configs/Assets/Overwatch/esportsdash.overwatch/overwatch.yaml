@@ -1,6 +1,6 @@
 id: esportsdash.overwatch
 game: Overwatch
-version: "2.8"
+version: "3.0"
 author: EsportsDash
 
 maps:
@@ -107,6 +107,8 @@ roles:
   - name: Tank
     file: Tank
     heroes:
+      - name: Domina
+        file: Domina
       - name: Doomfist
         file: Doomfist
       - name: D.Va
@@ -137,6 +139,8 @@ roles:
   - name: DPS
     file: DPS
     heroes:
+      - name: Anran
+        file: Anran
       - name: Ashe
         file: Ashe
       - name: Bastion
@@ -145,6 +149,8 @@ roles:
         file: Cassidy
       - name: Echo
         file: Echo
+      - name: Emre
+        file: Emre
       - name: Genji
         file: Genji
       - name: Hanzo
@@ -189,6 +195,8 @@ roles:
         file: Brigitte
       - name: Illari
         file: Illari
+      - name: Jetpack Cat
+        file: Jetpack_Cat
       - name: Juno
         file: Juno
       - name: Kiriko
@@ -199,6 +207,8 @@ roles:
         file: LifeWeaver
       - name: Mercy
         file: Mercy
+      - name: Mizuki
+        file: Mizuki
       - name: Moira
         file: Moira
       - name: Wuyang
