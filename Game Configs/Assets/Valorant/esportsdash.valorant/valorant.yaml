@@ -1,6 +1,6 @@
 id: esportsdash.valorant
 game: Valorant
-version: "2.2"
+version: "2.3"
 author: EsportsDash
 gamelogo: valorant
 maps:
@@ -30,10 +30,6 @@ maps:
     file: Kasbah
   - name: Lotus
     file: Lotus
-  - name: mapModes/valorant
-    file: mapModes/valorant
-  - name: mapModes/valorant2
-    file: mapModes/valorant2
   - name: Pearl
     file: Pearl
   - name: Piazza
@@ -61,6 +57,8 @@ roles:
         file: Clove
       - name: Harbor
         file: Harbor
+      - name: Miks
+        file: Miks
       - name: Omen
         file: Omen
       - name: Viper
@@ -114,5 +112,12 @@ roles:
         file: KillJoy
       - name: Sage
         file: Sage
+      - name: Veto
+        file: Veto
       - name: Vyse
         file: Vyse
+  - name: Coach
+    file: Coach
+    heroes:
+      - name: Coach
+        file: Coach

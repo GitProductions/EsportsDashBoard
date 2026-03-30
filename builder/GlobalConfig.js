@@ -138,6 +138,16 @@ export const configurations = {
                 folderPath: "Game Configs/Valorant",
                 fileName: "esportsdash.valorant_v2.2.bgg"
             },
+            {
+                id: "esportsdash.valorant",
+                name: "Valorant",
+                author: "EsportsDash",
+                version: "2.3",
+                image: "Game Configs/Valorant/Valorant.webp",
+                description: "Season 2026 Act 2",
+                folderPath: "Game Configs/Valorant",
+                fileName: "esportsdash.valorant_v2.3.bgg"
+            },
         ],
 
         overlayPack: [
