@@ -1,0 +1,22 @@
+id: DelStation
+game: "Mobile Legends: Bang Bang"
+version: "Version: 22.1.67.11731 (Patch 2.1.67)"
+author: DelStation
+gamelogo: Mobile_Legends:_Bang_Bang
+maps:
+  - name: Battlefield_Overview
+    file: Battlefield_Overview
+modes:
+  - name: Draft_Pick_Interface
+    file: Draft_Pick_Interface
+roles:
+  - name: role_mobile_legend___roaming_by_morphysss_demd4jy-414w-2x
+    file: role_mobile_legend___roaming_by_morphysss_demd4jy-414w-2x
+  - name: role_mobile_legend___exp_lane_by_morphysss_demd4ir-414w-2x
+    file: role_mobile_legend___exp_lane_by_morphysss_demd4ir-414w-2x
+  - name: role_mobile_legend___jungler_by_morphysss_demd4ko-414w-2x
+    file: role_mobile_legend___jungler_by_morphysss_demd4ko-414w-2x
+  - name: role_mobile_legend___gold_lane_by_morphysss_demd4i5-414w-2x
+    file: role_mobile_legend___gold_lane_by_morphysss_demd4i5-414w-2x
+  - name: role_mobile_legend___mid_lane_by_morphysss_demd4ja-414w-2x
+    file: role_mobile_legend___mid_lane_by_morphysss_demd4ja-414w-2x
