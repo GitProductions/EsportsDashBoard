@@ -1,0 +1,36 @@
+id: bo7
+game: Blackops 7
+version: "1.0"
+author: codi
+gamelogo: call-of-duty-black-ops-7-logo-png_seeklogo-655996
+maps:
+  - name: Colossus
+    file: Colossus
+  - name: Exposure
+    file: Exposure
+  - name: Scar
+    file: Scar
+  - name: Sake
+    file: Sake
+  - name: Raid
+    file: Raid
+  - name: Hacienda
+    file: Hacienda
+  - name: Gridlock
+    file: Gridlock
+  - name: Fringe
+    file: Fringe
+  - name: Den
+    file: Den
+modes:
+  - name: Hard Point
+    file: jsoc
+  - name: Search and Destroy
+    file: jsoc
+  - name: Overload
+    file: jsoc
+roles:
+  - name: AR
+    file: AR
+  - name: smg
+    file: smg
