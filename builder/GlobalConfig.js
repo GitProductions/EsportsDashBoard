@@ -77,7 +77,7 @@ export const configurations = {
                 description: "Season 21",
                 folderPath: "Game Configs/Overwatch",
                 fileName: "esportsdash.overwatch_v3.0.bgg"
-            }
+            },
             {
                 id: "esportsdash.overwatch",
                 name: "Overwatch",
