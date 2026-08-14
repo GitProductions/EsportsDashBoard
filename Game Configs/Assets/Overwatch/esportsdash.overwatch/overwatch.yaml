@@ -1,6 +1,6 @@
 id: esportsdash.overwatch
 game: Overwatch
-version: "3.0"
+version: "3.1"
 author: EsportsDash
 
 maps:
@@ -42,6 +42,8 @@ maps:
     file: Lijiang_Tower
   - name: Midtown
     file: Midtown
+  - name: Neon Junction
+    file: Neon_Junction
   - name: Nepal
     file: Nepal
   - name: New Junk City
@@ -113,6 +115,8 @@ roles:
         file: Doomfist
       - name: D.Va
         file: D.Va
+      - name: D.Mon
+        file: D.Mon
       - name: Hazard
         file: Hazard
       - name: JunkerQueen
@@ -163,6 +167,10 @@ roles:
         file: Pharah
       - name: Reaper
         file: Reaper
+      - name: Shion
+        file: Shion
+      - name: Sierra
+        file: Sierra
       - name: "Soldier: 76"
         file: Soldier-_76
       - name: Sojourn

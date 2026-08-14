@@ -78,6 +78,16 @@ export const configurations = {
                 folderPath: "Game Configs/Overwatch",
                 fileName: "esportsdash.overwatch_v3.0.bgg"
             }
+            {
+                id: "esportsdash.overwatch",
+                name: "Overwatch",
+                author: "EsportsDash",
+                version: "3.1",
+                image: "Game Configs/Overwatch/Overwatch.webp",
+                description: "Season 4",
+                folderPath: "Game Configs/Overwatch",
+                fileName: "esportsdash.overwatch_v3.1.bgg"
+            }
         ],
     },
 
