@@ -562,6 +562,11 @@ Available Styles:
   <script>
     let RUNNING = false
 
+    function fetchParams(){
+      // fetch urlparams to see if user has ?matchTitle 
+      return new URLSearchParams(window.location.search);
+    }
+
     function removePreviousStyleClass() {
       // Get all available games from overlayParams
       Object.keys(overlayParams).forEach(game => {
@@ -792,13 +797,16 @@ Available Styles:
 
         // if current game is smash brothers then we should use `Set` instead of `Map`
         let currentMapTitleText = (currentGame === "Smash Ultimate" || currentGame === "Smash Bros") ? 'Set' : 'Map';
+        // check if there is an override for the map title text in the URL parameters
+        const customMapTitle = fetchParams().get('matchtitle');
+        currentMapTitleText = customMapTitle ? customMapTitle : currentMapTitleText;
 
         if (mapcounter == 1) {
           if (completedmap >= totalmap) {
             $('.center .matchtext').html(`<b>Final</b> Score <br/> ${team1Wins} - ${team2Wins}`);
           } else {
             if (isTiebreaker) {
-              $('.center .matchtext').html("<b>Tiebreaker </b>Map");
+              $('.center .matchtext').html(`<b>Tiebreaker </b>${currentMapTitleText}`);
             } else {
               if (matchFormatType == "bo") {
                 $('.center .matchtext').html(`${currentMapTitleText} <b>` + (completedmap + 1) + "</b> of <b>" + (matchFormatCount) + "</b>");
@@ -820,16 +828,16 @@ Available Styles:
               $('.center .matchtext').html("<b>Final</b> Score");
             } else {
               if (isTiebreaker) {
-                $('.center .matchtext').html("<b>Tiebreaker </b>Map");
+                $('.center .matchtext').html(`<b>Tiebreaker </b>${currentMapTitleText}`);
               } else {
-                $('.center .matchtext').html("Map <b>" + (completedmap + 1) + "</b> of <b>" + (matchFormatCount) + "</b>");
+                $('.center .matchtext').html(`${currentMapTitleText} <b>` + (completedmap + 1) + "</b> of <b>" + (matchFormatCount) + "</b>");
               }
             }
           } else {
             if (isTiebreaker) {
-              $('.center .matchtext').html(`${divisionnumbertxt} - <b>Tiebreaker </b>Map`);
+              $('.center .matchtext').html(`${divisionnumbertxt} - <b>Tiebreaker </b>${currentMapTitleText}`);
             } else {
-              $('.center .matchtext').html(`${divisionnumbertxt} - Map <b>${completedmap + 1}</b> of <b>${totalmap}</b>`);
+              $('.center .matchtext').html(`${divisionnumbertxt} - ${currentMapTitleText} <b>${completedmap + 1}</b> of <b>${totalmap}</b>`);
             }
           }
         }

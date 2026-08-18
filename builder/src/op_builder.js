@@ -60,7 +60,7 @@ class OverlayPackBuilder {
 
 
     async buildOverlayPack(overlayPack) {
-        const overlayFolderPath = path.join(__root, overlayPack.folderPath);
+        const overlayFolderPath = path.join(__root, overlayPack.folderPath, "overlay");
         console.log(`Building overlay pack from folder: ${overlayFolderPath}`);
         const zip = new JSZip();
         await addFolderToZip(zip, overlayFolderPath);
