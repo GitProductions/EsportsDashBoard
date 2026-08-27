@@ -1,6 +1,6 @@
 id: esportsdash.valorant
 game: Valorant
-version: "2.3"
+version: "2.5"
 author: EsportsDash
 gamelogo: valorant
 maps:
@@ -36,6 +36,8 @@ maps:
     file: Piazza
   - name: Split
     file: Split
+  - name: Summit
+    file: Summit
   - name: Sunset
     file: Sunset
   - name: TBA
