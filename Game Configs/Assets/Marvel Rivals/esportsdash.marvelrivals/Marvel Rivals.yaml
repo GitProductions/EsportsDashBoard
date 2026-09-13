@@ -1,6 +1,6 @@
 id: esportsdash.marvelrivals
 game: Marvel Rivals
-version: "6.0"
+version: "10.0"
 author: EsportsDash
 gamelogo: Marvel Rivals
 
@@ -23,6 +23,8 @@ maps:
     file: Klyntar
   - name: Krakoa
     file: Krakoa
+  - name: Lower Manhattan
+    file: Lower_Manhattan
   - name: Heart of Heaven    
     file: Heart_of_Heaven
   - name: Museum of Contemplation
@@ -39,6 +41,8 @@ maps:
     file: Symbiotic_Surface
   - name: Times Square
     file: Times_Square
+  - name: Thebes
+    file: Thebes
   - name: Throne of Knull
     file: Throne_of_Knull
   - name: Yggdrasill Path
@@ -56,16 +60,24 @@ roles:
   - name: Duelist
     file: Duelist_Icon
     heroes:
+      - name: Black Cat
+        file: Black_Cat_Hero_Portrait
       - name: Black Panther
         file: Black_Panther_Hero_Portrait
       - name: Black Widow
         file: Black_Widow_Hero_Portrait
       - name: Blade
         file: Blade_Hero_Portrait
+      - name: Cyclops
+        file: Cyclops_Hero_Portrait
       - name: Daredevil
         file: Daredevil_Hero_Portrait
       - name: Deadpool
         file: Deadpool_Hero_Portrait
+      - name: Elsa Bloodstone
+        file: Elsa_Bloodstone_Hero_Portrait
+      - name: Gorr
+        file: Gorr_Hero_Portrait
       - name: Hawkeye
         file: Hawkeye_Hero_Portrait
       - name: Hela
@@ -109,12 +121,15 @@ roles:
   - name: Vanguard
     file: Vanguard_Icon
     heroes:
+      # Devil Dinosaur, The Hood
       - name: Angela
         file: Angela_Hero_Portrait
       - name: Captain America
         file: Captain_America_Hero_Portrait
       - name: Deadpool
         file: Deadpool_Hero_Portrait
+      - name: Devil Dinosaur
+        file: Devil_Dinosaur_Hero_Portrait
       - name: Doctor Strange
         file: Doctor_Strange_Hero_Portrait
       - name: Emma Frost
@@ -129,6 +144,8 @@ roles:
         file: Peni_Parker_Hero_Portrait
       - name: Rogue
         file: Rogue_Hero_Portrait
+      - name: The Hood
+        file: The_Hood_Hero_Portrait
       - name: The Thing
         file: The_Thing_Hero_Portrait
       - name: Thor
@@ -139,6 +156,7 @@ roles:
   - name: Strategist
     file: Strategist_Icon
     heroes:
+      # Jubilee, White Fox
       - name: Adam Warlock
         file: Adam_Warlock_Hero_Portrait
       - name: Cloak & Dagger
@@ -151,6 +169,8 @@ roles:
         file: InvisibleWoman_Hero_Portrait
       - name: Jeff the Land Shark
         file: Jeff_the_Land_Shark_Hero_Portrait
+      - name: Jubilee
+        file: Jubilee_Hero_Portrait
       - name: Loki
         file: Loki_Hero_Portrait
       - name: Luna Snow
@@ -161,3 +181,5 @@ roles:
         file: Rocket_Raccoon_Hero_Portrait
       - name: Ultron
         file: Ultron_Hero_Portrait
+      - name: White Fox
+        file: White_Fox_Hero_Portrait
