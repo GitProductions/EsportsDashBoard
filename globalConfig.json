@@ -286,6 +286,16 @@
         "description": "Counter Strike 2",
         "folderPath": "Game Configs/Counter Strike",
         "fileName": "esportsdash.cs2_v1.1.bgg"
+      },
+      {
+        "id": "drageno01.cs2",
+        "name": "CounterStrike 2",
+        "author": "DRAGEno01",
+        "version": "2026.08",
+        "image": "Game Configs/Counter Strike/CounterStrike2.webp",
+        "description": "Updated CS2 map pool",
+        "folderPath": "Game Configs/Counter Strike",
+        "fileName": "drageno01.cs2_v2026.08.bgg"
       }
     ]
   },
